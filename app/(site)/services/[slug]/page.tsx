@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getServiceBySlug, getServicesData, getRelatedPortfolioForService, getProductsData } from "@/lib/db-helpers";
 import { Service, ServiceFeatureItem, ServiceBenefitItem, PortfolioItem, Product } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
-import { Parallax } from "@/components/ui/Parallax";
 import { ServiceHero } from "@/components/services/ServiceHero";
 import { ServiceArchitectureVisualizer } from "@/components/services/ServiceArchitectureVisualizer";
 import { ServiceComparisonMatrix } from "@/components/services/ServiceComparisonMatrix";
@@ -31,7 +30,6 @@ import {
   Server,
   Check,
   Monitor,
-  CheckSquare,
 } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
@@ -170,7 +168,7 @@ export default async function ServiceDetailsPage({
       sameAs: [
         "https://x.com/mark2_in",
         "https://www.linkedin.com/company/mark2-technologies",
-        "https://github.com/aadityaexe/kes-denge",
+        "https://github.com/aadityaexe/mark",
       ],
     },
     areaServed: "Worldwide",

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Monitor, Smartphone, Server, Megaphone, Paintbrush, Layers, Database, Cpu, ArrowUpRight } from "lucide-react";
 import Link from "next/link";

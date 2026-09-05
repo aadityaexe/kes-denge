@@ -90,7 +90,7 @@ export function MobileMenu({
               <div className="flex gap-4">
                 <a href="https://x.com/mark2_in" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors p-1">TW</a>
                 <a href="https://www.linkedin.com/company/mark2-technologies" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors p-1">IN</a>
-                <a href="https://github.com/aadityaexe/kes-denge" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors p-1">GH</a>
+                <a href="https://github.com/aadityaexe/mark" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors p-1">GH</a>
               </div>
             </div>
           </motion.div>

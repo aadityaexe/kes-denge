@@ -108,7 +108,7 @@ export default async function RootLayout({
     sameAs: sameAs.length > 0 ? sameAs : [
       "https://x.com/mark2_in",
       "https://www.linkedin.com/company/mark2-technologies",
-      "https://github.com/aadityaexe/kes-denge",
+      "https://github.com/aadityaexe/mark",
     ],
   };
 

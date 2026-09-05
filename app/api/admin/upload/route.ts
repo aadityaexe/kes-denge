@@ -3,13 +3,51 @@ import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Media from "@/models/Media";
 import { isCloudinaryConfigured, uploadToCloudinary } from "@/lib/cloudinary";
-import { isAllowedFileType, MAX_FILE_SIZE, safeErrorMessage } from "@/lib/validation";
+import {
+  checkRateLimit,
+  extractClientIp,
+  isAllowedFileType,
+  verifyFileMagicBytes,
+  MAX_FILE_SIZE,
+  safeErrorMessage,
+} from "@/lib/validation";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
 export async function POST(req: NextRequest) {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
+
+  // Rate limit even auth-gated upload endpoints: a compromised/leaked admin
+  // token could otherwise be used to spam uploads (storage-cost / DoS vector).
+  // Limit: 20 uploads per 10 minutes per IP.
+  const ip = extractClientIp(req);
+  const rateLimit = await checkRateLimit(`upload:${ip}`, 20, 10 * 60 * 1000);
+  if (!rateLimit.allowed) {
+    const retrySec = Math.ceil((rateLimit.retryAfterMs || 60000) / 1000);
+    return NextResponse.json(
+      { error: `Upload rate limit exceeded. Please try again in ${retrySec} seconds.` },
+      { status: 429, headers: { "Retry-After": String(retrySec) } }
+    );
+  }
+
+  // Guard: Cloudinary MUST be configured in production. Local-disk fallback is
+  // silent data loss on Vercel (ephemeral filesystem — files disappear on
+  // redeploy or across instances). Fail loudly rather than silently.
+  if (process.env.NODE_ENV === "production" && !isCloudinaryConfigured()) {
+    console.error(
+      "[Upload] CRITICAL: Upload attempted in production without Cloudinary configured. " +
+      "Files written to local disk on Vercel ARE NOT PERSISTED between deployments or instances. " +
+      "Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in your Vercel environment."
+    );
+    return NextResponse.json(
+      {
+        error:
+          "Media storage is not configured. Please contact the administrator to set up Cloudinary.",
+      },
+      { status: 503 }
+    );
+  }
 
   try {
     const formData = await req.formData();
@@ -28,7 +66,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate file type and extension
+    // Validate file type and extension (extension + MIME check)
     const fileTypeCheck = isAllowedFileType(file.type || "", file.name);
     if (!fileTypeCheck.valid) {
       return NextResponse.json(
@@ -39,6 +77,17 @@ export async function POST(req: NextRequest) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+
+    // Magic-byte / file signature verification.
+    // Client-supplied filename and Content-Type are both spoofable —
+    // this verifies the actual binary content against known file signatures.
+    const magicCheck = verifyFileMagicBytes(buffer, file.type || "");
+    if (!magicCheck.valid) {
+      return NextResponse.json(
+        { error: magicCheck.reason },
+        { status: 400 }
+      );
+    }
 
     // Sanitize filename
     const ext = path.extname(file.name).toLowerCase() || ".png";
@@ -69,6 +118,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Fallback to local storage if Cloudinary not configured or failed
+    // (only reached in development — production is blocked above)
     if (!publicUrl) {
       const uploadDir = path.join(process.cwd(), "public", "uploads");
       await mkdir(uploadDir, { recursive: true });

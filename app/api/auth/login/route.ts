@@ -3,14 +3,28 @@ import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { encrypt } from "@/lib/auth";
-import { checkRateLimit, isValidEmail, isNonEmptyString, safeErrorMessage } from "@/lib/validation";
+import {
+  checkRateLimit,
+  extractClientIp,
+  isValidEmail,
+  isNonEmptyString,
+  safeErrorMessage,
+} from "@/lib/validation";
+
+// Pre-computed dummy hash used to perform a constant-time bcrypt compare when
+// no user is found. This prevents timing side-channels that would let an attacker
+// enumerate valid emails by measuring response latency.
+// bcryptjs.hashSync is synchronous and runs at module load time (once).
+const DUMMY_HASH = bcrypt.hashSync("dummy-password-that-never-matches-$$", 10);
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown-ip";
+    // Use hardened IP extraction (x-real-ip preferred; last x-forwarded-for as fallback).
+    // Note: request.ip and request.geo were removed in Next.js v15.0.0.
+    const ip = extractClientIp(req);
 
     // 1. IP-level rate limiting: 10 attempts per 15 minutes
-    const ipRate = checkRateLimit(`login-ip:${ip}`, 10, 15 * 60 * 1000);
+    const ipRate = await checkRateLimit(`login-ip:${ip}`, 10, 15 * 60 * 1000);
     if (!ipRate.allowed) {
       const retrySec = Math.ceil((ipRate.retryAfterMs || 60000) / 1000);
       return NextResponse.json(
@@ -29,7 +43,7 @@ export async function POST(req: NextRequest) {
     const normalizedEmail = email.toLowerCase().trim();
 
     // 2. Account-level rate limiting: 5 attempts per 15 minutes
-    const accountRate = checkRateLimit(`login-acct:${normalizedEmail}`, 5, 15 * 60 * 1000);
+    const accountRate = await checkRateLimit(`login-acct:${normalizedEmail}`, 5, 15 * 60 * 1000);
     if (!accountRate.allowed) {
       const retrySec = Math.ceil((accountRate.retryAfterMs || 60000) / 1000);
       return NextResponse.json(
@@ -43,6 +57,9 @@ export async function POST(req: NextRequest) {
     const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
+      // Always run bcrypt even when no user exists so both code paths take
+      // comparable time — prevents email enumeration via response-timing.
+      await bcrypt.compare(password, DUMMY_HASH);
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 

@@ -1,10 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Product from "@/models/Product";
-import { safeErrorMessage } from "@/lib/validation";
+import { checkRateLimit, extractClientIp, safeErrorMessage } from "@/lib/validation";
 
 export async function GET(req: NextRequest) {
   try {
+    // Rate limit public read endpoints to prevent scraping hammers.
+    // 100 requests per minute per IP — allows normal browsing, blocks abusive clients.
+    const ip = extractClientIp(req);
+    const rateLimit = await checkRateLimit(`products-read:${ip}`, 100, 60 * 1000);
+    if (!rateLimit.allowed) {
+      const retrySec = Math.ceil((rateLimit.retryAfterMs || 60000) / 1000);
+      return NextResponse.json(
+        { error: `Rate limit exceeded. Please try again in ${retrySec} seconds.` },
+        { status: 429, headers: { "Retry-After": String(retrySec) } }
+      );
+    }
+
     await connectToDatabase();
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");

@@ -6,7 +6,6 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 import { Button } from "@/components/ui/Button";
 import { Check, X } from "lucide-react";
-import { Parallax } from "@/components/ui/Parallax";
 
 function PricingCard({ tier, index }: { tier: any, index: number }) {
   const mouseX = useMotionValue(0);
@@ -19,69 +18,72 @@ function PricingCard({ tier, index }: { tier: any, index: number }) {
   }
 
   return (
-    <motion.div variants={fadeInUp} className="h-full flex">
-      <Parallax speed={index === 1 ? 1.05 : 0.95} className="w-full flex flex-col h-full">
+    <motion.div variants={fadeInUp} className="h-full flex w-full">
+      <div className="w-full flex flex-col h-full">
         <div 
           onMouseMove={handleMouseMove}
           className={`
-          group overflow-hidden relative flex flex-col w-full h-full rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-colors duration-500
+          group overflow-hidden relative flex flex-col w-full h-full rounded-3xl p-6 sm:p-8 transition-all duration-500
           ${tier.isPopular 
-            ? 'bg-surface-1 border-2 border-[var(--color-accent)] shadow-xl md:-translate-y-4' 
-            : 'bg-surface-1 border border-[var(--color-border)] hover:border-[var(--color-accent)]/30 hover:bg-surface-2'
+            ? 'bg-surface-1 border-2 border-[var(--color-accent)] shadow-2xl md:-translate-y-4' 
+            : 'bg-surface-1 border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-surface-2 hover:shadow-xl'
           }
         `}
         >
           <motion.div
-            className="pointer-events-none absolute -inset-px rounded-[var(--radius-xl)] opacity-0 transition duration-300 group-hover:opacity-100 z-0"
+            className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100 z-0"
             style={{
               background: useMotionTemplate`
                 radial-gradient(
                   600px circle at ${mouseX}px ${mouseY}px,
-                  rgba(201, 169, 110, 0.12),
+                  rgba(201, 169, 110, 0.08),
                   transparent 80%
                 )
               `,
             }}
           />
-          <div className="relative z-10 flex flex-col h-full">
+          <div className="relative z-10 flex flex-col h-full w-full">
             {tier.isPopular && (
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(1.5rem+50%)] px-3.5 py-1 rounded-full bg-[var(--color-accent)] text-white text-[var(--text-caption)] font-bold tracking-wide uppercase shadow-lg z-20 whitespace-nowrap text-xs">
+              <div className="inline-flex w-fit mb-4 px-3 py-1 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-[var(--color-accent)] text-[10px] sm:text-[11px] font-bold tracking-widest uppercase">
                 Most Popular
               </div>
             )}
             
-            <h3 className="text-[var(--text-heading-sm)] font-bold text-text-primary mb-2 break-words">
+            <h3 className={`text-xl sm:text-2xl font-bold text-text-primary mb-3 break-words ${!tier.isPopular ? 'mt-0 sm:mt-1' : ''}`}>
               {tier.name}
             </h3>
             
-            <p className="text-[var(--text-body-sm)] text-text-secondary min-h-[3rem] mb-4 sm:mb-6 break-words">
+            <p className="text-sm sm:text-base text-text-secondary min-h-[3rem] mb-6 sm:mb-8 font-medium break-words leading-relaxed">
               {tier.description}
             </p>
             
-            <div className="mb-6 sm:mb-8">
-              <span className="text-display-sm font-bold text-text-primary break-words">{tier.price}</span>
-              <span className="text-[var(--text-body-sm)] text-text-muted ml-2">/ {tier.period}</span>
+            <div className="mb-6 sm:mb-8 flex items-baseline gap-2">
+              <span className="text-4xl sm:text-5xl font-display font-bold text-text-primary tracking-tight break-words">{tier.price}</span>
+              <span className="text-sm sm:text-base font-medium text-text-muted">/ {tier.period}</span>
             </div>
             
-            <div className="mb-8">
+            <div className="mb-8 w-full">
               <Button 
                 href={tier.ctaHref} 
-                variant={tier.isPopular ? 'primary' : 'outline'} 
-                className="w-full justify-center"
+                className={`w-full justify-center h-12 sm:h-14 rounded-full text-sm sm:text-base ${tier.isPopular ? 'bg-text-primary text-white hover:bg-text-secondary shadow-lg' : 'bg-surface-2 text-text-primary border border-[var(--color-border)] hover:bg-surface-3'}`}
               >
                 {tier.ctaText}
               </Button>
             </div>
             
-            <div className="space-y-4 flex-1">
+            <div className="space-y-3 sm:space-y-4 flex-1">
               {tier.features.map((feature: any, i: number) => (
-                <div key={i} className="flex items-start gap-3">
+                <div key={i} className="flex items-start gap-3 sm:gap-4">
                   {feature.included ? (
-                    <Check className="w-5 h-5 text-[var(--color-accent)] shrink-0 mt-0.5" />
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--color-accent)]" strokeWidth={3} />
+                    </div>
                   ) : (
-                    <X className="w-5 h-5 text-text-muted shrink-0 mt-0.5 opacity-50" />
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-surface-2 flex items-center justify-center mt-0.5">
+                      <X className="w-3 h-3 sm:w-4 sm:h-4 text-text-muted opacity-50" strokeWidth={2} />
+                    </div>
                   )}
-                  <span className={`text-[var(--text-body-sm)] ${feature.included ? 'text-text-primary' : 'text-text-muted line-through opacity-50'}`}>
+                  <span className={`text-sm sm:text-base font-medium ${feature.included ? 'text-text-primary' : 'text-text-muted line-through opacity-50'}`}>
                     {feature.text}
                   </span>
                 </div>
@@ -89,7 +91,7 @@ function PricingCard({ tier, index }: { tier: any, index: number }) {
             </div>
           </div>
         </div>
-      </Parallax>
+      </div>
     </motion.div>
   );
 }
@@ -113,11 +115,11 @@ export function PricingSection({
   return (
     <section
       id="pricing"
-      className={`${className ? className : hideHeader ? "pb-16 md:pb-24 pt-4" : "section-padding"} bg-surface-1 border-t border-[var(--color-border)]`}
+      className={`${className ? className : hideHeader ? "pb-16 md:pb-24 pt-4" : "py-16 sm:py-24 md:py-32"} bg-surface-1 border-t border-[var(--color-border)]`}
     >
-      <div className="container-site">
+      <div className="container-site px-4 sm:px-6 md:px-8 mx-auto">
         {!hideHeader && (
-          <div ref={ref} className={`transition-all duration-[var(--transition-slow)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div ref={ref} className={`transition-all duration-[var(--transition-slow)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} mb-12 sm:mb-16`}>
             <SectionHeading
               title="Transparent Pricing"
               subtitle="No hidden fees, no scope creep. Choose a package that fits your stage, or let's build a custom engagement."
@@ -128,7 +130,7 @@ export function PricingSection({
         )}
 
         <motion.div 
-          className={`${hideHeader ? "mt-4" : "mt-8 md:mt-10"} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch`}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch w-full max-w-7xl mx-auto"
           variants={staggerContainer}
           initial="hidden"
           whileInView="animate"
@@ -142,4 +144,5 @@ export function PricingSection({
     </section>
   );
 }
+
 

@@ -29,15 +29,13 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(
     const mql = window.matchMedia("(min-width: 768px)");
     if (!mql.matches) return;
 
-    let ctx: gsap.Context | undefined;
-
     const element = ref.current;
     if (!element) return;
 
     const movement = (1 - speed) * 100; // Convert speed to movement amount
     const prop = direction === "vertical" ? "yPercent" : "xPercent";
 
-    ctx = gsap.context(() => {
+    const ctx: gsap.Context | undefined = gsap.context(() => {
       gsap.fromTo(
         element,
         { [prop]: -movement * 0.5 },

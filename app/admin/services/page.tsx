@@ -5,7 +5,6 @@ import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
-import { Button } from "@/components/ui/Button";
 import { FormTabs, FormTabItem } from "@/components/admin/FormTabs";
 import { VisualIconPicker } from "@/components/admin/VisualIconPicker";
 import { SlugInput } from "@/components/admin/SlugInput";
@@ -27,7 +26,6 @@ import {
   CheckCircle2,
   Search,
   Check,
-  Eye,
 } from "lucide-react";
 
 export default function ServicesAdminPage() {

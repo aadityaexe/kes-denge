@@ -1,5 +1,5 @@
 import { PortfolioItem } from "@/lib/types";
-import { TrendingUp, CheckCircle2, Trophy, BarChart3, ArrowUpRight } from "lucide-react";
+import { TrendingUp, Trophy } from "lucide-react";
 
 interface PortfolioImpactMetricsProps {
   project: PortfolioItem;

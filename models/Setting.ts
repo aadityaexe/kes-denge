@@ -83,7 +83,7 @@ const SettingSchema = new Schema<ISetting>(
     googleMapsUrl: { type: String, default: "" },
     socialLinks: {
       linkedin: { type: String, default: "https://www.linkedin.com/company/mark2-technologies" },
-      github: { type: String, default: "https://github.com/aadityaexe/kes-denge" },
+      github: { type: String, default: "https://github.com/aadityaexe/mark" },
       twitter: { type: String, default: "https://x.com/mark2_in" },
       instagram: { type: String, default: "" },
       facebook: { type: String, default: "" },

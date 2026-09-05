@@ -4,6 +4,7 @@ import Message from "@/models/Message";
 import Setting from "@/models/Setting";
 import {
   checkRateLimit,
+  extractClientIp,
   isValidEmail,
   isNonEmptyString,
   sanitizeText,
@@ -13,8 +14,10 @@ import {
 export async function POST(req: NextRequest) {
   try {
     // 1. Rate Limiting (5 submissions per 10 minutes per IP)
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown-ip";
-    const rateLimit = checkRateLimit(`contact:${ip}`, 5, 10 * 60 * 1000);
+    // Uses hardened IP extraction — x-real-ip preferred, Vercel-appended
+    // x-forwarded-for as fallback. request.ip was removed in Next.js v15.0.0.
+    const ip = extractClientIp(req);
+    const rateLimit = await checkRateLimit(`contact:${ip}`, 5, 10 * 60 * 1000);
     if (!rateLimit.allowed) {
       const retryAfterSec = Math.ceil((rateLimit.retryAfterMs || 60000) / 1000);
       return NextResponse.json(

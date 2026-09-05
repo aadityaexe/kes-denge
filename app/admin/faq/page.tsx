@@ -11,7 +11,6 @@ import {
   Edit2,
   Trash2,
   Plus,
-  HelpCircle,
   CheckCircle2,
   EyeOff,
   ChevronDown,

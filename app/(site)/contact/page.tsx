@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { ContactSection } from "@/components/sections/ContactSection";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Parallax } from "@/components/ui/Parallax";
 import { getSettingsData } from "@/lib/db-helpers";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";

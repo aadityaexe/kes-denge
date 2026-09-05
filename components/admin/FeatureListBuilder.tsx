@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Plus, Trash2, Layers } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { VisualIconPicker } from "./VisualIconPicker";
 
 export interface FeatureItem {

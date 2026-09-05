@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Globe, ExternalLink } from "lucide-react";

@@ -19,7 +19,6 @@ import {
   Edit2,
   Trash2,
   Plus,
-  Package,
   ExternalLink,
   Layers,
   FileText,

@@ -15,8 +15,7 @@ import {
   Paintbrush, 
   Cpu,
   Search,
-  ShieldCheck,
-  CheckCircle2
+  ShieldCheck
 } from "lucide-react";
 
 interface ServiceTechStackProps {

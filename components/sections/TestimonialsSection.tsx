@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Star, Quote } from "lucide-react";
 import { Parallax } from "@/components/ui/Parallax";

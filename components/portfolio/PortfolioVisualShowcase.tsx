@@ -3,19 +3,11 @@
 import { useState } from "react";
 import { PortfolioItem } from "@/lib/types";
 import {
-  Monitor,
   Activity,
-  Layers,
-  Maximize2,
   TrendingUp,
   Cpu,
-  Shield,
-  Zap,
   CheckCircle2,
-  Lock,
-  Globe,
   Radio,
-  ArrowUpRight,
 } from "lucide-react";
 
 interface PortfolioVisualShowcaseProps {

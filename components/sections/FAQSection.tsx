@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Plus, Minus } from "lucide-react";
@@ -75,6 +74,25 @@ export function FAQSection({ faqsData = [] }: FAQSectionProps) {
           })}
         </div>
       </div>
+      
+      {/* FAQ Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: items.map((item: any) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+              },
+            })),
+          }),
+        }}
+      />
     </section>
   );
 }

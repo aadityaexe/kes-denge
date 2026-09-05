@@ -1,7 +1,7 @@
 "use client";
 
 import { ServiceProcessItem } from "@/lib/types";
-import { Clock, CheckCircle2, ArrowRight } from "lucide-react";
+import { Clock, CheckCircle2 } from "lucide-react";
 
 interface ServiceProcessTimelineProps {
   processSteps: ServiceProcessItem[];

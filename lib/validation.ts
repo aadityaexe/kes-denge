@@ -3,6 +3,7 @@
 // ============================================================
 
 import mongoose from "mongoose";
+import type { NextRequest } from "next/server";
 
 // ------ Input Validation ------
 
@@ -71,6 +72,9 @@ export function sanitizeOptionalText(
 
 // ------ File Upload Validation ------
 
+// SVG is intentionally excluded: SVG files can carry embedded <script> tags,
+// event handler attributes, and external resource loads — a real XSS/SSRF vector
+// even when served from a CDN. Re-add only with a server-side SVG sanitizer.
 const ALLOWED_MIME_TYPES = new Set([
   // Images
   "image/jpeg",
@@ -78,7 +82,6 @@ const ALLOWED_MIME_TYPES = new Set([
   "image/gif",
   "image/webp",
   "image/avif",
-  "image/svg+xml",
   // PDF
   "application/pdf",
   // Video
@@ -93,7 +96,6 @@ const ALLOWED_EXTENSIONS = new Set([
   ".gif",
   ".webp",
   ".avif",
-  ".svg",
   ".pdf",
   ".mp4",
   ".webm",
@@ -117,6 +119,7 @@ const DANGEROUS_EXTENSIONS = new Set([
   ".rb",
   ".pl",
   ".cgi",
+  ".svg", // SVG can carry embedded scripts — block explicitly
 ]);
 
 export function isAllowedFileType(
@@ -144,50 +147,154 @@ export function isAllowedFileType(
 
 export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-// ------ Rate Limiting (in-memory) ------
+// ------ Magic-Byte / File Signature Verification ------
+// Verifies a file buffer matches the expected binary signature for its MIME type.
+// This prevents attackers from renaming dangerous files with allowed extensions.
 
-interface RateLimitEntry {
-  count: number;
-  resetAt: number;
+interface MagicSignature {
+  offset: number;
+  bytes: number[];
 }
 
-const rateLimitStore = new Map<string, RateLimitEntry>();
+const MAGIC_SIGNATURES: Record<string, MagicSignature[]> = {
+  "image/jpeg": [{ offset: 0, bytes: [0xff, 0xd8, 0xff] }],
+  "image/png": [{ offset: 0, bytes: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a] }],
+  "image/gif": [
+    { offset: 0, bytes: [0x47, 0x49, 0x46, 0x38, 0x37, 0x61] }, // GIF87a
+    { offset: 0, bytes: [0x47, 0x49, 0x46, 0x38, 0x39, 0x61] }, // GIF89a
+  ],
+  "image/webp": [{ offset: 8, bytes: [0x57, 0x45, 0x42, 0x50] }], // RIFF????WEBP
+  "image/avif": [{ offset: 4, bytes: [0x66, 0x74, 0x79, 0x70] }], // ftyp box
+  "application/pdf": [{ offset: 0, bytes: [0x25, 0x50, 0x44, 0x46] }], // %PDF
+  "video/mp4": [{ offset: 4, bytes: [0x66, 0x74, 0x79, 0x70] }], // ftyp box (same as avif, disambiguated by extension)
+  "video/webm": [{ offset: 0, bytes: [0x1a, 0x45, 0xdf, 0xa3] }], // EBML header
+};
 
-// Cleanup old entries every 5 minutes
-if (typeof setInterval !== "undefined") {
-  setInterval(() => {
-    const now = Date.now();
-    for (const [key, entry] of rateLimitStore) {
-      if (now > entry.resetAt) {
-        rateLimitStore.delete(key);
-      }
-    }
-  }, 5 * 60 * 1000);
+function matchesSignature(buf: Buffer, sig: MagicSignature): boolean {
+  if (buf.length < sig.offset + sig.bytes.length) return false;
+  return sig.bytes.every((b, i) => buf[sig.offset + i] === b);
 }
 
 /**
- * Simple in-memory rate limiter.
- * Returns { allowed: boolean, retryAfterMs?: number }
+ * Verify that a file buffer matches the binary signature for its declared MIME type.
+ * Returns { valid: true } if the signature matches or if no signature is defined for the type.
+ * Returns { valid: false, reason } if the buffer does not match.
  */
-export function checkRateLimit(
+export function verifyFileMagicBytes(
+  buffer: Buffer,
+  mimeType: string
+): { valid: boolean; reason?: string } {
+  const signatures = MAGIC_SIGNATURES[mimeType];
+  if (!signatures) {
+    // No signature registered — allow but log a warning in development
+    if (process.env.NODE_ENV === "development") {
+      console.warn(`[validation] No magic byte signature registered for MIME type: ${mimeType}`);
+    }
+    return { valid: true };
+  }
+
+  const matched = signatures.some((sig) => matchesSignature(buffer, sig));
+  if (!matched) {
+    return {
+      valid: false,
+      reason: `File content does not match declared type "${mimeType}". The file may be corrupt or misnamed.`,
+    };
+  }
+
+  return { valid: true };
+}
+
+// ------ Client IP Extraction ------
+
+/**
+ * Extract the client IP address from a Next.js request in a spoofing-resistant way.
+ *
+ * On Vercel, the edge proxy injects `x-real-ip` (single, trusted) and appends to
+ * `x-forwarded-for`. We prefer x-real-ip. If absent, we take the LAST value of
+ * x-forwarded-for (the one Vercel itself appended), not the first (which a client
+ * could have pre-populated).
+ *
+ * Note: `request.ip` and `request.geo` were removed in Next.js v15.0.0.
+ */
+export function extractClientIp(req: NextRequest): string {
+  const realIp = req.headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+
+  const forwarded = req.headers.get("x-forwarded-for");
+  if (forwarded) {
+    // Take the last entry — this is the IP Vercel's own edge proxy added
+    const lastIp = forwarded.split(",").at(-1)?.trim();
+    if (lastIp) return lastIp;
+  }
+
+  return "unknown-ip";
+}
+
+// ------ Rate Limiting (MongoDB-backed, serverless-safe) ------
+
+/**
+ * Durable rate limiter backed by MongoDB.
+ *
+ * Replaces the previous in-memory Map implementation which was broken in
+ * serverless/multi-instance environments (Vercel) — the Map reset on cold start
+ * and was not shared across concurrent function instances or regions.
+ *
+ * Uses a `RateLimit` collection with a TTL index on `resetAt` so MongoDB
+ * automatically purges expired entries — no cron job needed.
+ *
+ * Signature is intentionally kept identical to the old in-memory version
+ * so no call sites need to change.
+ */
+export async function checkRateLimit(
   key: string,
   maxAttempts: number,
   windowMs: number
-): { allowed: boolean; retryAfterMs?: number } {
-  const now = Date.now();
-  const entry = rateLimitStore.get(key);
+): Promise<{ allowed: boolean; retryAfterMs?: number }> {
+  try {
+    // Lazy import to avoid circular deps and to keep this file importable
+    // in contexts where the DB connection hasn't been established yet.
+    const { connectToDatabase } = await import("@/lib/mongodb");
+    const RateLimit = (await import("@/models/RateLimit")).default;
 
-  if (!entry || now > entry.resetAt) {
-    rateLimitStore.set(key, { count: 1, resetAt: now + windowMs });
+    await connectToDatabase();
+
+    const now = new Date();
+    const windowEnd = new Date(now.getTime() + windowMs);
+
+    // Atomic upsert: create entry if it doesn't exist, or increment count.
+    // We only set resetAt on insert ($setOnInsert) so the window doesn't slide
+    // on every request — it's a fixed window anchored to the first request.
+    const entry = await RateLimit.findOneAndUpdate(
+      { key },
+      {
+        $inc: { count: 1 },
+        $setOnInsert: { resetAt: windowEnd },
+      },
+      {
+        upsert: true,
+        new: true, // Return the updated document
+        setDefaultsOnInsert: true,
+      }
+    );
+
+    if (!entry) {
+      // Shouldn't happen with upsert: true, but fail open
+      return { allowed: true };
+    }
+
+    const retryAfterMs = entry.resetAt.getTime() - now.getTime();
+
+    if (entry.count > maxAttempts) {
+      return { allowed: false, retryAfterMs: Math.max(retryAfterMs, 0) };
+    }
+
+    return { allowed: true };
+  } catch (err) {
+    // Fail open on DB error to avoid blocking legitimate requests
+    // if the DB is temporarily unavailable. Log for alerting.
+    console.error("[checkRateLimit] MongoDB rate limit check failed, failing open:", err);
     return { allowed: true };
   }
-
-  if (entry.count >= maxAttempts) {
-    return { allowed: false, retryAfterMs: entry.resetAt - now };
-  }
-
-  entry.count++;
-  return { allowed: true };
 }
 
 // ------ Safe Error Response ------

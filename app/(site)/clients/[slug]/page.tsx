@@ -11,16 +11,13 @@ import { Parallax } from "@/components/ui/Parallax";
 import {
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   ExternalLink,
   CheckCircle2,
-  Building2,
   Calendar,
   MapPin,
   Users,
   Quote,
   ShieldCheck,
-  Layers,
   Cpu,
   Sparkles,
 } from "lucide-react";

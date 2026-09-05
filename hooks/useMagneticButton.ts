@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { MOUSE_PARALLAX } from "@/lib/animations";
 import { lerp, prefersReducedMotion } from "@/lib/utils";
 

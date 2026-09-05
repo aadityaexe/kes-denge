@@ -26,7 +26,6 @@ import {
   TrendingUp,
   MessageSquare,
   Check,
-  Building2,
 } from "lucide-react";
 
 const categories = ["Website", "App", "ERP", "Dashboard", "Branding"];

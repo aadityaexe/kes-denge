@@ -9,11 +9,7 @@ import {
   ShieldCheck,
   Zap,
   TrendingUp,
-  Award,
   ArrowRight,
-  Sparkles,
-  Building2,
-  CheckCircle2,
 } from "lucide-react";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";

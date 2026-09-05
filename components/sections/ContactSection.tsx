@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
@@ -21,28 +20,28 @@ function ContactCard({ icon: Icon, title, content, href }: { icon: any, title: s
   const innerContent = (
     <div
       onMouseMove={handleMouseMove}
-      className="group relative flex items-start gap-4 sm:gap-5 overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 p-4 sm:p-6 hover:shadow-2xl transition-all duration-500"
+      className="group relative flex items-start gap-4 sm:gap-5 overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1/50 backdrop-blur-sm p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 w-full"
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[24px] opacity-0 transition duration-300 group-hover:opacity-100 z-0"
+        className="pointer-events-none absolute -inset-px rounded-[24px] opacity-0 transition duration-500 group-hover:opacity-100 z-0"
         style={{
           background: useMotionTemplate`
             radial-gradient(
               400px circle at ${mouseX}px ${mouseY}px,
-              rgba(201, 169, 110, 0.15),
+              rgba(201, 169, 110, 0.08),
               transparent 80%
             )
           `,
         }}
       />
-      <div className="absolute inset-0 border-2 border-transparent group-hover:border-[var(--color-accent)]/30 rounded-[24px] transition-colors duration-500 pointer-events-none z-10" />
+      <div className="absolute inset-0 border border-transparent group-hover:border-[var(--color-accent)]/20 rounded-[24px] transition-colors duration-500 pointer-events-none z-10" />
 
-      <div className="relative z-20 flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-text-secondary group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all duration-500 group-hover:scale-110">
-        <Icon size={20} strokeWidth={1.5} />
+      <div className="relative z-20 flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-text-secondary group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all duration-500 group-hover:scale-105">
+        <Icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
       </div>
-      <div className="relative z-20 flex flex-col justify-center min-h-[2.75rem] sm:min-h-[3.5rem] min-w-0">
-        <h4 className="text-xs sm:text-[var(--text-body-sm)] font-bold text-text-primary mb-1 uppercase tracking-wider">{title}</h4>
-        <div className="text-xs sm:text-[var(--text-body-md)] text-text-secondary group-hover:text-[var(--color-accent)] transition-colors leading-relaxed break-words">
+      <div className="relative z-20 flex flex-col justify-center min-h-[2.5rem] sm:min-h-[3rem] min-w-0">
+        <h4 className="text-[11px] sm:text-xs font-bold text-text-primary mb-1 uppercase tracking-wider">{title}</h4>
+        <div className="text-sm sm:text-base text-text-secondary group-hover:text-text-primary transition-colors leading-relaxed break-words font-medium">
           {content}
         </div>
       </div>
@@ -71,7 +70,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
     name: "",
     email: "",
     projectType: "web",
-    budgetRange: "$10k - $25k",
+    budgetRange: "₹1L - ₹5L",
     message: "",
   });
   const [loading, setLoading] = useState(false);
@@ -105,7 +104,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
         name: "",
         email: "",
         projectType: "web",
-        budgetRange: "$10k - $25k",
+        budgetRange: "₹1L - ₹5L",
         message: "",
       });
     } catch (err: any) {
@@ -116,25 +115,35 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
   };
 
   return (
-    <section className="section-padding bg-surface-1 border-t border-[var(--color-border)] relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-indigo-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+    <section className="relative py-16 sm:py-24 md:py-32 bg-surface-1 border-t border-[var(--color-border)] overflow-hidden">
+      {/* Subtle Background Elements matching theme */}
+      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute top-1/4 -right-1/4 w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-tr from-[var(--color-accent)]/5 to-transparent blur-[120px]" />
+        <div className="absolute bottom-1/4 -left-1/4 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full bg-gradient-to-bl from-blue-500/5 to-transparent blur-[100px]" />
+      </div>
 
-      <div className="container-site relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+      <div className="container-site relative z-10 w-full px-4 sm:px-6 md:px-8 mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           
           {/* Left Column: Contact Info */}
-          <div ref={ref} className={`transition-all duration-[var(--transition-slow)] ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-            <SectionHeading
-              as={headingTag}
-              title="Let's build something exceptional."
-              subtitle="Whether you have a fully documented spec or just a concept on a napkin, we're ready to engineer it."
-              badge="Get in Touch"
-              align="left"
-            />
+          <div ref={ref} className={`transition-all duration-[var(--transition-slow)] w-full max-w-xl mx-auto lg:mx-0 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="mb-6 sm:mb-8 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--color-border)] bg-surface-1/50 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
+              </span>
+              <span className="text-[11px] sm:text-xs uppercase tracking-widest text-text-secondary font-medium">Get in Touch</span>
+            </div>
             
-            <div className="mt-6 md:mt-8 flex flex-col gap-4 md:gap-5">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-text-primary tracking-tight mb-4 sm:mb-6 leading-[1.04]">
+              Let's build something <br />
+              <span className="text-[var(--color-accent)] italic font-light">exceptional.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-text-secondary mb-8 sm:mb-12 font-light leading-relaxed">
+              Whether you have a fully documented spec or just a concept on a napkin, we're ready to engineer it into reality.
+            </p>
+            
+            <div className="flex flex-col gap-3 sm:gap-4 w-full">
               <ContactCard 
                 icon={Mail} 
                 title="Email Us" 
@@ -162,30 +171,37 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
           </div>
           
           {/* Right Column: Contact Form */}
-          <div className={`transition-all duration-[var(--transition-slow)] delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-            <div className="relative group">
-              {/* Animated glowing border effect behind the form */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-glow)] rounded-[32px] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-              
+          <div className={`transition-all duration-[var(--transition-slow)] delay-300 w-full max-w-xl mx-auto lg:mx-0 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+            <div className="relative group w-full">
               <form 
-                className="relative bg-surface-1/80 backdrop-blur-2xl border border-[var(--color-border)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 md:p-10 shadow-2xl overflow-hidden"
+                className="relative bg-surface-1 border border-[var(--color-border)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 shadow-sm overflow-hidden w-full"
                 onSubmit={handleSubmit}
               >
+                <div className="mb-6 sm:mb-8">
+                  <h3 className="text-xl sm:text-2xl font-bold text-text-primary mb-2">Start a Project</h3>
+                  <p className="text-text-secondary text-sm">Fill out the form below and we'll get back to you within 24 hours.</p>
+                </div>
+
                 {success && (
-                  <div className="mb-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-sm font-medium">
-                    Thank you! Your inquiry has been received. Our engineering lead will contact you within 24 hours.
+                  <div className="mb-6 sm:mb-8 p-4 rounded-xl sm:rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-sm font-medium flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                      <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    Thank you! Your inquiry has been received. Our engineering lead will contact you soon.
                   </div>
                 )}
 
                 {error && (
-                  <div className="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-sm font-medium">
+                  <div className="mb-6 sm:mb-8 p-4 rounded-xl sm:rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-sm font-medium">
                     {error}
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5 w-full">
+                  <div className="flex flex-col gap-1.5 sm:gap-2 w-full">
+                    <label htmlFor="name" className="text-[10px] sm:text-[11px] font-bold text-text-secondary uppercase tracking-widest ml-1">
                       Full Name
                     </label>
                     <input 
@@ -195,12 +211,12 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
                       required
-                      className="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all shadow-inner min-h-[44px]"
+                      className="w-full px-4 py-3 sm:py-3.5 bg-surface-2 hover:bg-surface-2/80 border border-[var(--color-border)] rounded-xl text-text-primary text-sm sm:text-base placeholder-text-muted/60 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all min-h-[48px]"
                     />
                   </div>
                   
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
+                  <div className="flex flex-col gap-1.5 sm:gap-2 w-full">
+                    <label htmlFor="email" className="text-[10px] sm:text-[11px] font-bold text-text-secondary uppercase tracking-widest ml-1">
                       Email Address
                     </label>
                     <input 
@@ -210,14 +226,14 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@company.com"
                       required
-                      className="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all shadow-inner min-h-[44px]"
+                      className="w-full px-4 py-3 sm:py-3.5 bg-surface-2 hover:bg-surface-2/80 border border-[var(--color-border)] rounded-xl text-text-primary text-sm sm:text-base placeholder-text-muted/60 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all min-h-[48px]"
                     />
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="project" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5 w-full">
+                  <div className="flex flex-col gap-1.5 sm:gap-2 w-full">
+                    <label htmlFor="project" className="text-[10px] sm:text-[11px] font-bold text-text-secondary uppercase tracking-widest ml-1">
                       Project Type
                     </label>
                     <CustomSelect
@@ -226,16 +242,16 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                       onChange={(val) => setFormData({ ...formData, projectType: val })}
                       options={[
                         { value: "web", label: "Web Application" },
-                        { value: "mobile", label: "Mobile App (iOS/Android)" },
+                        { value: "mobile", label: "Mobile App" },
                         { value: "erp", label: "ERP / SaaS System" },
                         { value: "ai", label: "AI Automation" },
-                        { value: "other", label: "Other / Custom Digital Service" },
+                        { value: "other", label: "Other" },
                       ]}
                     />
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="budget" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
+                  <div className="flex flex-col gap-1.5 sm:gap-2 w-full">
+                    <label htmlFor="budget" className="text-[10px] sm:text-[11px] font-bold text-text-secondary uppercase tracking-widest ml-1">
                       Estimated Budget
                     </label>
                     <CustomSelect
@@ -243,18 +259,18 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                       value={formData.budgetRange}
                       onChange={(val) => setFormData({ ...formData, budgetRange: val })}
                       options={[
-                        { value: "$5k - $10k", label: "$5,000 - $10,000" },
-                        { value: "$10k - $25k", label: "$10,000 - $25,000" },
-                        { value: "$25k - $50k", label: "$25,000 - $50,000" },
-                        { value: "$50k+", label: "$50,000+" },
+                        { value: "₹50k - ₹1L", label: "₹50k - ₹1L" },
+                        { value: "₹1L - ₹5L", label: "₹1L - ₹5L" },
+                        { value: "₹5L - ₹25L", label: "₹5L - ₹25L" },
+                        { value: "₹25L+", label: "₹25L+" },
                         { value: "custom", label: "Custom Retainer" },
                       ]}
                     />
                   </div>
                 </div>
                 
-                <div className="flex flex-col gap-2 mb-6 sm:mb-8">
-                  <label htmlFor="details" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
+                <div className="flex flex-col gap-1.5 sm:gap-2 mb-6 sm:mb-8 w-full">
+                  <label htmlFor="details" className="text-[10px] sm:text-[11px] font-bold text-text-secondary uppercase tracking-widest ml-1">
                     Project Details
                   </label>
                   <textarea 
@@ -264,18 +280,18 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your business goals, scope, and timeline..."
                     required
-                    className="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all resize-none shadow-inner"
+                    className="w-full px-4 py-3 sm:py-4 bg-surface-2 hover:bg-surface-2/80 border border-[var(--color-border)] rounded-xl text-text-primary text-sm sm:text-base placeholder-text-muted/60 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all resize-none"
                   />
                 </div>
                 
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full justify-center group h-12 sm:h-14 text-base sm:text-lg rounded-[16px] min-h-[48px]" 
+                  className="w-full justify-center h-12 sm:h-14 text-sm sm:text-base rounded-full bg-text-primary text-white hover:bg-text-secondary" 
                   size="lg"
                 >
                   {loading ? "Sending Message..." : "Submit Project Inquiry"}
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </Button>
               </form>
             </div>

@@ -72,7 +72,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           target={target}
           rel={rel}
           className={classes}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+           
           ref={ref as any}
         >
           {children}

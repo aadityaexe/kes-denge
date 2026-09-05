@@ -8,10 +8,7 @@ import {
   ArrowUpRight,
   Building2,
   ExternalLink,
-  ShieldCheck,
   CheckCircle2,
-  Sparkles,
-  Layers,
 } from "lucide-react";
 import type { Client } from "@/lib/types";
 

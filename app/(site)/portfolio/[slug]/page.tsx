@@ -4,7 +4,6 @@ import {
   getPortfolioData,
   getRelatedPortfolioItems,
   getServicesBySlugs,
-  getServicesData,
 } from "@/lib/db-helpers";
 import { PortfolioItem, Service } from "@/lib/types";
 import { PortfolioHero } from "@/components/portfolio/PortfolioHero";

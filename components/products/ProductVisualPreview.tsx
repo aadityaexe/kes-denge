@@ -3,11 +3,8 @@
 import { useState } from "react";
 import { 
   Activity, 
-  BarChart3, 
   CheckCircle2, 
   Database, 
-  Globe, 
-  Layers, 
   Lock, 
   Server, 
   ShieldCheck, 

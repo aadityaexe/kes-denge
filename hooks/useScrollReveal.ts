@@ -53,7 +53,7 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
     const init = async () => {
       const gsapModule = await import("gsap");
       const gsap = gsapModule.default || gsapModule;
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      await import("gsap/ScrollTrigger");
 
       const element = ref.current;
       if (!element) return;
@@ -129,7 +129,7 @@ export function useDirectionalEntrance<T extends HTMLElement = HTMLDivElement>(
     const init = async () => {
       const gsapModule = await import("gsap");
       const gsap = gsapModule.default || gsapModule;
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      await import("gsap/ScrollTrigger");
 
       const element = ref.current;
       if (!element) return;

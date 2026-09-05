@@ -64,14 +64,8 @@ export function TrustedBySection({ clientsData = [] }: TrustedBySectionProps) {
           {duplicatedLogos.map((client, index) => {
             const key = `${client.id || client._id || client.name}-${index}`;
             const clientName = client.name || "Partner";
-            const content = client.logoUrl ? (
-              <img
-                src={client.logoUrl}
-                alt={clientName}
-                className="h-7 sm:h-8 max-w-[140px] object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-              />
-            ) : (
-              <span className="text-display-sm font-bold text-text-muted opacity-50 hover:opacity-100 select-none tracking-wider transition-opacity">
+            const content = (
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-text-muted opacity-40 hover:opacity-100 select-none tracking-tight transition-all duration-300">
                 {clientName}
               </span>
             );

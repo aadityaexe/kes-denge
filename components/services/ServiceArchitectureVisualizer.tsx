@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Server, Globe, Database, Shield, Zap, Terminal, Activity, CheckCircle2, ArrowRight } from "lucide-react";
+import { Server, Globe, Database, Shield, Terminal, Activity, CheckCircle2 } from "lucide-react";
 
 interface LayerData {
   id: string;

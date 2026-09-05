@@ -15,7 +15,7 @@ export function CustomCursor() {
     const dot = dotRef.current;
     if (!cursor || !dot) return;
 
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       // Track mouse position
       const onMouseMove = (e: MouseEvent) => {
         gsap.to(cursor, {

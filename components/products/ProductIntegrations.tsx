@@ -1,4 +1,3 @@
-import { Blocks, CheckCircle2, Cloud, Cpu, Layers, Shield, Zap } from "lucide-react";
 
 interface ProductIntegrationsProps {
   integrations?: string[];

@@ -1,5 +1,5 @@
 import { PortfolioItem } from "@/lib/types";
-import { AlertCircle, CheckCircle2, ShieldCheck, Zap, ArrowRight } from "lucide-react";
+import { AlertCircle, ShieldCheck } from "lucide-react";
 
 interface PortfolioChallengeSolutionProps {
   project: PortfolioItem;

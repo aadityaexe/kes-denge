@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { ArrowLeft, ChevronRight, ExternalLink, ShieldCheck, Layers, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronRight, ExternalLink, ShieldCheck, Layers, Zap } from "lucide-react";
 
 interface ProductHeroProps {
   name: string;

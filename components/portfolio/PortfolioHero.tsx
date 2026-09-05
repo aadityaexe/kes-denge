@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Badge } from "@/components/ui/Badge";
-import { ArrowLeft, ArrowUpRight, Calendar, Factory, Building2, CheckCircle2, GitBranch, Shield, Zap, Code2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Calendar, Factory, Building2, GitBranch, Shield, Zap } from "lucide-react";
 import { PortfolioItem } from "@/lib/types";
 
 interface PortfolioHeroProps {

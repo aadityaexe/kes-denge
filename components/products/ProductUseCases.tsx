@@ -1,5 +1,5 @@
 import { ProductUseCaseItem } from "@/lib/types";
-import { ArrowRight, Building2, CheckCircle2, TrendingUp } from "lucide-react";
+import { Building2, TrendingUp } from "lucide-react";
 
 interface ProductUseCasesProps {
   useCases?: ProductUseCaseItem[];

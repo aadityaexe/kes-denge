@@ -189,7 +189,7 @@ export const getSettingsData = cache(async () => {
     technologies: [],
     socialLinks: {
       linkedin: "https://www.linkedin.com/company/mark2-technologies",
-      github: "https://github.com/aadityaexe/kes-denge",
+      github: "https://github.com/aadityaexe/mark",
       twitter: "https://x.com/mark2_in",
     },
     footer: {

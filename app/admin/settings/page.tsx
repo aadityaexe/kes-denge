@@ -26,7 +26,7 @@ export default function SettingsAdminPage() {
     googleMapsUrl: "",
     socialLinks: {
       linkedin: "https://www.linkedin.com/company/mark2-technologies",
-      github: "https://github.com/aadityaexe/kes-denge",
+      github: "https://github.com/aadityaexe/mark",
       twitter: "https://x.com/mark2_in",
       instagram: "",
       facebook: "",

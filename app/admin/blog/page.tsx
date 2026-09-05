@@ -23,7 +23,6 @@ import {
   FileText,
   Search,
   Check,
-  Eye,
 } from "lucide-react";
 
 const categories = ["Engineering", "Product", "Architecture", "Design", "AI & Automation"];
