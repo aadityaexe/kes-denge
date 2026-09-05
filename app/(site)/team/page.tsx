@@ -5,10 +5,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Our Team — Engineers & Architects",
-  description: "Meet the engineers, designers, and architects building scalable software and digital products at Kas Denge.",
+  description: "Meet the engineers, designers, and architects building scalable software and digital products at MARK.",
   openGraph: {
-    title: "Our Team — Engineers & Architects | Kas Denge Technologies",
-    description: "Meet the engineers, designers, and architects building scalable software and digital products at Kas Denge.",
+    title: "Our Team — Engineers & Architects | MARK Technologies",
+    description: "Meet the engineers, designers, and architects building scalable software and digital products at MARK.",
   },
 };
 

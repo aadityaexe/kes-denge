@@ -8,7 +8,7 @@ const phases = [
   { index: "01", label: "Architecture", desc: "Foundations & Scalable Systems" },
   { index: "02", label: "Engineering", desc: "High-Performance Digital Products" },
   { index: "03", label: "Innovation", desc: "AI Automation & Modern Infrastructure" },
-  { index: "04", label: "Kas Denge", desc: "We Build Digital Products That Scale" },
+  { index: "04", label: "MARK", desc: "We Build Digital Products That Scale" },
 ];
 
 export function Preloader() {
@@ -27,7 +27,7 @@ export function Preloader() {
     // Only execute preloader on home page
     if (pathname !== "/") {
       if (typeof window !== "undefined") {
-        (window as any).__KASDENGE_PRELOADER_DONE__ = true;
+        (window as any).__MARK_PRELOADER_DONE__ = true;
       }
       setIsLoading(false);
       return;
@@ -44,7 +44,7 @@ export function Preloader() {
         document.body.style.overflow = originalOverflow;
         document.documentElement.style.overflow = "";
         if (typeof window !== "undefined") {
-          (window as any).__KASDENGE_PRELOADER_DONE__ = true;
+          (window as any).__MARK_PRELOADER_DONE__ = true;
         }
         setIsLoading(false);
       },
@@ -165,7 +165,7 @@ export function Preloader() {
     // Awaken Hero Section exactly as curtain begins opening
     masterTl.add(() => {
       if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("kasdenge:preloader-reveal"));
+        window.dispatchEvent(new CustomEvent("mark:preloader-reveal"));
       }
     }, "-=0.05");
 
@@ -224,7 +224,7 @@ export function Preloader() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]" />
             </span>
             <span className="text-text-primary font-bold tracking-tight font-display text-sm">
-              Kas<span className="text-[var(--color-accent-dark)]">Denge</span>
+              M<span className="text-[var(--color-accent-dark)]">ARK</span>
             </span>
             <span className="text-text-muted/40">•</span>
             <span className="text-[10px] tracking-widest text-text-secondary">TECHNOLOGIES</span>
@@ -304,7 +304,7 @@ export function Preloader() {
             className="relative h-20 sm:h-28 w-full max-w-3xl overflow-hidden flex items-center justify-center"
           >
             {phases.map((phase, i) => {
-              const isBrand = phase.label.toLowerCase().includes("denge");
+              const isBrand = phase.label === "MARK";
               return (
                 <div
                   key={i}
@@ -316,9 +316,9 @@ export function Preloader() {
 
                   {isBrand ? (
                     <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight text-text-primary">
-                      Kas{" "}
+                      M
                       <span className="text-[var(--color-accent-dark)] font-display italic font-normal">
-                        Denge
+                        ARK
                       </span>
                     </h1>
                   ) : (

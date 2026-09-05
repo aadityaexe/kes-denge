@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const member = await getTeamMemberBySlug(slug);
   if (!member) return { title: "Member Not Found" };
   return {
-    title: `${member.name} - ${member.role} | Kas Denge Technologies`,
+    title: `${member.name} - ${member.role} | MARK Technologies`,
     description: member.specialization || member.role,
   };
 }

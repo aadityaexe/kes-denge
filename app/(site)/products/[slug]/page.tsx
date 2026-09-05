@@ -25,15 +25,15 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Kas Denge Technologies",
+      title: "Product Not Found | MARK Technologies",
       description: "The requested software platform could not be found.",
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
   const canonicalUrl = `${siteUrl}/products/${product.slug}`;
   const metaTitle = product.metaTitle
-    ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "")
+    ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "").replace(/\s*—\s*MARK.*$/i, "")
     : `${product.name} — ${product.tagline}`;
   const metaDescription =
     product.metaDescription ||
@@ -51,7 +51,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "Kas Denge Technologies",
+      siteName: "MARK Technologies",
       type: "website",
       images: product.images && product.images.length > 0 ? [{ url: product.images[0] }] : undefined,
     },
@@ -89,7 +89,7 @@ export default async function ProductPage({
     .filter((p) => p.slug !== product.slug && p.isActive !== false)
     .slice(0, 3);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
   const pageUrl = `${siteUrl}/products/${product.slug}`;
 
   // Structured Data (Schema.org JSON-LD)
@@ -102,7 +102,7 @@ export default async function ProductPage({
     description: product.description,
     brand: {
       "@type": "Brand",
-      name: "Kas Denge Technologies",
+      name: "MARK Technologies",
     },
     offers: {
       "@type": "Offer",

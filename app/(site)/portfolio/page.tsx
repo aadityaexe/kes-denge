@@ -9,18 +9,18 @@ export const metadata: Metadata = {
   title: "Client Portfolio & Case Studies",
   description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com"}/portfolio`,
+    canonical: `${process.env.NEXT_PUBLIC_APP_URL || "https://mark.com"}/portfolio`,
   },
   openGraph: {
-    title: "Client Portfolio & Case Studies | Kas Denge Technologies",
+    title: "Client Portfolio & Case Studies | MARK Technologies",
     description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture.",
-    url: `${process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com"}/portfolio`,
-    siteName: "Kas Denge Technologies",
+    url: `${process.env.NEXT_PUBLIC_APP_URL || "https://mark.com"}/portfolio`,
+    siteName: "MARK Technologies",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Client Portfolio & Case Studies | Kas Denge Technologies",
+    title: "Client Portfolio & Case Studies | MARK Technologies",
     description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture.",
   },
 };
@@ -31,7 +31,7 @@ export default async function PortfolioPage() {
     getTestimonialsData(),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -55,12 +55,12 @@ export default async function PortfolioPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Kas Denge Technologies Portfolio",
+    name: "MARK Technologies Portfolio",
     description: "Production case studies and software engineering deployments.",
     url: `${siteUrl}/portfolio`,
     provider: {
       "@type": "Organization",
-      name: "Kas Denge Technologies",
+      name: "MARK Technologies",
       url: siteUrl,
     },
   };

@@ -57,11 +57,11 @@ function ProblemCard({ item, index }: { item: ServiceProblemSolution; index: num
           <div className="h-px bg-[var(--color-border)] flex-1" />
         </div>
 
-        {/* The Kas Denge Solution */}
+        {/* The MARK Solution */}
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-semibold mb-3">
             <CheckCircle2 size={13} />
-            <span>Kas Denge Solution</span>
+            <span>MARK Solution</span>
           </div>
           <p className="text-[#111111] text-text-primary text-sm sm:text-base leading-relaxed font-semibold">
             {item.solution}

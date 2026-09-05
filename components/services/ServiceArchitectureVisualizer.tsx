@@ -136,7 +136,7 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
             <div className="w-3 h-3 rounded-full bg-green-400/80" />
           </div>
           <span className="text-xs font-mono text-text-secondary font-semibold">
-            kas-denge://architecture-blueprint/{serviceTitle.toLowerCase().replace(/\s+/g, "-")}
+            mark://architecture-blueprint/{serviceTitle.toLowerCase().replace(/\s+/g, "-")}
           </span>
         </div>
 

@@ -33,7 +33,7 @@ const BlogPostSchema = new Schema<IBlogPost>(
     category: { type: String, default: "Engineering" },
     tags: [{ type: String }],
     author: {
-      name: { type: String, default: "Kas Denge Team" },
+      name: { type: String, default: "MARK Team" },
       role: { type: String, default: "Technical Architect" },
       avatar: { type: String, default: "" },
     },

@@ -1,5 +1,5 @@
 // ============================================================
-// Kas Denge Technologies — Core Data Types
+// MARK Technologies — Core Data Types
 // ============================================================
 
 // ------ Services ------

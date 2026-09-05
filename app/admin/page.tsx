@@ -95,7 +95,7 @@ export default function AdminDashboardPage() {
               <Layers size={24} />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-text-primary">Welcome to Kas Denge Studio CMS</h2>
+              <h2 className="text-lg font-bold text-text-primary">Welcome to MARK Studio CMS</h2>
               <p className="text-xs text-text-secondary mt-0.5">
                 Manage services, case studies, team, client logos, blogs, and inquiries with zero code edits.
               </p>
@@ -248,7 +248,7 @@ export default function AdminDashboardPage() {
                         {new Date(msg.createdAt).toLocaleDateString()}
                       </span>
                       <a
-                        href={`mailto:${msg.email}?subject=Regarding your inquiry with Kas Denge Technologies`}
+                        href={`mailto:${msg.email}?subject=Regarding your inquiry with MARK Technologies`}
                         className="mt-1 inline-flex items-center gap-1 text-[10px] text-[var(--color-accent-dark)] hover:underline"
                       >
                         <Mail size={10} /> Reply

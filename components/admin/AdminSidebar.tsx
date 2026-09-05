@@ -52,10 +52,10 @@ export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: A
       <div className="h-16 flex items-center justify-between px-6 border-b border-[var(--color-border)] bg-surface-1">
         <Link href="/admin" className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-[var(--color-accent)] flex items-center justify-center text-white font-bold font-display text-sm shadow-sm">
-            K
+            M
           </div>
           <span className="font-display font-bold text-text-primary text-base tracking-tight">
-            Kas<span className="text-[var(--color-accent-dark)]">Denge</span>
+            M<span className="text-[var(--color-accent-dark)]">ARK</span>
             <span className="ml-1 text-[10px] uppercase font-mono tracking-widest text-text-muted bg-surface-3 px-1.5 py-0.5 rounded border border-[var(--color-border)]">
               CMS
             </span>
@@ -138,7 +138,7 @@ export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: A
         <div className="flex items-center justify-between pt-1 px-1">
           <div className="flex flex-col min-w-0 pr-2">
             <span className="text-xs font-semibold text-text-primary truncate">{userName || "Administrator"}</span>
-            <span className="text-[11px] text-text-muted truncate">{userEmail || "admin@kasdenge.com"}</span>
+            <span className="text-[11px] text-text-muted truncate">{userEmail || "admin@mark.com"}</span>
           </div>
           <form action="/api/auth/logout" method="POST">
             <button

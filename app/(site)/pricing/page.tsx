@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Transparent Pricing & Investment",
   description: "Transparent pricing models for our engineering services, dedicated teams, and ready platforms.",
   openGraph: {
-    title: "Transparent Pricing & Investment | Kas Denge Technologies",
+    title: "Transparent Pricing & Investment | MARK Technologies",
     description: "Transparent pricing models for our engineering services, dedicated teams, and ready platforms.",
   },
 };

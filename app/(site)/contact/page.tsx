@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Contact Us — Start a Project",
   description: "Get in touch with our engineering team to start your next web app, mobile app, or enterprise platform.",
   openGraph: {
-    title: "Contact Us — Start a Project | Kas Denge Technologies",
+    title: "Contact Us — Start a Project | MARK Technologies",
     description: "Get in touch with our engineering team to start your next web app, mobile app, or enterprise platform.",
   },
 };

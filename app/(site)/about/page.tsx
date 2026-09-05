@@ -8,16 +8,16 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About Us — Engineering Philosophy",
-  description: "Learn about Kas Denge's engineering philosophy, architecture standards, and mission to build scalable digital products.",
+  description: "Learn about MARK's engineering philosophy, architecture standards, and mission to build scalable digital products.",
   openGraph: {
-    title: "About Us — Engineering Philosophy | Kas Denge Technologies",
-    description: "Learn about Kas Denge's engineering philosophy, architecture standards, and mission to build scalable digital products.",
+    title: "About Us — Engineering Philosophy | MARK Technologies",
+    description: "Learn about MARK's engineering philosophy, architecture standards, and mission to build scalable digital products.",
   },
 };
 
 export default async function AboutPage() {
   const settings = await getSettingsData();
-  const aboutSubtitle = settings?.about?.subtitle || "Kas Denge was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.";
+  const aboutSubtitle = settings?.about?.subtitle || "MARK was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.";
   const mission = settings?.about?.mission || "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.";
   const vision = settings?.about?.vision || "To be the premier engineering partner for visionary founders and forward-thinking enterprises worldwide.";
   const story = settings?.about?.story;

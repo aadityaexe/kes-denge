@@ -506,7 +506,7 @@ export default function ProductsAdminPage() {
                 <FormField
                   label="Product Platform Name"
                   required
-                  tooltip="Title of the platform (e.g. Kas Denge Enterprise ERP). Appears across the products directory and hero section."
+                  tooltip="Title of the platform (e.g. MARK Enterprise ERP). Appears across the products directory and hero section."
                   charCount={{ current: formData.name.length, max: 80, optimal: { min: 8, max: 50 } }}
                   helperText="Use a distinctive, marketable product name."
                 >
@@ -515,7 +515,7 @@ export default function ProductsAdminPage() {
                     required
                     value={formData.name}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    placeholder="e.g. Kas Denge Enterprise ERP"
+                    placeholder="e.g. MARK Enterprise ERP"
                     className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
                   />
                 </FormField>
@@ -604,13 +604,13 @@ export default function ProductsAdminPage() {
                 <FormField
                   label="Interactive Demo URL"
                   tooltip="External link or staging sandbox where enterprise prospects can preview the live system."
-                  helperText="e.g. https://demo.kasdenge.com/erp"
+                  helperText="e.g. https://demo.mark.com/erp"
                 >
                   <input
                     type="url"
                     value={formData.demoUrl}
                     onChange={(e) => setFormData({ ...formData, demoUrl: e.target.value })}
-                    placeholder="https://demo.kasdenge.com/erp"
+                    placeholder="https://demo.mark.com/erp"
                     className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary font-mono focus:outline-none focus:border-[var(--color-accent)]"
                   />
                 </FormField>

@@ -136,10 +136,10 @@ export const getSettingsData = cache(async () => {
 
   // Graceful fallback structure if DB has no settings configured yet
   return {
-    siteName: "Kas Denge Technologies",
+    siteName: "MARK Technologies",
     tagline: "We Build Digital Products That Scale",
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
-    contactEmail: "hello@kasdenge.com",
+    contactEmail: "hello@mark.com",
     contactPhone: "+1 (555) 234-5678",
     address: "San Francisco, CA & Global Remote",
     hero: {
@@ -152,10 +152,10 @@ export const getSettingsData = cache(async () => {
       ctaSecondaryHref: "/portfolio",
     },
     about: {
-      subtitle: "Kas Denge was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
+      subtitle: "MARK was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
       mission: "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.",
       vision: "To be the premier engineering partner for visionary founders and forward-thinking enterprises worldwide.",
-      story: "Founded by engineers who spent years architecting high-traffic distributed systems, Kas Denge was built on the belief that code quality and business velocity do not have to be trade-offs.",
+      story: "Founded by engineers who spent years architecting high-traffic distributed systems, MARK was built on the belief that code quality and business velocity do not have to be trade-offs.",
     },
     stats: [],
     whyChooseUs: [],
@@ -167,7 +167,7 @@ export const getSettingsData = cache(async () => {
       twitter: "https://twitter.com",
     },
     footer: {
-      copyrightText: "© 2025 Kas Denge Technologies. All rights reserved.",
+      copyrightText: "© 2025 MARK Technologies. All rights reserved.",
       disclaimer: "Engineered with precision for global teams.",
     },
   };

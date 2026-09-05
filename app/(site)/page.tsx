@@ -25,7 +25,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettingsData();
   return {
-    title: settings?.seo?.defaultTitle || "Kas Denge Technologies — We Build Digital Products That Scale",
+    title: settings?.seo?.defaultTitle || "MARK Technologies — We Build Digital Products That Scale",
     description: settings?.seo?.defaultDescription || settings?.description,
   };
 }

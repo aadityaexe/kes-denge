@@ -15,12 +15,12 @@ export default function SettingsAdminPage() {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
-    siteName: "Kas Denge Technologies",
+    siteName: "MARK Technologies",
     tagline: "We Build Digital Products That Scale",
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation.",
     logoUrl: "",
     faviconUrl: "",
-    contactEmail: "hello@kasdenge.com",
+    contactEmail: "hello@mark.com",
     contactPhone: "+1 (555) 234-5678",
     address: "San Francisco, CA & Global Remote",
     googleMapsUrl: "",
@@ -43,23 +43,23 @@ export default function SettingsAdminPage() {
     },
     about: {
       subtitle:
-        "Kas Denge was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
+        "MARK was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
       mission:
         "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.",
       vision:
         "To be the premier engineering partner for visionary founders and forward-thinking enterprises worldwide.",
       story:
-        "Founded by engineers who spent years architecting high-traffic distributed systems, Kas Denge was built on the belief that code quality and business velocity do not have to be trade-offs.",
+        "Founded by engineers who spent years architecting high-traffic distributed systems, MARK was built on the belief that code quality and business velocity do not have to be trade-offs.",
     },
     seo: {
-      defaultTitle: "Kas Denge Technologies — We Build Digital Products That Scale",
+      defaultTitle: "MARK Technologies — We Build Digital Products That Scale",
       defaultDescription:
         "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
       keywords: ["web development", "react", "nextjs", "mobile apps", "custom software"],
       ogImageUrl: "",
     },
     footer: {
-      copyrightText: "© 2025 Kas Denge Technologies. All rights reserved.",
+      copyrightText: "© 2025 MARK Technologies. All rights reserved.",
       disclaimer: "Engineered with precision for global teams.",
     },
     stats: [

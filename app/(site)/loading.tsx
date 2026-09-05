@@ -10,7 +10,7 @@ export default function SiteLoading() {
         <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)] absolute" />
       </div>
       <p className="mt-6 text-sm font-mono text-text-secondary tracking-widest uppercase animate-pulse">
-        Loading Kas Denge...
+        Loading MARK...
       </p>
     </div>
   );

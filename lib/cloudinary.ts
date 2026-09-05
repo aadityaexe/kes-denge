@@ -18,7 +18,7 @@ export function isCloudinaryConfigured(): boolean {
 
 export async function uploadToCloudinary(
   buffer: Buffer,
-  folder = "kasdenge",
+  folder = "mark",
   originalFilename?: string
 ): Promise<UploadApiResponse> {
   return new Promise((resolve, reject) => {

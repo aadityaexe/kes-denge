@@ -71,7 +71,7 @@ export async function PUT(
     }
     if (body.author !== undefined && typeof body.author === "object" && body.author !== null) {
       allowedUpdates.author = {
-        name: sanitizeText(body.author.name || "Kas Denge Team", 100),
+        name: sanitizeText(body.author.name || "MARK Team", 100),
         role: sanitizeText(body.author.role || "Technical Architect", 100),
         avatar: typeof body.author.avatar === "string" ? body.author.avatar.slice(0, 500) : undefined,
       };

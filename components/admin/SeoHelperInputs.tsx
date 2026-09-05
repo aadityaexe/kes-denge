@@ -24,7 +24,7 @@ export function SeoHelperInputs({
   keywords,
   onChangeKeywords,
   canonicalPath,
-  fallbackTitle = "Kas Denge Technologies",
+  fallbackTitle = "MARK Technologies",
   fallbackDescription = "Enterprise digital engineering, scalable architecture, and AI automation.",
 }: SeoHelperInputsProps) {
   const titleCount = metaTitle.length;
@@ -32,7 +32,7 @@ export function SeoHelperInputs({
 
   const displayTitle = metaTitle || fallbackTitle;
   const displayDesc = metaDescription || fallbackDescription;
-  const siteUrl = "https://kasdenge.com";
+  const siteUrl = "https://mark.com";
 
   return (
     <div className="space-y-4">
@@ -49,7 +49,7 @@ export function SeoHelperInputs({
             <span className="truncate">{siteUrl}{canonicalPath}</span>
           </div>
           <p className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer truncate">
-            {displayTitle} | Kas Denge Technologies
+            {displayTitle} | MARK Technologies
           </p>
           <p className="text-xs text-text-secondary leading-snug line-clamp-2">
             {displayDesc}

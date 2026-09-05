@@ -1,5 +1,5 @@
 // ============================================================
-// Kas Denge Technologies — Animation Constants & Utilities
+// MARK Technologies — Animation Constants & Utilities
 // ============================================================
 
 // Shared easing curve — used everywhere for consistency

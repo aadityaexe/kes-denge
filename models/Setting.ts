@@ -68,7 +68,7 @@ export interface ISetting extends Document {
 
 const SettingSchema = new Schema<ISetting>(
   {
-    siteName: { type: String, default: "Kas Denge Technologies" },
+    siteName: { type: String, default: "MARK Technologies" },
     tagline: { type: String, default: "We Build Digital Products That Scale" },
     description: {
       type: String,
@@ -77,7 +77,7 @@ const SettingSchema = new Schema<ISetting>(
     },
     logoUrl: { type: String, default: "" },
     faviconUrl: { type: String, default: "" },
-    contactEmail: { type: String, default: "hello@kasdenge.com" },
+    contactEmail: { type: String, default: "hello@mark.com" },
     contactPhone: { type: String, default: "+1 (555) 234-5678" },
     address: { type: String, default: "San Francisco, CA & Global Remote" },
     googleMapsUrl: { type: String, default: "" },
@@ -105,7 +105,7 @@ const SettingSchema = new Schema<ISetting>(
       subtitle: {
         type: String,
         default:
-          "Kas Denge was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
+          "MARK was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
       },
       mission: {
         type: String,
@@ -120,11 +120,11 @@ const SettingSchema = new Schema<ISetting>(
       story: {
         type: String,
         default:
-          "Founded by engineers who spent years architecting high-traffic distributed systems, Kas Denge was built on the belief that code quality and business velocity do not have to be trade-offs.",
+          "Founded by engineers who spent years architecting high-traffic distributed systems, MARK was built on the belief that code quality and business velocity do not have to be trade-offs.",
       },
     },
     seo: {
-      defaultTitle: { type: String, default: "Kas Denge Technologies — We Build Digital Products That Scale" },
+      defaultTitle: { type: String, default: "MARK Technologies — We Build Digital Products That Scale" },
       defaultDescription: {
         type: String,
         default:
@@ -163,7 +163,7 @@ const SettingSchema = new Schema<ISetting>(
       },
     ],
     footer: {
-      copyrightText: { type: String, default: "© 2025 Kas Denge Technologies. All rights reserved." },
+      copyrightText: { type: String, default: "© 2025 MARK Technologies. All rights reserved." },
       disclaimer: { type: String, default: "Engineered with precision for global teams." },
     },
   },

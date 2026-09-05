@@ -77,7 +77,7 @@ export function ContactSection({ settingsData }: ContactSectionProps) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const email = settingsData?.contactEmail || "hello@kasdenge.com";
+  const email = settingsData?.contactEmail || "hello@mark.com";
   const phone = settingsData?.contactPhone || "+91 98765 43210";
   const address = settingsData?.address || "Andheri West, Mumbai\nMaharashtra, India 400053";
 

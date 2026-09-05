@@ -53,7 +53,7 @@ export function Navbar() {
             className="flex items-center gap-2 text-text-primary hover:text-accent-dark transition-colors z-10"
           >
             <span className="text-xl font-bold tracking-tight font-display">
-              Kas<span className="text-[var(--color-accent-light)]">Denge</span>
+              M<span className="text-[var(--color-accent-light)]">ARK</span>
             </span>
           </Link>
 

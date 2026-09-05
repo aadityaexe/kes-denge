@@ -1,5 +1,5 @@
 // ============================================================
-// Kas Denge Technologies — Utility Functions
+// MARK Technologies — Utility Functions
 // ============================================================
 
 import { type ClassValue, clsx } from "clsx";

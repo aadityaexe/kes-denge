@@ -49,7 +49,7 @@ export default function BlogAdminPage() {
     featuredImage: "",
     category: "Engineering",
     tags: [] as string[],
-    authorName: "Kas Denge Team",
+    authorName: "MARK Team",
     authorRole: "Technical Architect",
     status: "published",
     metaTitle: "",
@@ -86,7 +86,7 @@ export default function BlogAdminPage() {
       featuredImage: "",
       category: "Engineering",
       tags: ["Next.js", "Architecture", "TypeScript"],
-      authorName: "Kas Denge Team",
+      authorName: "MARK Team",
       authorRole: "Technical Architect",
       status: "published",
       metaTitle: "",
@@ -108,7 +108,7 @@ export default function BlogAdminPage() {
       featuredImage: post.featuredImage || "",
       category: post.category || "Engineering",
       tags: Array.isArray(post.tags) ? post.tags : [],
-      authorName: post.author?.name || "Kas Denge Team",
+      authorName: post.author?.name || "MARK Team",
       authorRole: post.author?.role || "Technical Architect",
       status: post.status || "published",
       metaTitle: post.metaTitle || "",
@@ -245,7 +245,7 @@ export default function BlogAdminPage() {
       header: "Author",
       cell: (row) => (
         <div className="text-xs">
-          <p className="font-medium text-text-primary">{row.author?.name || "Kas Denge"}</p>
+          <p className="font-medium text-text-primary">{row.author?.name || "MARK Team"}</p>
           <p className="text-[10px] text-text-muted">{row.author?.role || "Architect"}</p>
         </div>
       ),
@@ -486,7 +486,7 @@ export default function BlogAdminPage() {
                     type="text"
                     value={formData.authorName}
                     onChange={(e) => setFormData({ ...formData, authorName: e.target.value })}
-                    placeholder="e.g. Kas Denge Team"
+                    placeholder="e.g. MARK Team"
                     className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
                   />
                 </FormField>

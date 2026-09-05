@@ -333,7 +333,7 @@ export default function MessagesAdminPage() {
     link.setAttribute("href", url);
     link.setAttribute(
       "download",
-      `kas-denge-leads-${new Date().toISOString().slice(0, 10)}.csv`
+      `mark-leads-${new Date().toISOString().slice(0, 10)}.csv`
     );
     document.body.appendChild(link);
     link.click();
@@ -394,7 +394,7 @@ export default function MessagesAdminPage() {
   const getWhatsAppLink = (phone: string, name: string, projectType: string) => {
     const cleanPhone = phone.replace(/[^0-9]/g, "");
     const text = encodeURIComponent(
-      `Hi ${name}, this is Kas Denge Technologies following up on your ${projectType} inquiry.`
+      `Hi ${name}, this is MARK Technologies following up on your ${projectType} inquiry.`
     );
     return `https://wa.me/${cleanPhone}?text=${text}`;
   };
@@ -527,7 +527,7 @@ export default function MessagesAdminPage() {
           </button>
 
           <a
-            href={`mailto:${row.email}?subject=${encodeURIComponent(`Re: ${row.projectType} Inquiry — Kas Denge Technologies`)}&body=${encodeURIComponent(`Hi ${row.name},\n\nThank you for contacting Kas Denge Technologies regarding your ${row.projectType} project requirements.\n\n`)}`}
+            href={`mailto:${row.email}?subject=${encodeURIComponent(`Re: ${row.projectType} Inquiry — MARK Technologies`)}&body=${encodeURIComponent(`Hi ${row.name},\n\nThank you for contacting MARK Technologies regarding your ${row.projectType} project requirements.\n\n`)}`}
             className="p-1.5 rounded-md hover:bg-[var(--color-accent)]/10 text-text-secondary hover:text-[var(--color-accent-dark)] transition-colors"
             title="Send Email"
           >
@@ -790,7 +790,7 @@ export default function MessagesAdminPage() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <a
-                  href={`mailto:${viewingMessage.email}?subject=${encodeURIComponent(`Re: ${viewingMessage.projectType} Inquiry — Kas Denge Technologies`)}&body=${encodeURIComponent(`Hi ${viewingMessage.name},\n\nThank you for reaching out to Kas Denge regarding your ${viewingMessage.projectType} project requirements.\n\nWe reviewed your requirements and would love to schedule a brief discovery call to discuss scope, timeline, and architectural approach.\n\nBest regards,\nKas Denge Technologies Engineering Team`)}`}
+                  href={`mailto:${viewingMessage.email}?subject=${encodeURIComponent(`Re: ${viewingMessage.projectType} Inquiry — MARK Technologies`)}&body=${encodeURIComponent(`Hi ${viewingMessage.name},\n\nThank you for reaching out to MARK regarding your ${viewingMessage.projectType} project requirements.\n\nWe reviewed your requirements and would love to schedule a brief discovery call to discuss scope, timeline, and architectural approach.\n\nBest regards,\nMARK Technologies Engineering Team`)}`}
                   className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors flex items-center gap-1.5 shadow-sm"
                 >
                   <Mail size={13} />

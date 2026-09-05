@@ -1,5 +1,5 @@
 // ============================================================
-// Kas Denge Technologies — Validation & Security Utilities
+// MARK Technologies — Validation & Security Utilities
 // ============================================================
 
 import mongoose from "mongoose";

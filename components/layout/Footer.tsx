@@ -40,7 +40,7 @@ export function Footer() {
             <div className="text-center md:text-left">
               <Link href="/" className="inline-block hover:opacity-80 transition-opacity">
                 <h2 className="text-[clamp(3rem,8vw,8rem)] font-display text-text-primary leading-none tracking-tight">
-                  Kas<span className="text-[var(--color-accent)] italic">Denge</span>
+                  M<span className="text-[var(--color-accent)] italic">ARK</span>
                 </h2>
               </Link>
             </div>
@@ -113,7 +113,7 @@ export function Footer() {
       </div>
 
       <div className="container-site flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-muted">
-        <p>© {new Date().getFullYear()} Kas Denge Technologies. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} MARK Technologies. All rights reserved.</p>
         <div className="flex items-center gap-6">
           <Link href="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-text-primary transition-colors">Terms of Service</Link>

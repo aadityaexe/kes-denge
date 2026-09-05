@@ -76,7 +76,7 @@ export function PortfolioChallengeSolution({ project }: PortfolioChallengeSoluti
 
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-mono font-bold uppercase tracking-wider mb-6 border border-emerald-500/20">
-                <ShieldCheck size={14} /> The Kas Denge Solution
+                <ShieldCheck size={14} /> The MARK Solution
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-bold font-display text-text-primary mb-4">

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Products & Enterprise Platforms",
   description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
   openGraph: {
-    title: "Products & Enterprise Platforms | Kas Denge Technologies",
+    title: "Products & Enterprise Platforms | MARK Technologies",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
   },
 };

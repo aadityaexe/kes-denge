@@ -61,21 +61,21 @@ export async function generateMetadata({
 
   if (!project) {
     return {
-      title: "Project Not Found | Kas Denge Technologies",
+      title: "Project Not Found | MARK Technologies",
       description: "The requested case study could not be found.",
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
   const canonicalUrl = `${siteUrl}/portfolio/${project.slug}`;
   const metaTitle = project.metaTitle
-    ? project.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "")
+    ? project.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "").replace(/\s*—\s*MARK.*$/i, "")
     : `${project.title} — Case Study`;
   const metaDescription =
     project.metaDescription ||
     project.shortDescription ||
     project.oneLiner ||
-    `Explore how Kas Denge engineered ${project.title} with high scalability, low latency, and modern software architecture.`;
+    `Explore how MARK engineered ${project.title} with high scalability, low latency, and modern software architecture.`;
 
   return {
     title: metaTitle,
@@ -88,7 +88,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "Kas Denge Technologies",
+      siteName: "MARK Technologies",
       type: "article",
       images: project.coverImage || project.heroImage ? [{ url: project.coverImage || project.heroImage! }] : undefined,
     },
@@ -121,7 +121,7 @@ export default async function PortfolioDetailPage({
   // Fetch related portfolio projects (same category or others)
   const relatedProjects = (await getRelatedPortfolioItems(project.slug, project.category, 3)) as PortfolioItem[];
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
   const pageUrl = `${siteUrl}/portfolio/${project.slug}`;
 
   // Structured Data (Schema.org CreativeWork / SoftwareApplication)
@@ -134,14 +134,14 @@ export default async function PortfolioDetailPage({
     operatingSystem: "Web, Cloud, Cross-Platform",
     provider: {
       "@type": "Organization",
-      name: "Kas Denge Technologies",
+      name: "MARK Technologies",
       url: siteUrl,
       logo: `${siteUrl}/logo.png`,
     },
     url: pageUrl,
     author: {
       "@type": "Organization",
-      name: "Kas Denge Technologies",
+      name: "MARK Technologies",
     },
   };
 

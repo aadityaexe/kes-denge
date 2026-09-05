@@ -67,15 +67,15 @@ export async function generateMetadata({
 
   if (!service) {
     return {
-      title: "Service Not Found | Kas Denge Technologies",
+      title: "Service Not Found | MARK Technologies",
       description: "The requested engineering service could not be found.",
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
   const canonicalUrl = `${siteUrl}/services/${service.slug}`;
   const metaTitle = service.metaTitle
-    ? service.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "")
+    ? service.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "")
     : `${service.title} Engineering Services`;
   const metaDescription =
     service.metaDescription ||
@@ -93,7 +93,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "Kas Denge Technologies",
+      siteName: "MARK Technologies",
       type: "website",
       images: service.featuredImage ? [{ url: service.featuredImage }] : undefined,
     },
@@ -141,7 +141,7 @@ export default async function ServiceDetailsPage({
   ).slice(0, 3);
 
   const ServiceIcon = iconMap[service.icon] || Globe;
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
   const pageUrl = `${siteUrl}/services/${service.slug}`;
 
   // Structured Data (Schema.org JSON-LD)
@@ -153,7 +153,7 @@ export default async function ServiceDetailsPage({
     description: service.shortDescription,
     provider: {
       "@type": "Organization",
-      name: "Kas Denge Technologies",
+      name: "MARK Technologies",
       url: siteUrl,
       logo: `${siteUrl}/logo.png`,
     },
@@ -252,7 +252,7 @@ export default async function ServiceDetailsPage({
                 {service.fullDescription}
               </p>
               <p className="text-base text-text-secondary leading-relaxed">
-                At Kas Denge Technologies, we reject brittle templates and technical shortcuts. Every system we build is designed as a mission-critical asset, giving your product team the speed, security, and scalability needed to outperform competition.
+                At MARK Technologies, we reject brittle templates and technical shortcuts. Every system we build is designed as a mission-critical asset, giving your product team the speed, security, and scalability needed to outperform competition.
               </p>
             </div>
           </div>
@@ -295,7 +295,7 @@ export default async function ServiceDetailsPage({
                   Pain Points We Eliminate
                 </div>
                 <h3 className="text-display-sm font-bold font-display text-text-primary">
-                  Traditional Bottlenecks vs. Kas Denge Engineering
+                  Traditional Bottlenecks vs. MARK Engineering
                 </h3>
               </div>
               <ServiceProblemsSolved problemsSolved={service.problemsSolved} />
@@ -504,7 +504,7 @@ export default async function ServiceDetailsPage({
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-2 text-text-muted text-xs font-mono mb-3 uppercase tracking-widest border border-[var(--color-border)]">
-              The Kas Denge Difference
+              The MARK Difference
             </div>
             <h2 className="text-display-md font-bold font-display text-text-primary mb-4">
               How We Compare Against Typical Agencies

@@ -744,9 +744,9 @@ export default function PortfolioAdminPage() {
                 </FormField>
 
                 <FormField
-                  label="The Kas Denge Solution"
+                  label="The MARK Solution"
                   required
-                  tooltip="Describes the architecture, microservices, databases, and UX delivered by Kas Denge."
+                  tooltip="Describes the architecture, microservices, databases, and UX delivered by MARK."
                   charCount={{ current: formData.solution.length, optimal: { min: 120, max: 500 } }}
                 >
                   <textarea
@@ -818,7 +818,7 @@ export default function PortfolioAdminPage() {
                     rows={2}
                     value={formData.testimonialQuote}
                     onChange={(e) => setFormData({ ...formData, testimonialQuote: e.target.value })}
-                    placeholder="&ldquo;Kas Denge delivered our core architecture 2 months ahead of schedule with zero production regressions.&rdquo;"
+                    placeholder="&ldquo;MARK delivered our core architecture 2 months ahead of schedule with zero production regressions.&rdquo;"
                     className="w-full px-3 py-2 text-xs bg-surface-1 border border-[var(--color-border)] rounded-lg text-text-primary italic focus:outline-none focus:border-[var(--color-accent)]"
                   />
                 </FormField>

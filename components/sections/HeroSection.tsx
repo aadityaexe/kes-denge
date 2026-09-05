@@ -102,13 +102,13 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
     };
 
     // If preloader is already completed or skipped
-    if (typeof window !== "undefined" && (window as any).__KASDENGE_PRELOADER_DONE__) {
+    if (typeof window !== "undefined" && (window as any).__MARK_PRELOADER_DONE__) {
       runHeroAnimation();
     } else {
       const handlePreloaderReveal = () => {
         runHeroAnimation();
       };
-      window.addEventListener("kasdenge:preloader-reveal", handlePreloaderReveal);
+      window.addEventListener("mark:preloader-reveal", handlePreloaderReveal);
 
       // Fallback timer in case preloader was skipped or event missed
       const fallback = setTimeout(() => {
@@ -116,7 +116,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
       }, 2600);
 
       return () => {
-        window.removeEventListener("kasdenge:preloader-reveal", handlePreloaderReveal);
+        window.removeEventListener("mark:preloader-reveal", handlePreloaderReveal);
         clearTimeout(fallback);
       };
     }

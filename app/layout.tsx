@@ -20,23 +20,23 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kas Denge Technologies — We Build Digital Products That Scale",
-    template: "%s | Kas Denge Technologies",
+    default: "MARK Technologies — We Build Digital Products That Scale",
+    template: "%s | MARK Technologies",
   },
   description:
     "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://kasdenge.com",
-    siteName: "Kas Denge Technologies",
-    title: "Kas Denge Technologies — We Build Digital Products That Scale",
+    url: "https://mark.com",
+    siteName: "MARK Technologies",
+    title: "MARK Technologies — We Build Digital Products That Scale",
     description:
       "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kas Denge Technologies — We Build Digital Products That Scale",
+    title: "MARK Technologies — We Build Digital Products That Scale",
     description:
       "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
   },
@@ -46,32 +46,32 @@ export const metadata: Metadata = {
   },
 };
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kasdenge.com";
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Kas Denge Technologies",
+  name: "MARK Technologies",
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
     "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
   sameAs: [
-    "https://linkedin.com/company/kas-denge",
-    "https://github.com/kas-denge",
-    "https://twitter.com/kasdenge",
+    "https://linkedin.com/company/mark",
+    "https://github.com/mark",
+    "https://twitter.com/mark",
   ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Sales and Technical Inquiries",
-    email: "hello@kasdenge.com",
+    email: "hello@mark.com",
   },
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Kas Denge Technologies",
+  name: "MARK Technologies",
   url: siteUrl,
 };
 

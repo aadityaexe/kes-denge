@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Core Engineering Services",
   description: "Explore our core engineering services: Web Apps, Mobile Apps, Enterprise Platforms, and AI Automation built for high-growth companies.",
   openGraph: {
-    title: "Core Engineering Services | Kas Denge Technologies",
+    title: "Core Engineering Services | MARK Technologies",
     description: "Explore our core engineering services: Web Apps, Mobile Apps, Enterprise Platforms, and AI Automation built for high-growth companies.",
   },
 };

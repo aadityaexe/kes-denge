@@ -5,39 +5,39 @@ import { Check, X, ShieldCheck } from "lucide-react";
 interface ComparisonRow {
   dimension: string;
   traditional: string;
-  kasDenge: string;
+  mark: string;
 }
 
 const comparisonData: ComparisonRow[] = [
   {
     dimension: "Engineering Team",
     traditional: "Junior developers with high turnover & offshore handoffs",
-    kasDenge: "Senior architects and distributed systems engineers only",
+    mark: "Senior architects and distributed systems engineers only",
   },
   {
     dimension: "Source Code Ownership",
     traditional: "Vendor lock-in, proprietary platforms, or hidden licensing fees",
-    kasDenge: "100% intellectual property & source code transfer from day one",
+    mark: "100% intellectual property & source code transfer from day one",
   },
   {
     dimension: "Delivery Cadence",
     traditional: "Infrequent milestone demos with surprise budget overruns",
-    kasDenge: "Bi-weekly sprint demos with working live preview URLs on every commit",
+    mark: "Bi-weekly sprint demos with working live preview URLs on every commit",
   },
   {
     dimension: "Code Quality & Testing",
     traditional: "Manual ad-hoc testing with high post-launch regression bugs",
-    kasDenge: "Strict TypeScript, automated CI/CD pipelines & 90%+ test coverage",
+    mark: "Strict TypeScript, automated CI/CD pipelines & 90%+ test coverage",
   },
   {
     dimension: "Performance & SEO",
     traditional: "Bloated templates with failing 40-60 Core Web Vitals",
-    kasDenge: "Guaranteed 95+ Core Web Vitals and sub-450ms global TTFB",
+    mark: "Guaranteed 95+ Core Web Vitals and sub-450ms global TTFB",
   },
   {
     dimension: "Post-Launch Warranty",
     traditional: "Disappears after launch or charges exorbitant support fees",
-    kasDenge: "30-day hypercare warranty + dedicated SLA retention guarantees",
+    mark: "30-day hypercare warranty + dedicated SLA retention guarantees",
   },
 ];
 
@@ -55,7 +55,7 @@ export function ServiceComparisonMatrix({ serviceTitle }: { serviceTitle: string
                 Typical Agency / Freelance
               </th>
               <th className="py-5 px-6 text-xs font-mono uppercase tracking-wider text-[var(--color-accent-dark)] font-bold bg-[var(--color-accent-glow)]/40 w-3/8">
-                Kas Denge Engineering
+                MARK Engineering
               </th>
             </tr>
           </thead>
@@ -78,7 +78,7 @@ export function ServiceComparisonMatrix({ serviceTitle }: { serviceTitle: string
                     <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
                       <Check size={12} strokeWidth={3} />
                     </div>
-                    <span>{row.kasDenge}</span>
+                    <span>{row.mark}</span>
                   </div>
                 </td>
               </tr>
