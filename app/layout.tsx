@@ -102,9 +102,17 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteName,
-    alternateName: "Kas Denge Technologies",
+    alternateName: "MARK",
     url: siteUrl,
+    logo: `${siteUrl}/opengraph-image`,
     email: email,
+    description: "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: email,
+      contactType: "customer support and sales",
+      availableLanguage: ["English", "Hindi"],
+    },
     sameAs: sameAs.length > 0 ? sameAs : [
       "https://x.com/mark2_in",
       "https://www.linkedin.com/company/mark2-technologies",

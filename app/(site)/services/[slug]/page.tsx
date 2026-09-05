@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getServiceBySlug, getServicesData, getRelatedPortfolioForService, getProductsData } from "@/lib/db-helpers";
 import { Service, ServiceFeatureItem, ServiceBenefitItem, PortfolioItem, Product } from "@/lib/types";
+
+export const revalidate = 3600;
 import { Button } from "@/components/ui/Button";
 import { ServiceHero } from "@/components/services/ServiceHero";
 import { ServiceArchitectureVisualizer } from "@/components/services/ServiceArchitectureVisualizer";

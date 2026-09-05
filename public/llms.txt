@@ -1,0 +1,64 @@
+# MARK Technologies (mark2.in)
+
+> Premier product-engineering and software development agency shipping high-throughput web applications, cross-platform mobile apps, enterprise ERP architectures, and autonomous AI automation systems.
+
+## Overview
+MARK Technologies is an engineering-first software development agency headquartered in India and operating globally. The agency designs, architects, builds, and maintains mission-critical digital products for funded startups, mid-market businesses, and enterprise organizations.
+
+- Canonical Website: https://www.mark2.in
+- Primary Contact: hello@mark2.in
+- Headquarters: Mumbai, India & Global Remote
+- Core Stack: Next.js (App Router), React 19, TypeScript, Tailwind CSS, Node.js, Python, MongoDB, PostgreSQL, Docker, AWS.
+
+## Core Services
+All services are delivered by dedicated in-house senior engineers with automated CI/CD pipelines, comprehensive testing, and transparent milestone delivery.
+
+- **Web Application Development**: High-performance, scalable web apps built with Next.js, React, and TypeScript. Includes server-side rendering (SSR), incremental static regeneration (ISR), real-time WebSockets, and headless CMS integrations.
+  URL: https://www.mark2.in/services/website-development
+- **Custom ERP Development**: Modular enterprise resource planning platforms tailored for manufacturing, logistics, and education. Includes multi-tenant data partitioning, role-based access control (RBAC), and automated reporting.
+  URL: https://www.mark2.in/services/custom-erp-development
+- **Mobile Application Development**: Native and cross-platform mobile applications using React Native, iOS (Swift), and Android (Kotlin) with offline-first local synchronization and biometric authentication.
+  URL: https://www.mark2.in/services
+- **AI Automation & Intelligent Agents**: Retrieval-Augmented Generation (RAG) pipelines, workflow automation bots, custom LLM tool-calling integrations, and natural language business analytics.
+  URL: https://www.mark2.in/services
+- **Search Engine Optimization (SEO) & AEO**: Technical SEO audits, Core Web Vitals optimization, Schema.org JSON-LD structured data implementation, and Answer Engine Optimization (AEO) for Google AI Overviews and Perplexity.
+  URL: https://www.mark2.in/services/search-engine-optimization
+- **Cloud Architecture & DevOps**: High-availability cloud deployments on AWS and Vercel with automated GitHub Actions CI/CD pipelines, containerization (Docker), zero-downtime rolling deploys, and database replication.
+  URL: https://www.mark2.in/services
+
+## Proprietary Software Platforms
+- **EduVeera ERP**: Comprehensive 16-module educational ERP platform managing multi-campus school operations, student admissions, automated fee invoicing, examination grading, staff attendance, and parent communications.
+  URL: https://www.mark2.in/products/eduveera-school-management-erp
+- **Omni-Channel eCommerce Engine**: High-throughput distributed commerce backend engineered for high concurrency flash sales, real-time inventory ledger syncing across channels, and sub-100ms API response times.
+  URL: https://www.mark2.in/products/omni-channel-ecommerce-engine
+- **Keshera Manufacturing ERP**: Industrial shop-floor and supply chain operations platform automating raw material procurement, bill of materials (BOM) tracking, machine telemetry, and quality assurance workflows.
+  URL: https://www.mark2.in/products/keshera-manufacturing-erp
+
+## Transparent Pricing (INR)
+All pricing is quoted in Indian Rupees (INR) with no hidden fees or scope inflation:
+
+- **Starter Package (₹25,000)**: Complete custom marketing or landing website up to 5 responsive pages. Includes custom UI/UX design, Next.js architecture, contact form integration, Schema.org SEO setup, Core Web Vitals speed optimization, and 30 days of post-launch maintenance. Delivery in 7-10 business days.
+- **Growth Package (₹75,000)**: Full-stack dynamic web application or multi-tier portal. Includes custom database architecture (MongoDB/PostgreSQL), user authentication (JWT/OAuth), interactive dashboards, third-party payment gateway integration, and 60 days of maintenance. Delivery in 3-4 weeks.
+- **Enterprise Retainer (Custom / Starting from ₹1,50,000+)**: Tailored engineering pod for multi-module ERP platforms, mobile apps, or high-throughput SaaS engines. Includes dedicated senior full-stack developers, 99.9% uptime SLA guarantee, security hardening, and ongoing sprint cycles.
+
+URL: https://www.mark2.in/pricing
+
+## Case Studies & Portfolio
+- **EduVeera**: Scaled to 10,000+ active students across 14 campuses with sub-second page loads and automated WhatsApp report cards.
+  URL: https://www.mark2.in/portfolio/eduveera-website-erp-seo
+- **Bharat Bhoomi**: Real estate verification portal reducing title check verification turnaround from 7 days to 4 hours.
+  URL: https://www.mark2.in/portfolio/bharat-bhoomi-website-seo
+- **Keshera Industry**: 16-module manufacturing ERP managing ₹15Cr+ annual component throughput with zero inventory discrepancies.
+  URL: https://www.mark2.in/portfolio/keshera-industry-custom-erp
+
+## Key Navigational Links
+- Home: https://www.mark2.in
+- About MARK: https://www.mark2.in/about
+- Services Catalog: https://www.mark2.in/services
+- Enterprise Products: https://www.mark2.in/products
+- Case Studies: https://www.mark2.in/portfolio
+- Verified Clients: https://www.mark2.in/clients
+- Engineering Team: https://www.mark2.in/team
+- Engineering Blog: https://www.mark2.in/blog
+- Pricing Plans: https://www.mark2.in/pricing
+- Contact & Inquiries: https://www.mark2.in/contact

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import {
   Search,
@@ -61,12 +62,14 @@ function ClientSpotlightCard({ client }: { client: Client }) {
         {/* Top bar: Monogram / Logo + Industry & Year */}
         <div className="flex flex-wrap sm:flex-nowrap items-start justify-between gap-3 sm:gap-4 mb-6">
           <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-base sm:text-lg text-text-primary group-hover:border-[var(--color-accent)]/50 group-hover:text-[var(--color-accent-dark)] transition-colors shadow-sm overflow-hidden p-1 shrink-0">
+            <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-base sm:text-lg text-text-primary group-hover:border-[var(--color-accent)]/50 group-hover:text-[var(--color-accent-dark)] transition-colors shadow-sm overflow-hidden shrink-0">
               {client.logoUrl ? (
-                <img
+                <Image
                   src={client.logoUrl}
                   alt={client.name}
-                  className="w-full h-full object-contain"
+                  fill
+                  sizes="52px"
+                  className="object-contain p-1"
                 />
               ) : (
                 <span>{initialLetters}</span>

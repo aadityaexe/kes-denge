@@ -24,6 +24,8 @@ import { PricingSection } from "@/components/sections/PricingSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 
+export const revalidate = 3600;
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettingsData();
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";

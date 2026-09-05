@@ -1,0 +1,103 @@
+# MARK Technologies (mark2.in) — Full Technical Specification & Knowledge Base
+
+> Organization: MARK Technologies
+> Domain: https://www.mark2.in
+> Primary Email: hello@mark2.in
+> Focus: Product Engineering, Full-Stack Web Development, Enterprise ERP Systems, Cloud Architecture, AI Automation.
+
+---
+
+## 1. Company Profile
+MARK Technologies is a specialized software engineering consultancy and product agency based in India, delivering bespoke software solutions to high-growth businesses, venture-backed startups, and enterprise clients worldwide. 
+
+### Key Capabilities:
+- Full-Stack Web Applications (Next.js App Router, React 19, TypeScript)
+- Enterprise Resource Planning (ERP) Systems (Modular architectures, multi-tenant databases, role-based access control)
+- Native & Cross-Platform Mobile Applications (React Native, iOS Swift, Android Kotlin)
+- Artificial Intelligence & Machine Learning Automation (LLM integrations, Retrieval-Augmented Generation, Agentic workflows)
+- Technical SEO, Core Web Vitals, and Answer Engine Optimization (AEO)
+- Cloud Infrastructure, Database Replication, Containerization, and Continuous Integration/Continuous Deployment (CI/CD)
+
+---
+
+## 2. Engineering Standards & Technology Stack
+- **Frontend**: Next.js 16 (Turbopack, App Router, React Server Components), React 19, TypeScript 5, Tailwind CSS, Framer Motion, GSAP.
+- **Backend & APIs**: Node.js, Next.js Server Actions & Route Handlers, Python (FastAPI/LangChain for AI pipelines).
+- **Databases**: MongoDB (Mongoose), PostgreSQL, Redis (caching and rate limiting).
+- **Authentication & Security**: Jose JWT, HTTP-only secure cookie sessions, Strict-Transport-Security (HSTS), Content Security Policy (CSP), rate-limiting middleware.
+- **Media & Assets**: Cloudinary CDN, next/image with AVIF/WebP next-gen compression.
+- **Hosting & Infrastructure**: Vercel Edge Network, AWS (EC2, S3, CloudFront), Docker.
+
+---
+
+## 3. Detailed Service Catalog
+
+### 3.1 Website & Web Application Development
+- **URL**: https://www.mark2.in/services/website-development
+- **Scope**: Enterprise-grade marketing sites, SaaS dashboards, customer portals, and internal business tools.
+- **Features**: Incremental Static Regeneration (ISR), sub-second Largest Contentful Paint (LCP), Zero Cumulative Layout Shift (CLS), Schema.org JSON-LD microdata, dynamic OpenGraph generation.
+
+### 3.2 Custom ERP Development
+- **URL**: https://www.mark2.in/services/custom-erp-development
+- **Scope**: Tailor-made business operating systems that eliminate third-party SaaS license sprawl.
+- **Key Modules**: Inventory ledger, Bill of Materials (BOM), Multi-branch accounting, Purchase orders, Automated invoice generation, Staff attendance & payroll, Customer Relationship Management (CRM), Role-Based Access Control (RBAC).
+
+### 3.3 Search Engine Optimization (SEO) & AI Discoverability (AEO)
+- **URL**: https://www.mark2.in/services/search-engine-optimization
+- **Scope**: Auditing and engineering sites to rank in conventional Google search and appear verbatim in AI Overviews, Perplexity citations, and ChatGPT web browsing passes.
+- **Features**: Semantic HTML5 hierarchy, FAQPage schema, BreadcrumbList, Organization graph, llms.txt endpoints, Core Web Vitals < 2.5s LCP.
+
+### 3.4 AI Automation & Intelligent Agents
+- **URL**: https://www.mark2.in/services
+- **Scope**: Custom AI workflows connecting internal data stores to large language models.
+- **Features**: Document QA over proprietary PDFs, autonomous data synchronization bots, conversational customer support assistants with tool execution.
+
+---
+
+## 4. Proprietary Enterprise Platforms
+
+### 4.1 EduVeera School Management ERP
+- **URL**: https://www.mark2.in/products/eduveera-school-management-erp
+- **Description**: 16-module academic ERP designed for single-campus schools and multi-branch educational trusts.
+- **Highlights**: Manages 10,000+ active students, automated fee receipts via WhatsApp and SMS, real-time bus GPS tracking, examination report cards.
+
+### 4.2 Omni-Channel eCommerce Engine
+- **URL**: https://www.mark2.in/products/omni-channel-ecommerce-engine
+- **Description**: Distributed headless commerce platform handling high concurrency flash sales with sub-100ms API response times.
+- **Highlights**: Unified stock ledger across retail stores, website, and marketplaces; integrated payment gateways (Stripe, Razorpay); automated courier dispatch.
+
+### 4.3 Keshera Manufacturing ERP
+- **URL**: https://www.mark2.in/products/keshera-manufacturing-erp
+- **Description**: Shop-floor management platform for precision component manufacturers.
+- **Highlights**: Manages ₹15Cr+ inventory across multi-stage production lines, CNC machine uptime tracking, ISO 9001 compliance logs.
+
+---
+
+## 5. Pricing & Engagement Models (INR)
+
+- **Starter Website Package**: ₹25,000. Up to 5 pages. Best for boutique agencies, professional services, and high-converting marketing landers. Delivery: 7-10 days.
+- **Growth Web Application**: ₹75,000. Full-stack custom portal or SaaS prototype with authentication and database integration. Delivery: 3-4 weeks.
+- **Enterprise Retainer**: ₹1,50,000+ / month or fixed-quote. Dedicated engineering squad for multi-month ERP and mobile app builds. SLA guarantees.
+
+URL: https://www.mark2.in/pricing
+
+---
+
+## 6. Case Studies Summary
+- **EduVeera ERP**: 16-module educational software platform deployed across 14 campuses. Reduced administrative overhead by 68%.
+- **Bharat Bhoomi**: Real estate verification portal. Processed over 12,000 land records with sub-second query speeds.
+- **Keshera Industry**: Full manufacturing ERP system replacing manual spreadsheets. Reduced inventory shrinkage to zero.
+
+URL: https://www.mark2.in/portfolio
+
+---
+
+## 7. Contact & Official Channels
+- Email: hello@mark2.in
+- Website: https://www.mark2.in
+- Inquiries: https://www.mark2.in/contact
+- Headquarters: Mumbai, India & Global Remote
+- Social:
+  - X / Twitter: https://x.com/mark2_in
+  - LinkedIn: https://www.linkedin.com/company/mark2-technologies
+  - GitHub: https://github.com/aadityaexe/mark

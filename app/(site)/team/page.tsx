@@ -33,6 +33,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 export default async function TeamPage() {
   const teamData = await getTeamData();
 
@@ -45,11 +47,37 @@ export default async function TeamPage() {
     ],
   };
 
+  const teamSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "MARK Technologies Engineering Team",
+    itemListElement: (teamData || []).map((m: any, idx: number) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      item: {
+        "@type": "Person",
+        name: m.name,
+        jobTitle: m.role,
+        image: m.photo || undefined,
+        worksFor: {
+          "@type": "Organization",
+          name: "MARK Technologies",
+          url: siteUrl,
+        },
+        url: `${siteUrl}/team/${m.slug}`,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(teamSchema) }}
       />
       <TeamSection teamData={teamData} headingTag="h1" />
     </>

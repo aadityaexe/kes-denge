@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -121,10 +122,12 @@ export function ProductsSection({
               >
                 <Parallax speed={1.05} className="aspect-[4/3] rounded-[var(--radius-lg)] bg-surface-2 border border-[var(--color-border)] overflow-hidden relative group">
                   {product.images && product.images.length > 0 ? (
-                    <img 
+                    <Image 
                       src={product.images[0]} 
-                      alt={`${product.name} interface`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt={`Architecture and user interface preview for ${product.name} enterprise platform`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : (
                     <>

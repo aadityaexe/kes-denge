@@ -36,6 +36,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 export default async function PricingPage() {
   const [pricingData, faqsData] = await Promise.all([
     getPricingData(),
@@ -51,11 +53,41 @@ export default async function PricingPage() {
     ],
   };
 
+  const pricingOffersSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "MARK Technologies Engineering Pricing Tiers",
+    itemListElement: (pricingData || []).map((tier: any, idx: number) => {
+      const rawPrice = String(tier.price || "").replace(/[^0-9]/g, "");
+      const numericPrice = rawPrice ? parseInt(rawPrice, 10) : 0;
+      return {
+        "@type": "ListItem",
+        position: idx + 1,
+        item: {
+          "@type": "Product",
+          name: `MARK Technologies ${tier.name} Package`,
+          description: tier.description || `MARK Technologies ${tier.name} engineering tier.`,
+          offers: {
+            "@type": "Offer",
+            price: numericPrice > 0 ? numericPrice : "25000",
+            priceCurrency: "INR",
+            availability: "https://schema.org/InStock",
+            url: `${siteUrl}/pricing`,
+          },
+        },
+      };
+    }),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingOffersSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}
@@ -70,6 +102,11 @@ export default async function PricingPage() {
             badge="Plans & Pricing"
             align="center"
           />
+          <div className="max-w-3xl mx-auto mt-6 text-center">
+            <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
+              MARK Technologies offers transparent engineering pricing in Indian Rupees (INR). Our Starter website package begins at ₹25,000 for standard 5-page custom-coded web architectures. Growth packages start at ₹75,000 for complex SaaS applications and mobile platforms, and Enterprise retainers are tailored for high-throughput ERP systems and dedicated engineering pods.
+            </p>
+          </div>
         </div>
       </div>
       

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getBlogsData } from "@/lib/db-helpers";
 import { Parallax } from "@/components/ui/Parallax";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ArrowUpRight, Clock, Tag } from "lucide-react";
+
+export const revalidate = 3600;
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -83,10 +86,12 @@ export default async function BlogPage() {
                   {/* Featured image or gradient placeholder */}
                   <div className={`relative w-full bg-gradient-to-br from-surface-2 to-[var(--color-accent)]/5 overflow-hidden ${index === 0 ? "h-64 sm:h-80" : "h-48"}`}>
                     {post.featuredImage ? (
-                      <img
+                      <Image
                         src={post.featuredImage}
-                        alt={post.title}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        alt={`Featured graphic for ${post.title}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">

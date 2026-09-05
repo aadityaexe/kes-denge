@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Button } from "@/components/ui/Button";
@@ -80,6 +80,20 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
   const email = settingsData?.contactEmail || "hello@mark2.in";
   const phone = settingsData?.contactPhone || "";
   const address = settingsData?.address || "Mumbai, India & Global Remote";
+
+  // Check URL query parameters for fallback POST results
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("submitted") === "true") {
+        setSuccess(true);
+      }
+      const err = params.get("error");
+      if (err) {
+        setError(decodeURIComponent(err));
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -174,6 +188,8 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
           <div className={`transition-all duration-[var(--transition-slow)] delay-300 w-full max-w-xl mx-auto lg:mx-0 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
             <div className="relative group w-full">
               <form 
+                action="/api/contact"
+                method="POST"
                 className="relative bg-surface-1 border border-[var(--color-border)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 shadow-sm overflow-hidden w-full"
                 onSubmit={handleSubmit}
               >
@@ -207,6 +223,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                     <input 
                       type="text" 
                       id="name" 
+                      name="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
@@ -222,6 +239,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                     <input 
                       type="email" 
                       id="email" 
+                      name="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@company.com"
@@ -238,6 +256,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                     </label>
                     <CustomSelect
                       id="project"
+                      name="projectType"
                       value={formData.projectType}
                       onChange={(val) => setFormData({ ...formData, projectType: val })}
                       options={[
@@ -256,6 +275,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                     </label>
                     <CustomSelect
                       id="budget"
+                      name="budgetRange"
                       value={formData.budgetRange}
                       onChange={(val) => setFormData({ ...formData, budgetRange: val })}
                       options={[
@@ -275,6 +295,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                   </label>
                   <textarea 
                     id="details" 
+                    name="message"
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -287,6 +308,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                 <Button 
                   type="submit" 
                   disabled={loading}
+                  aria-label="Submit project inquiry form"
                   className="w-full justify-center h-12 sm:h-14 text-sm sm:text-base rounded-full bg-text-primary text-white hover:bg-text-secondary" 
                   size="lg"
                 >

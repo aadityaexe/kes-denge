@@ -17,7 +17,7 @@ function Stat({ label, value, suffix, index }: { label: string; value: number; s
   const { ref, displayValue } = useCountUp({ end: value, duration: 2000 });
 
   return (
-    <div className="stat-item flex flex-col gap-1 opacity-0 translate-y-4">
+    <div className="stat-item flex flex-col gap-1">
       <div ref={ref} className="text-display-md font-bold text-text-primary font-display">
         {displayValue}{suffix}
       </div>
@@ -113,7 +113,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
       // Fallback timer in case preloader was skipped or event missed
       const fallback = setTimeout(() => {
         runHeroAnimation();
-      }, 2600);
+      }, 500);
 
       return () => {
         window.removeEventListener("mark:preloader-reveal", handlePreloaderReveal);
@@ -124,7 +124,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
 
   return (
     <section 
-      ref={sectionRef}
+      ref={sectionRef} 
       className="relative min-h-screen flex items-center pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 overflow-hidden border-b border-[var(--color-border)]"
     >
       {/* Background Parallax Elements */}
@@ -139,7 +139,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
       <Parallax speed={1.1} className="container-site relative z-10 w-full flex flex-col items-center text-center">
         <div className="max-w-4xl w-full">
           
-          <div ref={badgeRef} className="mb-4 sm:mb-8 inline-flex items-center gap-2 px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full border border-[var(--color-border)] bg-surface-1/50 backdrop-blur-md opacity-0">
+          <div ref={badgeRef} className="mb-4 sm:mb-8 inline-flex items-center gap-2 px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full border border-[var(--color-border)] bg-surface-1/50 backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
@@ -149,7 +149,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
 
           <h1 
             ref={headlineRef}
-            className="font-display text-[clamp(2.25rem,6.5vw,7.5rem)] text-text-primary tracking-tight mb-6 sm:mb-8 leading-[1.04] opacity-0 break-words"
+            className="font-display text-[clamp(2.25rem,6.5vw,7.5rem)] text-text-primary tracking-tight mb-6 sm:mb-8 leading-[1.04] break-words"
           >
             {headlineText.includes(".") ? (
               <>
@@ -163,14 +163,14 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
           
           <p 
             ref={copyRef}
-            className="text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 opacity-0 font-light leading-relaxed px-2"
+            className="text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 font-light leading-relaxed px-2"
           >
             {subheadlineText}
           </p>
           
           <div 
             ref={buttonsRef}
-            className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 opacity-0 w-full"
+            className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 w-full"
           >
             <Button size="lg" href={ctaPrimaryHref} className="rounded-full px-6 sm:px-8 bg-text-primary text-white hover:bg-text-secondary w-full sm:w-auto">
               {ctaPrimaryText}

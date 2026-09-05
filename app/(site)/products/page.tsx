@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 export default async function ProductsPage() {
   const productsData = await getProductsData();
 
@@ -47,11 +49,33 @@ export default async function ProductsPage() {
     ],
   };
 
+  const productListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "MARK Technologies Enterprise Platforms & Software Products",
+    itemListElement: (productsData || []).map((p: any, idx: number) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      item: {
+        "@type": "SoftwareApplication",
+        name: p.name,
+        description: p.description || p.tagline,
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Cloud, Web",
+        url: `${siteUrl}/products/${p.slug}`,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productListSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}
@@ -66,6 +90,11 @@ export default async function ProductsPage() {
             badge="Products"
             align="center"
           />
+          <div className="max-w-3xl mx-auto mt-6 text-center">
+            <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
+              MARK Technologies develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC).
+            </p>
+          </div>
         </div>
       </div>
       

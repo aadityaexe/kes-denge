@@ -113,12 +113,24 @@ export async function POST(req: NextRequest) {
         height = cloudinaryResult.height;
       } catch (cloudinaryError: unknown) {
         const msg = cloudinaryError instanceof Error ? cloudinaryError.message : "Unknown";
-        console.warn("Cloudinary upload failed, falling back to local storage:", msg);
+        console.error("[Upload] Cloudinary upload failed:", msg);
+
+        // In production the Vercel filesystem is ephemeral — files written to disk
+        // disappear on redeploy or across function instances. Fail loudly rather
+        // than silently accepting a file that will be lost.
+        if (process.env.NODE_ENV === "production") {
+          return NextResponse.json(
+            { error: "Media upload failed. Please try again or contact the administrator." },
+            { status: 503 }
+          );
+        }
+
+        // Development only: fall back to local disk
+        console.warn("[Upload] Falling back to local disk storage (development only).");
       }
     }
 
-    // Fallback to local storage if Cloudinary not configured or failed
-    // (only reached in development — production is blocked above)
+    // Fallback to local storage (development only — production blocked above)
     if (!publicUrl) {
       const uploadDir = path.join(process.cwd(), "public", "uploads");
       await mkdir(uploadDir, { recursive: true });

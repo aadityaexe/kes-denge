@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 export default async function ServicesPage() {
   const servicesData = await getServicesData();
 
@@ -47,11 +49,37 @@ export default async function ServicesPage() {
     ],
   };
 
+  const serviceListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "MARK Technologies Engineering Services",
+    description: "Production-grade software engineering, ERP architectures, mobile applications, and AI automation systems.",
+    itemListElement: (servicesData || []).map((s: any, idx: number) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      item: {
+        "@type": "Service",
+        name: s.title || s.name,
+        description: s.shortDescription || s.tagline || s.description,
+        provider: {
+          "@type": "Organization",
+          name: "MARK Technologies",
+          url: siteUrl,
+        },
+        url: `${siteUrl}/services/${s.slug}`,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceListSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}
@@ -66,6 +94,11 @@ export default async function ServicesPage() {
             badge="Our Services"
             align="center"
           />
+          <div className="max-w-3xl mx-auto mt-6 text-center">
+            <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
+              MARK Technologies provides full-lifecycle product engineering services across custom web applications, cross-platform mobile apps (React Native, iOS, Android), enterprise ERP systems, and autonomous AI agents. Every system is built on modern microservices and modular architectures with automated CI/CD and direct senior engineering oversight.
+            </p>
+          </div>
         </div>
       </div>
       

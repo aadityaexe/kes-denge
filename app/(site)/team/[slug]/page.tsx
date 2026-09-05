@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { getTeamMemberBySlug, getTeamData } from "@/lib/db-helpers";
 import { Badge } from "@/components/ui/Badge";
 import { Link as LinkIcon, Globe, MessageSquare, ArrowLeft, Calendar, Award, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const members = await getTeamData();
@@ -91,11 +94,35 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
     ],
   };
 
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: member.name,
+    jobTitle: member.role,
+    worksFor: {
+      "@type": "Organization",
+      name: "MARK Technologies",
+      url: siteUrl,
+    },
+    url: memberUrl,
+    image: member.photo || undefined,
+    description: member.bio || undefined,
+    sameAs: [
+      member.socialLinks?.linkedin,
+      member.socialLinks?.github,
+      member.socialLinks?.twitter,
+    ].filter(Boolean),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 min-h-screen">
         <div className="container-site max-w-4xl">
@@ -106,9 +133,16 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-12 items-start">
           {/* Left Column - Profile Card */}
           <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-lg)] p-5 sm:p-6 md:p-8 text-center sticky top-28 md:top-32">
-            <div className="w-32 h-32 mx-auto rounded-full bg-surface-2 mb-6 flex items-center justify-center text-text-muted text-4xl font-bold uppercase overflow-hidden border-2 border-surface-2">
+            <div className="relative w-32 h-32 mx-auto rounded-full bg-surface-2 mb-6 flex items-center justify-center text-text-muted text-4xl font-bold uppercase overflow-hidden border-2 border-surface-2">
               {member.photo ? (
-                <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+                <Image
+                  src={member.photo}
+                  alt={`Portrait of ${member.name}, ${member.role} at MARK Technologies`}
+                  fill
+                  priority
+                  sizes="128px"
+                  className="object-cover"
+                />
               ) : (
                 member.name.substring(0, 2)
               )}

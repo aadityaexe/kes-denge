@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
+
+export const revalidate = 3600;
 import {
   getClientBySlug,
   getClientsData,
@@ -203,12 +206,15 @@ export default async function ClientDetailPage({
           <div className="rounded-3xl border border-[var(--color-border)] bg-surface-1/90 backdrop-blur-xl p-5 sm:p-8 md:p-12 mb-8 sm:mb-10 shadow-sm relative overflow-hidden">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 pb-6 sm:pb-8 border-b border-[var(--color-border)]">
               <div className="flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-5 min-w-0">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-xl sm:text-2xl md:text-3xl text-text-primary shadow-sm overflow-hidden p-2 shrink-0">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-xl sm:text-2xl md:text-3xl text-text-primary shadow-sm overflow-hidden p-2 shrink-0">
                   {client.logoUrl ? (
-                    <img
+                    <Image
                       src={client.logoUrl}
-                      alt={client.name}
-                      className="w-full h-full object-contain"
+                      alt={`${client.name} corporate logo`}
+                      fill
+                      priority
+                      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 96px"
+                      className="object-contain p-2"
                     />
                   ) : (
                     <span>{initialLetters}</span>

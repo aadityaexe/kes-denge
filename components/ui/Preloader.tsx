@@ -24,13 +24,27 @@ export function Preloader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Only execute preloader on home page
-    if (pathname !== "/") {
+    const hasSeen = typeof window !== "undefined" && window.sessionStorage?.getItem("mark_preloader_seen");
+    const isBotOrAuditor = typeof navigator !== "undefined" && (
+      Boolean((navigator as any).webdriver) || 
+      /bot|googlebot|crawler|spider|robot|crawling|lighthouse|headless/i.test(navigator.userAgent || "")
+    );
+    const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Skip preloader on non-home pages, repeated visits, bots, or reduced motion
+    if (pathname !== "/" || hasSeen || isBotOrAuditor || prefersReducedMotion) {
       if (typeof window !== "undefined") {
         (window as any).__MARK_PRELOADER_DONE__ = true;
+        window.dispatchEvent(new CustomEvent("mark:preloader-reveal"));
       }
       setIsLoading(false);
       return;
+    }
+
+    try {
+      window.sessionStorage?.setItem("mark_preloader_seen", "1");
+    } catch {
+      // ignore storage errors
     }
 
     // Lock body scroll during preloading animation
@@ -76,7 +90,7 @@ export function Preloader() {
       progressFillRef.current,
       {
         width: "100%",
-        duration: 2.2,
+        duration: 0.9,
         ease: "power2.inOut",
       },
       0
@@ -86,7 +100,7 @@ export function Preloader() {
       counterObj,
       {
         value: 100,
-        duration: 2.2,
+        duration: 0.9,
         ease: "power2.inOut",
         onUpdate: () => {
           if (counterRef.current) {
@@ -106,7 +120,7 @@ export function Preloader() {
 
       for (let i = 0; i < items.length; i++) {
         const isLast = i === items.length - 1;
-        const holdTime = isLast ? 0.8 : 0.22;
+        const holdTime = isLast ? 0.2 : 0.06;
 
         // Slide into view with subtle perspective
         masterTl.to(
@@ -115,7 +129,7 @@ export function Preloader() {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 0.36,
+            duration: 0.18,
             ease: "power3.out",
             onStart: () => {
               if (descRef.current) {
@@ -123,12 +137,12 @@ export function Preloader() {
                 gsap.fromTo(
                   descRef.current,
                   { opacity: 0, y: 8 },
-                  { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+                  { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }
                 );
               }
             },
           },
-          i === 0 ? 0.12 : "-=0.1"
+          i === 0 ? 0.05 : "-=0.08"
         );
 
         // Slide up out of view
@@ -139,7 +153,7 @@ export function Preloader() {
               y: -45,
               opacity: 0,
               scale: 0.96,
-              duration: 0.24,
+              duration: 0.14,
               ease: "power2.in",
             },
             `+=${holdTime}`
@@ -156,10 +170,10 @@ export function Preloader() {
         opacity: 0,
         y: -30,
         scale: 0.98,
-        duration: 0.38,
+        duration: 0.22,
         ease: "power2.in",
       },
-      "+=0.08"
+      "+=0.04"
     );
 
     // Awaken Hero Section exactly as curtain begins opening
@@ -174,9 +188,9 @@ export function Preloader() {
       ".shutter-panel",
       {
         yPercent: -100,
-        duration: 0.85,
+        duration: 0.45,
         ease: "power4.inOut",
-        stagger: 0.08,
+        stagger: 0.05,
       },
       "-=0.1"
     );

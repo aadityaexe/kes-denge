@@ -11,6 +11,7 @@ export interface Option {
 
 interface CustomSelectProps {
   id?: string;
+  name?: string;
   options: Option[];
   value: string;
   onChange: (value: string) => void;
@@ -20,6 +21,7 @@ interface CustomSelectProps {
 
 export function CustomSelect({
   id,
+  name,
   options,
   value,
   onChange,
@@ -54,6 +56,7 @@ export function CustomSelect({
 
   return (
     <div ref={containerRef} className={`relative w-full ${className}`}>
+      {name && <input type="hidden" name={name} value={value} id={id ? `${id}-input` : undefined} />}
       {/* Trigger Button */}
       <button
         type="button"

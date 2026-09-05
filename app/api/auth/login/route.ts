@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
     const ipRate = await checkRateLimit(`login-ip:${ip}`, 10, 15 * 60 * 1000);
     if (!ipRate.allowed) {
       const retrySec = Math.ceil((ipRate.retryAfterMs || 60000) / 1000);
+      console.warn(`[Auth] IP rate-limited login attempt from ${ip}`);
       return NextResponse.json(
         { error: `Too many login attempts from this IP. Please try again in ${retrySec} seconds.` },
         { status: 429, headers: { "Retry-After": String(retrySec) } }
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
     const { email, password } = body;
 
     if (!isValidEmail(email) || !isNonEmptyString(password, 200)) {
+      console.warn(`[Auth] Login attempt with invalid format from ${ip}`);
       return NextResponse.json({ error: "Invalid email or password format" }, { status: 400 });
     }
 
@@ -46,6 +48,7 @@ export async function POST(req: NextRequest) {
     const accountRate = await checkRateLimit(`login-acct:${normalizedEmail}`, 5, 15 * 60 * 1000);
     if (!accountRate.allowed) {
       const retrySec = Math.ceil((accountRate.retryAfterMs || 60000) / 1000);
+      console.warn(`[Auth] Account locked due to repeated failures: ${normalizedEmail} from ${ip}`);
       return NextResponse.json(
         { error: `Account locked temporarily due to multiple failed attempts. Try again in ${retrySec} seconds.` },
         { status: 429, headers: { "Retry-After": String(retrySec) } }
@@ -60,16 +63,19 @@ export async function POST(req: NextRequest) {
       // Always run bcrypt even when no user exists so both code paths take
       // comparable time — prevents email enumeration via response-timing.
       await bcrypt.compare(password, DUMMY_HASH);
+      console.warn(`[Auth] Failed login — unknown account: ${normalizedEmail} from ${ip}`);
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
     const isMatch = await bcrypt.compare(password, user.passwordHash);
 
     if (!isMatch) {
+      console.warn(`[Auth] Failed login — wrong password: ${normalizedEmail} from ${ip}`);
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
     // Create session
+    console.log(`[Auth] Successful login: ${user.email} (role: ${user.role}) from ${ip}`);
     const sessionToken = await encrypt({
       userId: user._id.toString(),
       email: user.email,

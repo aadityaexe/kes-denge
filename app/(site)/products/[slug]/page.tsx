@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, getProductsData } from "@/lib/db-helpers";
 import { Product } from "@/lib/types";
 import { Metadata } from "next";
+
+export const revalidate = 3600;
 import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/Button";

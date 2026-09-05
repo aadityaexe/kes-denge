@@ -12,6 +12,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+export const revalidate = 3600;
+
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -31,10 +32,12 @@ function PortfolioCard({ item, index, isLarge }: { item: any, index: number, isL
       >
         {/* Background Image / Gradient Placeholder */}
         {item.coverImage || item.thumbnail ? (
-          <img 
+          <Image 
             src={item.coverImage || item.thumbnail} 
-            alt={item.title} 
-            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 z-0" 
+            alt={`${item.title} project screenshot`} 
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105 z-0" 
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-surface-1 to-surface-2 transition-transform duration-700 group-hover:scale-105 z-0" />

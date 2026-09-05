@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Service from "@/models/Service";
-import { safeErrorMessage } from "@/lib/validation";
+import { safeErrorMessage, isValidSlug } from "@/lib/validation";
 
 export async function GET(req: NextRequest) {
   const auth = await requireAdminSession();
@@ -53,15 +53,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required service fields" }, { status: 400 });
     }
 
+    const normalizedSlug = slug.toLowerCase().trim().replace(/\s+/g, "-");
+    if (!isValidSlug(normalizedSlug)) {
+      return NextResponse.json({ error: "Invalid slug format. Use only lowercase letters, numbers, and hyphens." }, { status: 400 });
+    }
+
     await connectToDatabase();
-    const existing = await Service.findOne({ slug });
+    const existing = await Service.findOne({ slug: normalizedSlug });
     if (existing) {
       return NextResponse.json({ error: "A service with this slug already exists" }, { status: 400 });
     }
 
     const service = await Service.create({
       title,
-      slug: slug.toLowerCase().trim().replace(/\s+/g, "-"),
+      slug: normalizedSlug,
       tagline: tagline || "",
       heroBadge: heroBadge || "ENGINEERING & DEVELOPMENT",
       icon: icon || "Globe",

@@ -5,6 +5,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { getSettingsData } from "@/lib/db-helpers";
 
+export const revalidate = 3600;
+
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {

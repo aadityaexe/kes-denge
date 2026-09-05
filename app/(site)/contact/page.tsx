@@ -33,6 +33,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 export default async function ContactPage() {
   const settingsData = await getSettingsData();
 
@@ -45,11 +47,34 @@ export default async function ContactPage() {
     ],
   };
 
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact MARK Technologies",
+    description: "Inquire about new software engineering, web application, mobile app, and ERP projects.",
+    url: `${siteUrl}/contact`,
+    mainEntity: {
+      "@type": "Organization",
+      name: "MARK Technologies",
+      url: siteUrl,
+      email: settingsData?.contactEmail || "hello@mark2.in",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "sales and engineering inquiry",
+        email: settingsData?.contactEmail || "hello@mark2.in",
+      },
+    },
+  };
+
   return (
     <div className="pt-20 sm:pt-24 md:pt-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
       />
       <ContactSection settingsData={settingsData} headingTag="h1" />
     </div>

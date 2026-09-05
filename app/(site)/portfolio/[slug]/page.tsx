@@ -6,6 +6,8 @@ import {
   getServicesBySlugs,
 } from "@/lib/db-helpers";
 import { PortfolioItem, Service } from "@/lib/types";
+
+export const revalidate = 3600;
 import { PortfolioHero } from "@/components/portfolio/PortfolioHero";
 import { PortfolioVisualShowcase } from "@/components/portfolio/PortfolioVisualShowcase";
 import { PortfolioChallengeSolution } from "@/components/portfolio/PortfolioChallengeSolution";
@@ -133,21 +135,28 @@ export default async function PortfolioDetailPage({
   // Structured Data (Schema.org CreativeWork / SoftwareApplication)
   const projectSchema = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": ["CreativeWork", "SoftwareApplication"],
     name: project.title,
+    headline: project.oneLiner || project.title,
     description: project.shortDescription || project.oneLiner,
     applicationCategory: project.category,
     operatingSystem: "Web, Cloud, Cross-Platform",
+    datePublished: project.launchDate || (project.createdAt ? new Date(project.createdAt).toISOString() : "2025-01-01"),
+    customer: project.clientName ? {
+      "@type": "Organization",
+      name: project.clientName,
+    } : undefined,
     provider: {
       "@type": "Organization",
       name: "MARK Technologies",
       url: siteUrl,
-      logo: `${siteUrl}/logo.png`,
+      logo: `${siteUrl}/opengraph-image`,
     },
     url: pageUrl,
     author: {
       "@type": "Organization",
       name: "MARK Technologies",
+      url: siteUrl,
     },
   };
 

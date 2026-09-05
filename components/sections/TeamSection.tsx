@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Link from "next/link";
@@ -24,18 +25,17 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
 
     gsap.fromTo(
       gridRef.current.children,
-      { y: 50, opacity: 0 },
+      { y: 30, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
-          toggleActions: "play reverse play reverse",
-        }
+          start: "top 80%",
+        },
       }
     );
   }, [activeMembers.length]);
@@ -43,10 +43,10 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
   if (activeMembers.length === 0) return null;
 
   return (
-    <section ref={sectionRef} id="team" className="section-padding pt-24 sm:pt-28 md:pt-36 bg-base relative overflow-hidden">
-      {/* Background Parallax Orb */}
+    <section ref={sectionRef} className="section-padding bg-background border-t border-[var(--color-border)] relative overflow-hidden">
+      {/* Background Parallax Element */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        <Parallax speed={0.6} className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] rounded-full bg-gradient-to-tr from-[var(--color-accent)]/5 to-transparent blur-[120px]" />
+        <Parallax speed={0.9} className="absolute top-1/3 -right-1/4 w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-gradient-to-bl from-[var(--color-accent)]/5 to-transparent blur-[100px]" />
       </div>
 
       <div className="container-site relative z-10">
@@ -63,9 +63,15 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
             <Link key={member.slug || member._id || index} href={`/team/${member.slug}`}>
               <div className="group relative h-full flex flex-col p-5 sm:p-6 md:p-8 rounded-2xl bg-surface-1 border border-[var(--color-border)] overflow-hidden transition-all duration-500 hover:border-black/20 hover:bg-surface-2">
                 {/* Image / Avatar */}
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-black/5 mb-4 sm:mb-6 flex items-center justify-center text-text-muted/50 text-xl sm:text-2xl font-bold uppercase overflow-hidden border-2 border-transparent group-hover:border-[var(--color-accent-light)] transition-colors duration-500">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-black/5 mb-4 sm:mb-6 flex items-center justify-center text-text-muted/50 text-xl sm:text-2xl font-bold uppercase overflow-hidden border-2 border-transparent group-hover:border-[var(--color-accent-light)] transition-colors duration-500">
                   {member.photo ? (
-                    <img src={member.photo} alt={member.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <Image
+                      src={member.photo}
+                      alt={`Portrait of ${member.name}, ${member.role || 'Engineer'} at MARK Technologies`}
+                      fill
+                      sizes="(max-width: 640px) 80px, 96px"
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    />
                   ) : (
                     member.name.substring(0, 2)
                   )}

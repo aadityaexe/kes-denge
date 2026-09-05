@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getBlogsData, getBlogBySlug } from "@/lib/db-helpers";
 import { Parallax } from "@/components/ui/Parallax";
 import { ArrowLeft, ArrowRight, Clock, Tag, Calendar } from "lucide-react";
 import type { Metadata } from "next";
+
+export const revalidate = 3600;
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -156,8 +159,15 @@ export default async function BlogPostPage({
       {/* Featured Image */}
       {post.featuredImage && (
         <div className="container-site max-w-4xl py-8">
-          <div className="w-full rounded-2xl overflow-hidden border border-[var(--color-border)]">
-            <img src={post.featuredImage} alt={post.title} className="w-full h-auto object-cover max-h-[500px]" />
+          <div className="relative w-full aspect-[16/9] max-h-[500px] rounded-2xl overflow-hidden border border-[var(--color-border)]">
+            <Image
+              src={post.featuredImage}
+              alt={`Featured visual for ${post.title}`}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 896px"
+              className="object-cover"
+            />
           </div>
         </div>
       )}

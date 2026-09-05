@@ -31,12 +31,32 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = await req.json();
+    const contentType = req.headers.get("content-type") || "";
+    const isFormSubmit = contentType.includes("application/x-www-form-urlencoded") || contentType.includes("multipart/form-data");
+    let body: any = {};
+
+    if (contentType.includes("application/json")) {
+      body = await req.json();
+    } else if (isFormSubmit) {
+      const formData = await req.formData();
+      body = Object.fromEntries(formData.entries());
+    } else {
+      try {
+        body = await req.json();
+      } catch {
+        const formData = await req.formData();
+        body = Object.fromEntries(formData.entries());
+      }
+    }
+
     const { name, email, phone, projectType, budgetRange, message, honeypot } = body;
 
     // Honeypot check (bot traps)
     if (honeypot) {
       // Silently accept without saving
+      if (isFormSubmit) {
+        return NextResponse.redirect(new URL("/contact?submitted=true", req.url), 303);
+      }
       return NextResponse.json(
         { success: true, message: "Inquiry received successfully. We will get back to you shortly!" },
         { status: 201 }
@@ -45,14 +65,23 @@ export async function POST(req: NextRequest) {
 
     // 2. Strict Validation
     if (!isNonEmptyString(name, 100)) {
+      if (isFormSubmit) {
+        return NextResponse.redirect(new URL("/contact?error=Please+enter+a+valid+name", req.url), 303);
+      }
       return NextResponse.json({ error: "Please enter a valid name (up to 100 characters)." }, { status: 400 });
     }
 
     if (!isValidEmail(email)) {
+      if (isFormSubmit) {
+        return NextResponse.redirect(new URL("/contact?error=Please+enter+a+valid+email+address", req.url), 303);
+      }
       return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
     if (!isNonEmptyString(message, 5000)) {
+      if (isFormSubmit) {
+        return NextResponse.redirect(new URL("/contact?error=Message+is+required", req.url), 303);
+      }
       return NextResponse.json({ error: "Message is required (up to 5,000 characters)." }, { status: 400 });
     }
 
@@ -81,6 +110,10 @@ export async function POST(req: NextRequest) {
 
     console.log(`[Contact] Inquiry saved with ID: ${newMessage._id}. Configured recipient: ${destinationEmail}`);
 
+    if (isFormSubmit) {
+      return NextResponse.redirect(new URL("/contact?submitted=true", req.url), 303);
+    }
+
     return NextResponse.json(
       {
         success: true,
@@ -90,8 +123,13 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error: unknown) {
+    const errorMsg = safeErrorMessage(error, "Failed to submit inquiry. Please try again.");
+    const contentType = req.headers.get("content-type") || "";
+    if (contentType.includes("application/x-www-form-urlencoded") || contentType.includes("multipart/form-data")) {
+      return NextResponse.redirect(new URL(`/contact?error=${encodeURIComponent(errorMsg)}`, req.url), 303);
+    }
     return NextResponse.json(
-      { error: safeErrorMessage(error, "Failed to submit inquiry. Please try again.") },
+      { error: errorMsg },
       { status: 500 }
     );
   }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -25,16 +26,22 @@ export function TestimonialsSection({ testimonialsData = [] }: TestimonialsSecti
       // Clone items for infinite scroll
       const items = Array.from(track.children);
       items.forEach(item => {
-        const clone = item.cloneNode(true);
-        track.appendChild(clone);
+        track.appendChild(item.cloneNode(true));
       });
-      // Animate the track
-      gsap.to(track, {
-        xPercent: -50,
+
+      const totalWidth = track.scrollWidth / 2;
+
+      const anim = gsap.to(track, {
+        x: -totalWidth,
+        duration: 35,
         ease: "none",
-        duration: 30,
         repeat: -1,
       });
+
+      // Pause on hover
+      track.addEventListener("mouseenter", () => anim.pause());
+      track.addEventListener("mouseleave", () => anim.play());
+      
       // Reveal animation
       gsap.fromTo(
         sectionRef.current,
@@ -58,29 +65,24 @@ export function TestimonialsSection({ testimonialsData = [] }: TestimonialsSecti
   if (list.length === 0) return null;
 
   return (
-    <section ref={sectionRef} id="testimonials" className="section-padding bg-surface-1 border-t border-[var(--color-border)] relative overflow-hidden">
-      {/* Background Parallax Orb */}
+    <section ref={sectionRef} id="testimonials" className="section-padding bg-base border-t border-[var(--color-border)] overflow-hidden relative">
+      {/* Background Parallax Element */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        <Parallax speed={0.9} className="absolute top-1/4 -left-1/4 w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-tr from-[var(--color-accent)]/10 to-transparent blur-[120px]" />
+        <Parallax speed={0.7} className="absolute bottom-1/4 -left-1/4 w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-gradient-to-tr from-[var(--color-accent)]/5 to-transparent blur-[100px]" />
       </div>
 
-      <div className="container-site relative z-10 mb-4 md:mb-6">
+      <div className="container-site relative z-10 mb-8 sm:mb-12">
         <SectionHeading
-          title="Client Feedback"
-          subtitle="Don't just take our word for it. See what our partners have to say."
+          title="Endorsed by industry leaders."
+          subtitle="Real reviews from enterprise founders, CTOs, and product directors who build with us."
           badge="Testimonials"
           align="center"
         />
       </div>
 
-      {/* Auto-sliding track */}
-      <div className="relative w-full flex overflow-hidden">
-        
-        {/* Left & Right Fade Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 bg-gradient-to-r from-surface-1 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 bg-gradient-to-l from-surface-1 to-transparent z-10 pointer-events-none" />
-        
-        <div ref={trackRef} className="flex gap-4 sm:gap-6 px-4 sm:px-6">
+      {/* Infinite Horizontal Marquee */}
+      <div className="w-full overflow-hidden flex [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div ref={trackRef} className="flex gap-6 w-max">
           {list.map((t: any, i: number) => (
             <div 
               key={t._id || t.id || i} 
@@ -97,11 +99,17 @@ export function TestimonialsSection({ testimonialsData = [] }: TestimonialsSecti
               </div>
               
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-black/5 overflow-hidden shrink-0">
+                <div className="relative w-12 h-12 rounded-full bg-black/5 overflow-hidden shrink-0">
                   {t.photo || t.clientAvatar ? (
-                    <img src={t.photo || t.clientAvatar} alt={t.clientName} className="w-full h-full object-cover" />
+                    <Image
+                      src={t.photo || t.clientAvatar}
+                      alt={`Portrait of ${t.clientName}, ${t.company || t.clientRole || 'Client'}`}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-text-muted/50 font-bold uppercase">{t.clientName?.substring(0,2) || "KD"}</div>
+                    <div className="w-full h-full flex items-center justify-center text-text-muted/50 font-bold uppercase">{t.clientName?.substring(0,2) || "MK"}</div>
                   )}
                 </div>
                 <div>

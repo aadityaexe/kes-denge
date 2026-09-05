@@ -36,37 +36,27 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 export default async function PortfolioPage() {
   const [portfolioData, testimonialsData] = await Promise.all([
     getPortfolioData(),
     getTestimonialsData(),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
-
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Portfolio",
-        item: `${siteUrl}/portfolio`,
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/portfolio` },
     ],
   };
 
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "MARK Technologies Portfolio",
+    name: "MARK Technologies Portfolio & Case Studies",
     description: "Production case studies and software engineering deployments.",
     url: `${siteUrl}/portfolio`,
     provider: {
@@ -99,6 +89,11 @@ export default async function PortfolioPage() {
             badge="Our Work"
             align="center"
           />
+          <div className="max-w-3xl mx-auto mt-6 text-center">
+            <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
+              MARK Technologies has engineered and deployed full-stack software solutions including the 16-module EduVeera Education ERP, Bharat Bhoomi Real Estate & Land Management engine, and Keshera Industry Custom Manufacturing ERP. Every project delivers measurable operational efficiency, 99.9% uptime, and audited web security.
+            </p>
+          </div>
         </div>
       </div>
       

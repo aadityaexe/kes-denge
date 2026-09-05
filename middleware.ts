@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { decrypt } from "@/lib/auth";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // Protect /admin and /api/admin routes (except login page)
@@ -30,7 +30,7 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Add security headers to all responses
+  // Add security headers to ALL responses (was previously admin-only)
   const response = NextResponse.next();
 
   // ---- Existing headers (unchanged) ----
@@ -55,8 +55,14 @@ export async function proxy(request: NextRequest) {
   // Image hosts match next.config.ts remotePatterns (Cloudinary, Unsplash, placehold.co).
   // 'unsafe-inline' for script-src is required for Next.js hydration chunks and
   // JSON-LD <script> tags. A nonce-based approach would require streaming changes
-  // and is deferred. 'unsafe-inline' for style-src is required for Tailwind/CSS-in-JS.
+  // and is deferred — see TODO below.
+  // 'unsafe-inline' for style-src is required for Tailwind/CSS-in-JS.
   // frame-ancestors 'none' reinforces X-Frame-Options: DENY.
+  //
+  // TODO(security): Migrate script-src to nonce-based CSP (Next.js App Router
+  // supports per-request nonces via generateNonce()). This eliminates the blanket
+  // 'unsafe-inline' allowance. Blocked by: hydration chunk compatibility testing.
+  // Track at: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
   const csp = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline'",
@@ -79,5 +85,9 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  // Apply to all routes except Next.js internals and static assets.
+  // Auth gating is handled inside the middleware function above.
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff|woff2|ttf|otf)$).*)",
+  ],
 };
