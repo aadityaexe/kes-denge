@@ -14,6 +14,8 @@ const navItems: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Clients", href: "/clients" },
+  { label: "Team", href: "/team" },
   { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
 ];
@@ -44,7 +46,7 @@ export function Navbar() {
             transition-all duration-500
             rounded-full border border-[var(--color-border)]
             backdrop-blur-xl bg-surface-1/70
-            ${scrolled ? "py-2 px-4 shadow-lg w-full max-w-5xl" : "py-3 px-6 w-full max-w-7xl"}
+            ${scrolled ? "py-2 px-4 shadow-lg w-full max-w-6xl" : "py-3 px-6 w-full max-w-7xl"}
           `}
         >
           {/* Logo */}
@@ -58,7 +60,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden lg:flex items-center gap-1 relative">
+          <ul className="hidden lg:flex items-center gap-0.5 xl:gap-1 relative">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -74,7 +76,7 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={`
-                      relative z-10 px-4 py-2 rounded-full text-[13px] font-medium tracking-wide
+                      relative z-10 px-3 xl:px-4 py-2 rounded-full text-[13px] font-medium tracking-wide
                       transition-colors duration-200
                       ${isActive ? "text-text-primary" : "text-text-secondary hover:text-text-primary"}
                     `}

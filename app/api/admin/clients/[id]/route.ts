@@ -49,9 +49,29 @@ export async function PUT(
 
     const allowedUpdates: Record<string, unknown> = {};
     if (body.name !== undefined) allowedUpdates.name = sanitizeText(body.name, 200);
+    if (body.slug !== undefined) allowedUpdates.slug = sanitizeText(body.slug, 200).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
     if (body.logoUrl !== undefined) allowedUpdates.logoUrl = typeof body.logoUrl === "string" ? body.logoUrl.slice(0, 1000) : "";
     if (body.industry !== undefined) allowedUpdates.industry = sanitizeText(body.industry, 100);
     if (body.website !== undefined) allowedUpdates.website = typeof body.website === "string" ? body.website.slice(0, 1000) : "";
+    if (body.tagline !== undefined) allowedUpdates.tagline = sanitizeText(body.tagline, 500);
+    if (body.description !== undefined) allowedUpdates.description = sanitizeText(body.description, 3000);
+    if (body.aboutPartnership !== undefined) allowedUpdates.aboutPartnership = sanitizeText(body.aboutPartnership, 3000);
+    if (body.servicesProvided !== undefined && Array.isArray(body.servicesProvided)) {
+      allowedUpdates.servicesProvided = body.servicesProvided.map((s: string) => sanitizeText(String(s), 100)).filter(Boolean);
+    }
+    if (body.partnershipYear !== undefined) allowedUpdates.partnershipYear = sanitizeText(body.partnershipYear, 100);
+    if (body.companySize !== undefined) allowedUpdates.companySize = sanitizeText(body.companySize, 100);
+    if (body.location !== undefined) allowedUpdates.location = sanitizeText(body.location, 100);
+    if (body.testimonialQuote !== undefined) allowedUpdates.testimonialQuote = sanitizeText(body.testimonialQuote, 2000);
+    if (body.testimonialAuthor !== undefined) allowedUpdates.testimonialAuthor = sanitizeText(body.testimonialAuthor, 200);
+    if (body.testimonialRole !== undefined) allowedUpdates.testimonialRole = sanitizeText(body.testimonialRole, 200);
+    if (body.keyAchievements !== undefined && Array.isArray(body.keyAchievements)) {
+      allowedUpdates.keyAchievements = body.keyAchievements.map((k: string) => sanitizeText(String(k), 300)).filter(Boolean);
+    }
+    if (body.technologies !== undefined && Array.isArray(body.technologies)) {
+      allowedUpdates.technologies = body.technologies.map((t: string) => sanitizeText(String(t), 100)).filter(Boolean);
+    }
+    if (body.caseStudySlug !== undefined) allowedUpdates.caseStudySlug = sanitizeText(body.caseStudySlug, 200);
     if (body.isFeatured !== undefined) allowedUpdates.isFeatured = Boolean(body.isFeatured);
     if (body.isActive !== undefined) allowedUpdates.isActive = Boolean(body.isActive);
     if (body.order !== undefined) allowedUpdates.order = typeof body.order === "number" ? body.order : 0;

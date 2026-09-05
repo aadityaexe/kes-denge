@@ -1,6 +1,12 @@
 import { MetadataRoute } from 'next';
-import { getPortfolioData, getTeamData, getProductsData, getServicesData } from '@/lib/db-helpers';
-import type { PortfolioItem, TeamMember, Product, Service } from '@/lib/types';
+import {
+  getPortfolioData,
+  getTeamData,
+  getProductsData,
+  getServicesData,
+  getClientsData,
+} from '@/lib/db-helpers';
+import type { PortfolioItem, TeamMember, Product, Service, Client } from '@/lib/types';
 
 export const revalidate = 3600;
 
@@ -14,8 +20,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/services',
     '/products',
     '/portfolio',
-    '/pricing',
+    '/clients',
     '/team',
+    '/pricing',
     '/contact',
   ].map((route: string) => ({
     url: `${baseUrl}${route}`,
@@ -28,13 +35,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let teamUrls: MetadataRoute.Sitemap = [];
   let productUrls: MetadataRoute.Sitemap = [];
   let serviceUrls: MetadataRoute.Sitemap = [];
+  let clientUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const [portfolioItems, teamMembers, products, services] = await Promise.all([
+    const [portfolioItems, teamMembers, products, services, clients] = await Promise.all([
       getPortfolioData(),
       getTeamData(),
       getProductsData(),
       getServicesData(),
+      getClientsData(),
     ]);
 
     portfolioUrls = (portfolioItems || []).map((item: PortfolioItem) => ({
@@ -64,9 +73,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
+
+    clientUrls = (clients || []).map((client: Client) => ({
+      url: `${baseUrl}/clients/${client.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
   } catch (err) {
     console.error("Failed to generate dynamic sitemap URLs during build:", err);
   }
 
-  return [...routes, ...portfolioUrls, ...teamUrls, ...productUrls, ...serviceUrls];
+  return [
+    ...routes,
+    ...portfolioUrls,
+    ...teamUrls,
+    ...productUrls,
+    ...serviceUrls,
+    ...clientUrls,
+  ];
 }

@@ -5,6 +5,7 @@ import {
   getPortfolioData,
   getClientsData,
   getTestimonialsData,
+  getTeamData,
   getPricingData,
   getFAQsData,
   getSettingsData,
@@ -17,6 +18,7 @@ import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { TeamSection } from "@/components/sections/TeamSection";
 import { TechStackSection } from "@/components/sections/TechStackSection";
 import { PricingSection } from "@/components/sections/PricingSection";
 import { FAQSection } from "@/components/sections/FAQSection";
@@ -37,6 +39,7 @@ export default async function HomePage() {
     portfolioData,
     clientsData,
     testimonialsData,
+    teamData,
     pricingData,
     faqsData,
     settingsData,
@@ -46,6 +49,7 @@ export default async function HomePage() {
     getPortfolioData(),
     getClientsData(),
     getTestimonialsData(),
+    getTeamData(),
     getPricingData(),
     getFAQsData(),
     getSettingsData(),
@@ -61,6 +65,7 @@ export default async function HomePage() {
       <ProcessSection steps={settingsData?.processSteps} />
       <PortfolioSection portfolioData={portfolioData} />
       <TestimonialsSection testimonialsData={testimonialsData} />
+      <TeamSection teamData={teamData} />
       <TechStackSection technologies={settingsData?.technologies} />
       <PricingSection pricingData={pricingData} />
       <FAQSection faqsData={faqsData} />

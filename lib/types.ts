@@ -251,19 +251,38 @@ export interface PortfolioItem {
 // ------ Clients ------
 export interface Client {
   id: string;
+  _id?: string;
   name: string;
+  slug: string;
   logoUrl: string;
   industry: string;
   website?: string;
-  projectSlugs: string[];
+  tagline?: string;
+  description?: string;
+  aboutPartnership?: string;
+  servicesProvided?: string[];
+  partnershipYear?: string;
+  companySize?: string;
+  location?: string;
+  projectSlugs?: string[];
   testimonial?: {
     quote: string;
     authorName: string;
     authorRole: string;
     authorPhoto?: string;
   };
+  testimonialQuote?: string;
+  testimonialAuthor?: string;
+  testimonialRole?: string;
+  testimonialPhoto?: string;
+  keyAchievements?: string[];
+  technologies?: string[];
+  caseStudySlug?: string;
   isFeatured: boolean;
   isActive: boolean;
+  order?: number;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }
 
 // ------ Team Members ------

@@ -21,9 +21,23 @@ import {
 
 interface ClientFormData {
   name: string;
+  slug: string;
   logoUrl: string;
   industry: string;
   website: string;
+  tagline: string;
+  description: string;
+  aboutPartnership: string;
+  servicesProvided: string;
+  partnershipYear: string;
+  companySize: string;
+  location: string;
+  testimonialQuote: string;
+  testimonialAuthor: string;
+  testimonialRole: string;
+  keyAchievements: string;
+  technologies: string;
+  caseStudySlug: string;
   isFeatured: boolean;
   isActive: boolean;
   order: number;
@@ -31,9 +45,23 @@ interface ClientFormData {
 
 const DEFAULT_FORM: ClientFormData = {
   name: "",
+  slug: "",
   logoUrl: "",
   industry: "Enterprise SaaS",
   website: "",
+  tagline: "",
+  description: "",
+  aboutPartnership: "",
+  servicesProvided: "Cloud Architecture, Full-Stack Engineering, UI/UX Design",
+  partnershipYear: "2024 - Present",
+  companySize: "50-250 Employees",
+  location: "San Francisco, CA",
+  testimonialQuote: "",
+  testimonialAuthor: "",
+  testimonialRole: "",
+  keyAchievements: "",
+  technologies: "Next.js, TypeScript, PostgreSQL, AWS",
+  caseStudySlug: "",
   isFeatured: true,
   isActive: true,
   order: 1,
@@ -83,9 +111,29 @@ export default function ClientsAdminPage() {
     setEditingClient(client);
     setFormData({
       name: client.name || "",
+      slug: client.slug || "",
       logoUrl: client.logoUrl || "",
       industry: client.industry || "Enterprise SaaS",
       website: client.website || "",
+      tagline: client.tagline || "",
+      description: client.description || "",
+      aboutPartnership: client.aboutPartnership || "",
+      servicesProvided: Array.isArray(client.servicesProvided)
+        ? client.servicesProvided.join(", ")
+        : client.servicesProvided || "",
+      partnershipYear: client.partnershipYear || "",
+      companySize: client.companySize || "",
+      location: client.location || "",
+      testimonialQuote: client.testimonialQuote || client.testimonial?.quote || "",
+      testimonialAuthor: client.testimonialAuthor || client.testimonial?.authorName || "",
+      testimonialRole: client.testimonialRole || client.testimonial?.authorRole || "",
+      keyAchievements: Array.isArray(client.keyAchievements)
+        ? client.keyAchievements.join("\n")
+        : client.keyAchievements || "",
+      technologies: Array.isArray(client.technologies)
+        ? client.technologies.join(", ")
+        : client.technologies || "",
+      caseStudySlug: client.caseStudySlug || "",
       isFeatured: client.isFeatured ?? true,
       isActive: client.isActive ?? true,
       order: client.order ?? 0,
@@ -100,6 +148,22 @@ export default function ClientsAdminPage() {
     setFormError("");
 
     try {
+      const payload = {
+        ...formData,
+        servicesProvided: formData.servicesProvided
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        technologies: formData.technologies
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+        keyAchievements: formData.keyAchievements
+          .split("\n")
+          .map((k) => k.trim())
+          .filter(Boolean),
+      };
+
       const url = editingClient
         ? `/api/admin/clients/${editingClient._id}`
         : "/api/admin/clients";
@@ -108,7 +172,7 @@ export default function ClientsAdminPage() {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -261,35 +325,47 @@ export default function ClientsAdminPage() {
     {
       header: "Actions",
       className: "text-right",
-      cell: (row) => (
-        <div className="flex items-center justify-end gap-1.5">
-          {row.website && (
+      cell: (row) => {
+        const clientSlug = row.slug || (row.name || "client").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+        return (
+          <div className="flex items-center justify-end gap-1.5">
             <a
-              href={row.website}
+              href={`/clients/${clientSlug}`}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 rounded-md hover:bg-surface-3 text-text-muted hover:text-text-primary"
-              title="Visit Website"
+              className="p-1.5 rounded-md hover:bg-surface-3 text-text-muted hover:text-[var(--color-accent-dark)]"
+              title="View Live Profile Page"
             >
               <ExternalLink size={14} />
             </a>
-          )}
-          <button
-            onClick={() => openEditModal(row)}
-            className="p-1.5 rounded-md hover:bg-surface-3 text-text-secondary hover:text-text-primary transition-colors"
-            title="Edit"
-          >
-            <Edit2 size={14} />
-          </button>
-          <button
-            onClick={() => setDeleteId(row._id)}
-            className="p-1.5 rounded-md hover:bg-red-500/10 text-text-muted hover:text-red-600 transition-colors"
-            title="Delete"
-          >
-            <Trash2 size={14} />
-          </button>
-        </div>
-      ),
+            {row.website && (
+              <a
+                href={row.website}
+                target="_blank"
+                rel="noreferrer"
+                className="p-1.5 rounded-md hover:bg-surface-3 text-text-muted hover:text-text-primary"
+                title="Visit Company Website"
+              >
+                <Building2 size={14} />
+              </a>
+            )}
+            <button
+              onClick={() => openEditModal(row)}
+              className="p-1.5 rounded-md hover:bg-surface-3 text-text-secondary hover:text-text-primary transition-colors"
+              title="Edit"
+            >
+              <Edit2 size={14} />
+            </button>
+            <button
+              onClick={() => setDeleteId(row._id)}
+              className="p-1.5 rounded-md hover:bg-red-500/10 text-text-muted hover:text-red-600 transition-colors"
+              title="Delete"
+            >
+              <Trash2 size={14} />
+            </button>
+          </div>
+        );
+      },
     },
   ];
 
@@ -389,6 +465,21 @@ export default function ClientsAdminPage() {
             </div>
             <div>
               <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                URL Slug (Optional)
+              </label>
+              <input
+                type="text"
+                value={formData.slug}
+                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                placeholder="e.g. finflow-labs (auto-generated if empty)"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary font-mono focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
                 Website URL
               </label>
               <input
@@ -399,18 +490,192 @@ export default function ClientsAdminPage() {
                 className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary font-mono focus:outline-none focus:border-[var(--color-accent)]"
               />
             </div>
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Location & HQ
+              </label>
+              <input
+                type="text"
+                value={formData.location}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                placeholder="e.g. San Francisco, CA"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Partnership Year / Timeline
+              </label>
+              <input
+                type="text"
+                value={formData.partnershipYear}
+                onChange={(e) => setFormData({ ...formData, partnershipYear: e.target.value })}
+                placeholder="e.g. 2023 - Present"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Company Size
+              </label>
+              <input
+                type="text"
+                value={formData.companySize}
+                onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
+                placeholder="e.g. 150+ Employees"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
-              Display Order
+              Tagline / Value Proposition
             </label>
             <input
-              type="number"
-              value={formData.order}
-              onChange={(e) => setFormData({ ...formData, order: Number(e.target.value) })}
-              className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary font-mono focus:outline-none"
+              type="text"
+              value={formData.tagline}
+              onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
+              placeholder="e.g. Autonomous financial reconciliation and real-time ledger intelligence."
+              className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
             />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+              About Client Organization
+            </label>
+            <textarea
+              rows={2}
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="Overview of the client company..."
+              className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+              The Engineering Partnership & Scope
+            </label>
+            <textarea
+              rows={3}
+              value={formData.aboutPartnership}
+              onChange={(e) => setFormData({ ...formData, aboutPartnership: e.target.value })}
+              placeholder="What MARK engineered, designed, and deployed for this client..."
+              className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Services Delivered (comma-separated)
+              </label>
+              <input
+                type="text"
+                value={formData.servicesProvided}
+                onChange={(e) => setFormData({ ...formData, servicesProvided: e.target.value })}
+                placeholder="Cloud Architecture, Web App, APIs"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Technologies (comma-separated)
+              </label>
+              <input
+                type="text"
+                value={formData.technologies}
+                onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
+                placeholder="Next.js, TypeScript, PostgreSQL, AWS"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Key Achievements (one per line)
+              </label>
+              <textarea
+                rows={3}
+                value={formData.keyAchievements}
+                onChange={(e) => setFormData({ ...formData, keyAchievements: e.target.value })}
+                placeholder="Scaled to 2.5M daily ops&#10;Sub-10ms ledger SLA&#10;SOC2 Type II compliance"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Associated Case Study Slug (Optional)
+              </label>
+              <input
+                type="text"
+                value={formData.caseStudySlug}
+                onChange={(e) => setFormData({ ...formData, caseStudySlug: e.target.value })}
+                placeholder="e.g. finflow-core"
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary font-mono focus:outline-none focus:border-[var(--color-accent)] mb-3"
+              />
+              <label className="block text-xs font-semibold text-text-primary mb-1 uppercase tracking-wider">
+                Display Order
+              </label>
+              <input
+                type="number"
+                value={formData.order}
+                onChange={(e) => setFormData({ ...formData, order: Number(e.target.value) })}
+                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary font-mono focus:outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Testimonial Section */}
+          <div className="p-4 rounded-xl bg-surface-2/60 border border-[var(--color-border)] space-y-3">
+            <p className="text-xs font-semibold text-[var(--color-accent-dark)] uppercase tracking-wider">
+              Executive Testimonial (Optional)
+            </p>
+            <div>
+              <label className="block text-[11px] font-medium text-text-secondary mb-1">
+                Quote
+              </label>
+              <textarea
+                rows={2}
+                value={formData.testimonialQuote}
+                onChange={(e) => setFormData({ ...formData, testimonialQuote: e.target.value })}
+                placeholder="MARK engineered our core platform with outstanding precision..."
+                className="w-full px-3 py-2 text-xs bg-surface-1 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[11px] font-medium text-text-secondary mb-1">
+                  Author Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.testimonialAuthor}
+                  onChange={(e) => setFormData({ ...formData, testimonialAuthor: e.target.value })}
+                  placeholder="e.g. David Vance"
+                  className="w-full px-3 py-2 text-xs bg-surface-1 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-medium text-text-secondary mb-1">
+                  Author Title & Role
+                </label>
+                <input
+                  type="text"
+                  value={formData.testimonialRole}
+                  onChange={(e) => setFormData({ ...formData, testimonialRole: e.target.value })}
+                  placeholder="e.g. Chief Technology Officer"
+                  className="w-full px-3 py-2 text-xs bg-surface-1 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="flex items-center gap-6 pt-2 border-t border-[var(--color-border)]">
