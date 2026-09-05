@@ -134,7 +134,7 @@ export const getSettingsData = cache(async () => {
     console.error("Failed to fetch settings data from DB:", err);
   }
 
-  // Graceful fallback structure if DB has not been seeded yet
+  // Graceful fallback structure if DB has no settings configured yet
   return {
     siteName: "Kas Denge Technologies",
     tagline: "We Build Digital Products That Scale",

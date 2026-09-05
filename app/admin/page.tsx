@@ -14,7 +14,6 @@ import {
   Image as ImageIcon,
   Plus,
   ArrowUpRight,
-  Database,
   CheckCircle2,
   Clock,
   ExternalLink,
@@ -32,8 +31,6 @@ export default function AdminDashboardPage() {
   const [recentMessages, setRecentMessages] = useState<any[]>([]);
   const [recentProjects, setRecentProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [seedLoading, setSeedLoading] = useState(false);
-  const [seedMessage, setSeedMessage] = useState("");
 
   const fetchStats = async () => {
     setIsLoading(true);
@@ -56,25 +53,6 @@ export default function AdminDashboardPage() {
     fetchStats();
   }, []);
 
-  const handleSeedDatabase = async () => {
-    if (!confirm("Seed database with initial sample data and ensure admin credentials?")) return;
-    setSeedLoading(true);
-    setSeedMessage("");
-    try {
-      const res = await fetch("/api/admin/seed", { method: "POST" });
-      const data = await res.json();
-      if (res.ok) {
-        setSeedMessage("Database successfully seeded!");
-        fetchStats();
-      } else {
-        setSeedMessage("Error: " + data.error);
-      }
-    } catch (err) {
-      setSeedMessage("Failed to connect to seed endpoint");
-    } finally {
-      setSeedLoading(false);
-    }
-  };
 
   const statCards = [
     { label: "Active Services", count: stats?.services ?? "-", icon: Layers, href: "/admin/services", color: "text-blue-600 bg-blue-500/10" },
@@ -110,7 +88,7 @@ export default function AdminDashboardPage() {
       />
 
       <div className="p-6 sm:p-8 space-y-8 max-w-7xl">
-        {/* Welcome & Quick Seed Banner */}
+        {/* Welcome Banner */}
         <div className="bg-surface-1 border border-[var(--color-border)] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-[var(--color-accent-glow)] border border-[var(--color-border-accent)] flex items-center justify-center text-[var(--color-accent-dark)]">
@@ -125,16 +103,6 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleSeedDatabase}
-              disabled={seedLoading}
-              className="text-xs"
-            >
-              <Database size={14} className="mr-1.5 text-[var(--color-accent-dark)]" />
-              {seedLoading ? "Seeding..." : "Seed / Reset Sample Data"}
-            </Button>
             <Link href="/" target="_blank">
               <Button size="sm" className="text-xs">
                 <span>View Live Site</span>
@@ -197,12 +165,6 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {seedMessage && (
-          <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 text-xs rounded-xl flex items-center gap-2">
-            <CheckCircle2 size={16} />
-            <span>{seedMessage}</span>
-          </div>
-        )}
 
         {/* Stats Grid */}
         <div>
