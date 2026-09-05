@@ -52,6 +52,7 @@ export async function Footer() {
                 { label: 'Portfolio', href: '/portfolio' },
                 { label: 'Clients', href: '/clients' },
                 { label: 'Team', href: '/team' },
+                { label: 'Blog', href: '/blog' },
                 { label: 'Pricing', href: '/pricing' },
                 { label: 'Contact', href: '/contact' },
               ].map((item) => (

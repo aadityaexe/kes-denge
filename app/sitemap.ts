@@ -5,6 +5,7 @@ import {
   getProductsData,
   getServicesData,
   getClientsData,
+  getBlogsData,
 } from '@/lib/db-helpers';
 import type { PortfolioItem, TeamMember, Product, Service, Client } from '@/lib/types';
 
@@ -22,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/portfolio',
     '/clients',
     '/team',
+    '/blog',
     '/pricing',
     '/contact',
     '/privacy',
@@ -38,14 +40,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let productUrls: MetadataRoute.Sitemap = [];
   let serviceUrls: MetadataRoute.Sitemap = [];
   let clientUrls: MetadataRoute.Sitemap = [];
+  let blogUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const [portfolioItems, teamMembers, products, services, clients] = await Promise.all([
+    const [portfolioItems, teamMembers, products, services, clients, blogPosts] = await Promise.all([
       getPortfolioData(),
       getTeamData(),
       getProductsData(),
       getServicesData(),
       getClientsData(),
+      getBlogsData(),
     ]);
 
     portfolioUrls = (portfolioItems || []).map((item: PortfolioItem) => ({
@@ -82,6 +86,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
+
+    blogUrls = (blogPosts || []).map((post: any) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: post.updatedAt ? new Date(post.updatedAt) : (post.createdAt ? new Date(post.createdAt) : new Date()),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }));
   } catch (err) {
     console.error("Failed to generate dynamic sitemap URLs during build:", err);
   }
@@ -93,5 +104,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...productUrls,
     ...serviceUrls,
     ...clientUrls,
+    ...blogUrls,
   ];
 }
