@@ -3,6 +3,7 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Preloader } from "@/components/ui/Preloader";
+import { getSettingsData } from "@/lib/db-helpers";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -82,37 +83,47 @@ export const metadata: Metadata = {
   },
 };
 
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "MARK Technologies",
-  alternateName: "Kas Denge Technologies",
-  url: "https://www.mark2.in",
-  email: "hello@mark2.in",
-  sameAs: [
-    "https://x.com/mark2_in",
-    "https://www.linkedin.com/company/mark2-technologies",
-    "https://github.com/aadityaexe/kes-denge",
-  ],
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "MARK Technologies",
-  url: siteUrl,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${siteUrl}/portfolio?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
-};
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSettingsData();
+  const siteName = settings?.siteName || "MARK Technologies";
+  const email = settings?.contactEmail || "hello@mark2.in";
+  const sameAs = [
+    settings?.socialLinks?.twitter,
+    settings?.socialLinks?.linkedin,
+    settings?.socialLinks?.github,
+    settings?.socialLinks?.instagram,
+  ].filter(Boolean);
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    alternateName: "Kas Denge Technologies",
+    url: siteUrl,
+    email: email,
+    sameAs: sameAs.length > 0 ? sameAs : [
+      "https://x.com/mark2_in",
+      "https://www.linkedin.com/company/mark2-technologies",
+      "https://github.com/aadityaexe/kes-denge",
+    ],
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/portfolio?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html
       lang="en"

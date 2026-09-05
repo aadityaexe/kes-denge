@@ -55,7 +55,7 @@ const DEFAULT_FORM: ClientFormData = {
   servicesProvided: "Cloud Architecture, Full-Stack Engineering, UI/UX Design",
   partnershipYear: "2024 - Present",
   companySize: "50-250 Employees",
-  location: "San Francisco, CA",
+  location: "Global / Remote",
   testimonialQuote: "",
   testimonialAuthor: "",
   testimonialRole: "",

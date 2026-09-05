@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Message from "@/models/Message";
+import Setting from "@/models/Setting";
 import {
   checkRateLimit,
   isValidEmail,
@@ -60,8 +61,10 @@ export async function POST(req: NextRequest) {
     const sanitizedBudget = isNonEmptyString(budgetRange, 100) ? sanitizeText(budgetRange, 100) : "$10k - $25k";
     const sanitizedMessage = sanitizeText(message, 5000);
 
-    // 4. Save to Database
+    // 4. Save to Database & resolve dynamic recipient
     await connectToDatabase();
+    const currentSettings = await Setting.findOne().lean();
+    const destinationEmail = currentSettings?.contactEmail || "hello@mark2.in";
 
     const newMessage = await Message.create({
       name: sanitizedName,
@@ -72,6 +75,8 @@ export async function POST(req: NextRequest) {
       message: sanitizedMessage,
       status: "new",
     });
+
+    console.log(`[Contact] Inquiry saved with ID: ${newMessage._id}. Configured recipient: ${destinationEmail}`);
 
     return NextResponse.json(
       {

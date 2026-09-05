@@ -79,8 +79,8 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
   const [error, setError] = useState("");
 
   const email = settingsData?.contactEmail || "hello@mark2.in";
-  const phone = settingsData?.contactPhone || "+91 98765 43210";
-  const address = settingsData?.address || "Andheri West, Mumbai\nMaharashtra, India 400053";
+  const phone = settingsData?.contactPhone || "";
+  const address = settingsData?.address || "Mumbai, India & Global Remote";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,12 +141,14 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                 content={email} 
                 href={`mailto:${email}`} 
               />
-              <ContactCard 
-                icon={Phone} 
-                title="Call Us" 
-                content={phone} 
-                href={`tel:${phone.replace(/\s+/g, '')}`} 
-              />
+              {phone ? (
+                <ContactCard 
+                  icon={Phone} 
+                  title="Call Us" 
+                  content={phone} 
+                  href={`tel:${phone.replace(/\s+/g, '')}`} 
+                />
+              ) : null}
               <ContactCard 
                 icon={MapPin} 
                 title="Visit Us" 

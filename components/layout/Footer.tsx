@@ -1,8 +1,19 @@
 import Link from "next/link";
-import { ArrowUpRight, Globe, MessageSquare, Link as LinkIcon } from "lucide-react";
+import { ArrowUpRight, Globe, MessageSquare, Link as LinkIcon, Share2 } from "lucide-react";
 import { FooterMarquee } from "./FooterMarquee";
+import { getSettingsData } from "@/lib/db-helpers";
 
-export function Footer() {
+export async function Footer() {
+  const settings = await getSettingsData();
+  const siteName = settings?.siteName || "MARK Technologies";
+  const email = settings?.contactEmail || "hello@mark2.in";
+  const description = settings?.description || "We build digital products that scale. A product-engineering agency for startups and growing businesses.";
+  const copyright = settings?.footer?.copyrightText || `© ${new Date().getFullYear()} ${siteName}. All rights reserved.`;
+  
+  const twitter = settings?.socialLinks?.twitter;
+  const linkedin = settings?.socialLinks?.linkedin;
+  const github = settings?.socialLinks?.github;
+  const instagram = settings?.socialLinks?.instagram;
 
   return (
     <footer className="bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)] pt-14 md:pt-16 pb-8 overflow-hidden relative">
@@ -19,7 +30,7 @@ export function Footer() {
               </Link>
             </div>
             <p className="text-text-secondary max-w-sm text-[15px] leading-relaxed break-words">
-              We build digital products that scale. A product-engineering agency for startups and growing businesses.
+              {description}
             </p>
 
             <div className="flex items-center gap-3 inline-flex px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] max-w-full flex-wrap">
@@ -59,44 +70,64 @@ export function Footer() {
           <div>
             <h4 className="text-text-primary font-medium mb-6">Connect</h4>
             <ul className="space-y-3 text-sm">
-              <li>
-                <a
-                  href="https://x.com/mark2_in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
-                >
-                  <MessageSquare size={15} /> Twitter / X
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/mark2-technologies"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
-                >
-                  <LinkIcon size={15} /> LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/aadityaexe/kes-denge"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
-                >
-                  <Globe size={15} /> GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:hello@mark2.in"
-                  className="text-[var(--color-accent)] hover:underline flex items-center gap-2 pt-1 font-medium"
-                >
-                  hello@mark2.in
-                </a>
-              </li>
+              {twitter && (
+                <li>
+                  <a
+                    href={twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <MessageSquare size={15} /> Twitter / X
+                  </a>
+                </li>
+              )}
+              {linkedin && (
+                <li>
+                  <a
+                    href={linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <LinkIcon size={15} /> LinkedIn
+                  </a>
+                </li>
+              )}
+              {github && (
+                <li>
+                  <a
+                    href={github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <Globe size={15} /> GitHub
+                  </a>
+                </li>
+              )}
+              {instagram && (
+                <li>
+                  <a
+                    href={instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                  >
+                    <Share2 size={15} /> Instagram
+                  </a>
+                </li>
+              )}
+              {email && (
+                <li>
+                  <a
+                    href={`mailto:${email}`}
+                    className="text-[var(--color-accent)] hover:underline flex items-center gap-2 pt-1 font-medium"
+                  >
+                    {email}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -107,7 +138,7 @@ export function Footer() {
       <FooterMarquee />
 
       <div className="container-site flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-muted text-center sm:text-left">
-        <p>© {new Date().getFullYear()} MARK Technologies. All rights reserved.</p>
+        <p>{copyright}</p>
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link href="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-text-primary transition-colors">Terms of Service</Link>

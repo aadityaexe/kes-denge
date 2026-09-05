@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Setting from "@/models/Setting";
@@ -75,6 +76,15 @@ export async function PUT(req: NextRequest) {
       settings = await Setting.create(sanitizedUpdates);
     } else {
       settings = await Setting.findByIdAndUpdate(settings._id, { $set: sanitizedUpdates }, { new: true, runValidators: true });
+    }
+
+    // Immediately purge cached layouts and pages so updates reflect dynamically everywhere
+    try {
+      revalidatePath("/", "layout");
+      revalidatePath("/contact");
+      revalidatePath("/about");
+    } catch (e) {
+      console.error("Cache revalidation error:", e);
     }
 
     return NextResponse.json({ success: true, settings });
