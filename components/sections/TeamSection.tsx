@@ -60,8 +60,8 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
         />
 
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {activeMembers.map((member) => (
-            <Link key={member.id} href={`/team/${member.slug}`}>
+          {activeMembers.map((member, index) => (
+            <Link key={member.slug || member._id || index} href={`/team/${member.slug}`}>
               <div className="group relative h-full flex flex-col p-5 sm:p-6 md:p-8 rounded-2xl bg-surface-1 border border-[var(--color-border)] overflow-hidden transition-all duration-500 hover:border-black/20 hover:bg-surface-2">
                 {/* Image / Avatar */}
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-black/5 mb-4 sm:mb-6 flex items-center justify-center text-text-muted/50 text-xl sm:text-2xl font-bold uppercase overflow-hidden border-2 border-transparent group-hover:border-[var(--color-accent-light)] transition-colors duration-500">
