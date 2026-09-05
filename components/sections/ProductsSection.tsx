@@ -120,31 +120,41 @@ export function ProductsSection({
                 className="flex-1 w-full relative"
               >
                 <Parallax speed={1.05} className="aspect-[4/3] rounded-[var(--radius-lg)] bg-surface-2 border border-[var(--color-border)] overflow-hidden relative group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-surface-1 to-surface-2 opacity-50" />
-                  <div className="absolute inset-x-3 sm:inset-x-8 -bottom-16 top-8 sm:top-16 bg-surface-1 rounded-t-[var(--radius-md)] border-x border-t border-[var(--color-border)] shadow-2xl overflow-hidden transition-transform duration-[var(--transition-normal)] group-hover:-translate-y-4">
-                    <div className="h-10 sm:h-12 border-b border-[var(--color-border)] flex items-center px-3 sm:px-6 gap-2 sm:gap-4">
-                      <div className="flex gap-1.5 sm:gap-2 shrink-0">
-                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
-                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
-                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500/50" />
-                      </div>
-                      <div className="flex-1 h-5 sm:h-6 bg-surface-2 rounded-md mx-2 sm:mx-8" />
-                    </div>
-                    <div className="p-4 sm:p-8 flex gap-3 sm:gap-6 h-full">
-                      <div className="w-1/4 h-full flex flex-col gap-2.5 sm:gap-4">
-                        <div className="h-6 sm:h-8 bg-surface-2 rounded-md" />
-                        <div className="h-6 sm:h-8 bg-surface-2 rounded-md" />
-                        <div className="h-6 sm:h-8 bg-surface-2 rounded-md" />
-                      </div>
-                      <div className="flex-1 h-full flex flex-col gap-3 sm:gap-6">
-                        <div className="h-1/3 bg-surface-1 rounded-[var(--radius-md)] border border-[var(--color-border)]" />
-                        <div className="flex-1 flex gap-6">
-                          <div className="flex-1 bg-surface-1 rounded-[var(--radius-md)] border border-[var(--color-border)]" />
-                          <div className="flex-1 bg-surface-1 rounded-[var(--radius-md)] border border-[var(--color-border)]" />
+                  {product.images && product.images.length > 0 ? (
+                    <img 
+                      src={product.images[0]} 
+                      alt={`${product.name} interface`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-br from-surface-1 to-surface-2 opacity-50" />
+                      <div className="absolute inset-x-3 sm:inset-x-8 -bottom-16 top-8 sm:top-16 bg-surface-1 rounded-t-[var(--radius-md)] border-x border-t border-[var(--color-border)] shadow-2xl overflow-hidden transition-transform duration-[var(--transition-normal)] group-hover:-translate-y-4">
+                        <div className="h-10 sm:h-12 border-b border-[var(--color-border)] flex items-center px-3 sm:px-6 gap-2 sm:gap-4">
+                          <div className="flex gap-1.5 sm:gap-2 shrink-0">
+                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
+                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
+                            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500/50" />
+                          </div>
+                          <div className="flex-1 h-5 sm:h-6 bg-surface-2 rounded-md mx-2 sm:mx-8" />
+                        </div>
+                        <div className="p-4 sm:p-8 flex gap-3 sm:gap-6 h-full">
+                          <div className="w-1/4 h-full flex flex-col gap-2.5 sm:gap-4">
+                            <div className="h-6 sm:h-8 bg-surface-2 rounded-md" />
+                            <div className="h-6 sm:h-8 bg-surface-2 rounded-md" />
+                            <div className="h-6 sm:h-8 bg-surface-2 rounded-md" />
+                          </div>
+                          <div className="flex-1 h-full flex flex-col gap-3 sm:gap-6">
+                            <div className="h-1/3 bg-surface-1 rounded-[var(--radius-md)] border border-[var(--color-border)]" />
+                            <div className="flex-1 flex gap-6">
+                              <div className="flex-1 bg-surface-1 rounded-[var(--radius-md)] border border-[var(--color-border)]" />
+                              <div className="flex-1 bg-surface-1 rounded-[var(--radius-md)] border border-[var(--color-border)]" />
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </Parallax>
               </motion.div>
             </motion.div>
