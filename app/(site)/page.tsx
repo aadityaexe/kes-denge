@@ -48,13 +48,20 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "MARK Technologies",
       type: "website",
       locale: "en_US",
-      images: settings?.seo?.ogImageUrl ? [{ url: settings.seo.ogImageUrl }] : undefined,
+      images: [
+        {
+          url: settings?.seo?.ogImageUrl || `${siteUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: titleText,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: titleText,
       description: descText,
-      images: settings?.seo?.ogImageUrl ? [settings.seo.ogImageUrl] : undefined,
+      images: [settings?.seo?.ogImageUrl || `${siteUrl}/twitter-image`],
     },
   };
 }

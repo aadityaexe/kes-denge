@@ -18,11 +18,20 @@ export const metadata: Metadata = {
     url: `${siteUrl}/services`,
     siteName: "MARK Technologies",
     type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Core Engineering Services | MARK Technologies",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Core Engineering Services | MARK Technologies",
     description: "Explore our core engineering services: Web Apps, Mobile Apps, Enterprise Platforms, and AI Automation built for high-growth companies.",
+    images: [`${siteUrl}/twitter-image`],
   },
 };
 

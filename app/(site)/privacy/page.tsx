@@ -16,11 +16,20 @@ export const metadata: Metadata = {
     url: `${siteUrl}/privacy`,
     siteName: "MARK Technologies",
     type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Privacy Policy | MARK Technologies",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | MARK Technologies",
     description: "Learn how MARK Technologies collects, protects, and manages data across our engineering services, platforms, and client partnerships.",
+    images: [`${siteUrl}/twitter-image`],
   },
 };
 

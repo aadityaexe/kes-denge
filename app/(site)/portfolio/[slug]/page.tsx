@@ -90,13 +90,20 @@ export async function generateMetadata({
       url: canonicalUrl,
       siteName: "MARK Technologies",
       type: "article",
-      images: project.coverImage || project.heroImage ? [{ url: project.coverImage || project.heroImage! }] : undefined,
+      images: [
+        {
+          url: project.coverImage || project.heroImage || `${siteUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: metaTitle,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: metaTitle,
       description: metaDescription,
-      images: project.coverImage || project.heroImage ? [project.coverImage || project.heroImage!] : undefined,
+      images: [project.coverImage || project.heroImage || `${siteUrl}/twitter-image`],
     },
   };
 }
@@ -283,7 +290,7 @@ export default async function PortfolioDetailPage({
                     {project.teamMembers.map((member, idx) => (
                       <Link
                         key={idx}
-                        href={`/team`}
+                        href={member.teamMemberSlug ? `/team/${member.teamMemberSlug}` : `/team`}
                         className="flex items-center gap-4 p-4 rounded-xl bg-surface-1 border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 hover:bg-surface-2 transition-all group"
                       >
                         <div className="w-11 h-11 rounded-full bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-sm font-bold text-[var(--color-accent-dark)] shrink-0">

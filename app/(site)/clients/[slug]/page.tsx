@@ -67,11 +67,20 @@ export async function generateMetadata({
       url: canonicalUrl,
       siteName: "MARK Technologies",
       type: "article",
+      images: [
+        {
+          url: `${siteUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${client.name} Partnership — MARK Technologies`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [`${siteUrl}/twitter-image`],
     },
   };
 }

@@ -19,11 +19,20 @@ export const metadata: Metadata = {
     url: `${siteUrl}/pricing`,
     siteName: "MARK Technologies",
     type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Pricing & Investment | MARK Technologies",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Transparent Pricing & Investment | MARK Technologies",
     description: "Transparent pricing models for our engineering services, dedicated teams, and ready platforms.",
+    images: [`${siteUrl}/twitter-image`],
   },
 };
 

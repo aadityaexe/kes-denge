@@ -50,35 +50,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     portfolioUrls = (portfolioItems || []).map((item: PortfolioItem) => ({
       url: `${baseUrl}/portfolio/${item.slug}`,
-      lastModified: new Date(),
+      lastModified: item.updatedAt ? new Date(item.updatedAt) : (item.createdAt ? new Date(item.createdAt) : new Date()),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
 
     teamUrls = (teamMembers || []).map((member: TeamMember) => ({
       url: `${baseUrl}/team/${member.slug}`,
-      lastModified: new Date(),
+      lastModified: member.updatedAt ? new Date(member.updatedAt) : (member.createdAt ? new Date(member.createdAt) : new Date()),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
 
     productUrls = (products || []).map((product: Product) => ({
       url: `${baseUrl}/products/${product.slug}`,
-      lastModified: new Date(),
+      lastModified: product.updatedAt ? new Date(product.updatedAt) : (product.createdAt ? new Date(product.createdAt) : new Date()),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
 
     serviceUrls = (services || []).map((service: Service) => ({
       url: `${baseUrl}/services/${service.slug}`,
-      lastModified: new Date(),
+      lastModified: service.updatedAt ? new Date(service.updatedAt) : (service.createdAt ? new Date(service.createdAt) : new Date()),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
 
     clientUrls = (clients || []).map((client: Client) => ({
       url: `${baseUrl}/clients/${client.slug}`,
-      lastModified: new Date(),
+      lastModified: client.updatedAt ? new Date(client.updatedAt) : (client.createdAt ? new Date(client.createdAt) : new Date()),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));

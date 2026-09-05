@@ -112,7 +112,7 @@ export function PortfolioHero({ project }: PortfolioHeroProps) {
                 Deployment Status
               </p>
               <div className="flex flex-wrap items-center gap-3 pt-0.5">
-                {project.liveUrl ? (
+                {project.liveUrl && !project.liveUrl.includes("example.com") ? (
                   <a
                     href={project.liveUrl}
                     target="_blank"

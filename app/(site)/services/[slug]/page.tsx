@@ -95,13 +95,20 @@ export async function generateMetadata({
       url: canonicalUrl,
       siteName: "MARK Technologies",
       type: "website",
-      images: service.featuredImage ? [{ url: service.featuredImage }] : undefined,
+      images: [
+        {
+          url: service.featuredImage || `${siteUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: metaTitle,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: metaTitle,
       description: metaDescription,
-      images: service.featuredImage ? [service.featuredImage] : undefined,
+      images: [service.featuredImage || `${siteUrl}/twitter-image`],
     },
   };
 }
@@ -157,8 +164,14 @@ export default async function ServiceDetailsPage({
     provider: {
       "@type": "Organization",
       name: "MARK Technologies",
+      alternateName: "Kas Denge Technologies",
       url: siteUrl,
-      logo: `${siteUrl}/logo.png`,
+      email: "hello@mark2.in",
+      sameAs: [
+        "https://x.com/mark2_in",
+        "https://www.linkedin.com/company/mark2-technologies",
+        "https://github.com/aadityaexe/kes-denge",
+      ],
     },
     areaServed: "Worldwide",
     url: pageUrl,

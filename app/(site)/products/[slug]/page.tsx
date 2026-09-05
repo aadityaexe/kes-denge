@@ -53,13 +53,20 @@ export async function generateMetadata({
       url: canonicalUrl,
       siteName: "MARK Technologies",
       type: "website",
-      images: product.images && product.images.length > 0 ? [{ url: product.images[0] }] : undefined,
+      images: [
+        {
+          url: product.images && product.images.length > 0 ? product.images[0] : `${siteUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: metaTitle,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: metaTitle,
       description: metaDescription,
-      images: product.images && product.images.length > 0 ? [product.images[0]] : undefined,
+      images: [product.images && product.images.length > 0 ? product.images[0] : `${siteUrl}/twitter-image`],
     },
   };
 }

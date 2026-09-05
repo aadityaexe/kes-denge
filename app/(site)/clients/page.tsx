@@ -32,12 +32,21 @@ export const metadata: Metadata = {
     url: `${siteUrl}/clients`,
     siteName: "MARK Technologies",
     type: "website",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Our Clients & Partnerships | MARK Technologies",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Our Clients & Partnerships | MARK Technologies",
     description:
       "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK.",
+    images: [`${siteUrl}/twitter-image`],
   },
 };
 

@@ -35,13 +35,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: canonicalUrl,
       siteName: "MARK Technologies",
       type: "profile",
-      images: member.photo ? [{ url: member.photo }] : undefined,
+      images: [
+        {
+          url: member.photo || `${siteUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: member.photo ? [member.photo] : undefined,
+      images: [member.photo || `${siteUrl}/twitter-image`],
     },
   };
 }
@@ -56,13 +63,45 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
 
   const techTags = member.techTags || [];
   const certifications = member.certifications || [];
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+  const memberUrl = `${siteUrl}/team/${member.slug}`;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Team",
+        item: `${siteUrl}/team`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: member.name,
+        item: memberUrl,
+      },
+    ],
+  };
 
   return (
-    <div className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 min-h-screen">
-      <div className="container-site max-w-4xl">
-        <Link href="/team" className="inline-flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors mb-6 sm:mb-8">
-          <ArrowLeft size={16} /> Back to Team
-        </Link>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 min-h-screen">
+        <div className="container-site max-w-4xl">
+          <Link href="/team" className="inline-flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors mb-6 sm:mb-8">
+            <ArrowLeft size={16} /> Back to Team
+          </Link>
         
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-12 items-start">
           {/* Left Column - Profile Card */}
@@ -149,6 +188,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
         </div>
       </div>
     </div>
+    </>
   );
 }
 

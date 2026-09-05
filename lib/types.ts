@@ -309,6 +309,8 @@ export interface TeamMember {
   quote?: string;
   isActive: boolean;
   order: number;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }
 
 // ------ Testimonials ------

@@ -53,12 +53,21 @@ export const metadata: Metadata = {
     title: "MARK Technologies — We Build Digital Products That Scale",
     description:
       "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
+    images: [
+      {
+        url: `${siteUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "MARK Technologies — We Build Digital Products That Scale",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "MARK Technologies — We Build Digital Products That Scale",
     description:
       "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
+    images: [`${siteUrl}/twitter-image`],
   },
   robots: {
     index: true,
@@ -77,20 +86,14 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "MARK Technologies",
-  url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
-  description:
-    "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
+  alternateName: "Kas Denge Technologies",
+  url: "https://www.mark2.in",
+  email: "hello@mark2.in",
   sameAs: [
-    "https://linkedin.com/company/mark",
-    "https://github.com/mark",
-    "https://twitter.com/mark",
+    "https://x.com/mark2_in",
+    "https://www.linkedin.com/company/mark2-technologies",
+    "https://github.com/aadityaexe/kes-denge",
   ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "Sales & Technical Inquiries",
-    email: "hello@mark2.in",
-  },
 };
 
 const websiteSchema = {

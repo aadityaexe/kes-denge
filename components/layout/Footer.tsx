@@ -1,32 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowUpRight, Globe, MessageSquare, Link as LinkIcon } from "lucide-react";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { FooterMarquee } from "./FooterMarquee";
 
 export function Footer() {
-  const marqueeRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!marqueeRef.current) return;
-    let ctx = gsap.context(() => {
-      // Simple GSAP infinite marquee
-      const marqueeContent = marqueeRef.current!.firstElementChild as HTMLElement;
-      if (!marqueeContent) return;
-      // Clone for seamless loop
-      const clone = marqueeContent.cloneNode(true);
-      marqueeRef.current!.appendChild(clone);
-      gsap.to(marqueeRef.current!.children, {
-        xPercent: -100,
-        repeat: -1,
-        duration: 20,
-        ease: "linear",
-      });
-    }, marqueeRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <footer className="bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)] pt-14 md:pt-16 pb-8 overflow-hidden relative">
@@ -128,20 +104,7 @@ export function Footer() {
       </div>
 
       {/* GSAP Marquee */}
-      <div className="w-full border-y border-[var(--color-border)] py-3 sm:py-4 mb-8 relative flex overflow-hidden whitespace-nowrap bg-surface-2">
-        <div ref={marqueeRef} className="flex">
-          <div className="flex items-center gap-6 sm:gap-12 px-4 sm:px-6">
-            <span className="text-display-md font-display italic text-text-primary/20">DIGITAL EXCELLENCE</span>
-            <span className="text-xl text-text-primary/10">✦</span>
-            <span className="text-display-md font-display italic text-text-primary/20">SCALABLE ARCHITECTURE</span>
-            <span className="text-xl text-text-primary/10">✦</span>
-            <span className="text-display-md font-display italic text-text-primary/20">PREMIUM DESIGN</span>
-            <span className="text-xl text-text-primary/10">✦</span>
-            <span className="text-display-md font-display italic text-text-primary/20">AI AUTOMATION</span>
-            <span className="text-xl text-text-primary/10">✦</span>
-          </div>
-        </div>
-      </div>
+      <FooterMarquee />
 
       <div className="container-site flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-muted text-center sm:text-left">
         <p>© {new Date().getFullYear()} MARK Technologies. All rights reserved.</p>
