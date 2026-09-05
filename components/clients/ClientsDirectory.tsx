@@ -105,14 +105,18 @@ function ClientSpotlightCard({ client }: { client: Client }) {
         </div>
 
         {/* Tagline / Value Proposition */}
-        <p className="text-text-primary font-medium text-sm md:text-[15px] leading-snug mb-3 break-words">
-          {client.tagline || `${client.name} digital transformation.`}
-        </p>
+        {client.tagline && (
+          <p className="text-text-primary font-medium text-sm md:text-[15px] leading-snug mb-3 break-words">
+            {client.tagline}
+          </p>
+        )}
 
         {/* Brief Narrative */}
-        <p className="text-text-secondary text-xs md:text-sm line-clamp-3 leading-relaxed mb-6 break-words">
-          {client.aboutPartnership || client.description}
-        </p>
+        {(client.aboutPartnership || client.description) && (
+          <p className="text-text-secondary text-xs md:text-sm line-clamp-3 leading-relaxed mb-6 break-words">
+            {client.aboutPartnership || client.description}
+          </p>
+        )}
 
         {/* Key Achievements Bullet Highlights */}
         {client.keyAchievements && client.keyAchievements.length > 0 && (
@@ -127,21 +131,23 @@ function ClientSpotlightCard({ client }: { client: Client }) {
         )}
 
         {/* Services Provided Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-auto mb-6">
-          {(client.servicesProvided || ["Software Architecture", "Engineering"]).slice(0, 3).map((service) => (
-            <span
-              key={service}
-              className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-surface-2 text-text-secondary border border-[var(--color-border)]"
-            >
-              {service}
-            </span>
-          ))}
-          {(client.servicesProvided || []).length > 3 && (
-            <span className="px-2 py-1 rounded-full text-[11px] text-text-muted bg-surface-2 border border-[var(--color-border)]">
-              +{(client.servicesProvided || []).length - 3}
-            </span>
-          )}
-        </div>
+        {client.servicesProvided && client.servicesProvided.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-auto mb-6">
+            {client.servicesProvided.slice(0, 3).map((service) => (
+              <span
+                key={service}
+                className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-surface-2 text-text-secondary border border-[var(--color-border)]"
+              >
+                {service}
+              </span>
+            ))}
+            {client.servicesProvided.length > 3 && (
+              <span className="px-2 py-1 rounded-full text-[11px] text-text-muted bg-surface-2 border border-[var(--color-border)]">
+                +{client.servicesProvided.length - 3}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Footer Action Links */}

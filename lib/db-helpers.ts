@@ -79,37 +79,6 @@ function generateClientSlug(name: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-export const FALLBACK_CLIENTS = [
-  {
-    id: "client-eduveera",
-    name: "Eduveera",
-    slug: "eduveera",
-    industry: "Enterprise EdTech & SaaS",
-    logoUrl: "",
-    website: "https://eduveera.online/",
-    tagline: "Next-generation digital education and multi-tenant learning infrastructure.",
-    description: "Eduveera provides modern cloud infrastructure and collaborative learning management tools for educational institutions across India and globally.",
-    aboutPartnership: "MARK engineered Eduveera's core cloud infrastructure, student analytics pipeline, and high-performance interactive learning portals.",
-    servicesProvided: ["Full-Stack Web App", "Cloud Infrastructure", "High-Throughput APIs", "UI/UX Engineering"],
-    partnershipYear: "2024 - Present",
-    companySize: "50+ Employees",
-    location: "India",
-    keyAchievements: [
-      "Scaled learning platform with sub-second page loads",
-      "Engineered high-concurrency real-time assessment pipelines",
-      "Delivered enterprise-grade responsive mobile and web portals",
-    ],
-    technologies: ["Next.js", "TypeScript", "Node.js", "MongoDB", "Cloud Architecture"],
-    caseStudySlug: "",
-    testimonialQuote: "",
-    testimonialAuthor: "",
-    testimonialRole: "",
-    isFeatured: true,
-    isActive: true,
-    order: 1,
-  },
-];
-
 export const getClientsData = cache(async () => {
   try {
     await connectToDatabase();
@@ -123,31 +92,23 @@ export const getClientsData = cache(async () => {
         const slug = client.slug || generateClientSlug(client.name);
         return {
           ...client,
+          id: client._id?.toString() || client.id || slug,
           slug,
-          tagline: client.tagline || `${client.name} — Industry innovation in ${client.industry || "modern tech"}.`,
-          description: client.description || `${client.name} partners with MARK to engineer scalable digital systems and modern digital products.`,
-          aboutPartnership: client.aboutPartnership || `MARK worked collaboratively with ${client.name}'s product leadership to design, engineer, and deploy high-reliability digital solutions built for enterprise scale.`,
-          servicesProvided: (client.servicesProvided && client.servicesProvided.length > 0) ? client.servicesProvided : ["Full-Stack Engineering", "Cloud Infrastructure", "UI/UX Design"],
-          partnershipYear: client.partnershipYear || "2023 - Present",
-          companySize: client.companySize || "50-250 Employees",
-          location: client.location || "Global / Remote",
-          keyAchievements: (client.keyAchievements && client.keyAchievements.length > 0) ? client.keyAchievements : [
-            "Accelerated product release velocity by 3x",
-            "Achieved 99.99% system availability",
-            "Modernized legacy systems to cloud-native microservices"
-          ],
-          technologies: (client.technologies && client.technologies.length > 0) ? client.technologies : ["Next.js", "TypeScript", "Node.js", "Tailwind CSS", "AWS"],
-          testimonialQuote: client.testimonialQuote || client.testimonial?.quote || `Working with MARK transformed our development velocity and technical standards.`,
-          testimonialAuthor: client.testimonialAuthor || client.testimonial?.authorName || "Engineering Director",
-          testimonialRole: client.testimonialRole || client.testimonial?.authorRole || `${client.name}`,
+          servicesProvided: client.servicesProvided || [],
+          keyAchievements: client.keyAchievements || [],
+          technologies: client.technologies || [],
+          erpModules: client.erpModules || [],
+          seoServices: client.seoServices || [],
+          erpTechnologyStack: client.erpTechnologyStack || null,
         };
       });
     }
   } catch (err) {
     console.error("Failed to fetch clients data from DB:", err);
   }
-  return FALLBACK_CLIENTS;
+  return [];
 });
+
 
 export const getTestimonialsData = cache(async () => {
   try {
@@ -393,28 +354,19 @@ export const getClientBySlug = cache(async (slug: string) => {
       const computedSlug = serialized.slug || generateClientSlug(serialized.name);
       return {
         ...serialized,
+        id: serialized._id?.toString() || serialized.id || computedSlug,
         slug: computedSlug,
-        tagline: serialized.tagline || `${serialized.name} — Industry innovation in ${serialized.industry || "technology"}.`,
-        description: serialized.description || `${serialized.name} partners with MARK to engineer scalable digital systems and modern digital products.`,
-        aboutPartnership: serialized.aboutPartnership || `MARK worked collaboratively with ${serialized.name}'s product leadership to design, engineer, and deploy high-reliability digital solutions built for enterprise scale.`,
-        servicesProvided: (serialized.servicesProvided && serialized.servicesProvided.length > 0) ? serialized.servicesProvided : ["Full-Stack Engineering", "Cloud Infrastructure", "UI/UX Design"],
-        partnershipYear: serialized.partnershipYear || "2023 - Present",
-        companySize: serialized.companySize || "50-250 Employees",
-        location: serialized.location || "Global / Remote",
-        keyAchievements: (serialized.keyAchievements && serialized.keyAchievements.length > 0) ? serialized.keyAchievements : [
-          "Accelerated release cycle by 3x",
-          "Achieved 99.99% system availability",
-          "Implemented automated CI/CD and monitoring"
-        ],
-        technologies: (serialized.technologies && serialized.technologies.length > 0) ? serialized.technologies : ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "AWS"],
-        testimonialQuote: serialized.testimonialQuote || serialized.testimonial?.quote || "Working with MARK transformed our development velocity and technical standards.",
-        testimonialAuthor: serialized.testimonialAuthor || serialized.testimonial?.authorName || "VP of Engineering",
-        testimonialRole: serialized.testimonialRole || serialized.testimonial?.authorRole || serialized.name,
+        servicesProvided: serialized.servicesProvided || [],
+        keyAchievements: serialized.keyAchievements || [],
+        technologies: serialized.technologies || [],
+        erpModules: serialized.erpModules || [],
+        seoServices: serialized.seoServices || [],
+        erpTechnologyStack: serialized.erpTechnologyStack || null,
       };
     }
   } catch (err) {
     console.error(`Failed to fetch client for slug ${slug} from DB:`, err);
   }
 
-  return FALLBACK_CLIENTS.find((c) => c.slug === slug) || null;
+  return null;
 });

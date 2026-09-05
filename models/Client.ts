@@ -19,6 +19,14 @@ export interface IClient extends Document {
   testimonialPhoto?: string;
   keyAchievements?: string[];
   technologies?: string[];
+  erpTechnologyStack?: {
+    frontend?: string[];
+    backend?: string[];
+    database?: string[];
+    architecture?: string[];
+  } | null;
+  erpModules?: string[];
+  seoServices?: string[];
   caseStudySlug?: string;
   isFeatured: boolean;
   isActive: boolean;
@@ -47,6 +55,14 @@ const ClientSchema = new Schema<IClient>(
     testimonialPhoto: { type: String, default: "" },
     keyAchievements: { type: [String], default: [] },
     technologies: { type: [String], default: [] },
+    erpTechnologyStack: {
+      frontend: { type: [String], default: [] },
+      backend: { type: [String], default: [] },
+      database: { type: [String], default: [] },
+      architecture: { type: [String], default: [] },
+    },
+    erpModules: { type: [String], default: [] },
+    seoServices: { type: [String], default: [] },
     caseStudySlug: { type: String, default: "" },
     isFeatured: { type: Boolean, default: true },
     isActive: { type: Boolean, default: true },

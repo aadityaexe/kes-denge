@@ -277,6 +277,14 @@ export interface Client {
   testimonialPhoto?: string;
   keyAchievements?: string[];
   technologies?: string[];
+  erpTechnologyStack?: {
+    frontend?: string[];
+    backend?: string[];
+    database?: string[];
+    architecture?: string[];
+  } | null;
+  erpModules?: string[];
+  seoServices?: string[];
   caseStudySlug?: string;
   isFeatured: boolean;
   isActive: boolean;

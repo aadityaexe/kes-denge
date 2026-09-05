@@ -25,6 +25,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
   const clients = await getClientsData();
   return clients.map((c: Client) => ({
@@ -255,86 +257,95 @@ export default async function ClientDetailPage({
             </div>
 
             {/* Tagline Banner */}
-            <div className="pt-6 sm:pt-8">
-              <p className="text-xs uppercase tracking-wider font-semibold text-[var(--color-accent-dark)] mb-2">
-                Partnership Mission & Scope
-              </p>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-display font-semibold text-text-primary leading-snug max-w-4xl break-words">
-                {client.tagline || `${client.name} digital transformation with MARK.`}
-              </h2>
-            </div>
+            {client.tagline && (
+              <div className="pt-6 sm:pt-8">
+                <p className="text-xs uppercase tracking-wider font-semibold text-[var(--color-accent-dark)] mb-2">
+                  Partnership Mission & Scope
+                </p>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-display font-semibold text-text-primary leading-snug max-w-4xl break-words">
+                  {client.tagline}
+                </h2>
+              </div>
+            )}
           </div>
 
           {/* Quick Partnership Highlights Grid */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12">
-            <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
-              <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
-                <Calendar size={14} />
-                <span>Tenure</span>
-              </div>
-              <p className="text-lg font-display font-bold text-text-primary">
-                {client.partnershipYear || "2023 - Present"}
-              </p>
+          {(client.partnershipYear || client.location || client.companySize || (client.servicesProvided && client.servicesProvided.length > 0)) && (
+            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12">
+              {client.partnershipYear && (
+                <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
+                    <Calendar size={14} />
+                    <span>Timeline</span>
+                  </div>
+                  <p className="text-lg font-display font-bold text-text-primary">
+                    {client.partnershipYear}
+                  </p>
+                </div>
+              )}
+              {client.location && (
+                <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
+                    <MapPin size={14} />
+                    <span>Market / Location</span>
+                  </div>
+                  <p className="text-lg font-display font-bold text-text-primary">
+                    {client.location}
+                  </p>
+                </div>
+              )}
+              {client.companySize && (
+                <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
+                    <Users size={14} />
+                    <span>Scale</span>
+                  </div>
+                  <p className="text-lg font-display font-bold text-text-primary">
+                    {client.companySize}
+                  </p>
+                </div>
+              )}
+              {client.servicesProvided && client.servicesProvided.length > 0 && (
+                <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
+                    <Cpu size={14} />
+                    <span>Deliverables</span>
+                  </div>
+                  <p className="text-lg font-display font-bold text-[var(--color-accent-dark)]">
+                    {client.servicesProvided.length} Core Capabilities
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
-              <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
-                <Layers size={14} />
-                <span>Engagement Model</span>
-              </div>
-              <p className="text-lg font-display font-bold text-text-primary">
-                Dedicated Core Pod
-              </p>
-            </div>
-            <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
-              <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
-                <Cpu size={14} />
-                <span>Deliverables</span>
-              </div>
-              <p className="text-lg font-display font-bold text-[var(--color-accent-dark)]">
-                {(client.servicesProvided || []).length || 4} Core Capabilities
-              </p>
-            </div>
-            <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
-              <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
-                <ShieldCheck size={14} />
-                <span>Codebase SLA</span>
-              </div>
-              <p className="text-lg font-display font-bold text-text-primary">
-                99.99% Guaranteed
-              </p>
-            </div>
-          </div>
+          )}
 
           {/* Main 2-Column Content Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 items-start">
             {/* Left Column: Narrative, Accomplishments, Tech Stack */}
             <div className="space-y-10">
               {/* About Client Organization */}
-              <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
-                <h3 className="text-lg font-display font-bold text-text-primary mb-3">
-                  About {client.name}
-                </h3>
-                <p className="text-sm md:text-base text-text-secondary leading-relaxed">
-                  {client.description ||
-                    `${client.name} is a forward-thinking organization operating at the forefront of the ${client.industry} industry.`}
-                </p>
-              </div>
-
-              {/* Partnership Story / What MARK Engineered */}
-              <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
-                <h3 className="text-lg font-display font-bold text-text-primary mb-3">
-                  The Engineering Partnership
-                </h3>
-                <div className="space-y-4 text-sm md:text-base text-text-secondary leading-relaxed">
-                  <p>
-                    {client.aboutPartnership ||
-                      `MARK worked closely with ${client.name}'s engineering leadership to build, optimize, and deploy high-reliability software architecture capable of scaling to enterprise traffic.`}
-                  </p>
-                  <p>
-                    From database tuning to frontend responsiveness and security compliance, our team provided complete lifecycle architectural oversight, continuous delivery automation, and proactive monitoring.
+              {client.description && (
+                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                  <h3 className="text-lg font-display font-bold text-text-primary mb-3">
+                    About {client.name}
+                  </h3>
+                  <p className="text-sm md:text-base text-text-secondary leading-relaxed">
+                    {client.description}
                   </p>
                 </div>
-              </div>
+              )}
+
+              {/* Partnership Story / What MARK Engineered */}
+              {client.aboutPartnership && (
+                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                  <h3 className="text-lg font-display font-bold text-text-primary mb-3">
+                    The Engineering Partnership
+                  </h3>
+                  <div className="space-y-4 text-sm md:text-base text-text-secondary leading-relaxed">
+                    <p>{client.aboutPartnership}</p>
+                  </div>
+                </div>
+              )}
 
               {/* Key Measured Achievements */}
               {client.keyAchievements && client.keyAchievements.length > 0 && (
@@ -383,6 +394,124 @@ export default async function ClientDetailPage({
                   </div>
                 </div>
               )}
+
+              {/* Custom ERP Modules */}
+              {client.erpModules && client.erpModules.length > 0 && (
+                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20 uppercase tracking-wider">
+                      Enterprise Architecture
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-display font-bold text-text-primary mb-2">
+                    Custom ERP Modules & Operational Workflows
+                  </h3>
+                  <p className="text-xs text-text-secondary mb-5">
+                    Centralized operational modules designed, engineered, and deployed for {client.name}.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {client.erpModules.map((module: string, idx: number) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2.5 p-3 rounded-xl bg-surface-2 border border-[var(--color-border)] text-xs font-medium text-text-primary"
+                      >
+                        <CheckCircle2 size={14} className="text-[var(--color-accent-dark)] shrink-0" />
+                        <span>{module}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ERP Technology Stack Breakdown */}
+              {client.erpTechnologyStack && (
+                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                  <h3 className="text-lg font-display font-bold text-text-primary mb-2">
+                    ERP Full-Stack Architecture
+                  </h3>
+                  <p className="text-xs text-text-secondary mb-5">
+                    Multi-tier enterprise technology layers powering {client.name}&apos;s business operations.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {client.erpTechnologyStack.frontend && client.erpTechnologyStack.frontend.length > 0 && (
+                      <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                        <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider block mb-2">Frontend Layer</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {client.erpTechnologyStack.frontend.map((item: string) => (
+                            <span key={item} className="px-2.5 py-1 rounded-md text-xs bg-surface-1 border border-[var(--color-border)] text-text-primary font-medium">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {client.erpTechnologyStack.backend && client.erpTechnologyStack.backend.length > 0 && (
+                      <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                        <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider block mb-2">Backend Services</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {client.erpTechnologyStack.backend.map((item: string) => (
+                            <span key={item} className="px-2.5 py-1 rounded-md text-xs bg-surface-1 border border-[var(--color-border)] text-text-primary font-medium">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {client.erpTechnologyStack.database && client.erpTechnologyStack.database.length > 0 && (
+                      <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                        <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider block mb-2">Database & Storage</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {client.erpTechnologyStack.database.map((item: string) => (
+                            <span key={item} className="px-2.5 py-1 rounded-md text-xs bg-surface-1 border border-[var(--color-border)] text-text-primary font-medium">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {client.erpTechnologyStack.architecture && client.erpTechnologyStack.architecture.length > 0 && (
+                      <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                        <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider block mb-2">Enterprise Protocols</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {client.erpTechnologyStack.architecture.map((item: string) => (
+                            <span key={item} className="px-2.5 py-1 rounded-md text-xs bg-surface-1 border border-[var(--color-border)] text-text-primary font-medium">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Ongoing SEO & Organic Discovery */}
+              {client.seoServices && client.seoServices.length > 0 && (
+                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 uppercase tracking-wider">
+                      Search Optimization
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-display font-bold text-text-primary mb-2">
+                    SEO & Search Engine Optimization Deliverables
+                  </h3>
+                  <p className="text-xs text-text-secondary mb-5">
+                    Technical audits, on-page optimization, and organic ranking enhancements executed for {client.name}.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {client.seoServices.map((seo: string, idx: number) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2.5 p-3 rounded-xl bg-surface-2 border border-[var(--color-border)] text-xs font-medium text-text-primary"
+                      >
+                        <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                        <span>{seo}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right Column: Sticky Sidebar Info, Testimonial & Case Study Link */}
@@ -413,23 +542,23 @@ export default async function ClientDetailPage({
               )}
 
               {/* Services Provided Card */}
-              <div className="p-6 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
-                <h4 className="text-sm font-display font-bold text-text-primary uppercase tracking-wider mb-4 text-[var(--color-accent-dark)]">
-                  Services Delivered
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {(client.servicesProvided || ["Software Engineering", "Cloud Architecture"]).map(
-                    (s: string) => (
+              {client.servicesProvided && client.servicesProvided.length > 0 && (
+                <div className="p-6 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                  <h4 className="text-sm font-display font-bold text-text-primary uppercase tracking-wider mb-4 text-[var(--color-accent-dark)]">
+                    Services Delivered
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {client.servicesProvided.map((s: string) => (
                       <span
                         key={s}
                         className="px-3 py-1 rounded-full text-xs bg-surface-2 text-text-secondary border border-[var(--color-border)]"
                       >
                         {s}
                       </span>
-                    )
-                  )}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Related Portfolio Case Study Callout */}
               {relatedProject && (

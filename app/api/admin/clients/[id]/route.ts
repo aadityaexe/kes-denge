@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Client from "@/models/Client";
@@ -85,6 +86,14 @@ export async function PUT(
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
     }
 
+    // Revalidate frontend pages immediately
+    revalidatePath("/clients");
+    if (updated.slug) {
+      revalidatePath(`/clients/${updated.slug}`);
+    }
+    revalidatePath("/");
+    revalidatePath("/sitemap.xml");
+
     return NextResponse.json({ success: true, client: updated });
   } catch (error: unknown) {
     return NextResponse.json(
@@ -112,6 +121,14 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json({ error: "Client not found" }, { status: 404 });
     }
+
+    // Revalidate frontend pages immediately
+    revalidatePath("/clients");
+    if (deleted.slug) {
+      revalidatePath(`/clients/${deleted.slug}`);
+    }
+    revalidatePath("/");
+    revalidatePath("/sitemap.xml");
 
     return NextResponse.json({ success: true, message: "Client deleted successfully" });
   } catch (error: unknown) {

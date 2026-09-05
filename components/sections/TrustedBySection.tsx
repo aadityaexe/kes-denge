@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -9,8 +10,10 @@ interface TrustedBySectionProps {
     id?: string;
     _id?: string;
     name?: string;
+    slug?: string;
     logoUrl?: string;
     isActive?: boolean;
+    isFeatured?: boolean;
   }>;
 }
 
@@ -20,9 +23,16 @@ export function TrustedBySection({ clientsData = [] }: TrustedBySectionProps) {
   const activeClients = clientsData.filter((c) => c.isActive !== false);
   if (activeClients.length === 0) return null;
 
-  const rawList = activeClients.map((c) => c.name || "").filter(Boolean);
-  // Duplicate logos to ensure seamless loop
-  const duplicatedLogos = [...rawList, ...rawList];
+  // Prioritize featured clients if marked, otherwise use all active
+  const featured = activeClients.filter((c) => c.isFeatured !== false);
+  const displayClients = featured.length > 0 ? featured : activeClients;
+
+  // Build a track with enough items (at least 8) for smooth marquee loop
+  let tickerList = [...displayClients];
+  while (tickerList.length < 8) {
+    tickerList = [...tickerList, ...displayClients];
+  }
+  const duplicatedLogos = [...tickerList, ...tickerList];
 
   return (
     <section className="py-12 md:py-16 bg-surface-1 border-b border-[var(--color-border)] overflow-hidden">
@@ -51,17 +61,40 @@ export function TrustedBySection({ clientsData = [] }: TrustedBySectionProps) {
             duration: 35, // slow and smooth
           }}
         >
-          {duplicatedLogos.map((logo, index) => (
-            <div 
-              key={`${logo}-${index}`}
-              className="text-display-sm font-bold text-text-muted opacity-50 select-none tracking-wider"
-            >
-              {logo}
-            </div>
-          ))}
+          {duplicatedLogos.map((client, index) => {
+            const key = `${client.id || client._id || client.name}-${index}`;
+            const clientName = client.name || "Partner";
+            const content = client.logoUrl ? (
+              <img
+                src={client.logoUrl}
+                alt={clientName}
+                className="h-7 sm:h-8 max-w-[140px] object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+              />
+            ) : (
+              <span className="text-display-sm font-bold text-text-muted opacity-50 hover:opacity-100 select-none tracking-wider transition-opacity">
+                {clientName}
+              </span>
+            );
+
+            return client.slug ? (
+              <Link
+                key={key}
+                href={`/clients/${client.slug}`}
+                className="flex items-center hover:scale-105 transition-transform"
+                title={`View ${clientName} case study`}
+              >
+                {content}
+              </Link>
+            ) : (
+              <div key={key} className="flex items-center">
+                {content}
+              </div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
   );
 }
+
 

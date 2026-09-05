@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Client from "@/models/Client";
@@ -82,6 +83,14 @@ export async function POST(req: NextRequest) {
       isActive: isActive ?? true,
       order: typeof order === "number" ? order : 0,
     });
+
+    // Revalidate frontend pages immediately so changes reflect live
+    revalidatePath("/clients");
+    if (client.slug) {
+      revalidatePath(`/clients/${client.slug}`);
+    }
+    revalidatePath("/");
+    revalidatePath("/sitemap.xml");
 
     return NextResponse.json({ success: true, client }, { status: 201 });
   } catch (error: unknown) {
