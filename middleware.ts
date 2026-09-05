@@ -62,10 +62,16 @@ export async function middleware(request: NextRequest) {
   // TODO(security): Migrate script-src to nonce-based CSP (Next.js App Router
   // supports per-request nonces via generateNonce()). This eliminates the blanket
   // 'unsafe-inline' allowance. Blocked by: hydration chunk compatibility testing.
-  // Track at: https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
+  // In development mode, React, Next.js Fast Refresh, and Turbopack require 'unsafe-eval'
+  // to evaluate source maps and reconstruct call stacks. In production, 'unsafe-eval' is strictly omitted.
+  const isDev = process.env.NODE_ENV !== "production";
+  const scriptSrc = isDev
+    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+    : "script-src 'self' 'unsafe-inline'";
+
   const csp = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline'",
+    scriptSrc,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' data: https://fonts.gstatic.com",
     "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://placehold.co",
