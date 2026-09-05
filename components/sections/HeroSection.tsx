@@ -172,7 +172,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
             ref={buttonsRef}
             className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 opacity-0 w-full"
           >
-            <Button size="lg" href={ctaPrimaryHref} className="rounded-full px-6 sm:px-8 bg-text-primary text-surface-1 hover:bg-text-secondary w-full sm:w-auto">
+            <Button size="lg" href={ctaPrimaryHref} className="rounded-full px-6 sm:px-8 bg-text-primary text-white hover:bg-text-secondary w-full sm:w-auto">
               {ctaPrimaryText}
             </Button>
             <Button size="lg" variant="outline" href={ctaSecondaryHref} className="rounded-full px-6 sm:px-8 border-[var(--color-border)] hover:bg-surface-2 w-full sm:w-auto">

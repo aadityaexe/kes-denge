@@ -177,7 +177,8 @@
 }
 
 /* Explicit color utilities to guarantee high contrast visibility */
-.text-white {
+.text-white,
+.text-surface-1 {
   color: #FFFFFF !important;
 }
 
