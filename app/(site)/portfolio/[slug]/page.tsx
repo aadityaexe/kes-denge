@@ -233,7 +233,7 @@ export default async function PortfolioDetailPage({
               {/* Testimonial Quote */}
               {project.testimonial && (
                 <div className={`${project.teamMembers && project.teamMembers.length > 0 ? "lg:col-span-7" : "lg:col-span-12"}`}>
-                  <div className="p-8 sm:p-12 rounded-[var(--radius-xl)] bg-surface-1 border border-[var(--color-border)] shadow-xl relative overflow-hidden">
+                  <div className="p-5 sm:p-8 md:p-12 rounded-[var(--radius-xl)] bg-surface-1 border border-[var(--color-border)] shadow-xl relative overflow-hidden">
                     <div className="absolute top-6 right-8 text-[var(--color-accent)]/20 pointer-events-none">
                       <Quote size={80} />
                     </div>
@@ -336,7 +336,7 @@ export default async function PortfolioDetailPage({
                   <Link
                     key={svc.slug}
                     href={`/services/${svc.slug}`}
-                    className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
+                    className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
@@ -395,7 +395,7 @@ export default async function PortfolioDetailPage({
                 <Link
                   key={item.slug}
                   href={`/portfolio/${item.slug}`}
-                  className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
+                  className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
@@ -428,13 +428,13 @@ export default async function PortfolioDetailPage({
       )}
 
       {/* 11. CALL TO ACTION BANNER */}
-      <section id="cta" className="container-site py-16 md:py-20">
-        <div className="rounded-[var(--radius-xl)] bg-text-primary text-surface-1 p-8 sm:p-12 md:p-16 text-center flex flex-col items-center relative overflow-hidden shadow-2xl">
+      <section id="cta" className="container-site py-12 sm:py-16 md:py-20">
+        <div className="rounded-[var(--radius-xl)] bg-text-primary text-surface-1 p-6 sm:p-10 md:p-14 text-center flex flex-col items-center relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-accent)]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-accent)]/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-1/10 text-[var(--color-accent-light)] text-xs font-mono mb-4 md:mb-6 uppercase tracking-widest border border-surface-1/15 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-surface-1/10 text-[var(--color-accent-light)] text-xs font-mono mb-4 md:mb-6 uppercase tracking-widest border border-surface-1/15 backdrop-blur-md">
               Start Your Engineering Engagement
             </div>
 
@@ -442,15 +442,15 @@ export default async function PortfolioDetailPage({
               Ready to engineer a system like {project.title.split("—")[0].trim()}?
             </h2>
 
-            <p className="text-base sm:text-lg text-surface-2 max-w-2xl mx-auto mb-8 md:mb-10 font-light opacity-90 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-surface-2 max-w-2xl mx-auto mb-6 sm:mb-8 font-light opacity-90 leading-relaxed">
               Book a technical scoping consultation directly with our lead architects. We will evaluate your system requirements, provide architectural blueprints, and scope a milestone-backed delivery sprint.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto">
               <Button
                 size="lg"
                 href="/contact"
-                className="rounded-full px-8 sm:px-10 py-3.5 sm:py-4 bg-[var(--color-accent)] text-surface-1 hover:bg-[var(--color-accent-light)] border-none font-semibold text-base shadow-2xl"
+                className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-3.5 sm:py-4 bg-[var(--color-accent)] text-surface-1 hover:bg-[var(--color-accent-light)] border-none font-semibold text-base shadow-2xl justify-center"
               >
                 Schedule Technical Scoping
                 <ArrowRight size={18} className="ml-2" />
@@ -459,7 +459,7 @@ export default async function PortfolioDetailPage({
                 size="lg"
                 variant="outline"
                 href="/portfolio"
-                className="rounded-full px-8 sm:px-9 py-3.5 sm:py-4 text-surface-1 border-surface-1/30 hover:bg-surface-1/10 text-base"
+                className="w-full sm:w-auto rounded-full px-8 sm:px-9 py-3.5 sm:py-4 text-surface-1 border-surface-1/30 hover:bg-surface-1/10 text-base justify-center"
               >
                 View More Projects
               </Button>

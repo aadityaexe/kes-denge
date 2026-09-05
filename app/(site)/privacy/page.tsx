@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="pt-32 pb-12 relative overflow-hidden">
+      <div className="pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
           <Parallax
             speed={0.8}
@@ -59,15 +59,15 @@ export default function PrivacyPolicyPage() {
       </div>
 
       <section className="section-padding pt-0">
-        <div className="container-site max-w-4xl text-text-secondary leading-relaxed space-y-8">
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+        <div className="container-site max-w-4xl text-text-secondary leading-relaxed space-y-6 sm:space-y-8">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">1. Overview & Commitment</h2>
             <p>
               MARK Technologies (&quot;MARK&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) provides product-engineering, software architecture, and custom application development services. We respect your personal data and maintain strict technical and operational controls to protect client information, project codebases, and visitor data.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">2. Information We Collect</h2>
             <p className="mb-2">When you interact with our website or enter an engineering contract, we may collect:</p>
             <ul className="list-disc pl-6 space-y-1">
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
             </ul>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">3. How We Use Information</h2>
             <p>We use your information solely to:</p>
             <ul className="list-disc pl-6 space-y-1 mt-2">
@@ -88,21 +88,21 @@ export default function PrivacyPolicyPage() {
             <p className="mt-2 text-text-primary font-medium">We never sell, rent, or monetize your personal or commercial data.</p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">4. Intellectual Property & Confidentiality</h2>
             <p>
               All client codebases, architectures, and intellectual property developed under engagement contracts remain the sole property of our clients as specified in individual Master Services Agreements (MSA). Non-disclosure agreements (NDAs) are executed prior to reviewing proprietary source materials.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">5. Data Retention & Security</h2>
             <p>
               We implement industry-standard encryption in transit (TLS 1.3) and at rest (AES-256), least-privilege role-based access control (RBAC), and continuous threat monitoring. Client data is retained strictly as long as necessary to fulfill contractual commitments.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">6. Contact Our Security & Legal Team</h2>
             <p>
               For questions regarding this Privacy Policy or to request deletion of your information, reach out to our team at{" "}

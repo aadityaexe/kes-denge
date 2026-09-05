@@ -39,10 +39,10 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
           </div>
 
           {/* Interactive Mode Switcher */}
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-surface-1 border border-[var(--color-border)] self-start sm:self-auto">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-surface-1 border border-[var(--color-border)] self-start sm:self-auto overflow-x-auto max-w-full">
             <button
               onClick={() => setActiveTab("overview")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap min-h-[36px] ${
                 activeTab === "overview"
                   ? "bg-[var(--color-accent)] text-surface-1 shadow-sm"
                   : "text-text-muted hover:text-text-primary"
@@ -52,7 +52,7 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
             </button>
             <button
               onClick={() => setActiveTab("metrics")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap min-h-[36px] ${
                 activeTab === "metrics"
                   ? "bg-[var(--color-accent)] text-surface-1 shadow-sm"
                   : "text-text-muted hover:text-text-primary"
@@ -62,7 +62,7 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
             </button>
             <button
               onClick={() => setActiveTab("architecture")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap min-h-[36px] ${
                 activeTab === "architecture"
                   ? "bg-[var(--color-accent)] text-surface-1 shadow-sm"
                   : "text-text-muted hover:text-text-primary"
@@ -76,26 +76,26 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
         {/* High-Tech Terminal / Showcase Window */}
         <div className="relative rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-surface-1 overflow-hidden shadow-2xl">
           {/* Top Window Control Bar */}
-          <div className="flex items-center justify-between px-6 py-3.5 border-b border-[var(--color-border)] bg-surface-2/60 backdrop-blur-md">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-              <span className="ml-3 text-xs font-mono text-text-muted">
+          <div className="flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3.5 border-b border-[var(--color-border)] bg-surface-2/60 backdrop-blur-md gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/80 inline-block shrink-0" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 inline-block shrink-0" />
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 inline-block shrink-0" />
+              <span className="ml-1.5 sm:ml-3 text-[11px] sm:text-xs font-mono text-text-muted truncate max-w-[140px] xs:max-w-[200px] sm:max-w-none">
                 production://{project.slug}.mark.internal
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-xs font-mono text-emerald-600 bg-emerald-500/10 px-2.5 py-0.5 rounded-md">
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-mono text-emerald-600 bg-emerald-500/10 px-2 sm:px-2.5 py-0.5 rounded-md">
                 <Radio size={12} className="animate-pulse" />
-                <span>Cluster Online</span>
+                <span className="hidden xs:inline">Cluster </span>Online
               </div>
             </div>
           </div>
 
           {/* Main Visual Content Body */}
-          <div className="p-6 sm:p-10 md:p-12 min-h-[420px] flex flex-col justify-between">
+          <div className="p-4 sm:p-8 md:p-12 min-h-[auto] sm:min-h-[420px] flex flex-col justify-between">
             {activeTab === "overview" && (
               <div className="space-y-8">
                 {/* Project Headline & Context */}
@@ -104,16 +104,16 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
                     <span className="inline-flex items-center gap-2 text-xs font-mono text-[var(--color-accent-dark)] font-bold uppercase tracking-wider">
                       <Activity size={14} /> Mission-Critical System Overview
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-bold font-display text-text-primary">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-display text-text-primary break-words">
                       {project.shortDescription || project.oneLiner}
                     </h3>
-                    <p className="text-text-secondary text-base leading-relaxed font-light">
+                    <p className="text-text-secondary text-sm sm:text-base leading-relaxed font-light break-words">
                       {project.fullDescription || project.problem}
                     </p>
                   </div>
 
                   {/* Impact Summary Pill Grid */}
-                  <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+                  <div className="lg:col-span-5 grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4">
                     {project.impactMetrics && project.impactMetrics.length > 0 ? (
                       project.impactMetrics.slice(0, 4).map((m, i) => (
                         <div
@@ -174,18 +174,18 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
 
             {activeTab === "metrics" && (
               <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                   {project.impactMetrics && project.impactMetrics.length > 0 ? (
                     project.impactMetrics.map((item, idx) => (
                       <div
                         key={idx}
-                        className="p-6 rounded-2xl bg-surface-2/90 border border-[var(--color-border)] flex flex-col justify-between"
+                        className="p-4 sm:p-6 rounded-2xl bg-surface-2/90 border border-[var(--color-border)] flex flex-col justify-between"
                       >
                         <div>
-                          <div className="w-10 h-10 rounded-xl bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] flex items-center justify-center mb-4">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] flex items-center justify-center mb-4">
                             <TrendingUp size={20} />
                           </div>
-                          <p className="text-3xl font-bold font-display text-text-primary mb-1">
+                          <p className="text-2xl sm:text-3xl font-bold font-display text-text-primary mb-1 break-words">
                             {item.metric}
                           </p>
                           <p className="text-sm font-semibold text-[var(--color-accent-dark)] mb-2">

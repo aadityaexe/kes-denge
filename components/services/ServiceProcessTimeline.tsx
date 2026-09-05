@@ -18,16 +18,16 @@ export function ServiceProcessTimeline({ processSteps }: ServiceProcessTimelineP
         return (
           <div
             key={stepItem.step || index}
-            className="group relative bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 transition-all duration-500 hover:shadow-2xl hover:border-[var(--color-accent)]/40 hover:-translate-y-1 flex flex-col justify-between"
+            className="group relative bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-all duration-500 hover:shadow-2xl hover:border-[var(--color-accent)]/40 hover:-translate-y-1 flex flex-col justify-between"
           >
             {/* Ambient hover glow on card */}
             <div className="absolute top-0 right-0 w-36 h-36 bg-[var(--color-accent)]/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
             <div>
               {/* Step Header */}
-              <div className="flex items-center justify-between gap-4 mb-6">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-xl text-text-primary group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500 shadow-sm">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-lg sm:text-xl text-text-primary group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500 shadow-sm shrink-0">
                     0{stepItem.step}
                   </div>
                   <div>
@@ -48,11 +48,11 @@ export function ServiceProcessTimeline({ processSteps }: ServiceProcessTimelineP
                 )}
               </div>
 
-              <h3 className="text-xl font-display font-bold text-text-primary mb-3 group-hover:text-[var(--color-accent)] transition-colors">
+              <h3 className="text-lg sm:text-xl font-display font-bold text-text-primary mb-3 group-hover:text-[var(--color-accent)] transition-colors break-words">
                 {stepItem.title}
               </h3>
 
-              <p className="text-text-secondary text-sm leading-relaxed font-light">
+              <p className="text-text-secondary text-sm leading-relaxed font-light break-words">
                 {stepItem.description}
               </p>
             </div>

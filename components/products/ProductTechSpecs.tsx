@@ -64,21 +64,21 @@ export function ProductTechSpecs({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Specifications Table */}
           {hasSpecs && (
-            <div className="lg:col-span-7 bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 md:p-8 shadow-sm">
+            <div className="lg:col-span-7 bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-6 md:p-8 shadow-sm">
               <div className="flex items-center gap-2 pb-4 mb-4 border-b border-[var(--color-border)]">
                 <Terminal size={18} className="text-[var(--color-accent-dark)]" />
-                <h3 className="text-lg font-bold font-display text-text-primary">
+                <h3 className="text-base sm:text-lg font-bold font-display text-text-primary">
                   System Architecture Specs
                 </h3>
               </div>
 
               <div className="divide-y divide-[var(--color-border)]">
                 {specifications.map((spec, idx) => (
-                  <div key={idx} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+                  <div key={idx} className="py-3 sm:py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 text-sm">
                     <span className="font-mono text-xs font-semibold text-text-muted uppercase tracking-wider">
                       {spec.label}
                     </span>
-                    <span className="font-mono text-sm text-text-primary font-medium sm:text-right">
+                    <span className="font-mono text-xs sm:text-sm text-text-primary font-medium sm:text-right break-words">
                       {spec.value}
                     </span>
                   </div>
@@ -91,7 +91,7 @@ export function ProductTechSpecs({
           <div className={`${hasSpecs ? "lg:col-span-5" : "lg:col-span-12"} space-y-6`}>
             {/* Deployment Options */}
             {hasDeploy && (
-              <div className="bg-surface-2/60 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 shadow-xs">
+              <div className="bg-surface-2/60 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-6 shadow-xs">
                 <div className="flex items-center gap-2 mb-4">
                   <Cloud size={18} className="text-[var(--color-accent-dark)]" />
                   <h4 className="text-base font-bold font-display text-text-primary">

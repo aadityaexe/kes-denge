@@ -49,7 +49,7 @@ export default async function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="pt-32 pb-12 relative overflow-hidden">
+      <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
           <Parallax speed={0.8} className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[var(--color-accent)]/10 to-transparent blur-[120px]" />
@@ -64,17 +64,17 @@ export default async function AboutPage() {
           />
 
           {(mission || vision || story) && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-10 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-8 md:mt-10 max-w-4xl mx-auto">
               {mission && (
-                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-surface-1 border border-[var(--color-border)]">
                   <span className="text-xs uppercase tracking-widest text-[var(--color-accent)] font-bold mb-3 block">Our Mission</span>
-                  <p className="text-text-secondary leading-relaxed">{mission}</p>
+                  <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{mission}</p>
                 </div>
               )}
               {vision && (
-                <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-surface-1 border border-[var(--color-border)]">
                   <span className="text-xs uppercase tracking-widest text-[var(--color-accent)] font-bold mb-3 block">Our Vision</span>
-                  <p className="text-text-secondary leading-relaxed">{vision}</p>
+                  <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{vision}</p>
                 </div>
               )}
             </div>

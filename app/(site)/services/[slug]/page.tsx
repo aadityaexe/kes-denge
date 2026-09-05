@@ -263,7 +263,7 @@ export default async function ServiceDetailsPage({
 
           {/* Target Audience: Who is this for? */}
           {service.targetAudience && service.targetAudience.length > 0 && (
-            <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 sm:p-8 mb-10 md:mb-12 shadow-md">
+            <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 mb-10 md:mb-12 shadow-md">
               <div className="max-w-2xl mb-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] text-xs font-mono font-bold uppercase mb-3">
                   Target Profiles
@@ -355,7 +355,7 @@ export default async function ServiceDetailsPage({
                 return (
                   <div
                     key={idx}
-                    className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 sm:p-10 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 group"
+                    className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 md:p-10 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 group"
                   >
                     <div className="w-14 h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] mb-6 group-hover:scale-110 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500 shadow-sm">
                       <IconComponent size={26} strokeWidth={1.5} />
@@ -374,7 +374,7 @@ export default async function ServiceDetailsPage({
 
           {/* Deliverables Checklist Banner */}
           {service.deliverables && service.deliverables.length > 0 && (
-            <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 sm:p-8 shadow-xl">
+            <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 shadow-xl">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-4">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] text-xs font-mono font-bold uppercase mb-3">
@@ -431,7 +431,7 @@ export default async function ServiceDetailsPage({
                 return (
                   <div
                     key={idx}
-                    className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 flex flex-col justify-between transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1"
+                    className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-6">
@@ -571,7 +571,7 @@ export default async function ServiceDetailsPage({
                   <Link
                     key={relSvc.slug}
                     href={`/services/${relSvc.slug}`}
-                    className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
+                    className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
@@ -630,7 +630,7 @@ export default async function ServiceDetailsPage({
                 <Link
                   key={item.slug}
                   href={`/portfolio/${item.slug}`}
-                  className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
+                  className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
@@ -688,7 +688,7 @@ export default async function ServiceDetailsPage({
                 <Link
                   key={prod.slug}
                   href={`/products/${prod.slug}`}
-                  className="group bg-surface-2/40 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 transition-all duration-300 hover:border-[var(--color-accent)]/50 hover:bg-surface-2 hover:-translate-y-1 flex flex-col justify-between"
+                  className="group bg-surface-2/40 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 transition-all duration-300 hover:border-[var(--color-accent)]/50 hover:bg-surface-2 hover:-translate-y-1 flex flex-col justify-between"
                 >
                   <div>
                     <span className="px-2.5 py-1 bg-surface-1 border border-[var(--color-border)] rounded-full text-xs font-mono text-text-muted mb-3 inline-block">
@@ -713,14 +713,14 @@ export default async function ServiceDetailsPage({
       )}
 
       {/* 11. LUXURY DARK CHAMPAGNE CTA BANNER */}
-      <section id="cta" className="container-site py-16 md:py-20">
-        <div className="rounded-[var(--radius-xl)] bg-text-primary text-surface-1 p-8 sm:p-12 md:p-16 text-center flex flex-col items-center relative overflow-hidden shadow-2xl">
+      <section id="cta" className="container-site py-12 sm:py-16 md:py-20">
+        <div className="rounded-[var(--radius-xl)] bg-text-primary text-surface-1 p-6 sm:p-10 md:p-14 text-center flex flex-col items-center relative overflow-hidden shadow-2xl">
           {/* Ambient Champagne Gold Lighting */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-accent)]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-accent)]/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-1/10 text-[var(--color-accent-light)] text-xs font-mono mb-4 uppercase tracking-widest border border-surface-1/15 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-surface-1/10 text-[var(--color-accent-light)] text-xs font-mono mb-4 uppercase tracking-widest border border-surface-1/15 backdrop-blur-md">
               Start Your Engineering Engagement
             </div>
 
@@ -728,15 +728,15 @@ export default async function ServiceDetailsPage({
               Ready to engineer your {service.title.toLowerCase()} solution?
             </h2>
 
-            <p className="text-base sm:text-xl text-surface-2 max-w-2xl mx-auto mb-8 font-light opacity-90 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-xl text-surface-2 max-w-2xl mx-auto mb-6 sm:mb-8 font-light opacity-90 leading-relaxed">
               Book a technical scoping consultation directly with our lead architects. We will evaluate your system requirements, provide architectural blueprints, and scope a milestone-backed delivery sprint.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-5">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto">
               <Button
                 size="lg"
                 href="/contact"
-                className="rounded-full px-10 py-4 bg-[var(--color-accent)] text-surface-1 hover:bg-[var(--color-accent-light)] border-none font-semibold text-base shadow-2xl"
+                className="w-full sm:w-auto rounded-full px-8 sm:px-10 py-3.5 sm:py-4 bg-[var(--color-accent)] text-surface-1 hover:bg-[var(--color-accent-light)] border-none font-semibold text-base shadow-2xl justify-center"
               >
                 Schedule Technical Discovery
                 <ArrowRight size={18} className="ml-2" />
@@ -745,7 +745,7 @@ export default async function ServiceDetailsPage({
                 size="lg"
                 variant="outline"
                 href="/portfolio"
-                className="rounded-full px-9 py-4 text-surface-1 border-surface-1/30 hover:bg-surface-1/10 text-base"
+                className="w-full sm:w-auto rounded-full px-8 sm:px-9 py-3.5 sm:py-4 text-surface-1 border-surface-1/30 hover:bg-surface-1/10 text-base justify-center"
               >
                 Explore Client Portfolio
               </Button>

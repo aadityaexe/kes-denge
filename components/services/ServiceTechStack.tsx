@@ -60,7 +60,7 @@ export function ServiceTechStack({ technologies }: ServiceTechStackProps) {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+              className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 min-h-[36px] ${
                 isActive
                   ? "bg-text-primary text-surface-1 shadow-md"
                   : "bg-surface-2 text-text-secondary hover:text-text-primary hover:bg-surface-3 border border-[var(--color-border)]"
@@ -75,7 +75,7 @@ export function ServiceTechStack({ technologies }: ServiceTechStackProps) {
       {/* Grid of Tech Cards */}
       <motion.div
         layout
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+        className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
       >
         <AnimatePresence>
           {filteredTechs.map((tech, idx) => {
@@ -88,15 +88,15 @@ export function ServiceTechStack({ technologies }: ServiceTechStackProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-lg)] p-5 flex flex-col items-center text-center transition-all duration-300 hover:border-[var(--color-border-accent)] hover:shadow-lg hover:-translate-y-1 group"
+                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-lg)] p-3.5 sm:p-5 flex flex-col items-center text-center transition-all duration-300 hover:border-[var(--color-border-accent)] hover:shadow-lg hover:-translate-y-1 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-surface-2 border border-[var(--color-border)] text-text-secondary flex items-center justify-center mb-3 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-300">
-                  <IconComponent size={22} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-surface-2 border border-[var(--color-border)] text-text-secondary flex items-center justify-center mb-2.5 sm:mb-3 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-300">
+                  <IconComponent size={20} />
                 </div>
-                <div className="font-semibold text-text-primary text-sm mb-1">
+                <div className="font-semibold text-text-primary text-xs sm:text-sm mb-1 break-words">
                   {tech.name}
                 </div>
-                <div className="text-[11px] text-text-muted font-mono uppercase tracking-wider">
+                <div className="text-[10px] sm:text-[11px] text-text-muted font-mono uppercase tracking-wider truncate max-w-full">
                   {tech.category}
                 </div>
               </motion.div>

@@ -56,7 +56,7 @@ export function FormField({
   return (
     <div className={`space-y-1.5 ${className}`}>
       {/* Label Row */}
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-center gap-1.5 relative">
           <label className="text-xs font-semibold text-text-primary uppercase tracking-wider">
             {label}

@@ -37,12 +37,12 @@ export function ConfirmDialog({
         </div>
         <p className="text-sm text-text-secondary leading-relaxed mb-6">{displayMessage}</p>
 
-        <div className="flex items-center gap-3 w-full">
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
           <button
             type="button"
             onClick={onClose}
             disabled={isLoading}
-            className="flex-1 px-4 py-2 text-xs font-semibold rounded-lg border border-[var(--color-border)] text-text-secondary hover:bg-surface-2 transition-colors disabled:opacity-50"
+            className="w-full sm:flex-1 min-h-[44px] px-4 py-2.5 text-xs font-semibold rounded-lg border border-[var(--color-border)] text-text-secondary hover:bg-surface-2 transition-colors disabled:opacity-50 flex items-center justify-center"
           >
             {cancelText}
           </button>
@@ -50,7 +50,7 @@ export function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={isLoading}
-            className="flex-1 px-4 py-2 text-xs font-semibold rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors disabled:opacity-50"
+            className="w-full sm:flex-1 min-h-[44px] px-4 py-2.5 text-xs font-semibold rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors disabled:opacity-50 flex items-center justify-center"
           >
             {isLoading ? "Deleting..." : confirmText}
           </button>

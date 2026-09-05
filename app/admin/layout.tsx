@@ -28,7 +28,7 @@ export default async function AdminLayout({
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-surface-2 text-text-primary flex">
+      <div className="min-h-screen bg-surface-2 text-text-primary flex flex-col lg:flex-row">
         {session && (
           <AdminSidebar
             userEmail={session.email}

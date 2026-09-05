@@ -28,7 +28,7 @@ function PortfolioCard({ item, index, isLarge }: { item: any, index: number, isL
       <Link
         href={`/portfolio/${item.slug}`}
         onMouseMove={handleMouseMove}
-        className="group relative block overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 w-full h-full min-h-[380px]"
+        className="group relative block overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 w-full h-full min-h-[300px] sm:min-h-[380px]"
       >
         {/* Background Image / Gradient Placeholder */}
         {item.coverImage || item.thumbnail ? (
@@ -62,8 +62,8 @@ function PortfolioCard({ item, index, isLarge }: { item: any, index: number, isL
         <div className="absolute inset-0 border-2 border-transparent group-hover:border-[var(--color-accent)]/30 rounded-[24px] transition-colors duration-500 pointer-events-none z-20" />
 
         {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col justify-end h-full z-20">
-          <div className="flex flex-wrap gap-2 mb-4">
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 flex flex-col justify-end h-full z-20">
+          <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
             <span className="px-3 py-1 bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md rounded-full text-xs font-medium text-text-primary">
               {item.category}
             </span>
@@ -74,11 +74,11 @@ function PortfolioCard({ item, index, isLarge }: { item: any, index: number, isL
             ))}
           </div>
 
-          <h3 className="text-3xl font-display font-bold text-text-primary mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-text-primary mb-2 group-hover:text-[var(--color-accent)] transition-colors break-words">
             {item.title}
           </h3>
 
-          <p className="text-text-secondary text-[var(--text-body-sm)] line-clamp-2 mb-6 max-w-lg">
+          <p className="text-text-secondary text-xs sm:text-[var(--text-body-sm)] line-clamp-2 mb-4 sm:mb-6 max-w-lg break-words">
             {item.oneLiner || item.summary || item.shortDescription || item.problem}
           </p>
 

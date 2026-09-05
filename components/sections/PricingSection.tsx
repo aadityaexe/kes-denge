@@ -24,7 +24,7 @@ function PricingCard({ tier, index }: { tier: any, index: number }) {
         <div 
           onMouseMove={handleMouseMove}
           className={`
-          group overflow-hidden relative flex flex-col w-full h-full rounded-[var(--radius-xl)] p-8 transition-colors duration-500
+          group overflow-hidden relative flex flex-col w-full h-full rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-colors duration-500
           ${tier.isPopular 
             ? 'bg-surface-1 border-2 border-[var(--color-accent)] shadow-xl md:-translate-y-4' 
             : 'bg-surface-1 border border-[var(--color-border)] hover:border-[var(--color-accent)]/30 hover:bg-surface-2'
@@ -45,21 +45,21 @@ function PricingCard({ tier, index }: { tier: any, index: number }) {
           />
           <div className="relative z-10 flex flex-col h-full">
             {tier.isPopular && (
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(2rem+50%)] px-4 py-1 rounded-full bg-[var(--color-accent)] text-white text-[var(--text-caption)] font-bold tracking-wide uppercase shadow-lg z-20">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(1.5rem+50%)] px-3.5 py-1 rounded-full bg-[var(--color-accent)] text-white text-[var(--text-caption)] font-bold tracking-wide uppercase shadow-lg z-20 whitespace-nowrap text-xs">
                 Most Popular
               </div>
             )}
             
-            <h3 className="text-[var(--text-heading-sm)] font-bold text-text-primary mb-2">
+            <h3 className="text-[var(--text-heading-sm)] font-bold text-text-primary mb-2 break-words">
               {tier.name}
             </h3>
             
-            <p className="text-[var(--text-body-sm)] text-text-secondary h-12 mb-6">
+            <p className="text-[var(--text-body-sm)] text-text-secondary min-h-[3rem] mb-4 sm:mb-6 break-words">
               {tier.description}
             </p>
             
-            <div className="mb-8">
-              <span className="text-display-sm font-bold text-text-primary">{tier.price}</span>
+            <div className="mb-6 sm:mb-8">
+              <span className="text-display-sm font-bold text-text-primary break-words">{tier.price}</span>
               <span className="text-[var(--text-body-sm)] text-text-muted ml-2">/ {tier.period}</span>
             </div>
             

@@ -1,6 +1,6 @@
 export default function SiteLoading() {
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center pt-24 pb-16">
+    <div className="min-h-[70vh] flex flex-col items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-16">
       <div className="relative flex items-center justify-center">
         {/* Outer pulsating ring */}
         <div className="w-16 h-16 rounded-full border-2 border-emerald-500/20 animate-ping absolute" />

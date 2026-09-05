@@ -39,9 +39,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base px-4">
-      <div className="w-full max-w-md bg-surface-1 p-8 rounded-2xl shadow-2xl border border-[var(--color-border)] backdrop-blur-sm">
-        <div className="text-center mb-8">
+    <div className="min-h-screen flex items-center justify-center bg-base px-3 sm:px-4 py-8">
+      <div className="w-full max-w-md bg-surface-1 p-5 sm:p-8 rounded-2xl shadow-2xl border border-[var(--color-border)] backdrop-blur-sm">
+        <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-3">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -77,7 +77,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
               aria-describedby={error ? "login-error" : undefined}
-              className="w-full px-4 py-2.5 bg-surface-2 border border-[var(--color-border)] rounded-xl text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 text-sm transition-all"
+              className="w-full px-4 py-2.5 min-h-[44px] bg-surface-2 border border-[var(--color-border)] rounded-xl text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 text-sm transition-all"
               placeholder="admin@mark2.in"
             />
           </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               aria-describedby={error ? "login-error" : undefined}
-              className="w-full px-4 py-2.5 bg-surface-2 border border-[var(--color-border)] rounded-xl text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 text-sm transition-all"
+              className="w-full px-4 py-2.5 min-h-[44px] bg-surface-2 border border-[var(--color-border)] rounded-xl text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 text-sm transition-all"
               placeholder="••••••••••••"
             />
           </div>

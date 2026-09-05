@@ -47,26 +47,26 @@ export function ProductVisualPreview({
         {/* Mock Enterprise Window */}
         <div className="max-w-5xl mx-auto bg-surface-1 rounded-[var(--radius-xl)] border border-[var(--color-border)] shadow-2xl overflow-hidden">
           {/* Window Title Bar */}
-          <div className="bg-surface-2 px-6 py-4 border-b border-[var(--color-border)] flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-400/80" />
-                <div className="w-3 h-3 rounded-full bg-amber-400/80" />
-                <div className="w-3 h-3 rounded-full bg-emerald-400/80" />
+          <div className="bg-surface-2 px-3.5 sm:px-6 py-3 sm:py-4 border-b border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="flex items-center gap-1.5 shrink-0">
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400/80" />
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-400/80" />
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400/80" />
               </div>
-              <div className="h-4 w-[1px] bg-[var(--color-border)] mx-1" />
-              <span className="text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5">
-                <Lock size={12} className="text-emerald-600" />
+              <div className="h-4 w-[1px] bg-[var(--color-border)] mx-1 shrink-0" />
+              <span className="text-[11px] sm:text-xs font-mono font-medium text-text-secondary flex items-center gap-1.5 truncate max-w-[150px] xs:max-w-[220px] sm:max-w-none">
+                <Lock size={12} className="text-emerald-600 shrink-0" />
                 app.{productName.toLowerCase().replace(/\s+/g, "")}.enterprise.internal
               </span>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex items-center gap-1 bg-surface-1 p-1 rounded-lg border border-[var(--color-border)] text-xs font-mono">
+            <div className="flex items-center gap-1 bg-surface-1 p-1 rounded-lg border border-[var(--color-border)] text-xs font-mono overflow-x-auto max-w-full">
               <button
                 type="button"
                 onClick={() => setActiveTab("overview")}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-2.5 sm:px-3 py-1 rounded-md transition-colors whitespace-nowrap min-h-[32px] ${
                   activeTab === "overview"
                     ? "bg-text-primary text-surface-1 font-semibold"
                     : "text-text-secondary hover:text-text-primary"
@@ -77,7 +77,7 @@ export function ProductVisualPreview({
               <button
                 type="button"
                 onClick={() => setActiveTab("telemetry")}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-2.5 sm:px-3 py-1 rounded-md transition-colors whitespace-nowrap min-h-[32px] ${
                   activeTab === "telemetry"
                     ? "bg-text-primary text-surface-1 font-semibold"
                     : "text-text-secondary hover:text-text-primary"
@@ -88,7 +88,7 @@ export function ProductVisualPreview({
               <button
                 type="button"
                 onClick={() => setActiveTab("security")}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-2.5 sm:px-3 py-1 rounded-md transition-colors whitespace-nowrap min-h-[32px] ${
                   activeTab === "security"
                     ? "bg-text-primary text-surface-1 font-semibold"
                     : "text-text-secondary hover:text-text-primary"
@@ -99,7 +99,7 @@ export function ProductVisualPreview({
               <button
                 type="button"
                 onClick={() => setActiveTab("api")}
-                className={`px-3 py-1 rounded-md transition-colors ${
+                className={`px-2.5 sm:px-3 py-1 rounded-md transition-colors whitespace-nowrap min-h-[32px] ${
                   activeTab === "api"
                     ? "bg-text-primary text-surface-1 font-semibold"
                     : "text-text-secondary hover:text-text-primary"
@@ -111,33 +111,33 @@ export function ProductVisualPreview({
           </div>
 
           {/* Window Canvas Body */}
-          <div className="p-6 md:p-10 bg-surface-1">
+          <div className="p-4 sm:p-6 md:p-10 bg-surface-1">
             {activeTab === "overview" && (
               <div className="space-y-6">
                 {/* Stats Row */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
                     <div className="text-xs font-mono text-text-muted mb-1">System Uptime</div>
                     <div className="text-xl font-bold font-display text-text-primary">99.998%</div>
                     <div className="text-[11px] text-emerald-600 font-mono mt-1 flex items-center gap-1">
                       <CheckCircle2 size={11} /> Healthy (30d)
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
                     <div className="text-xs font-mono text-text-muted mb-1">Response Latency</div>
                     <div className="text-xl font-bold font-display text-text-primary">38ms</div>
                     <div className="text-[11px] text-[var(--color-accent-dark)] font-mono mt-1 flex items-center gap-1">
                       <Zap size={11} /> Edge Cached
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
                     <div className="text-xs font-mono text-text-muted mb-1">Daily Transactions</div>
                     <div className="text-xl font-bold font-display text-text-primary">1,480,210</div>
                     <div className="text-[11px] text-blue-600 font-mono mt-1 flex items-center gap-1">
                       <Activity size={11} /> +14.2% velocity
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-surface-2 border border-[var(--color-border)]">
                     <div className="text-xs font-mono text-text-muted mb-1">Active Nodes</div>
                     <div className="text-xl font-bold font-display text-text-primary">16 / 16</div>
                     <div className="text-[11px] text-emerald-600 font-mono mt-1 flex items-center gap-1">

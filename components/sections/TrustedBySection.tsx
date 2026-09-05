@@ -38,12 +38,12 @@ export function TrustedBySection({ clientsData = [] }: TrustedBySectionProps) {
 
       <div className="relative w-full overflow-hidden flex items-center h-24">
         {/* Fade gradients for smooth edge transition */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-surface-1 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-surface-1 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 bg-gradient-to-r from-surface-1 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 bg-gradient-to-l from-surface-1 to-transparent z-10 pointer-events-none" />
         
         {/* Marquee Track */}
         <motion.div
-          className="flex whitespace-nowrap gap-16 px-8 items-center"
+          className="flex whitespace-nowrap gap-8 sm:gap-12 md:gap-16 px-4 sm:px-8 items-center"
           animate={{ x: [0, "-50%"] }}
           transition={{
             repeat: Infinity,

@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="pt-32 pb-12 relative overflow-hidden">
+      <div className="pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
           <Parallax
             speed={0.8}
@@ -59,43 +59,43 @@ export default function TermsOfServicePage() {
       </div>
 
       <section className="section-padding pt-0">
-        <div className="container-site max-w-4xl text-text-secondary leading-relaxed space-y-8">
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+        <div className="container-site max-w-4xl text-text-secondary leading-relaxed space-y-6 sm:space-y-8">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">1. Engagement Framework</h2>
             <p>
               By accessing our website or retaining MARK Technologies (&quot;MARK&quot;, &quot;we&quot;, &quot;us&quot;) for custom software engineering, cloud architecture, or digital product development, you agree to comply with and be bound by these Terms of Service in conjunction with applicable Statements of Work (SOW) or Master Services Agreements (MSA).
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">2. Engineering Services & Deliverables</h2>
             <p>
               MARK provides specialized software development including web applications, native mobile applications, enterprise ERP/CRM platforms, and AI automation systems. Specific deliverables, milestone schedules, acceptance criteria, and warranties are defined in individual project SOWs signed by both parties.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">3. Intellectual Property Assignment</h2>
             <p>
               Upon receipt of full payment for contracted milestones, all custom source code, documentation, UI designs, and database architectures created specifically for the client are assigned exclusively to the client. MARK retains ownership of general developer utilities, open-source dependencies, and reusable framework components.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">4. Client Responsibilities & Collaboration</h2>
             <p>
               Successful project delivery requires timely access to project stakeholders, third-party API credentials, domain configurations, and prompt milestone review. Delays caused by third-party vendor downtime or pending approvals may adjust estimated release timelines.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">5. Confidentiality & Non-Disclosure</h2>
             <p>
               Both parties agree to treat all business data, technical architecture blueprints, pricing schedules, and proprietary source code as strictly confidential. This obligation survives the completion or termination of any active service agreement.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
             <h2 className="text-xl font-display font-semibold text-text-primary mb-3">6. Governing Law & Inquiries</h2>
             <p>
               These terms are governed by and construed in accordance with applicable corporate and commercial law. For contractual or legal inquiries, please contact our legal operations team at{" "}

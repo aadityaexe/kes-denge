@@ -128,19 +128,19 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
   return (
     <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] shadow-2xl overflow-hidden">
       {/* Top Header Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-6 py-5 border-b border-[var(--color-border)] bg-surface-2/60 gap-4">
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-400/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-            <div className="w-3 h-3 rounded-full bg-green-400/80" />
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-3.5 sm:px-6 py-3.5 sm:py-5 border-b border-[var(--color-border)] bg-surface-2/60 gap-3 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="flex gap-1.5 shrink-0">
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400/80" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400/80" />
+            <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400/80" />
           </div>
-          <span className="text-xs font-mono text-text-secondary font-semibold">
+          <span className="text-[11px] sm:text-xs font-mono text-text-secondary font-semibold truncate max-w-[160px] xs:max-w-[240px] sm:max-w-none">
             mark://architecture-blueprint/{serviceTitle.toLowerCase().replace(/\s+/g, "-")}
           </span>
         </div>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-mono font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-mono font-semibold shrink-0">
           <Activity size={12} className="animate-pulse" />
           <span>System Healthy &bull; 99.99% Uptime</span>
         </div>
@@ -156,7 +156,7 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
             <button
               key={layer.id}
               onClick={() => setActiveLayer(layer.id)}
-              className={`px-5 py-4 text-left flex items-center gap-3 border-r last:border-r-0 border-[var(--color-border)] transition-all relative ${
+              className={`px-3 sm:px-5 py-3 sm:py-4 text-left flex items-center gap-2.5 sm:gap-3 border-r last:border-r-0 border-[var(--color-border)] transition-all relative min-h-[44px] ${
                 isActive
                   ? "bg-surface-2 text-text-primary font-semibold"
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-2/40"
@@ -166,15 +166,15 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-[var(--color-accent)]" />
               )}
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-colors shrink-0 ${
                   isActive
                     ? "bg-[var(--color-accent)] text-surface-1"
                     : "bg-surface-3 text-text-muted"
                 }`}
               >
-                <Icon size={16} />
+                <Icon size={15} />
               </div>
-              <span className="text-xs sm:text-sm">{layer.label}</span>
+              <span className="text-xs sm:text-sm truncate">{layer.label}</span>
             </button>
           );
         })}
@@ -188,7 +188,7 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.25 }}
-          className="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
+          className="p-4 sm:p-8 md:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start"
         >
           {/* Left info & features */}
           <div className="lg:col-span-6 flex flex-col justify-between h-full">
@@ -197,13 +197,13 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
                 {currentLayer.label} Blueprint
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-bold font-display text-text-primary mb-3">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-display text-text-primary mb-3 break-words">
                 {currentLayer.tagline}
               </h3>
 
-              <ul className="space-y-3 mt-6 mb-8">
+              <ul className="space-y-3 mt-4 sm:mt-6 mb-6 sm:mb-8">
                 {currentLayer.features.map((feat, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed">
+                  <li key={idx} className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed break-words">
                     <CheckCircle2 size={16} className="text-[var(--color-accent)] shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </li>
@@ -212,13 +212,13 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
             </div>
 
             {/* Metrics pills */}
-            <div className="grid grid-cols-3 gap-3 pt-6 border-t border-[var(--color-border)]">
+            <div className="grid grid-cols-1 xs:grid-cols-3 gap-2.5 sm:gap-3 pt-4 sm:pt-6 border-t border-[var(--color-border)]">
               {currentLayer.metrics.map((metric, idx) => (
-                <div key={idx} className="p-3 rounded-lg bg-surface-2 border border-[var(--color-border)] text-center">
-                  <div className="text-xs text-text-muted font-mono uppercase tracking-wider mb-0.5">
+                <div key={idx} className="p-2.5 sm:p-3 rounded-lg bg-surface-2 border border-[var(--color-border)] text-center">
+                  <div className="text-[11px] sm:text-xs text-text-muted font-mono uppercase tracking-wider mb-0.5 truncate">
                     {metric.label}
                   </div>
-                  <div className="text-sm sm:text-base font-bold text-text-primary font-display">
+                  <div className="text-sm sm:text-base font-bold text-text-primary font-display break-words">
                     {metric.value}
                   </div>
                 </div>
@@ -227,7 +227,7 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
           </div>
 
           {/* Right Code / Architecture preview */}
-          <div className="lg:col-span-6 bg-zinc-950 text-zinc-100 rounded-xl p-5 border border-zinc-800 font-mono text-xs overflow-x-auto shadow-inner relative">
+          <div className="lg:col-span-6 bg-zinc-950 text-zinc-100 rounded-xl p-3.5 sm:p-5 border border-zinc-800 font-mono text-xs overflow-x-auto shadow-inner relative max-w-full">
             <div className="flex items-center justify-between pb-3 mb-3 border-b border-zinc-800 text-zinc-400">
               <div className="flex items-center gap-2">
                 <Terminal size={14} className="text-[var(--color-accent)]" />

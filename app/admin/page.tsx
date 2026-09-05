@@ -87,9 +87,9 @@ export default function AdminDashboardPage() {
         isLoading={isLoading}
       />
 
-      <div className="p-6 sm:p-8 space-y-8 max-w-7xl">
+      <div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 max-w-7xl">
         {/* Welcome Banner */}
-        <div className="bg-surface-1 border border-[var(--color-border)] rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+        <div className="bg-surface-1 border border-[var(--color-border)] rounded-2xl p-4 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-[var(--color-accent-glow)] border border-[var(--color-border-accent)] flex items-center justify-center text-[var(--color-accent-dark)]">
               <Layers size={24} />
@@ -113,7 +113,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Live Site Quick Access & Information Strip */}
-        <div className="p-4 rounded-xl bg-surface-2/60 border border-[var(--color-border)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="p-3.5 sm:p-4 rounded-xl bg-surface-2/60 border border-[var(--color-border)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-text-primary">
             <ExternalLink size={14} className="text-[var(--color-accent-dark)]" />
             <span>Public Pages Quick Access:</span>
@@ -176,7 +176,7 @@ export default function AdminDashboardPage() {
               Click any category to manage content items
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
             {statCards.map((card, idx) => {
               const Icon = card.icon;
               return (
@@ -215,7 +215,7 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Recent Inquiries */}
           <div className="bg-surface-1 border border-[var(--color-border)] rounded-2xl overflow-hidden shadow-sm flex flex-col">
-            <div className="p-5 border-b border-[var(--color-border)] flex items-center justify-between bg-surface-2">
+            <div className="p-4 sm:p-5 border-b border-[var(--color-border)] flex items-center justify-between bg-surface-2">
               <div className="flex items-center gap-2">
                 <MessageSquare size={16} className="text-[var(--color-accent-dark)]" />
                 <h3 className="font-bold text-sm text-text-primary">Recent Lead Inquiries</h3>
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
 
           {/* Recent Portfolio Projects */}
           <div className="bg-surface-1 border border-[var(--color-border)] rounded-2xl overflow-hidden shadow-sm flex flex-col">
-            <div className="p-5 border-b border-[var(--color-border)] flex items-center justify-between bg-surface-2">
+            <div className="p-4 sm:p-5 border-b border-[var(--color-border)] flex items-center justify-between bg-surface-2">
               <div className="flex items-center gap-2">
                 <Briefcase size={16} className="text-[var(--color-accent-dark)]" />
                 <h3 className="font-bold text-sm text-text-primary">Recent Case Studies</h3>

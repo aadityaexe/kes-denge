@@ -59,7 +59,7 @@ export function Modal({
   return (
     <div
       data-lenis-prevent="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6"
     >
       {/* Backdrop */}
       <div
@@ -73,15 +73,15 @@ export function Modal({
         className={`relative w-full ${maxWidthClasses} max-h-[92vh] flex flex-col bg-surface-1 rounded-2xl border border-[var(--color-border)] shadow-2xl z-10 overflow-hidden animate-in zoom-in-95 duration-200`}
       >
         {/* Modal Header (pinned at top) */}
-        <div className="px-6 py-4 border-b border-[var(--color-border)] flex items-center justify-between bg-surface-2 shrink-0">
-          <div>
-            <h2 className="text-lg font-bold text-text-primary">{title}</h2>
-            {description && <p className="text-xs text-text-secondary mt-0.5">{description}</p>}
+        <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[var(--color-border)] flex items-center justify-between bg-surface-2 shrink-0">
+          <div className="min-w-0 pr-2">
+            <h2 className="text-base sm:text-lg font-bold text-text-primary truncate">{title}</h2>
+            {description && <p className="text-xs text-text-secondary mt-0.5 line-clamp-2">{description}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors cursor-pointer"
+            className="min-h-[44px] min-w-[44px] p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors cursor-pointer flex items-center justify-center shrink-0"
             aria-label="Close modal"
           >
             <X size={18} />
@@ -91,7 +91,7 @@ export function Modal({
         {/* Modal Content (fully scrollable) */}
         <div
           data-lenis-prevent="true"
-          className="p-6 overflow-y-auto flex-1 overscroll-contain"
+          className="p-4 sm:p-6 overflow-y-auto flex-1 overscroll-contain"
           style={{ maxHeight: footer ? "calc(92vh - 135px)" : "calc(92vh - 75px)" }}
         >
           {children}
@@ -99,7 +99,7 @@ export function Modal({
 
         {/* Modal Footer (pinned at bottom if provided) */}
         {footer && (
-          <div className="px-6 py-3.5 border-t border-[var(--color-border)] flex items-center justify-between bg-surface-2 shrink-0">
+          <div className="px-4 sm:px-6 py-3 sm:py-3.5 border-t border-[var(--color-border)] flex items-center justify-between bg-surface-2 shrink-0">
             {footer}
           </div>
         )}

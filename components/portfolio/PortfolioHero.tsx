@@ -16,7 +16,7 @@ export function PortfolioHero({ project }: PortfolioHeroProps) {
     : "Under Maintenance";
 
   return (
-    <section className="relative pt-28 pb-12 md:pt-32 md:pb-16 border-b border-[var(--color-border)] overflow-hidden bg-base">
+    <section className="relative pt-20 sm:pt-28 md:pt-32 pb-10 sm:pb-12 md:pb-16 border-b border-[var(--color-border)] overflow-hidden bg-base">
       {/* Background Champagne Glow & Grid Pattern */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[var(--color-accent)]/10 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute top-20 left-10 w-72 h-72 bg-[var(--color-accent)]/5 rounded-full blur-[100px] pointer-events-none -z-10" />
@@ -33,21 +33,21 @@ export function PortfolioHero({ project }: PortfolioHeroProps) {
               Portfolio
             </Link>
             <span>/</span>
-            <span className="text-[var(--color-accent)] truncate max-w-[200px] sm:max-w-none">
+            <span className="text-[var(--color-accent)] truncate max-w-[140px] sm:max-w-none">
               {project.title.split("—")[0].trim()}
             </span>
           </nav>
 
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 text-xs font-medium text-text-secondary hover:text-text-primary transition-colors px-3 py-1.5 rounded-full bg-surface-1 border border-[var(--color-border)] hover:border-[var(--color-accent)]/40"
+            className="inline-flex items-center gap-2 text-xs font-medium text-text-secondary hover:text-text-primary transition-colors px-3 py-1.5 rounded-full bg-surface-1 border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 min-h-[36px]"
           >
             <ArrowLeft size={14} /> Back to All Projects
           </Link>
         </div>
 
         {/* Category & Status Badges */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] text-xs font-mono font-bold uppercase tracking-wider border border-[var(--color-accent)]/20">
             <Zap size={13} /> {project.category}
           </div>
@@ -65,17 +65,17 @@ export function PortfolioHero({ project }: PortfolioHeroProps) {
         </div>
 
         {/* Main H1 Title & One-Liner */}
-        <h1 className="text-display-lg sm:text-display-xl font-bold font-display text-text-primary tracking-tight leading-[1.08] mb-4 md:mb-6 max-w-4xl">
+        <h1 className="text-display-lg sm:text-display-xl font-bold font-display text-text-primary tracking-tight leading-[1.08] mb-4 md:mb-6 max-w-4xl break-words">
           {project.title}
         </h1>
 
-        <p className="text-lg sm:text-2xl text-text-secondary font-light leading-relaxed max-w-3xl mb-8 md:mb-10">
+        <p className="text-lg sm:text-2xl text-text-secondary font-light leading-relaxed max-w-3xl mb-8 md:mb-10 break-words">
           {project.oneLiner || project.shortDescription}
         </p>
 
         {/* Project Meta Details Card */}
-        <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 sm:p-8 shadow-xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 items-center">
+        <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-6 md:p-8 shadow-xl">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-start sm:items-center">
             {/* Client */}
             <div className="space-y-1">
               <p className="text-[11px] font-mono uppercase tracking-widest text-text-muted flex items-center gap-1.5">

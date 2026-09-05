@@ -22,7 +22,7 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
 
   useEffect(() => {
     if (!sectionRef.current || !gridRef.current || activeMembers.length === 0) return;
-    
+
     gsap.fromTo(
       gridRef.current.children,
       { y: 50, opacity: 0 },
@@ -44,7 +44,7 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
   if (activeMembers.length === 0) return null;
 
   return (
-    <section ref={sectionRef} id="team" className="section-padding pt-32 md:pt-36 bg-base relative overflow-hidden">
+    <section ref={sectionRef} id="team" className="section-padding pt-24 sm:pt-28 md:pt-36 bg-base relative overflow-hidden">
       {/* Background Parallax Orb */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
         <Parallax speed={0.6} className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] rounded-full bg-gradient-to-tr from-[var(--color-accent)]/5 to-transparent blur-[120px]" />
@@ -59,23 +59,22 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
           align="center"
         />
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {activeMembers.map((member) => (
             <Link key={member.id} href={`/team/${member.slug}`}>
-              <div className="group relative h-full flex flex-col p-8 rounded-2xl bg-surface-1 border border-[var(--color-border)] overflow-hidden transition-all duration-500 hover:border-black/20 hover:bg-surface-2">
-                
+              <div className="group relative h-full flex flex-col p-5 sm:p-6 md:p-8 rounded-2xl bg-surface-1 border border-[var(--color-border)] overflow-hidden transition-all duration-500 hover:border-black/20 hover:bg-surface-2">
                 {/* Image / Avatar */}
-                <div className="w-24 h-24 rounded-full bg-black/5 mb-8 flex items-center justify-center text-text-muted/50 text-2xl font-bold uppercase overflow-hidden border-2 border-transparent group-hover:border-[var(--color-accent-light)] transition-colors duration-500">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-black/5 mb-4 sm:mb-6 flex items-center justify-center text-text-muted/50 text-xl sm:text-2xl font-bold uppercase overflow-hidden border-2 border-transparent group-hover:border-[var(--color-accent-light)] transition-colors duration-500">
                   {member.photo ? (
                     <img src={member.photo} alt={member.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                   ) : (
                     member.name.substring(0, 2)
                   )}
                 </div>
-                
-                <h3 className="text-2xl font-display text-text-primary mb-2 group-hover:text-[var(--color-accent-dark)] transition-colors">{member.name}</h3>
-                <p className="text-[var(--text-body-sm)] text-[var(--color-accent)] mb-6">{member.role}</p>
-                
+
+                <h3 className="text-xl sm:text-2xl font-display text-text-primary mb-2 group-hover:text-[var(--color-accent-dark)] transition-colors break-words">{member.name}</h3>
+                <p className="text-[var(--text-body-sm)] text-[var(--color-accent)] mb-4 sm:mb-6 break-words">{member.role}</p>
+
                 <div className="flex flex-wrap gap-2 mt-auto mb-8">
                   {(member.techTags || []).slice(0, 3).map((tag: string) => (
                     <span key={tag} className="px-3 py-1 rounded-full bg-black/5 text-xs text-text-secondary border border-black/10 group-hover:border-black/20 transition-colors">

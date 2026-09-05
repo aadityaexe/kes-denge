@@ -90,17 +90,17 @@ export function PortfolioKeyFeatures({ project }: PortfolioKeyFeaturesProps) {
             return (
               <div
                 key={idx}
-                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 sm:p-10 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 group"
+                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 md:p-10 transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent-dark)] mb-6 group-hover:scale-110 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500 shadow-sm">
-                  <IconComp size={24} strokeWidth={1.75} />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent-dark)] mb-4 sm:mb-6 group-hover:scale-110 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500 shadow-sm">
+                  <IconComp size={22} strokeWidth={1.75} />
                 </div>
 
-                <h3 className="text-2xl font-bold font-display text-text-primary mb-3 group-hover:text-[var(--color-accent)] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-bold font-display text-text-primary mb-3 group-hover:text-[var(--color-accent)] transition-colors break-words">
                   {feature.title}
                 </h3>
 
-                <p className="text-text-secondary text-base leading-relaxed font-light">
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed font-light break-words">
                   {feature.description}
                 </p>
               </div>

@@ -21,7 +21,7 @@ function ProblemCard({ item, index }: { item: ServiceProblemSolution; index: num
   return (
     <div
       onMouseMove={handleMouseMove}
-      className="group relative bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 flex flex-col justify-between transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl overflow-hidden"
+      className="group relative bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-all duration-500 hover:border-[var(--color-accent)]/40 hover:shadow-2xl overflow-hidden"
     >
       <motion.div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-0 rounded-[var(--radius-xl)]"
@@ -43,7 +43,7 @@ function ProblemCard({ item, index }: { item: ServiceProblemSolution; index: num
             <AlertTriangle size={13} />
             <span>The Traditional Bottleneck</span>
           </div>
-          <p className="text-[#555555] text-text-secondary text-sm sm:text-base leading-relaxed font-normal">
+          <p className="text-[#555555] text-text-secondary text-sm sm:text-base leading-relaxed font-normal break-words">
             {item.problem}
           </p>
         </div>
@@ -63,7 +63,7 @@ function ProblemCard({ item, index }: { item: ServiceProblemSolution; index: num
             <CheckCircle2 size={13} />
             <span>MARK Solution</span>
           </div>
-          <p className="text-[#111111] text-text-primary text-sm sm:text-base leading-relaxed font-semibold">
+          <p className="text-[#111111] text-text-primary text-sm sm:text-base leading-relaxed font-semibold break-words">
             {item.solution}
           </p>
         </div>

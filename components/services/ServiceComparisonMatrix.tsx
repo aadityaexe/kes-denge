@@ -44,7 +44,49 @@ const comparisonData: ComparisonRow[] = [
 export function ServiceComparisonMatrix({ serviceTitle }: { serviceTitle: string }) {
   return (
     <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] shadow-xl overflow-hidden">
-      <div className="overflow-x-auto">
+      {/* Mobile-optimized Card View (< md) */}
+      <div className="md:hidden divide-y divide-[var(--color-border)]">
+        {comparisonData.map((row, idx) => (
+          <div key={idx} className="p-4 sm:p-5 space-y-3">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-surface-2 text-text-muted text-[11px] font-mono uppercase tracking-wider">
+              {row.dimension}
+            </div>
+
+            {/* Traditional Agency */}
+            <div className="flex items-start gap-2.5 p-3 rounded-lg bg-surface-2/40 border border-red-500/10">
+              <div className="w-5 h-5 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center shrink-0 mt-0.5">
+                <X size={12} strokeWidth={3} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] font-mono uppercase text-red-500/80 font-bold tracking-wider mb-0.5">
+                  Typical Agency
+                </p>
+                <p className="text-xs text-text-secondary leading-relaxed break-words">
+                  {row.traditional}
+                </p>
+              </div>
+            </div>
+
+            {/* MARK Engineering */}
+            <div className="flex items-start gap-2.5 p-3 rounded-lg bg-[var(--color-accent-glow)]/30 border border-[var(--color-accent)]/20">
+              <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                <Check size={12} strokeWidth={3} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] font-mono uppercase text-[var(--color-accent-dark)] font-bold tracking-wider mb-0.5">
+                  MARK Engineering
+                </p>
+                <p className="text-xs text-text-primary font-medium leading-relaxed break-words">
+                  {row.mark}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop / Tablet Table View (>= md) */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[650px]">
           <thead>
             <tr className="border-b border-[var(--color-border)] bg-surface-2/60">

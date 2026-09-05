@@ -40,9 +40,9 @@ export function SectionHeading({
       {!badge && overline && (
         <p className="text-overline mb-3">{overline}</p>
       )}
-      <HeadingTag className="text-display-md mb-3">{title}</HeadingTag>
+      <HeadingTag className="text-display-md mb-3 break-words hyphens-auto">{title}</HeadingTag>
       {subtitle && (
-        <p className={`text-[var(--text-subheading)] text-text-secondary max-w-2xl leading-relaxed ${isCentered ? "mx-auto" : ""}`}>
+        <p className={`text-[var(--text-subheading)] text-text-secondary max-w-2xl leading-relaxed break-words ${isCentered ? "mx-auto" : ""}`}>
           {subtitle}
         </p>
       )}

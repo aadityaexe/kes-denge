@@ -21,7 +21,7 @@ function ContactCard({ icon: Icon, title, content, href }: { icon: any, title: s
   const innerContent = (
     <div
       onMouseMove={handleMouseMove}
-      className="group relative flex items-start gap-5 overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 p-6 hover:shadow-2xl transition-all duration-500"
+      className="group relative flex items-start gap-4 sm:gap-5 overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 p-4 sm:p-6 hover:shadow-2xl transition-all duration-500"
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-[24px] opacity-0 transition duration-300 group-hover:opacity-100 z-0"
@@ -37,12 +37,12 @@ function ContactCard({ icon: Icon, title, content, href }: { icon: any, title: s
       />
       <div className="absolute inset-0 border-2 border-transparent group-hover:border-[var(--color-accent)]/30 rounded-[24px] transition-colors duration-500 pointer-events-none z-10" />
 
-      <div className="relative z-20 flex-shrink-0 w-14 h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-text-secondary group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all duration-500 group-hover:scale-110">
-        <Icon size={24} strokeWidth={1.5} />
+      <div className="relative z-20 flex-shrink-0 w-11 h-11 sm:w-14 sm:h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-text-secondary group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all duration-500 group-hover:scale-110">
+        <Icon size={20} strokeWidth={1.5} />
       </div>
-      <div className="relative z-20 flex flex-col justify-center min-h-[3.5rem]">
-        <h4 className="text-[var(--text-body-sm)] font-bold text-text-primary mb-1 uppercase tracking-wider">{title}</h4>
-        <div className="text-[var(--text-body-md)] text-text-secondary group-hover:text-[var(--color-accent)] transition-colors leading-relaxed">
+      <div className="relative z-20 flex flex-col justify-center min-h-[2.75rem] sm:min-h-[3.5rem] min-w-0">
+        <h4 className="text-xs sm:text-[var(--text-body-sm)] font-bold text-text-primary mb-1 uppercase tracking-wider">{title}</h4>
+        <div className="text-xs sm:text-[var(--text-body-md)] text-text-secondary group-hover:text-[var(--color-accent)] transition-colors leading-relaxed break-words">
           {content}
         </div>
       </div>
@@ -166,7 +166,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
               <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-glow)] rounded-[32px] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
               
               <form 
-                className="relative bg-surface-1/80 backdrop-blur-2xl border border-[var(--color-border)] rounded-[32px] p-8 md:p-10 shadow-2xl overflow-hidden"
+                className="relative bg-surface-1/80 backdrop-blur-2xl border border-[var(--color-border)] rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 md:p-10 shadow-2xl overflow-hidden"
                 onSubmit={handleSubmit}
               >
                 {success && (
@@ -181,7 +181,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="name" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
                       Full Name
@@ -193,7 +193,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
                       required
-                      className="w-full px-5 py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all shadow-inner"
+                      className="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all shadow-inner min-h-[44px]"
                     />
                   </div>
                   
@@ -208,12 +208,12 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@company.com"
                       required
-                      className="w-full px-5 py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all shadow-inner"
+                      className="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all shadow-inner min-h-[44px]"
                     />
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                   <div className="flex flex-col gap-2">
                     <label htmlFor="project" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
                       Project Type
@@ -251,7 +251,7 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                   </div>
                 </div>
                 
-                <div className="flex flex-col gap-2 mb-8">
+                <div className="flex flex-col gap-2 mb-6 sm:mb-8">
                   <label htmlFor="details" className="text-[var(--text-caption)] font-semibold text-text-secondary uppercase tracking-wider">
                     Project Details
                   </label>
@@ -262,14 +262,14 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your business goals, scope, and timeline..."
                     required
-                    className="w-full px-5 py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all resize-none shadow-inner"
+                    className="w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-surface-2/50 border border-[var(--color-border)] rounded-[16px] text-text-primary placeholder-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-2 transition-all resize-none shadow-inner"
                   />
                 </div>
                 
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full justify-center group h-14 text-lg rounded-[16px]" 
+                  className="w-full justify-center group h-12 sm:h-14 text-base sm:text-lg rounded-[16px] min-h-[48px]" 
                   size="lg"
                 >
                   {loading ? "Sending Message..." : "Submit Project Inquiry"}

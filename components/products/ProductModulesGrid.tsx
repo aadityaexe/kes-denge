@@ -69,25 +69,25 @@ export function ProductModulesGrid({
         </div>
 
         {/* Modules Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {modules.map((mod, idx) => {
             const IconComp = iconMap[mod.icon] || Blocks;
 
             return (
               <div
                 key={idx}
-                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 md:p-8 hover:shadow-xl hover:border-[var(--color-accent)]/40 transition-all duration-300 flex flex-col justify-between group"
+                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 hover:shadow-xl hover:border-[var(--color-accent)]/40 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-surface-2 border border-[var(--color-border)] text-[var(--color-accent)] flex items-center justify-center mb-6 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 transition-all duration-300 shadow-xs">
-                    <IconComp size={22} />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-surface-2 border border-[var(--color-border)] text-[var(--color-accent)] flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 transition-all duration-300 shadow-xs">
+                    <IconComp size={20} />
                   </div>
 
-                  <h3 className="text-xl font-bold font-display text-text-primary mb-2 group-hover:text-[var(--color-accent-dark)] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold font-display text-text-primary mb-2 group-hover:text-[var(--color-accent-dark)] transition-colors break-words">
                     {mod.name}
                   </h3>
 
-                  <p className="text-sm text-text-secondary font-light leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-text-secondary font-light leading-relaxed mb-6 break-words">
                     {mod.description}
                   </p>
                 </div>

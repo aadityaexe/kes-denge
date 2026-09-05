@@ -78,23 +78,23 @@ export function TestimonialsSection({ testimonialsData = [] }: TestimonialsSecti
       <div className="relative w-full flex overflow-hidden">
         
         {/* Left & Right Fade Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-surface-1 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-surface-1 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 bg-gradient-to-r from-surface-1 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-32 bg-gradient-to-l from-surface-1 to-transparent z-10 pointer-events-none" />
         
-        <div ref={trackRef} className="flex gap-6 px-6">
+        <div ref={trackRef} className="flex gap-4 sm:gap-6 px-4 sm:px-6">
           {list.map((t: any, i: number) => (
             <div 
               key={t._id || t.id || i} 
-              className="w-[400px] shrink-0 bg-surface-2 border border-[var(--color-border)] p-8 rounded-2xl flex flex-col justify-between hover:border-black/20 transition-colors"
+              className="w-[85vw] max-w-[380px] sm:w-[380px] shrink-0 bg-surface-2 border border-[var(--color-border)] p-5 sm:p-8 rounded-2xl flex flex-col justify-between hover:border-black/20 transition-colors"
             >
               <div>
-                <div className="flex items-center gap-1 mb-6 text-[var(--color-accent)]">
+                <div className="flex items-center gap-1 mb-4 sm:mb-6 text-[var(--color-accent)]">
                   {[...Array(5)].map((_, starIdx) => (
                     <Star key={starIdx} size={16} fill={starIdx < (t.rating || 5) ? "currentColor" : "none"} className={starIdx >= (t.rating || 5) ? "text-black/10" : ""} />
                   ))}
                 </div>
-                <Quote size={32} className="text-black/5 mb-4" />
-                <p className="text-text-primary text-lg font-display mb-8 leading-relaxed">&ldquo;{t.review || t.content}&rdquo;</p>
+                <Quote size={28} className="text-black/5 mb-3 sm:mb-4" />
+                <p className="text-text-primary text-base sm:text-lg font-display mb-6 sm:mb-8 leading-relaxed break-words">&ldquo;{t.review || t.content}&rdquo;</p>
               </div>
               
               <div className="flex items-center gap-4">

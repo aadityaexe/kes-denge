@@ -32,12 +32,12 @@ export function ServiceFAQAccordion({ faqs, serviceTitle }: ServiceFAQAccordionP
           >
             <button
               type="button"
-              className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-colors"
+              className="w-full text-left px-4 sm:px-6 py-3.5 sm:py-5 flex items-center justify-between gap-3 sm:gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-colors min-h-[48px]"
               onClick={() => toggleItem(index)}
               aria-expanded={isOpen}
               aria-controls={faqId}
             >
-              <span className="text-base sm:text-lg font-semibold text-text-primary pr-2">
+              <span className="text-sm sm:text-base md:text-lg font-semibold text-text-primary pr-2 break-words">
                 {faq.question}
               </span>
               <div
@@ -60,7 +60,7 @@ export function ServiceFAQAccordion({ faqs, serviceTitle }: ServiceFAQAccordionP
               }`}
             >
               <div className="overflow-hidden">
-                <div className="px-6 pb-6 pt-1 text-text-secondary text-sm sm:text-base leading-relaxed border-t border-[var(--color-border)]/50 mt-1">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-1 text-text-secondary text-sm sm:text-base leading-relaxed border-t border-[var(--color-border)]/50 mt-1 break-words">
                   {faq.answer}
                 </div>
               </div>

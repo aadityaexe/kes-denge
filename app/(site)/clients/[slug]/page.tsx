@@ -192,10 +192,10 @@ export default async function ClientDetailPage({
           </div>
 
           {/* Hero Header Card */}
-          <div className="rounded-3xl border border-[var(--color-border)] bg-surface-1/90 backdrop-blur-xl p-8 md:p-12 mb-10 shadow-sm relative overflow-hidden">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-8 border-b border-[var(--color-border)]">
-              <div className="flex items-center gap-5">
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-2xl md:text-3xl text-text-primary shadow-sm overflow-hidden p-2 shrink-0">
+          <div className="rounded-3xl border border-[var(--color-border)] bg-surface-1/90 backdrop-blur-xl p-5 sm:p-8 md:p-12 mb-8 sm:mb-10 shadow-sm relative overflow-hidden">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 pb-6 sm:pb-8 border-b border-[var(--color-border)]">
+              <div className="flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-5 min-w-0">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-xl sm:text-2xl md:text-3xl text-text-primary shadow-sm overflow-hidden p-2 shrink-0">
                   {client.logoUrl ? (
                     <img
                       src={client.logoUrl}
@@ -206,12 +206,12 @@ export default async function ClientDetailPage({
                     <span>{initialLetters}</span>
                   )}
                 </div>
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-display font-bold text-text-primary">
+                <div className="min-w-0">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-text-primary break-words">
                     {client.name}
                   </h1>
-                  <div className="flex flex-wrap items-center gap-3 mt-2">
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-2">
+                    <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20">
                       {client.industry}
                     </span>
                     {client.location && (
@@ -231,12 +231,12 @@ export default async function ClientDetailPage({
               </div>
 
               {client.website && (
-                <div className="shrink-0">
+                <div className="shrink-0 w-full sm:w-auto">
                   <a
                     href={client.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-2 hover:bg-surface-2/80 border border-[var(--color-border)] text-xs font-semibold text-text-primary transition-colors"
+                    className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-full bg-surface-2 hover:bg-surface-2/80 border border-[var(--color-border)] text-xs font-semibold text-text-primary transition-colors min-h-[40px]"
                   >
                     <span>Visit Company Website</span>
                     <ExternalLink size={14} />
@@ -246,18 +246,18 @@ export default async function ClientDetailPage({
             </div>
 
             {/* Tagline Banner */}
-            <div className="pt-8">
+            <div className="pt-6 sm:pt-8">
               <p className="text-xs uppercase tracking-wider font-semibold text-[var(--color-accent-dark)] mb-2">
                 Partnership Mission & Scope
               </p>
-              <h2 className="text-xl md:text-2xl font-display font-semibold text-text-primary leading-snug max-w-4xl">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-display font-semibold text-text-primary leading-snug max-w-4xl break-words">
                 {client.tagline || `${client.name} digital transformation with MARK.`}
               </h2>
             </div>
           </div>
 
           {/* Quick Partnership Highlights Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12">
             <div className="p-5 rounded-2xl bg-surface-1 border border-[var(--color-border)]">
               <div className="flex items-center gap-2 text-text-muted mb-1 text-xs">
                 <Calendar size={14} />

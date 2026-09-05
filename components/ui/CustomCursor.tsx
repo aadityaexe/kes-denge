@@ -8,8 +8,8 @@ export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only enable custom cursor on desktop
-    if (window.innerWidth < 768) return;
+    // Only enable custom cursor on desktop pointer devices
+    if (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches) return;
 
     const cursor = cursorRef.current;
     const dot = dotRef.current;

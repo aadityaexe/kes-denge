@@ -1,13 +1,13 @@
 import { ProductBenefitItem } from "@/lib/types";
-import { 
-  CheckCircle2, 
-  Cpu, 
-  Database, 
-  Shield, 
-  ShieldCheck, 
-  Target, 
-  TrendingUp, 
-  Zap 
+import {
+  CheckCircle2,
+  Cpu,
+  Database,
+  Shield,
+  ShieldCheck,
+  Target,
+  TrendingUp,
+  Zap
 } from "lucide-react";
 
 interface ProductBenefitsROIProps {
@@ -48,33 +48,30 @@ export function ProductBenefitsROI({
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {benefits.map((benefit, idx) => {
             const IconComp = (benefit.icon && iconMap[benefit.icon]) || TrendingUp;
-
             return (
               <div
                 key={idx}
-                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 md:p-8 flex flex-col justify-between hover:shadow-xl hover:border-[var(--color-accent)]/40 transition-all duration-300"
+                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-6 md:p-8 flex flex-col justify-between hover:shadow-xl hover:border-[var(--color-accent)]/40 transition-all duration-300"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-[var(--color-border)] text-[var(--color-accent)] flex items-center justify-center shadow-2xs">
-                      <IconComp size={22} />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-surface-2 border border-[var(--color-border)] text-[var(--color-accent)] flex items-center justify-center shadow-2xs">
+                      <IconComp size={20} />
                     </div>
-
                     {benefit.metric && (
-                      <span className="px-2.5 py-1 rounded-md bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] font-mono text-xs font-bold border border-[var(--color-accent-glow-strong)]">
+                      <span className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] font-mono text-[11px] sm:text-xs font-bold border border-[var(--color-accent-glow-strong)]">
                         {benefit.metric}
                       </span>
                     )}
                   </div>
-
-                  <h3 className="text-xl font-bold font-display text-text-primary mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold font-display text-text-primary mb-2 sm:mb-3 break-words">
                     {benefit.title}
                   </h3>
 
-                  <p className="text-sm text-text-secondary font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-text-secondary font-light leading-relaxed break-words">
                     {benefit.description}
                   </p>
                 </div>

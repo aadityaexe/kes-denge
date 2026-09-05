@@ -52,32 +52,32 @@ export function ProductUseCases({
           {useCases.map((uc, idx) => (
             <div
               key={idx}
-              className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 md:p-8 hover:shadow-xl hover:border-[var(--color-accent)]/40 transition-all duration-300 flex flex-col justify-between"
+              className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-6 md:p-8 hover:shadow-xl hover:border-[var(--color-accent)]/40 transition-all duration-300 flex flex-col justify-between overflow-hidden"
             >
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] text-xs font-mono font-bold uppercase mb-4">
                   {uc.industry}
                 </div>
 
-                <h3 className="text-xl font-bold font-display text-text-primary mb-4">
+                <h3 className="text-lg sm:text-xl font-bold font-display text-text-primary mb-4 break-words">
                   {uc.title}
                 </h3>
 
-                <div className="space-y-4 text-xs md:text-sm">
-                  <div className="p-3.5 rounded-lg bg-surface-2/60 border border-[var(--color-border)]">
+                <div className="space-y-3 sm:space-y-4 text-xs md:text-sm">
+                  <div className="p-3 sm:p-3.5 rounded-lg bg-surface-2/60 border border-[var(--color-border)]">
                     <span className="font-mono font-bold text-red-600 block mb-1 uppercase text-[10px] tracking-wider">
                       The Operational Problem
                     </span>
-                    <p className="text-text-secondary leading-relaxed font-light">
+                    <p className="text-text-secondary leading-relaxed font-light break-words">
                       {uc.problem}
                     </p>
                   </div>
 
-                  <div className="p-3.5 rounded-lg bg-surface-2/60 border border-[var(--color-border)]">
+                  <div className="p-3 sm:p-3.5 rounded-lg bg-surface-2/60 border border-[var(--color-border)]">
                     <span className="font-mono font-bold text-blue-600 block mb-1 uppercase text-[10px] tracking-wider">
                       The Engineered Solution
                     </span>
-                    <p className="text-text-secondary leading-relaxed font-light">
+                    <p className="text-text-secondary leading-relaxed font-light break-words">
                       {uc.solution}
                     </p>
                   </div>
@@ -85,14 +85,14 @@ export function ProductUseCases({
               </div>
 
               {/* Outcome Badge */}
-              <div className="mt-6 pt-4 border-t border-[var(--color-border)] bg-emerald-500/5 -mx-6 md:-mx-8 -mb-6 md:-mb-8 p-6 rounded-b-[var(--radius-xl)] border-t">
+              <div className="mt-6 pt-4 border-t border-[var(--color-border)] bg-emerald-500/5 -mx-4 sm:-mx-6 md:-mx-8 -mb-4 sm:-mb-6 md:-mb-8 p-4 sm:p-6 rounded-b-[var(--radius-xl)]">
                 <div className="flex items-start gap-2.5">
                   <TrendingUp size={16} className="text-emerald-600 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-mono font-bold text-emerald-600 uppercase text-[10px] tracking-wider block mb-1">
                       Business Outcome
                     </span>
-                    <p className="text-xs text-text-primary font-medium leading-relaxed">
+                    <p className="text-xs text-text-primary font-medium leading-relaxed break-words">
                       {uc.outcome}
                     </p>
                   </div>

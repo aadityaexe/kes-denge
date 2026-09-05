@@ -35,22 +35,19 @@ export function PortfolioChallengeSolution({ project }: PortfolioChallengeSoluti
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* 1. The Challenge Card */}
-          <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-lg group hover:border-rose-500/40 transition-colors duration-500">
+          <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden shadow-lg group hover:border-rose-500/40 transition-colors duration-500">
             <div className="absolute top-0 right-0 w-48 h-48 bg-rose-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 text-rose-500 text-xs font-mono font-bold uppercase tracking-wider mb-6 border border-rose-500/20">
                 <AlertCircle size={14} /> The Problem & Technical Constraints
               </div>
-
-              <h3 className="text-2xl sm:text-3xl font-bold font-display text-text-primary mb-4">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-display text-text-primary mb-4 break-words">
                 What Was Holding the Business Back
               </h3>
-
-              <p className="text-text-secondary text-base leading-relaxed mb-8 font-light">
+              <p className="text-text-secondary text-base leading-relaxed mb-8 font-light break-words">
                 {project.problem}
               </p>
-
               <div className="space-y-4">
                 <p className="text-xs font-mono uppercase tracking-wider text-text-muted">
                   Key Technical Bottlenecks Faced:
@@ -63,7 +60,7 @@ export function PortfolioChallengeSolution({ project }: PortfolioChallengeSoluti
                     <div className="w-6 h-6 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
                       ✕
                     </div>
-                    <span className="text-sm text-text-primary leading-relaxed">{challenge}</span>
+                    <span className="text-sm text-text-primary leading-relaxed break-words">{challenge}</span>
                   </div>
                 ))}
               </div>
@@ -71,7 +68,7 @@ export function PortfolioChallengeSolution({ project }: PortfolioChallengeSoluti
           </div>
 
           {/* 2. The Solution Card */}
-          <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-lg group hover:border-emerald-500/40 transition-colors duration-500">
+          <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden shadow-lg group hover:border-emerald-500/40 transition-colors duration-500">
             <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
             <div>
@@ -79,7 +76,7 @@ export function PortfolioChallengeSolution({ project }: PortfolioChallengeSoluti
                 <ShieldCheck size={14} /> The MARK Solution
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-bold font-display text-text-primary mb-4">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-display text-text-primary mb-4 break-words">
                 How We Solved It With Rigorous Engineering
               </h3>
 

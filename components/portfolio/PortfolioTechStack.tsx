@@ -41,22 +41,22 @@ export function PortfolioTechStack({ project }: PortfolioTechStackProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {technologies.map((tech, idx) => {
             const IconComp = (tech.icon && iconMap[tech.icon]) || Code2;
             return (
               <div
                 key={idx}
-                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 sm:p-8 flex items-start gap-4 transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-lg group"
+                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-4 sm:p-6 md:p-8 flex items-start gap-3 sm:gap-4 transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-lg group"
               >
-                <div className="w-12 h-12 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent-dark)] shrink-0 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-300">
-                  <IconComp size={20} />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent-dark)] shrink-0 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-300">
+                  <IconComp size={18} />
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold font-display text-text-primary mb-1 group-hover:text-[var(--color-accent)] transition-colors">
+                <div className="min-w-0">
+                  <h3 className="text-base sm:text-lg font-bold font-display text-text-primary mb-1 group-hover:text-[var(--color-accent)] transition-colors break-words">
                     {tech.name}
                   </h3>
-                  <p className="text-xs font-mono text-text-muted uppercase tracking-wider">
+                  <p className="text-[11px] sm:text-xs font-mono text-text-muted uppercase tracking-wider truncate">
                     {tech.category || "Core Technology"}
                   </p>
                 </div>

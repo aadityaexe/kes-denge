@@ -125,12 +125,12 @@ export function ProcessSection({ steps = [] }: ProcessSectionProps) {
         <div ref={containerRef} className="relative max-w-4xl mx-auto py-4 md:py-6">
           
           {/* Background Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[var(--color-border)] -translate-x-1/2" />
+          <div className="absolute left-5 sm:left-8 md:left-1/2 top-0 bottom-0 w-px bg-[var(--color-border)] -translate-x-1/2" />
           
           {/* Active Timeline Line */}
           <div 
             ref={lineRef}
-            className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[var(--color-accent)] -translate-x-1/2 origin-top"
+            className="absolute left-5 sm:left-8 md:left-1/2 top-0 bottom-0 w-px bg-[var(--color-accent)] -translate-x-1/2 origin-top"
           />
 
           <div className="flex flex-col gap-8 md:gap-14">
@@ -141,8 +141,8 @@ export function ProcessSection({ steps = [] }: ProcessSectionProps) {
               return (
                 <div key={index} className="process-step relative flex items-center w-full">
                   {/* Center Node */}
-                  <div className="process-node absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-14 h-14 rounded-full border border-[var(--color-border)] z-10 transition-colors duration-500 hover:border-[var(--color-accent)] hover:bg-surface-2 text-text-primary bg-surface-1 shadow-sm">
-                    <Icon size={20} strokeWidth={1.5} />
+                  <div className="process-node absolute left-5 sm:left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border border-[var(--color-border)] z-10 transition-colors duration-500 hover:border-[var(--color-accent)] hover:bg-surface-2 text-text-primary bg-surface-1 shadow-sm">
+                    <Icon size={18} strokeWidth={1.5} />
                   </div>
 
                   {/* Grid layout with single semantic content block */}
@@ -150,12 +150,12 @@ export function ProcessSection({ steps = [] }: ProcessSectionProps) {
                     {isEven ? (
                       <>
                         {/* Even: Desktop Left, Mobile Right */}
-                        <div className="pl-24 md:pl-0 md:pr-16 md:text-right">
-                          <div className="flex items-center gap-3 mb-2 md:justify-end">
-                            <span className="text-[var(--color-accent)] font-bold font-display text-xl">0{step.number}</span>
-                            <h3 className="text-2xl font-display text-text-primary">{step.title}</h3>
+                        <div className="pl-14 sm:pl-20 md:pl-0 md:pr-16 md:text-right">
+                          <div className="flex items-center gap-2.5 sm:gap-3 mb-2 md:justify-end">
+                            <span className="text-[var(--color-accent)] font-bold font-display text-lg sm:text-xl shrink-0">0{step.number}</span>
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-display text-text-primary break-words">{step.title}</h3>
                           </div>
-                          <p className="text-text-secondary leading-relaxed">{step.description}</p>
+                          <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{step.description}</p>
                         </div>
                         <div className="hidden md:block" aria-hidden="true" />
                       </>
@@ -163,12 +163,12 @@ export function ProcessSection({ steps = [] }: ProcessSectionProps) {
                       <>
                         <div className="hidden md:block" aria-hidden="true" />
                         {/* Odd: Desktop Right, Mobile Right */}
-                        <div className="pl-24 md:pl-16 text-left">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-[var(--color-accent)] font-bold font-display text-xl">0{step.number}</span>
-                            <h3 className="text-2xl font-display text-text-primary">{step.title}</h3>
+                        <div className="pl-14 sm:pl-20 md:pl-16 text-left">
+                          <div className="flex items-center gap-2.5 sm:gap-3 mb-2">
+                            <span className="text-[var(--color-accent)] font-bold font-display text-lg sm:text-xl shrink-0">0{step.number}</span>
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-display text-text-primary break-words">{step.title}</h3>
                           </div>
-                          <p className="text-text-secondary leading-relaxed">{step.description}</p>
+                          <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{step.description}</p>
                         </div>
                       </>
                     )}

@@ -50,10 +50,10 @@ export function ProductFAQSection({
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full px-6 md:px-8 py-5 text-left flex items-center justify-between gap-4 hover:bg-surface-2/50 transition-colors"
+                  className="w-full px-4 sm:px-6 md:px-8 py-3.5 sm:py-5 text-left flex items-center justify-between gap-3 sm:gap-4 hover:bg-surface-2/50 transition-colors min-h-[48px]"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base md:text-lg font-bold font-display text-text-primary">
+                  <span className="text-base md:text-lg font-bold font-display text-text-primary break-words">
                     {faq.question}
                   </span>
                   <div
@@ -73,7 +73,7 @@ export function ProductFAQSection({
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <div className="px-6 md:px-8 pb-6 pt-2 text-text-secondary text-sm md:text-base font-light leading-relaxed border-t border-[var(--color-border)]/50">
+                    <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 pt-2 text-text-secondary text-sm md:text-base font-light leading-relaxed border-t border-[var(--color-border)]/50 break-words">
                       {faq.answer}
                     </div>
                   </div>

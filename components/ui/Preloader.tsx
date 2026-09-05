@@ -308,21 +308,21 @@ export function Preloader() {
               return (
                 <div
                   key={i}
-                  className="absolute flex items-center gap-3 sm:gap-5 whitespace-nowrap text-center"
+                  className="absolute flex items-center gap-2 sm:gap-5 whitespace-nowrap text-center"
                 >
-                  <span className="font-mono text-xs sm:text-sm text-[var(--color-accent-dark)] tracking-widest uppercase font-semibold">
+                  <span className="font-mono text-[11px] sm:text-sm text-[var(--color-accent-dark)] tracking-widest uppercase font-semibold">
                     [{phase.index} / 04]
                   </span>
 
                   {isBrand ? (
-                    <div className="text-4xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight text-text-primary">
+                    <div className="text-3xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight text-text-primary">
                       M
                       <span className="text-[var(--color-accent-dark)] font-display italic font-normal">
                         ARK
                       </span>
                     </div>
                   ) : (
-                    <div className="text-3xl sm:text-5xl md:text-6xl font-display font-semibold tracking-tight text-text-primary">
+                    <div className="text-2xl sm:text-5xl md:text-6xl font-display font-semibold tracking-tight text-text-primary">
                       {phase.label}
                     </div>
                   )}
@@ -334,7 +334,7 @@ export function Preloader() {
           {/* Dynamic Subtitle / Description */}
           <p
             ref={descRef}
-            className="h-6 mt-4 text-xs sm:text-sm text-text-secondary tracking-widest font-mono uppercase transition-all duration-300"
+            className="h-6 mt-3 sm:mt-4 text-[11px] sm:text-sm text-text-secondary tracking-wider sm:tracking-widest font-mono uppercase transition-all duration-300 max-w-full truncate px-2"
           >
             Foundations & Scalable Systems
           </p>

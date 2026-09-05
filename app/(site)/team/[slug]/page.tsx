@@ -58,15 +58,15 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
   const certifications = member.certifications || [];
 
   return (
-    <div className="pt-28 pb-16 min-h-screen">
+    <div className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 min-h-screen">
       <div className="container-site max-w-4xl">
-        <Link href="/team" className="inline-flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors mb-8">
+        <Link href="/team" className="inline-flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors mb-6 sm:mb-8">
           <ArrowLeft size={16} /> Back to Team
         </Link>
         
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-12 items-start">
           {/* Left Column - Profile Card */}
-          <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-lg)] p-8 text-center sticky top-32">
+          <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-lg)] p-5 sm:p-6 md:p-8 text-center sticky top-28 md:top-32">
             <div className="w-32 h-32 mx-auto rounded-full bg-surface-2 mb-6 flex items-center justify-center text-text-muted text-4xl font-bold uppercase overflow-hidden border-2 border-surface-2">
               {member.photo ? (
                 <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
@@ -140,7 +140,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
             )}
 
             {member.currentlyWorkingOn && (
-              <div className="mt-12 p-6 bg-accent/5 border border-accent/20 rounded-[var(--radius-md)]">
+              <div className="mt-8 sm:mt-12 p-4 sm:p-6 bg-accent/5 border border-accent/20 rounded-[var(--radius-md)]">
                 <p className="text-sm font-medium text-accent mb-2 uppercase tracking-wider">Currently Working On</p>
                 <p className="text-text-primary">{member.currentlyWorkingOn}</p>
               </div>

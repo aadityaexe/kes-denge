@@ -39,22 +39,22 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-6 left-0 right-0 z-[var(--z-sticky)] flex justify-center pointer-events-none px-4">
+      <header className="fixed top-2 sm:top-4 md:top-6 left-0 right-0 z-[var(--z-sticky)] flex justify-center pointer-events-none px-2 sm:px-4">
         <nav
           className={`
             pointer-events-auto flex items-center justify-between
             transition-all duration-500
             rounded-full border border-[var(--color-border)]
             backdrop-blur-xl bg-surface-1/70
-            ${scrolled ? "py-2 px-4 shadow-lg w-full max-w-6xl" : "py-3 px-6 w-full max-w-7xl"}
+            ${scrolled ? "py-1.5 sm:py-2 px-3 sm:px-4 shadow-lg w-full max-w-6xl" : "py-2 sm:py-3 px-3.5 sm:px-6 w-full max-w-7xl"}
           `}
         >
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2 text-text-primary hover:text-accent-dark transition-colors z-10"
+            className="flex items-center gap-2 text-text-primary hover:text-accent-dark transition-colors z-10 py-1"
           >
-            <span className="text-xl font-bold tracking-tight font-display">
+            <span className="text-lg sm:text-xl font-bold tracking-tight font-display">
               M<span className="text-[var(--color-accent-light)]">ARK</span>
             </span>
           </Link>
@@ -95,20 +95,20 @@ export function Navbar() {
               className="
                 relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden
                 text-[13px] font-medium text-surface-1 rounded-full
-                group bg-text-primary border border-transparent hover:border-accent transition-all duration-300
+                group bg-text-primary border border-transparent hover:border-accent transition-all duration-300 min-h-[40px]
               "
             >
               <span className="relative z-10">Start a Project</span>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - min 44x44px touch target */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-text-secondary hover:text-text-primary transition-colors z-10"
+            className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors z-10 rounded-full focus:outline-none"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </nav>
       </header>

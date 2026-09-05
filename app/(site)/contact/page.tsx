@@ -39,7 +39,7 @@ export default async function ContactPage() {
   };
 
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-20 sm:pt-24 md:pt-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

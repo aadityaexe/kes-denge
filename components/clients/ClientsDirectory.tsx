@@ -44,7 +44,7 @@ function ClientSpotlightCard({ client }: { client: Client }) {
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.4 }}
       onMouseMove={handleMouseMove}
-      className="group relative flex flex-col justify-between rounded-[24px] border border-[var(--color-border)] bg-surface-1/90 p-7 md:p-8 backdrop-blur-md transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-xl hover:shadow-[var(--color-accent)]/5"
+      className="group relative flex flex-col justify-between rounded-[24px] border border-[var(--color-border)] bg-surface-1/90 p-4 sm:p-6 md:p-8 backdrop-blur-md transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-xl hover:shadow-[var(--color-accent)]/5"
     >
       {/* Radial Hover Spotlight */}
       <motion.div
@@ -62,9 +62,9 @@ function ClientSpotlightCard({ client }: { client: Client }) {
 
       <div className="relative z-20 flex flex-col flex-1">
         {/* Top bar: Monogram / Logo + Industry & Year */}
-        <div className="flex items-start justify-between gap-4 mb-6">
-          <div className="flex items-center gap-3.5">
-            <div className="w-13 h-13 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-lg text-text-primary group-hover:border-[var(--color-accent)]/50 group-hover:text-[var(--color-accent-dark)] transition-colors shadow-sm overflow-hidden p-1">
+        <div className="flex flex-wrap sm:flex-nowrap items-start justify-between gap-3 sm:gap-4 mb-6">
+          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+            <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-base sm:text-lg text-text-primary group-hover:border-[var(--color-accent)]/50 group-hover:text-[var(--color-accent-dark)] transition-colors shadow-sm overflow-hidden p-1 shrink-0">
               {client.logoUrl ? (
                 <img
                   src={client.logoUrl}
@@ -75,21 +75,21 @@ function ClientSpotlightCard({ client }: { client: Client }) {
                 <span>{initialLetters}</span>
               )}
             </div>
-            <div>
+            <div className="min-w-0">
               <Link
                 href={`/clients/${client.slug}`}
-                className="group/title inline-flex items-center gap-1.5"
+                className="group/title inline-flex items-center gap-1.5 max-w-full"
               >
-                <h3 className="text-xl font-display font-bold text-text-primary group-hover/title:text-[var(--color-accent-dark)] transition-colors">
+                <h3 className="text-lg sm:text-xl font-display font-bold text-text-primary group-hover/title:text-[var(--color-accent-dark)] transition-colors break-words">
                   {client.name}
                 </h3>
               </Link>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20">
+              <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                <span className="inline-block px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20">
                   {client.industry}
                 </span>
                 {client.location && (
-                  <span className="text-[12px] text-text-muted hidden sm:inline">
+                  <span className="text-[11px] sm:text-[12px] text-text-muted hidden sm:inline">
                     • {client.location}
                   </span>
                 )}
@@ -98,19 +98,19 @@ function ClientSpotlightCard({ client }: { client: Client }) {
           </div>
 
           {client.partnershipYear && (
-            <span className="text-xs font-mono text-text-muted px-2.5 py-1 rounded-md bg-surface-2/80 border border-[var(--color-border)] whitespace-nowrap">
+            <span className="text-xs font-mono text-text-muted px-2.5 py-1 rounded-md bg-surface-2/80 border border-[var(--color-border)] whitespace-nowrap shrink-0">
               {client.partnershipYear}
             </span>
           )}
         </div>
 
         {/* Tagline / Value Proposition */}
-        <p className="text-text-primary font-medium text-sm md:text-[15px] leading-snug mb-3">
+        <p className="text-text-primary font-medium text-sm md:text-[15px] leading-snug mb-3 break-words">
           {client.tagline || `${client.name} digital transformation.`}
         </p>
 
         {/* Brief Narrative */}
-        <p className="text-text-secondary text-xs md:text-sm line-clamp-3 leading-relaxed mb-6">
+        <p className="text-text-secondary text-xs md:text-sm line-clamp-3 leading-relaxed mb-6 break-words">
           {client.aboutPartnership || client.description}
         </p>
 
@@ -211,9 +211,9 @@ export function ClientsDirectory({ clients = [] }: ClientsDirectoryProps) {
   return (
     <div className="space-y-10">
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-2xl bg-surface-1 border border-[var(--color-border)] shadow-sm">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl bg-surface-1 border border-[var(--color-border)] shadow-sm">
         {/* Industry Pill Filter */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none max-w-full">
           {industries.map((ind) => {
             const isSelected = selectedIndustry === ind;
             return (
@@ -221,7 +221,7 @@ export function ClientsDirectory({ clients = [] }: ClientsDirectoryProps) {
                 key={ind}
                 onClick={() => setSelectedIndustry(ind)}
                 className={`
-                  px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer
+                  px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer min-h-[36px]
                   ${
                     isSelected
                       ? "bg-text-primary text-surface-1 shadow-sm"
@@ -236,18 +236,26 @@ export function ClientsDirectory({ clients = [] }: ClientsDirectoryProps) {
         </div>
 
         {/* Real-time Search Input */}
-        <div className="relative min-w-[240px] md:w-72">
+        <div className="relative w-full md:w-72 min-w-0">
           <Search
             size={16}
             className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
           />
           <input
             type="text"
-            placeholder="Search clients, tech, tags..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-full bg-surface-2 border border-[var(--color-border)] text-text-primary placeholder:text-text-muted focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+            placeholder="Search clients, tech, tags..."
+            className="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-surface-2 border border-[var(--color-border)] text-text-primary placeholder:text-text-muted focus:outline-none focus:border-[var(--color-accent)] transition-colors min-h-[38px]"
           />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-mono text-text-muted hover:text-text-primary"
+            >
+              Clear
+            </button>
+          )}
         </div>
       </div>
 

@@ -81,23 +81,23 @@ export function ProductFeaturesBento({
             return (
               <div
                 key={idx}
-                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 md:p-10 hover:border-[var(--color-accent)]/40 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
+                className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-8 md:p-10 hover:border-[var(--color-accent)]/40 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-14 h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 transition-all duration-300 shadow-sm">
-                      <IconComponent size={24} />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 transition-all duration-300 shadow-sm">
+                      <IconComponent size={22} />
                     </div>
                     <span className="text-xs font-mono font-bold text-text-muted">
                       0{idx + 1}
                     </span>
                   </div>
 
-                  <h3 className="text-2xl font-bold font-display text-text-primary mb-3 group-hover:text-[var(--color-accent-dark)] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold font-display text-text-primary mb-3 group-hover:text-[var(--color-accent-dark)] transition-colors break-words">
                     {title}
                   </h3>
 
-                  <p className="text-text-secondary text-base font-light leading-relaxed mb-6">
+                  <p className="text-text-secondary text-sm sm:text-base font-light leading-relaxed mb-6 break-words">
                     {description}
                   </p>
                 </div>

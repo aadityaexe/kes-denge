@@ -94,7 +94,7 @@ export default async function ClientsPage() {
       />
 
       {/* Hero Header */}
-      <div className="pt-32 pb-12 md:pb-16 relative overflow-hidden">
+      <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 md:pb-16 relative overflow-hidden">
         {/* Ambient Parallax Orb */}
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
           <Parallax
@@ -113,33 +113,33 @@ export default async function ClientsPage() {
           />
 
           {/* Trust Metrics Bar */}
-          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            <div className="p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-3xl md:text-4xl font-display font-bold text-text-primary tracking-tight">
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-text-primary tracking-tight break-words">
                 99.8%
               </p>
               <p className="text-xs text-text-secondary mt-1 font-medium">
                 Client Retention & SLA Score
               </p>
             </div>
-            <div className="p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-3xl md:text-4xl font-display font-bold text-[var(--color-accent-dark)] tracking-tight">
+            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[var(--color-accent-dark)] tracking-tight break-words">
                 40+
               </p>
               <p className="text-xs text-text-secondary mt-1 font-medium">
                 Production Cloud Systems
               </p>
             </div>
-            <div className="p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-3xl md:text-4xl font-display font-bold text-text-primary tracking-tight">
+            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-text-primary tracking-tight break-words">
                 $250M+
               </p>
               <p className="text-xs text-text-secondary mt-1 font-medium">
                 Client Capital Raised
               </p>
             </div>
-            <div className="p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-3xl md:text-4xl font-display font-bold text-[var(--color-accent-dark)] tracking-tight">
+            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
+              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[var(--color-accent-dark)] tracking-tight break-words">
                 &lt; 10ms
               </p>
               <p className="text-xs text-text-secondary mt-1 font-medium">

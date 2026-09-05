@@ -14,11 +14,9 @@ export function Footer() {
       // Simple GSAP infinite marquee
       const marqueeContent = marqueeRef.current!.firstElementChild as HTMLElement;
       if (!marqueeContent) return;
-
       // Clone for seamless loop
       const clone = marqueeContent.cloneNode(true);
       marqueeRef.current!.appendChild(clone);
-
       gsap.to(marqueeRef.current!.children, {
         xPercent: -100,
         repeat: -1,
@@ -34,29 +32,28 @@ export function Footer() {
     <footer className="bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)] pt-14 md:pt-16 pb-8 overflow-hidden relative">
       <div className="container-site mb-12 md:mb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          
+
           {/* Brand & Availability */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             <div className="text-center md:text-left">
               <Link href="/" className="inline-block hover:opacity-80 transition-opacity">
-                <h2 className="text-[clamp(3rem,8vw,8rem)] font-display text-text-primary leading-none tracking-tight">
+                <h2 className="text-[clamp(2.5rem,7vw,8rem)] font-display text-text-primary leading-none tracking-tight break-words">
                   M<span className="text-[var(--color-accent)] italic">ARK</span>
                 </h2>
               </Link>
             </div>
-            <p className="text-text-secondary max-w-sm text-[15px] leading-relaxed">
+            <p className="text-text-secondary max-w-sm text-[15px] leading-relaxed break-words">
               We build digital products that scale. A product-engineering agency for startups and growing businesses.
             </p>
-            
-            <div className="flex items-center gap-3 inline-flex px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]">
-              <span className="relative flex h-2.5 w-2.5">
+
+            <div className="flex items-center gap-3 inline-flex px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] max-w-full flex-wrap">
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
               </span>
-              <span className="text-sm font-medium text-text-primary">Available for new projects</span>
+              <span className="text-xs sm:text-sm font-medium text-text-primary">Available for new projects</span>
             </div>
           </div>
-
           {/* Quick Links */}
           <div>
             <h4 className="text-text-primary font-medium mb-6">Navigation</h4>
@@ -82,7 +79,6 @@ export function Footer() {
               ))}
             </div>
           </div>
-
           {/* Socials & Contact */}
           <div>
             <h4 className="text-text-primary font-medium mb-6">Connect</h4>
@@ -132,9 +128,9 @@ export function Footer() {
       </div>
 
       {/* GSAP Marquee */}
-      <div className="w-full border-y border-[var(--color-border)] py-4 mb-8 relative flex overflow-hidden whitespace-nowrap bg-surface-2">
+      <div className="w-full border-y border-[var(--color-border)] py-3 sm:py-4 mb-8 relative flex overflow-hidden whitespace-nowrap bg-surface-2">
         <div ref={marqueeRef} className="flex">
-          <div className="flex items-center gap-12 px-6">
+          <div className="flex items-center gap-6 sm:gap-12 px-4 sm:px-6">
             <span className="text-display-md font-display italic text-text-primary/20">DIGITAL EXCELLENCE</span>
             <span className="text-xl text-text-primary/10">✦</span>
             <span className="text-display-md font-display italic text-text-primary/20">SCALABLE ARCHITECTURE</span>
@@ -147,9 +143,9 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container-site flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-muted">
+      <div className="container-site flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-muted text-center sm:text-left">
         <p>© {new Date().getFullYear()} MARK Technologies. All rights reserved.</p>
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link href="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-text-primary transition-colors">Terms of Service</Link>
         </div>

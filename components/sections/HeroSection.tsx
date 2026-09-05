@@ -125,7 +125,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen flex items-center pt-32 pb-16 overflow-hidden border-b border-[var(--color-border)]"
+      className="relative min-h-screen flex items-center pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 overflow-hidden border-b border-[var(--color-border)]"
     >
       {/* Background Parallax Elements */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
@@ -139,17 +139,17 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
       <Parallax speed={1.1} className="container-site relative z-10 w-full flex flex-col items-center text-center">
         <div className="max-w-4xl w-full">
           
-          <div ref={badgeRef} className="mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--color-border)] bg-surface-1/50 backdrop-blur-md opacity-0">
+          <div ref={badgeRef} className="mb-4 sm:mb-8 inline-flex items-center gap-2 px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full border border-[var(--color-border)] bg-surface-1/50 backdrop-blur-md opacity-0">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
             </span>
-            <span className="text-xs uppercase tracking-widest text-text-secondary font-medium">{badgeText}</span>
+            <span className="text-[11px] sm:text-xs uppercase tracking-widest text-text-secondary font-medium">{badgeText}</span>
           </div>
 
           <h1 
             ref={headlineRef}
-            className="font-display text-[clamp(3.5rem,8vw,7.5rem)] text-text-primary tracking-tight mb-8 leading-[1.02] opacity-0"
+            className="font-display text-[clamp(2.25rem,6.5vw,7.5rem)] text-text-primary tracking-tight mb-6 sm:mb-8 leading-[1.04] opacity-0 break-words"
           >
             {headlineText.includes(".") ? (
               <>
@@ -163,26 +163,26 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
           
           <p 
             ref={copyRef}
-            className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 md:mb-12 opacity-0 font-light leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 opacity-0 font-light leading-relaxed px-2"
           >
             {subheadlineText}
           </p>
           
           <div 
             ref={buttonsRef}
-            className="flex flex-wrap items-center justify-center gap-4 mb-10 md:mb-12 opacity-0"
+            className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 opacity-0 w-full"
           >
-            <Button size="lg" href={ctaPrimaryHref} className="rounded-full px-8 bg-text-primary text-surface-1 hover:bg-text-secondary">
+            <Button size="lg" href={ctaPrimaryHref} className="rounded-full px-6 sm:px-8 bg-text-primary text-surface-1 hover:bg-text-secondary w-full sm:w-auto">
               {ctaPrimaryText}
             </Button>
-            <Button size="lg" variant="outline" href={ctaSecondaryHref} className="rounded-full px-8 border-[var(--color-border)] hover:bg-surface-2">
+            <Button size="lg" variant="outline" href={ctaSecondaryHref} className="rounded-full px-6 sm:px-8 border-[var(--color-border)] hover:bg-surface-2 w-full sm:w-auto">
               {ctaSecondaryText}
             </Button>
           </div>
           
           {/* Stats */}
           {heroStats.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-[var(--color-border)] w-full">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pt-6 sm:pt-8 border-t border-[var(--color-border)] w-full">
               {heroStats.map((stat: any, i: number) => (
                 <Stat 
                   key={stat._id || stat.id || i} 

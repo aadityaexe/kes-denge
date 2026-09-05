@@ -273,7 +273,7 @@ export default async function ProductPage({
                 <Link
                   key={relProd.slug}
                   href={`/products/${relProd.slug}`}
-                  className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-8 transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-xl flex flex-col justify-between"
+                  className="group bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-5 sm:p-6 md:p-8 transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-xl flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
@@ -306,14 +306,14 @@ export default async function ProductPage({
       )}
 
       {/* 11. LUXURY DARK CHAMPAGNE CTA BANNER */}
-      <section id="cta" className="container-site py-14 md:py-18">
-        <div className="rounded-[var(--radius-xl)] bg-text-primary text-surface-1 p-8 sm:p-12 md:p-14 text-center flex flex-col items-center relative overflow-hidden shadow-2xl">
+      <section id="cta" className="container-site py-12 sm:py-16 md:py-18">
+        <div className="rounded-[var(--radius-xl)] bg-text-primary text-surface-1 p-6 sm:p-10 md:p-14 text-center flex flex-col items-center relative overflow-hidden shadow-2xl">
           {/* Ambient Champagne Gold Lighting */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-accent)]/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-accent)]/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-1/10 text-[var(--color-accent-light)] text-xs font-mono mb-4 md:mb-6 uppercase tracking-widest border border-surface-1/15 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-surface-1/10 text-[var(--color-accent-light)] text-xs font-mono mb-4 md:mb-6 uppercase tracking-widest border border-surface-1/15 backdrop-blur-md">
               <Zap size={12} />
               Deploy {product.name}
             </div>
@@ -322,15 +322,15 @@ export default async function ProductPage({
               Ready to deploy {product.name} in your private environment?
             </h2>
 
-            <p className="text-base sm:text-lg text-surface-2 max-w-2xl mx-auto mb-8 font-light opacity-90 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-surface-2 max-w-2xl mx-auto mb-6 sm:mb-8 font-light opacity-90 leading-relaxed">
               Stop adapting your workflows to rigid software. Get a platform that adapts to you. Contact our senior architects to discuss custom schema integrations, private cloud VPC provisioning, and deployment sprint timelines.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto">
               <Button
                 size="lg"
                 href={`/contact?subject=Deployment%20Inquiry%20for%20${encodeURIComponent(product.name)}&product=${product.slug}`}
-                className="rounded-full px-8 sm:px-9 py-3.5 sm:py-4 bg-[var(--color-accent)] text-surface-1 hover:bg-[var(--color-accent-light)] border-none font-semibold text-base shadow-2xl"
+                className="w-full sm:w-auto rounded-full px-7 sm:px-9 py-3.5 sm:py-4 bg-[var(--color-accent)] text-surface-1 hover:bg-[var(--color-accent-light)] border-none font-semibold text-base shadow-2xl justify-center"
               >
                 Schedule Technical Discovery
                 <ArrowRight size={18} className="ml-2" />
@@ -339,7 +339,7 @@ export default async function ProductPage({
                 size="lg"
                 variant="outline"
                 href="/products"
-                className="rounded-full px-7 sm:px-8 py-3.5 sm:py-4 text-surface-1 border-surface-1/30 hover:bg-surface-1/10 text-base"
+                className="w-full sm:w-auto rounded-full px-7 sm:px-8 py-3.5 sm:py-4 text-surface-1 border-surface-1/30 hover:bg-surface-1/10 text-base justify-center"
               >
                 Explore All Products
               </Button>

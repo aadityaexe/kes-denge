@@ -23,7 +23,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; strokeWidth?:
 
 function ServiceCard({ service, index, isLarge }: { service: any, index: number, isLarge: boolean }) {
   const Icon = iconMap[service.icon] || Monitor;
-  
+
   // Hover gradient effect with Framer Motion
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -41,7 +41,7 @@ function ServiceCard({ service, index, isLarge }: { service: any, index: number,
       <Link href={`/services/${service.slug}`} className="block h-full w-full">
         <div
           onMouseMove={handleMouseMove}
-          className="group relative flex h-full w-full flex-col overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 p-8 hover:shadow-2xl transition-all duration-500"
+          className="group relative flex h-full w-full flex-col overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-surface-1 p-5 sm:p-6 md:p-8 hover:shadow-2xl transition-all duration-500"
         >
           {/* Framer Motion Hover Spotlight */}
           <motion.div
@@ -56,30 +56,27 @@ function ServiceCard({ service, index, isLarge }: { service: any, index: number,
               `,
             }}
           />
-          
           {/* Animated Gradient Border on Hover */}
           <div className="absolute inset-0 border-2 border-transparent group-hover:border-[var(--color-accent)]/30 rounded-[24px] transition-colors duration-500 pointer-events-none z-10" />
-
           {/* Background Mesh (Only on large cards for visual hierarchy) */}
           {isLarge && (
             <div className="absolute right-0 top-0 w-64 h-64 bg-gradient-to-br from-[var(--color-accent)]/10 to-transparent blur-3xl rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none z-0" />
           )}
-
           <div className="relative z-20 flex flex-col h-full">
-            <div className="flex justify-between items-start mb-12">
-              <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-2 border border-[var(--color-border)] text-text-secondary group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all duration-500 group-hover:scale-110">
-                <Icon size={26} strokeWidth={1.5} />
+            <div className="flex justify-between items-start mb-8 sm:mb-12">
+              <div className="inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-surface-2 border border-[var(--color-border)] text-text-secondary group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 group-hover:text-[var(--color-accent)] transition-all duration-500 group-hover:scale-110 shrink-0">
+                <Icon size={24} strokeWidth={1.5} />
               </div>
-              <div className="w-10 h-10 rounded-full bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-text-secondary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-2 border border-[var(--color-border)] flex items-center justify-center text-text-secondary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:bg-[var(--color-accent)] group-hover:text-surface-1 group-hover:border-[var(--color-accent)] transition-all duration-500 shrink-0">
                 <ArrowUpRight size={18} />
               </div>
             </div>
-            
+
             <div className="mt-auto">
-              <h3 className="mb-4 text-2xl font-display text-text-primary group-hover:text-[var(--color-accent)] transition-colors">
+              <h3 className="mb-3 sm:mb-4 text-xl sm:text-2xl font-display text-text-primary group-hover:text-[var(--color-accent)] transition-colors break-words">
                 {service.title}
               </h3>
-              <p className="text-text-secondary leading-relaxed text-[var(--text-body-sm)]">
+              <p className="text-text-secondary leading-relaxed text-sm sm:text-[var(--text-body-sm)] break-words">
                 {service.shortDescription}
               </p>
             </div>
@@ -101,10 +98,10 @@ export function ServicesSection({
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const activeServices = servicesData.filter((s) => s.isActive !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
-  
+
   useEffect(() => {
     if (!sectionRef.current) return;
-    
+
     gsap.to(".service-card", {
       y: 0,
       opacity: 1,
@@ -140,7 +137,7 @@ export function ServicesSection({
           />
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[minmax(320px,auto)] gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[minmax(280px,auto)] sm:auto-rows-[minmax(320px,auto)] gap-4 sm:gap-6">
           {activeServices.map((service, index) => {
             // Create a gorgeous asymmetric bento layout (e.g. indices 0, 3, 4, 7... span 2 cols on lg)
             const isLarge = index === 0 || index === 3 || index === 4 || index === 7 || index === 10;
