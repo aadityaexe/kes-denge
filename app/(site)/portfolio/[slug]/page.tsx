@@ -66,7 +66,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/portfolio/${project.slug}`;
   const metaTitle = project.metaTitle
     ? project.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "").replace(/\s*—\s*MARK.*$/i, "")
@@ -121,7 +121,7 @@ export default async function PortfolioDetailPage({
   // Fetch related portfolio projects (same category or others)
   const relatedProjects = (await getRelatedPortfolioItems(project.slug, project.category, 3)) as PortfolioItem[];
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const pageUrl = `${siteUrl}/portfolio/${project.slug}`;
 
   // Structured Data (Schema.org CreativeWork / SoftwareApplication)

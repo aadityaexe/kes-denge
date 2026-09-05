@@ -30,7 +30,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/products/${product.slug}`;
   const metaTitle = product.metaTitle
     ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "").replace(/\s*—\s*MARK.*$/i, "")
@@ -89,7 +89,7 @@ export default async function ProductPage({
     .filter((p) => p.slug !== product.slug && p.isActive !== false)
     .slice(0, 3);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const pageUrl = `${siteUrl}/products/${product.slug}`;
 
   // Structured Data (Schema.org JSON-LD)

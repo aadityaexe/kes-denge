@@ -5,16 +5,18 @@ import { Parallax } from "@/components/ui/Parallax";
 import { getPortfolioData, getTestimonialsData } from "@/lib/db-helpers";
 import { Metadata } from "next";
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+
 export const metadata: Metadata = {
   title: "Client Portfolio & Case Studies",
   description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_APP_URL || "https://mark.com"}/portfolio`,
+    canonical: `${siteUrl}/portfolio`,
   },
   openGraph: {
     title: "Client Portfolio & Case Studies | MARK Technologies",
     description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture.",
-    url: `${process.env.NEXT_PUBLIC_APP_URL || "https://mark.com"}/portfolio`,
+    url: `${siteUrl}/portfolio`,
     siteName: "MARK Technologies",
     type: "website",
   },
@@ -31,7 +33,7 @@ export default async function PortfolioPage() {
     getTestimonialsData(),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -82,6 +84,7 @@ export default async function PortfolioPage() {
         </div>
         <div className="container-site relative z-10">
           <SectionHeading
+            as="h1"
             title="Work that speaks for itself."
             subtitle="From consumer mobile apps to enterprise ERP systems, we deliver quality at every level."
             badge="Our Work"

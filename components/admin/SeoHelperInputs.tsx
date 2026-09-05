@@ -32,7 +32,7 @@ export function SeoHelperInputs({
 
   const displayTitle = metaTitle || fallbackTitle;
   const displayDesc = metaDescription || fallbackDescription;
-  const siteUrl = "https://mark.com";
+  const siteUrl = "https://www.mark2.in";
 
   return (
     <div className="space-y-4">

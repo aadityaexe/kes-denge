@@ -51,23 +51,20 @@ export function ServiceFAQAccordion({ faqs, serviceTitle }: ServiceFAQAccordionP
               </div>
             </button>
 
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  id={faqId}
-                  role="region"
-                  aria-labelledby={faqId}
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
-                >
-                  <div className="px-6 pb-6 pt-1 text-text-secondary text-sm sm:text-base leading-relaxed border-t border-[var(--color-border)]/50 mt-1">
-                    {faq.answer}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div
+              id={faqId}
+              role="region"
+              aria-labelledby={faqId}
+              className={`grid transition-all duration-300 ease-in-out ${
+                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="px-6 pb-6 pt-1 text-text-secondary text-sm sm:text-base leading-relaxed border-t border-[var(--color-border)]/50 mt-1">
+                  {faq.answer}
+                </div>
+              </div>
+            </div>
           </div>
         );
       })}

@@ -78,7 +78,7 @@ export default function LoginPage() {
               required
               aria-describedby={error ? "login-error" : undefined}
               className="w-full px-4 py-2.5 bg-surface-2 border border-[var(--color-border)] rounded-xl text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 text-sm transition-all"
-              placeholder="admin@mark.com"
+              placeholder="admin@mark2.in"
             />
           </div>
 

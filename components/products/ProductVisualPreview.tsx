@@ -262,7 +262,7 @@ export function ProductVisualPreview({
                   <span>API Request Contract (HTTP / JSON)</span>
                 </div>
                 <pre className="p-4 rounded-lg bg-[#111111] text-[#ECECEC] overflow-x-auto leading-relaxed text-[11px]">
-{`curl -X POST https://api.mark.com/v1/${productName.toLowerCase().replace(/\s+/g, "-")}/query \\
+{`curl -X POST https://api.mark2.in/v1/${productName.toLowerCase().replace(/\s+/g, "-")}/query \\
   -H "Authorization: Bearer sec_live_enterprise_token" \\
   -H "Content-Type: application/json" \\
   -d '{

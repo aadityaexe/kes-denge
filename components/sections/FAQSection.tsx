@@ -56,21 +56,20 @@ export function FAQSection({ faqsData = [] }: FAQSectionProps) {
                   </div>
                 </button>
                 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`faq-answer-${itemId}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                      <div className="px-6 pb-6 pt-2 text-[var(--text-body-md)] text-text-secondary leading-relaxed">
-                        {item.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div
+                  id={`faq-answer-${itemId}`}
+                  role="region"
+                  aria-labelledby={`faq-question-${itemId}`}
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-6 pb-6 pt-2 text-[var(--text-body-md)] text-text-secondary leading-relaxed">
+                      {item.answer}
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}

@@ -315,16 +315,16 @@ export function Preloader() {
                   </span>
 
                   {isBrand ? (
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight text-text-primary">
+                    <div className="text-4xl sm:text-6xl md:text-7xl font-display font-bold tracking-tight text-text-primary">
                       M
                       <span className="text-[var(--color-accent-dark)] font-display italic font-normal">
                         ARK
                       </span>
-                    </h1>
+                    </div>
                   ) : (
-                    <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-semibold tracking-tight text-text-primary">
+                    <div className="text-3xl sm:text-5xl md:text-6xl font-display font-semibold tracking-tight text-text-primary">
                       {phase.label}
-                    </h2>
+                    </div>
                   )}
                 </div>
               );

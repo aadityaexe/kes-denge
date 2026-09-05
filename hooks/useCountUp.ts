@@ -18,7 +18,8 @@ export function useCountUp<T extends HTMLElement = HTMLDivElement>(
 ): { ref: RefObject<T | null>; displayValue: string } {
   const { end, duration = 2000, suffix = "" } = options;
   const ref = useRef<T>(null);
-  const [displayValue, setDisplayValue] = useState(`0${suffix}`);
+  // SSR & initial static fallback displays target value to prevent crawler zero-indexing and layout shift
+  const [displayValue, setDisplayValue] = useState(`${end}${suffix}`);
   const hasAnimated = useRef(false);
 
   useEffect(() => {

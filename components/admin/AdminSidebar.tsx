@@ -138,7 +138,7 @@ export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: A
         <div className="flex items-center justify-between pt-1 px-1">
           <div className="flex flex-col min-w-0 pr-2">
             <span className="text-xs font-semibold text-text-primary truncate">{userName || "Administrator"}</span>
-            <span className="text-[11px] text-text-muted truncate">{userEmail || "admin@mark.com"}</span>
+            <span className="text-[11px] text-text-muted truncate">{userEmail || "admin@mark2.in"}</span>
           </div>
           <form action="/api/auth/logout" method="POST">
             <button

@@ -140,28 +140,39 @@ export function ProcessSection({ steps = [] }: ProcessSectionProps) {
 
               return (
                 <div key={index} className="process-step relative flex items-center w-full">
-                  
-                  {/* Left Content (hidden on mobile, right aligned on desktop if even) */}
-                  <div className={`hidden md:block w-1/2 pr-16 text-right ${!isEven ? 'md:invisible' : ''}`}>
-                    <h3 className="text-2xl font-display text-text-primary mb-3">{step.title}</h3>
-                    <p className="text-text-secondary">{step.description}</p>
-                  </div>
-
                   {/* Center Node */}
                   <div className="process-node absolute left-8 md:left-1/2 -translate-x-1/2 flex items-center justify-center w-14 h-14 rounded-full border border-[var(--color-border)] z-10 transition-colors duration-500 hover:border-[var(--color-accent)] hover:bg-surface-2 text-text-primary bg-surface-1 shadow-sm">
                     <Icon size={20} strokeWidth={1.5} />
                   </div>
 
-                  {/* Right Content (visible on mobile, left aligned on desktop if odd) */}
-                  <div className={`w-full pl-24 md:w-1/2 md:pl-16 ${isEven ? 'md:hidden' : ''}`}>
-                    <div className="md:hidden flex items-center gap-3 mb-2">
-                      <span className="text-[var(--color-accent)] font-bold font-display text-xl">0{step.number}</span>
-                      <h3 className="text-2xl font-display text-text-primary">{step.title}</h3>
-                    </div>
-                    <h3 className="hidden md:block text-2xl font-display text-text-primary mb-3">{step.title}</h3>
-                    <p className="text-text-secondary">{step.description}</p>
+                  {/* Grid layout with single semantic content block */}
+                  <div className="w-full grid grid-cols-1 md:grid-cols-2 items-center">
+                    {isEven ? (
+                      <>
+                        {/* Even: Desktop Left, Mobile Right */}
+                        <div className="pl-24 md:pl-0 md:pr-16 md:text-right">
+                          <div className="flex items-center gap-3 mb-2 md:justify-end">
+                            <span className="text-[var(--color-accent)] font-bold font-display text-xl">0{step.number}</span>
+                            <h3 className="text-2xl font-display text-text-primary">{step.title}</h3>
+                          </div>
+                          <p className="text-text-secondary leading-relaxed">{step.description}</p>
+                        </div>
+                        <div className="hidden md:block" aria-hidden="true" />
+                      </>
+                    ) : (
+                      <>
+                        <div className="hidden md:block" aria-hidden="true" />
+                        {/* Odd: Desktop Right, Mobile Right */}
+                        <div className="pl-24 md:pl-16 text-left">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="text-[var(--color-accent)] font-bold font-display text-xl">0{step.number}</span>
+                            <h3 className="text-2xl font-display text-text-primary">{step.title}</h3>
+                          </div>
+                          <p className="text-text-secondary leading-relaxed">{step.description}</p>
+                        </div>
+                      </>
+                    )}
                   </div>
-
                 </div>
               );
             })}

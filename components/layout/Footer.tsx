@@ -60,34 +60,69 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="text-text-primary font-medium mb-6">Navigation</h4>
-            <ul className="space-y-4">
-              {['Services', 'Products', 'Portfolio', 'Pricing'].map((item) => (
-                <li key={item}>
-                  <Link href={`/${item.toLowerCase()}`} className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1 group">
-                    {item} <ArrowUpRight size={14} className="opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {[
+                { label: 'About', href: '/about' },
+                { label: 'Services', href: '/services' },
+                { label: 'Products', href: '/products' },
+                { label: 'Portfolio', href: '/portfolio' },
+                { label: 'Clients', href: '/clients' },
+                { label: 'Team', href: '/team' },
+                { label: 'Pricing', href: '/pricing' },
+                { label: 'Contact', href: '/contact' },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1 group text-sm"
+                >
+                  {item.label}
+                  <ArrowUpRight size={12} className="opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Socials */}
+          {/* Socials & Contact */}
           <div>
             <h4 className="text-text-primary font-medium mb-6">Connect</h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3 text-sm">
               <li>
-                <a href="#" className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group">
-                  <MessageSquare size={16} /> Twitter
+                <a
+                  href="https://x.com/mark2_in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <MessageSquare size={15} /> Twitter / X
                 </a>
               </li>
               <li>
-                <a href="#" className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group">
-                  <LinkIcon size={16} /> LinkedIn
+                <a
+                  href="https://www.linkedin.com/company/mark2-technologies"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <LinkIcon size={15} /> LinkedIn
                 </a>
               </li>
               <li>
-                <a href="#" className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group">
-                  <Globe size={16} /> GitHub
+                <a
+                  href="https://github.com/aadityaexe/kes-denge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2 group"
+                >
+                  <Globe size={15} /> GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@mark2.in"
+                  className="text-[var(--color-accent)] hover:underline flex items-center gap-2 pt-1 font-medium"
+                >
+                  hello@mark2.in
                 </a>
               </li>
             </ul>

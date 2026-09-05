@@ -20,7 +20,7 @@ export default function SettingsAdminPage() {
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation.",
     logoUrl: "",
     faviconUrl: "",
-    contactEmail: "hello@mark.com",
+    contactEmail: "hello@mark2.in",
     contactPhone: "+1 (555) 234-5678",
     address: "San Francisco, CA & Global Remote",
     googleMapsUrl: "",

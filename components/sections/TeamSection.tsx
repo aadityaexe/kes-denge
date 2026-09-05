@@ -11,9 +11,10 @@ import { Parallax } from "@/components/ui/Parallax";
 
 interface TeamSectionProps {
   teamData?: any[];
+  headingTag?: "h1" | "h2";
 }
 
-export function TeamSection({ teamData = [] }: TeamSectionProps) {
+export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -51,6 +52,7 @@ export function TeamSection({ teamData = [] }: TeamSectionProps) {
 
       <div className="container-site relative z-10">
         <SectionHeading
+          as={headingTag}
           title="The engineers behind the products."
           subtitle="We don't outsource. Every line of code is written by our in-house team of senior engineers and designers."
           badge="Our Team"

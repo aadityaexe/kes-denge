@@ -18,35 +18,60 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "MARK Technologies — We Build Digital Products That Scale",
     template: "%s | MARK Technologies",
   },
   description:
-    "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
+    "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
+  keywords: [
+    "MARK Technologies",
+    "mark2.in",
+    "product engineering agency",
+    "custom software development",
+    "web application development",
+    "mobile app development",
+    "enterprise ERP solutions",
+    "cloud architecture",
+    "Next.js engineering",
+    "React Native development",
+    "AI automation systems",
+    "SaaS development agency",
+  ],
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://mark.com",
+    url: siteUrl,
     siteName: "MARK Technologies",
     title: "MARK Technologies — We Build Digital Products That Scale",
     description:
-      "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
+      "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
   },
   twitter: {
     card: "summary_large_image",
     title: "MARK Technologies — We Build Digital Products That Scale",
     description:
-      "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
+      "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
-
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -55,7 +80,7 @@ const organizationSchema = {
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
-    "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
+    "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
   sameAs: [
     "https://linkedin.com/company/mark",
     "https://github.com/mark",
@@ -63,8 +88,8 @@ const organizationSchema = {
   ],
   contactPoint: {
     "@type": "ContactPoint",
-    contactType: "Sales and Technical Inquiries",
-    email: "hello@mark.com",
+    contactType: "Sales & Technical Inquiries",
+    email: "hello@mark2.in",
   },
 };
 
@@ -73,6 +98,11 @@ const websiteSchema = {
   "@type": "WebSite",
   name: "MARK Technologies",
   url: siteUrl,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${siteUrl}/portfolio?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({

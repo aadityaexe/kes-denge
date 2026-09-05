@@ -344,7 +344,7 @@ export const getSettingsData = cache(async () => {
     siteName: "MARK Technologies",
     tagline: "We Build Digital Products That Scale",
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
-    contactEmail: "hello@mark.com",
+    contactEmail: "hello@mark2.in",
     contactPhone: "+1 (555) 234-5678",
     address: "San Francisco, CA & Global Remote",
     hero: {

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { getServiceBySlug, getServicesData, getRelatedPortfolioForService } from "@/lib/db-helpers";
-import { Service, ServiceFeatureItem, ServiceBenefitItem, PortfolioItem } from "@/lib/types";
+import { getServiceBySlug, getServicesData, getRelatedPortfolioForService, getProductsData } from "@/lib/db-helpers";
+import { Service, ServiceFeatureItem, ServiceBenefitItem, PortfolioItem, Product } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { Parallax } from "@/components/ui/Parallax";
 import { ServiceHero } from "@/components/services/ServiceHero";
@@ -72,7 +72,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/services/${service.slug}`;
   const metaTitle = service.metaTitle
     ? service.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "")
@@ -125,14 +125,17 @@ export default async function ServiceDetailsPage({
     notFound();
   }
 
-  // Fetch all services for related services linking
-  const [allServices, relatedPortfolio] = await Promise.all([
+  // Fetch services, portfolio, and products for reciprocal internal linking
+  const [allServices, relatedPortfolio, allProducts] = await Promise.all([
     getServicesData() as Promise<Service[]>,
     getRelatedPortfolioForService(service.slug, 3) as Promise<PortfolioItem[]>,
+    getProductsData() as Promise<Product[]>,
   ]);
 
+  const relatedProducts = (allProducts || []).filter((p) => p.isActive !== false).slice(0, 3);
+
   const relatedServices = allServices.filter(
-    (s) =>
+    (s: Service) =>
       s.slug !== service.slug &&
       s.isActive !== false &&
       (service.relatedServiceSlugs && service.relatedServiceSlugs.length > 0
@@ -141,7 +144,7 @@ export default async function ServiceDetailsPage({
   ).slice(0, 3);
 
   const ServiceIcon = iconMap[service.icon] || Globe;
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const pageUrl = `${siteUrl}/services/${service.slug}`;
 
   // Structured Data (Schema.org JSON-LD)
@@ -194,17 +197,17 @@ export default async function ServiceDetailsPage({
   const faqSchema =
     service.faqs && service.faqs.length > 0
       ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: service.faqs.map((faq) => ({
-            "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: faq.answer,
-            },
-          })),
-        }
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: service.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      }
       : null;
 
   return (
@@ -232,6 +235,7 @@ export default async function ServiceDetailsPage({
         heroBadge={service.heroBadge}
         shortDescription={service.shortDescription}
         slug={service.slug}
+
       />
 
       {/* 2. OVERVIEW & WHO THIS SERVICE IS FOR */}
@@ -561,7 +565,7 @@ export default async function ServiceDetailsPage({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedServices.map((relSvc) => {
+              {relatedServices.map((relSvc: Service) => {
                 const RelIcon = iconMap[relSvc.icon] || Globe;
                 return (
                   <Link
@@ -649,6 +653,56 @@ export default async function ServiceDetailsPage({
 
                   <div className="pt-4 border-t border-[var(--color-border)]/60 text-xs font-semibold text-[var(--color-accent-dark)] flex items-center gap-1">
                     <span>Read Case Study</span>
+                    <ArrowRight size={12} />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 10.5 FLAGSHIP PLATFORMS (RECIPROCAL INTERNAL LINKING) */}
+      {relatedProducts && relatedProducts.length > 0 && (
+        <section id="related-platforms" className="section-padding border-b border-[var(--color-border)] bg-surface-1">
+          <div className="container-site">
+            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-8 md:mb-10">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-2 text-text-muted text-xs font-mono mb-3 uppercase tracking-widest border border-[var(--color-border)]">
+                  Production Platforms
+                </div>
+                <h2 className="text-display-sm font-bold font-display text-text-primary">
+                  Ready Platforms Engineered with {service.title}
+                </h2>
+              </div>
+              <Link
+                href="/products"
+                className="text-sm font-semibold text-[var(--color-accent-dark)] hover:underline flex items-center gap-1.5"
+              >
+                View all platforms <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedProducts.map((prod) => (
+                <Link
+                  key={prod.slug}
+                  href={`/products/${prod.slug}`}
+                  className="group bg-surface-2/40 border border-[var(--color-border)] rounded-[var(--radius-xl)] p-6 transition-all duration-300 hover:border-[var(--color-accent)]/50 hover:bg-surface-2 hover:-translate-y-1 flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="px-2.5 py-1 bg-surface-1 border border-[var(--color-border)] rounded-full text-xs font-mono text-text-muted mb-3 inline-block">
+                      {prod.category}
+                    </span>
+                    <h3 className="text-xl font-bold font-display text-text-primary mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                      {prod.name}
+                    </h3>
+                    <p className="text-sm text-text-secondary leading-relaxed font-light line-clamp-3 mb-4">
+                      {prod.tagline || prod.description}
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-[var(--color-border)]/50 text-xs font-semibold text-[var(--color-accent-dark)] flex items-center gap-1">
+                    <span>Explore Platform Specifications</span>
                     <ArrowRight size={12} />
                   </div>
                 </Link>

@@ -47,7 +47,7 @@ export async function generateMetadata({
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/clients/${client.slug}`;
   const title = `${client.name} — Partnership & Engineering Case Profile | MARK Technologies`;
   const description =
@@ -97,7 +97,7 @@ export default async function ClientDetailPage({
     relatedProject = (await getPortfolioBySlug(client.caseStudySlug)) as PortfolioItem | null;
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/clients/${client.slug}`;
 
   // Find next and previous clients for navigation

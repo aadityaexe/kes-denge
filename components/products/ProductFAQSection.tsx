@@ -65,11 +65,19 @@ export function ProductFAQSection({
                   </div>
                 </button>
 
-                {isOpen && (
-                  <div className="px-6 md:px-8 pb-6 pt-2 text-text-secondary text-sm md:text-base font-light leading-relaxed border-t border-[var(--color-border)]/50">
-                    {faq.answer}
+                <div
+                  id={`product-faq-answer-${idx}`}
+                  role="region"
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-6 md:px-8 pb-6 pt-2 text-text-secondary text-sm md:text-base font-light leading-relaxed border-t border-[var(--color-border)]/50">
+                      {faq.answer}
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}

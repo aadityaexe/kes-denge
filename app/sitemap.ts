@@ -11,7 +11,7 @@ import type { PortfolioItem, TeamMember, Product, Service, Client } from '@/lib/
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mark.com';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.mark2.in';
 
   // Core static routes
   const routes = [
@@ -24,11 +24,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/team',
     '/pricing',
     '/contact',
+    '/privacy',
+    '/terms',
   ].map((route: string) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : 0.8,
+    priority: route === '' ? 1 : route === '/privacy' || route === '/terms' ? 0.3 : 0.8,
   }));
 
   let portfolioUrls: MetadataRoute.Sitemap = [];

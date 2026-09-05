@@ -26,9 +26,36 @@ import { ContactSection } from "@/components/sections/ContactSection";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettingsData();
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+  const titleText = "MARK Technologies — We Build Digital Products That Scale";
+  const descText =
+    settings?.seo?.defaultDescription ||
+    settings?.description ||
+    "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.";
+
   return {
-    title: settings?.seo?.defaultTitle || "MARK Technologies — We Build Digital Products That Scale",
-    description: settings?.seo?.defaultDescription || settings?.description,
+    title: {
+      absolute: titleText,
+    },
+    description: descText,
+    alternates: {
+      canonical: siteUrl,
+    },
+    openGraph: {
+      title: titleText,
+      description: descText,
+      url: siteUrl,
+      siteName: "MARK Technologies",
+      type: "website",
+      locale: "en_US",
+      images: settings?.seo?.ogImageUrl ? [{ url: settings.seo.ogImageUrl }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titleText,
+      description: descText,
+      images: settings?.seo?.ogImageUrl ? [settings.seo.ogImageUrl] : undefined,
+    },
   };
 }
 

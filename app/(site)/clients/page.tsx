@@ -16,18 +16,20 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+
 export const metadata: Metadata = {
   title: "Our Clients & Partnerships — Global Enterprises & High-Growth Startups",
   description:
     "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_APP_URL || "https://mark.com"}/clients`,
+    canonical: `${siteUrl}/clients`,
   },
   openGraph: {
     title: "Our Clients & Partnerships | MARK Technologies",
     description:
       "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK.",
-    url: `${process.env.NEXT_PUBLIC_APP_URL || "https://mark.com"}/clients`,
+    url: `${siteUrl}/clients`,
     siteName: "MARK Technologies",
     type: "website",
   },
@@ -45,7 +47,7 @@ export default async function ClientsPage() {
     getTestimonialsData(),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://mark.com";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -103,6 +105,7 @@ export default async function ClientsPage() {
 
         <div className="container-site relative z-10 text-center">
           <SectionHeading
+            as="h1"
             badge="Verified Partnerships"
             title="Engineered for organizations that refuse to settle."
             subtitle="From venture-backed disruptors to global enterprises, we partner with visionary leadership to architect resilient, high-throughput software and digital products."

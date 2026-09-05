@@ -62,9 +62,10 @@ function ContactCard({ icon: Icon, title, content, href }: { icon: any, title: s
 
 interface ContactSectionProps {
   settingsData?: any;
+  headingTag?: "h1" | "h2";
 }
 
-export function ContactSection({ settingsData }: ContactSectionProps) {
+export function ContactSection({ settingsData, headingTag = "h2" }: ContactSectionProps) {
   const { ref, isVisible } = useScrollReveal({ delay: 0.1 });
   const [formData, setFormData] = useState({
     name: "",
@@ -77,7 +78,7 @@ export function ContactSection({ settingsData }: ContactSectionProps) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const email = settingsData?.contactEmail || "hello@mark.com";
+  const email = settingsData?.contactEmail || "hello@mark2.in";
   const phone = settingsData?.contactPhone || "+91 98765 43210";
   const address = settingsData?.address || "Andheri West, Mumbai\nMaharashtra, India 400053";
 
@@ -126,6 +127,7 @@ export function ContactSection({ settingsData }: ContactSectionProps) {
           {/* Left Column: Contact Info */}
           <div ref={ref} className={`transition-all duration-[var(--transition-slow)] ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <SectionHeading
+              as={headingTag}
               title="Let's build something exceptional."
               subtitle="Whether you have a fully documented spec or just a concept on a napkin, we're ready to engineer it."
               badge="Get in Touch"

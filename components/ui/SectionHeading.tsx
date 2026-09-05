@@ -8,6 +8,7 @@ interface SectionHeadingProps {
   subtitle?: string;
   centered?: boolean;
   align?: "left" | "center" | "right";
+  as?: "h1" | "h2" | "h3";
   children?: ReactNode;
 }
 
@@ -22,6 +23,7 @@ export function SectionHeading({
   subtitle,
   centered,
   align,
+  as: HeadingTag = "h2",
   children,
 }: SectionHeadingProps) {
   const isCentered = centered !== undefined ? centered : align === "center" || align === undefined;
@@ -38,7 +40,7 @@ export function SectionHeading({
       {!badge && overline && (
         <p className="text-overline mb-3">{overline}</p>
       )}
-      <h2 className="text-display-md mb-3">{title}</h2>
+      <HeadingTag className="text-display-md mb-3">{title}</HeadingTag>
       {subtitle && (
         <p className={`text-[var(--text-subheading)] text-text-secondary max-w-2xl leading-relaxed ${isCentered ? "mx-auto" : ""}`}>
           {subtitle}

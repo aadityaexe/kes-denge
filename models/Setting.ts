@@ -77,7 +77,7 @@ const SettingSchema = new Schema<ISetting>(
     },
     logoUrl: { type: String, default: "" },
     faviconUrl: { type: String, default: "" },
-    contactEmail: { type: String, default: "hello@mark.com" },
+    contactEmail: { type: String, default: "hello@mark2.in" },
     contactPhone: { type: String, default: "+1 (555) 234-5678" },
     address: { type: String, default: "San Francisco, CA & Global Remote" },
     googleMapsUrl: { type: String, default: "" },

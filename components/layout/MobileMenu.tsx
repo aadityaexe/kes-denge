@@ -84,7 +84,7 @@ export function MobileMenu({
             </Link>
 
             <div className="flex justify-between items-center text-sm text-text-muted">
-              <span>hello@mark.com</span>
+              <span>hello@mark2.in</span>
               <div className="flex gap-4">
                 <a href="#" className="hover:text-text-primary">TW</a>
                 <a href="#" className="hover:text-text-primary">IN</a>

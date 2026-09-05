@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTeamMemberBySlug, getTeamData } from "@/lib/db-helpers";
 import { Badge } from "@/components/ui/Badge";
@@ -12,13 +13,36 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const member = await getTeamMemberBySlug(slug);
   if (!member) return { title: "Member Not Found" };
+
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+  const canonicalUrl = `${siteUrl}/team/${member.slug}`;
+  const title = `${member.name} — ${member.role} | MARK Technologies`;
+  const description = member.bio || `${member.name} is a ${member.role} at MARK Technologies specializing in ${member.specialization || "software engineering"}.`;
+
   return {
-    title: `${member.name} - ${member.role} | MARK Technologies`,
-    description: member.specialization || member.role,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: "MARK Technologies",
+      type: "profile",
+      images: member.photo ? [{ url: member.photo }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: member.photo ? [member.photo] : undefined,
+    },
   };
 }
 
