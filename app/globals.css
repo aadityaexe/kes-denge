@@ -154,6 +154,8 @@
 /* ------ TAILWIND v4 THEME TOKENS ------ */
 @theme {
   /* Colors */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
   --color-base: #FFFFFF;
   --color-surface-1: #FFFFFF;
   --color-surface-2: #F8F8F6;
@@ -174,7 +176,15 @@
   --breakpoint-xs: 380px;
 }
 
-/* Explicit text color utilities to guarantee high contrast visibility */
+/* Explicit color utilities to guarantee high contrast visibility */
+.text-white {
+  color: #FFFFFF !important;
+}
+
+.text-black {
+  color: #000000 !important;
+}
+
 .text-text-primary {
   color: #111111 !important;
 }
