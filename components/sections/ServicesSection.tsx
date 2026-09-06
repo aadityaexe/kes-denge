@@ -36,7 +36,7 @@ function ServiceCard({ service, index, isLarge }: { service: any, index: number,
   const speed = index % 2 === 0 ? 1.05 : 0.95;
 
   return (
-    <Parallax speed={speed} className={`service-card opacity-0 translate-y-8 h-full ${isLarge ? "lg:col-span-2" : "lg:col-span-1"}`}>
+    <Parallax speed={speed} className={`service-card opacity-0 translate-y-8 h-full hover:z-10 ${isLarge ? "lg:col-span-2" : "lg:col-span-1"}`}>
       <Link href={`/services/${service.slug}`} className="block h-full w-full">
         <div
           onMouseMove={handleMouseMove}

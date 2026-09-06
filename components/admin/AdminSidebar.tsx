@@ -16,6 +16,7 @@ import {
   HelpCircle,
   CreditCard,
   Settings,
+  ShieldCheck,
   Image as ImageIcon,
   ExternalLink,
   LogOut,
@@ -43,6 +44,7 @@ const navLinks = [
   { label: "Pricing Tiers", href: "/admin/pricing", icon: CreditCard },
   { label: "FAQs", href: "/admin/faq", icon: HelpCircle },
   { label: "Media Library", href: "/admin/media", icon: ImageIcon },
+  { label: "Policy & Terms", href: "/admin/legal", icon: ShieldCheck },
   { label: "Site Settings", href: "/admin/settings", icon: Settings },
 ];
 

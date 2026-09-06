@@ -142,7 +142,7 @@ export async function Footer() {
         <p>{copyright}</p>
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           <Link href="/privacy" className="hover:text-text-primary transition-colors">Privacy Policy</Link>
-          <Link href="/terms" className="hover:text-text-primary transition-colors">Terms of Service</Link>
+          <Link href="/terms" className="hover:text-text-primary transition-colors">Terms & Conditions</Link>
         </div>
       </div>
     </footer>

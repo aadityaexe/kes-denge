@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import TeamMember from "@/models/Team";
@@ -90,6 +91,11 @@ export async function PUT(
       return NextResponse.json({ error: "Team member not found" }, { status: 404 });
     }
 
+    revalidatePath("/team");
+    revalidatePath("/");
+    revalidatePath(`/team/${updated.slug}`);
+    revalidatePath("/admin/team");
+
     return NextResponse.json({ success: true, teamMember: updated });
   } catch (error: unknown) {
     return NextResponse.json(
@@ -117,6 +123,11 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json({ error: "Team member not found" }, { status: 404 });
     }
+
+    revalidatePath("/team");
+    revalidatePath("/");
+    if (deleted.slug) revalidatePath(`/team/${deleted.slug}`);
+    revalidatePath("/admin/team");
 
     return NextResponse.json({ success: true, message: "Team member deleted successfully" });
   } catch (error: unknown) {

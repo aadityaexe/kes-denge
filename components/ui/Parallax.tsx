@@ -15,7 +15,7 @@ export function Parallax({ children, speed = 1, className = "", id }: ParallaxPr
   const ref = useParallax<HTMLDivElement>({ speed });
 
   return (
-    <div ref={ref} id={id} className={`overflow-hidden relative ${className}`}>
+    <div ref={ref} id={id} className={`relative ${className}`}>
       {children}
     </div>
   );

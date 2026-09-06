@@ -316,22 +316,23 @@ export default function BlogAdminPage() {
       />
 
       <div className="p-6 sm:p-8 max-w-7xl space-y-4">
-        <StatusBreakdownBar
-          items={[
-            { id: "all", label: "All Articles", count: posts.length },
-            { id: "published", label: "Published", count: posts.filter((p) => p.status === "published").length, color: "emerald" },
-            { id: "draft", label: "Drafts", count: posts.filter((p) => p.status === "draft").length, color: "amber" },
-            { id: "archived", label: "Archived", count: posts.filter((p) => p.status === "archived").length, color: "zinc" },
-          ]}
-          activeFilter={statusFilter}
-          onFilterChange={setStatusFilter}
-        />
-
         <DataTable
           columns={columns}
           data={filteredPosts}
           searchPlaceholder="Search articles by headline or tag..."
           searchKey="title"
+          filterComponent={
+            <StatusBreakdownBar
+              items={[
+                { id: "all", label: "All Articles", count: posts.length },
+                { id: "published", label: "Published", count: posts.filter((p) => p.status === "published").length, color: "emerald" },
+                { id: "draft", label: "Drafts", count: posts.filter((p) => p.status === "draft").length, color: "amber" },
+                { id: "archived", label: "Archived", count: posts.filter((p) => p.status === "archived").length, color: "zinc" },
+              ]}
+              activeFilter={statusFilter}
+              onFilterChange={setStatusFilter}
+            />
+          }
           isLoading={isLoading}
           emptyMessage="No articles found for this status. Click 'Add Article' to publish engineering insights."
         />

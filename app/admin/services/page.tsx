@@ -371,21 +371,22 @@ export default function ServicesAdminPage() {
       />
 
       <div className="p-6 sm:p-8 max-w-7xl">
-        <StatusBreakdownBar
-          items={[
-            { id: "all", label: "All Services", count: totalCount },
-            { id: "active", label: "Active", count: activeCount },
-            { id: "hidden", label: "Hidden", count: hiddenCount },
-          ]}
-          activeFilter={statusFilter}
-          onFilterChange={setStatusFilter}
-        />
-
         <DataTable
           columns={columns}
           data={filteredServices}
           searchPlaceholder="Search services by name or description..."
           searchKey="title"
+          filterComponent={
+            <StatusBreakdownBar
+              items={[
+                { id: "all", label: "All Services", count: totalCount },
+                { id: "active", label: "Active", count: activeCount },
+                { id: "hidden", label: "Hidden", count: hiddenCount },
+              ]}
+              activeFilter={statusFilter}
+              onFilterChange={setStatusFilter}
+            />
+          }
           isLoading={isLoading}
           emptyMessage="No services found matching this filter."
         />

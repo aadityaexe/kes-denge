@@ -24,7 +24,7 @@ function PortfolioCard({ item, index, isLarge }: { item: any, index: number, isL
   const techStack = item.techStack || [];
 
   return (
-    <Parallax speed={speed} className={isLarge ? "md:col-span-2" : "md:col-span-1"}>
+    <Parallax speed={speed} className={`hover:z-10 ${isLarge ? "md:col-span-2" : "md:col-span-1"}`}>
       <Link
         href={`/portfolio/${item.slug}`}
         onMouseMove={handleMouseMove}

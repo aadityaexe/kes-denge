@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { CookieConsent } from "@/components/ui/CookieConsent";
 
 /**
  * Public site layout — wraps all public pages with nav, footer,
@@ -17,6 +18,7 @@ export default function SiteLayout({
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }

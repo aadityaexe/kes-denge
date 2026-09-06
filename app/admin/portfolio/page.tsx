@@ -446,23 +446,24 @@ export default function PortfolioAdminPage() {
       />
 
       <div className="p-6 sm:p-8 max-w-7xl space-y-4">
-        <StatusBreakdownBar
-          items={[
-            { id: "all", label: "All Projects", count: portfolio.length },
-            { id: "featured", label: "Featured", count: portfolio.filter((p) => p.isFeatured).length, color: "amber" },
-            { id: "completed", label: "Completed", count: portfolio.filter((p) => p.status === "completed").length, color: "emerald" },
-            { id: "ongoing", label: "Ongoing", count: portfolio.filter((p) => p.status === "ongoing").length, color: "blue" },
-            { id: "hidden", label: "Hidden", count: portfolio.filter((p) => !p.isActive).length, color: "zinc" },
-          ]}
-          activeFilter={statusFilter}
-          onFilterChange={setStatusFilter}
-        />
-
         <DataTable
           columns={columns}
           data={filteredPortfolio}
           searchPlaceholder="Search case studies by title, client, or category..."
           searchKey="title"
+          filterComponent={
+            <StatusBreakdownBar
+              items={[
+                { id: "all", label: "All Projects", count: portfolio.length },
+                { id: "featured", label: "Featured", count: portfolio.filter((p) => p.isFeatured).length, color: "amber" },
+                { id: "completed", label: "Completed", count: portfolio.filter((p) => p.status === "completed").length, color: "emerald" },
+                { id: "ongoing", label: "Ongoing", count: portfolio.filter((p) => p.status === "ongoing").length, color: "blue" },
+                { id: "hidden", label: "Hidden", count: portfolio.filter((p) => !p.isActive).length, color: "zinc" },
+              ]}
+              activeFilter={statusFilter}
+              onFilterChange={setStatusFilter}
+            />
+          }
           isLoading={isLoading}
           emptyMessage="No portfolio projects found for this filter. Click 'Add Case Study' to showcase your production engineering."
         />

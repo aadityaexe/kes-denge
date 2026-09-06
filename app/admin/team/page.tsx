@@ -326,21 +326,22 @@ export default function TeamAdminPage() {
       />
 
       <div className="p-6 sm:p-8 max-w-7xl space-y-4">
-        <StatusBreakdownBar
-          items={[
-            { id: "all", label: "All Members", count: team.length },
-            { id: "active", label: "Active", count: team.filter((m) => m.isActive).length, color: "emerald" },
-            { id: "disabled", label: "Disabled / Hidden", count: team.filter((m) => !m.isActive).length, color: "zinc" },
-          ]}
-          activeFilter={statusFilter}
-          onFilterChange={setStatusFilter}
-        />
-
         <DataTable
           columns={columns}
           data={filteredTeam}
           searchPlaceholder="Search team members by name or role..."
           searchKey="name"
+          filterComponent={
+            <StatusBreakdownBar
+              items={[
+                { id: "all", label: "All Members", count: team.length },
+                { id: "active", label: "Active", count: team.filter((m) => m.isActive).length, color: "emerald" },
+                { id: "disabled", label: "Disabled / Hidden", count: team.filter((m) => !m.isActive).length, color: "zinc" },
+              ]}
+              activeFilter={statusFilter}
+              onFilterChange={setStatusFilter}
+            />
+          }
           isLoading={isLoading}
           emptyMessage="No team members found for this status. Click 'Add Member' to showcase your talent."
         />

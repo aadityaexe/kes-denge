@@ -53,10 +53,10 @@ export function DataTable<T extends Record<string, any>>({
 
   return (
     <div className="space-y-4">
-      {/* Table Toolbar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-surface-1 p-3 sm:p-4 rounded-xl border border-[var(--color-border)]">
-        <div className="relative flex-1 max-w-sm">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+      {/* Table Toolbar (Unified Search & Filters) */}
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 bg-surface-1 p-2.5 sm:p-3 rounded-xl border border-[var(--color-border)] shadow-xs">
+        <div className="relative w-full lg:w-72 xl:w-80 shrink-0">
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
@@ -65,11 +65,15 @@ export function DataTable<T extends Record<string, any>>({
               setCurrentPage(1);
             }}
             placeholder={searchPlaceholder}
-            className="w-full pl-9 pr-4 py-2.5 min-h-[40px] text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-[var(--color-accent)]"
+            className="w-full pl-9 pr-4 py-2 min-h-[38px] text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-[var(--color-accent)] focus:bg-surface-1 transition-all"
           />
         </div>
 
-        {filterComponent && <div className="flex items-center gap-2 flex-wrap">{filterComponent}</div>}
+        {filterComponent && (
+          <div className="flex items-center gap-2 flex-wrap min-w-0">
+            {filterComponent}
+          </div>
+        )}
       </div>
 
       {/* Table Container */}

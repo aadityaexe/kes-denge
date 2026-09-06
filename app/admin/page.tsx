@@ -20,6 +20,7 @@ import {
   Mail,
   HelpCircle,
   CreditCard,
+  Settings,
 } from "lucide-react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { Button } from "@/components/ui/Button";
@@ -53,17 +54,18 @@ export default function AdminDashboardPage() {
 
 
   const statCards = [
-    { label: "Active Services", count: stats?.services ?? "-", icon: Layers, href: "/admin/services", color: "text-blue-600 bg-blue-500/10" },
-    { label: "Ready Platforms", count: stats?.products ?? "-", icon: Package, href: "/admin/products", color: "text-teal-600 bg-teal-500/10" },
-    { label: "Portfolio Projects", count: stats?.portfolio ?? "-", icon: Briefcase, href: "/admin/portfolio", color: "text-amber-600 bg-amber-500/10" },
-    { label: "Pricing Packages", count: stats?.pricing ?? "-", icon: CreditCard, href: "/admin/pricing", color: "text-emerald-600 bg-emerald-500/10" },
-    { label: "Client Partners", count: stats?.clients ?? "-", icon: Building2, href: "/admin/clients", color: "text-emerald-600 bg-emerald-500/10" },
-    { label: "Testimonials", count: stats?.testimonials ?? "-", icon: Star, href: "/admin/testimonials", color: "text-purple-600 bg-purple-500/10" },
-    { label: "Contact Leads", count: stats?.messages ?? "-", icon: MessageSquare, href: "/admin/messages", color: "text-rose-600 bg-rose-500/10", badge: stats?.newMessages > 0 ? `${stats.newMessages} New` : undefined },
-    { label: "Team Members", count: stats?.team ?? "-", icon: Users, href: "/admin/team", color: "text-indigo-600 bg-indigo-500/10" },
-    { label: "Articles & Blog", count: stats?.blogs ?? "-", icon: BookOpen, href: "/admin/blog", color: "text-cyan-600 bg-cyan-500/10" },
-    { label: "FAQ Deliverables", count: stats?.faqs ?? "-", icon: HelpCircle, href: "/admin/faq", color: "text-violet-600 bg-violet-500/10" },
-    { label: "Media Assets", count: stats?.media ?? "-", icon: ImageIcon, href: "/admin/media", color: "text-zinc-600 bg-zinc-500/10" },
+    { label: "Active Services", count: stats?.services ?? "-", icon: Layers, href: "/admin/services" },
+    { label: "Ready Platforms", count: stats?.products ?? "-", icon: Package, href: "/admin/products" },
+    { label: "Portfolio Projects", count: stats?.portfolio ?? "-", icon: Briefcase, href: "/admin/portfolio" },
+    { label: "Pricing Packages", count: stats?.pricing ?? "-", icon: CreditCard, href: "/admin/pricing" },
+    { label: "Client Partners", count: stats?.clients ?? "-", icon: Building2, href: "/admin/clients" },
+    { label: "Testimonials", count: stats?.testimonials ?? "-", icon: Star, href: "/admin/testimonials" },
+    { label: "Contact Leads", count: stats?.messages ?? "-", icon: MessageSquare, href: "/admin/messages", badge: stats?.newMessages > 0 ? `${stats.newMessages} New` : undefined },
+    { label: "Team Members", count: stats?.team ?? "-", icon: Users, href: "/admin/team" },
+    { label: "Articles & Blog", count: stats?.blogs ?? "-", icon: BookOpen, href: "/admin/blog" },
+    { label: "FAQ Deliverables", count: stats?.faqs ?? "-", icon: HelpCircle, href: "/admin/faq" },
+    { label: "Media Assets", count: stats?.media ?? "-", icon: ImageIcon, href: "/admin/media" },
+    { label: "Site Settings", count: "Config", icon: Settings, href: "/admin/settings" },
   ];
 
   const publicRoutes = [
@@ -164,44 +166,62 @@ export default function AdminDashboardPage() {
         </div>
 
 
-        {/* Stats Grid */}
+        {/* Content & Publishing Directory */}
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-text-primary">
-              Content & Publishing Directory
-            </h3>
-            <span className="text-[11px] text-text-muted">
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-text-primary">
+                Content & Publishing Directory
+              </h3>
+            </div>
+            <span className="text-[11px] text-text-muted hidden sm:inline">
               Click any category to manage content items
             </span>
           </div>
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3">
             {statCards.map((card, idx) => {
               const Icon = card.icon;
               return (
                 <Link
                   key={idx}
                   href={card.href}
-                  className="group bg-surface-1 p-4 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-accent)]/50 hover:shadow-md transition-all flex flex-col justify-between"
+                  className="group relative bg-surface-1 hover:bg-surface-2/80 p-3 rounded-xl border border-[var(--color-border)] hover:border-[var(--color-border-accent)] hover:shadow-sm transition-all duration-300 flex flex-col justify-between"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${card.color}`}>
-                      <Icon size={16} />
+                  {/* Top Row: Icon + Count/Badge */}
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-surface-2 border border-[var(--color-border)] text-text-secondary group-hover:text-[var(--color-accent-dark)] group-hover:border-[var(--color-border-accent)] group-hover:bg-[var(--color-accent-glow)] flex items-center justify-center transition-all duration-300 shrink-0">
+                      <Icon size={15} strokeWidth={1.75} />
                     </div>
-                    {card.badge ? (
-                      <span className="px-1.5 py-0.2 text-[9px] font-bold bg-rose-500 text-white rounded-full">
-                        {card.badge}
-                      </span>
-                    ) : (
-                      <ArrowUpRight size={12} className="text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
-                    )}
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {card.badge && (
+                        <span className="px-1.5 py-0.5 text-[9px] font-bold bg-rose-500/10 text-rose-600 border border-rose-500/25 rounded-full uppercase tracking-wider">
+                          {card.badge}
+                        </span>
+                      )}
+                      {isNaN(Number(card.count)) ? (
+                        <span className="text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-wider text-[var(--color-accent-dark)] bg-surface-2 px-1.5 py-0.5 rounded border border-[var(--color-border)] group-hover:border-[var(--color-border-accent)] transition-colors">
+                          {card.count}
+                        </span>
+                      ) : (
+                        <span className="text-xl sm:text-2xl font-bold font-display text-text-primary group-hover:text-[var(--color-accent-dark)] transition-colors leading-none">
+                          {card.count}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold font-display text-text-primary group-hover:text-[var(--color-accent-dark)] transition-colors">
-                      {card.count}
-                    </div>
-                    <div className="text-[11px] text-text-secondary mt-0.5 font-medium truncate">
+
+                  {/* Bottom Row: Label + Interactive Arrow */}
+                  <div className="flex items-center justify-between gap-1 pt-1.5 border-t border-[var(--color-border)]/50 group-hover:border-[var(--color-border-accent)]/30 transition-colors">
+                    <span className="text-[11px] font-medium text-text-secondary group-hover:text-text-primary transition-colors truncate">
                       {card.label}
-                    </div>
+                    </span>
+                    <ArrowUpRight
+                      size={12}
+                      className="text-text-muted/50 group-hover:text-[var(--color-accent-dark)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0"
+                    />
                   </div>
                 </Link>
               );

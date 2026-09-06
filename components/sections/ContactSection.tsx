@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Button } from "@/components/ui/Button";
@@ -309,12 +310,23 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
                   type="submit" 
                   disabled={loading}
                   aria-label="Submit project inquiry form"
-                  className="w-full justify-center h-12 sm:h-14 text-sm sm:text-base rounded-full bg-text-primary text-white hover:bg-text-secondary" 
+                  className="w-full justify-center h-12 sm:h-14 text-sm sm:text-base rounded-full bg-text-primary text-white hover:bg-text-secondary cursor-pointer" 
                   size="lg"
                 >
                   {loading ? "Sending Message..." : "Submit Project Inquiry"}
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </Button>
+
+                <p className="text-[11px] sm:text-xs text-text-muted text-center mt-3.5 leading-relaxed">
+                  By submitting this form, you agree to our{" "}
+                  <Link href="/terms" className="underline hover:text-text-primary transition-colors">
+                    Terms &amp; Conditions
+                  </Link>{" "}
+                  and acknowledge our{" "}
+                  <Link href="/privacy" className="underline hover:text-text-primary transition-colors">
+                    Privacy Policy
+                  </Link>.
+                </p>
               </form>
             </div>
           </div>

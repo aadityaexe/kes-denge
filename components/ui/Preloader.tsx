@@ -15,6 +15,7 @@ export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const bgEffectsRef = useRef<HTMLDivElement>(null);
   const outerRingRef = useRef<SVGSVGElement>(null);
   const innerDiamondRef = useRef<SVGGElement>(null);
   const phaseListRef = useRef<HTMLDivElement>(null);
@@ -24,15 +25,13 @@ export function Preloader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const hasSeen = typeof window !== "undefined" && window.sessionStorage?.getItem("mark_preloader_seen");
-    const isBotOrAuditor = typeof navigator !== "undefined" && (
-      Boolean((navigator as any).webdriver) || 
-      /bot|googlebot|crawler|spider|robot|crawling|lighthouse|headless/i.test(navigator.userAgent || "")
+    const isBot = typeof navigator !== "undefined" && (
+      /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(navigator.userAgent || "")
     );
-    const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isAdmin = pathname?.startsWith("/admin") || pathname?.startsWith("/api");
 
-    // Skip preloader on non-home pages, repeated visits, bots, or reduced motion
-    if (pathname !== "/" || hasSeen || isBotOrAuditor || prefersReducedMotion) {
+    // Skip preloader on admin dashboard, search engine crawlers, or if already run this session
+    if (isAdmin || isBot || (typeof window !== "undefined" && (window as any).__MARK_PRELOADER_DONE__)) {
       if (typeof window !== "undefined") {
         (window as any).__MARK_PRELOADER_DONE__ = true;
         window.dispatchEvent(new CustomEvent("mark:preloader-reveal"));
@@ -41,162 +40,175 @@ export function Preloader() {
       return;
     }
 
-    try {
-      window.sessionStorage?.setItem("mark_preloader_seen", "1");
-    } catch {
-      // ignore storage errors
+    // Safety check: ensure DOM elements are mounted before animating
+    if (!containerRef.current || !contentRef.current) {
+      setIsLoading(false);
+      return;
     }
 
     // Lock body scroll during preloading animation
-    const originalOverflow = document.body.style.overflow;
+    const originalOverflow = document.body.style.overflow || "";
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
     const counterObj = { value: 0 };
-    const masterTl = gsap.timeline({
-      onComplete: () => {
-        document.body.style.overflow = originalOverflow;
-        document.documentElement.style.overflow = "";
+    let masterTl: gsap.core.Timeline;
+
+    const ctx = gsap.context(() => {
+      masterTl = gsap.timeline({
+        onComplete: () => {
+          document.body.style.overflow = originalOverflow;
+          document.documentElement.style.overflow = "";
+          if (typeof window !== "undefined") {
+            (window as any).__MARK_PRELOADER_DONE__ = true;
+          }
+          setIsLoading(false);
+        },
+      });
+
+      // 1. Continuous Precision Dual-Rotation of Emblem
+      if (outerRingRef.current) {
+        gsap.to(outerRingRef.current, {
+          rotation: 360,
+          duration: 16,
+          repeat: -1,
+          ease: "none",
+          transformOrigin: "center center",
+        });
+      }
+
+      if (innerDiamondRef.current) {
+        gsap.to(innerDiamondRef.current, {
+          rotation: -360,
+          duration: 9,
+          repeat: -1,
+          ease: "none",
+          transformOrigin: "center center",
+        });
+      }
+
+      // 2. Smooth Continuous Progress Bar & Numeric Counter
+      if (progressFillRef.current) {
+        masterTl.to(
+          progressFillRef.current,
+          {
+            width: "100%",
+            duration: 2.0,
+            ease: "power1.inOut",
+          },
+          0
+        );
+      }
+
+      masterTl.to(
+        counterObj,
+        {
+          value: 100,
+          duration: 2.0,
+          ease: "power1.inOut",
+          onUpdate: () => {
+            if (counterRef.current) {
+              const val = Math.floor(counterObj.value);
+              counterRef.current.textContent =
+                val < 10 ? `00${val}` : val < 100 ? `0${val}` : `${val}`;
+            }
+          },
+        },
+        0
+      );
+
+      // 3. Sequential Phase Word Transitions
+      if (phaseListRef.current) {
+        const items = Array.from(phaseListRef.current.children);
+        gsap.set(items, { y: 30, opacity: 0 });
+
+        const phaseStarts = [0.05, 0.52, 0.99, 1.46];
+
+        items.forEach((item, i) => {
+          const startTime = phaseStarts[i] ?? (i * 0.48);
+          const isLast = i === items.length - 1;
+
+          // Slide into view
+          masterTl.to(
+            item,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.22,
+              ease: "power3.out",
+              onStart: () => {
+                if (descRef.current && phases[i]) {
+                  descRef.current.textContent = phases[i].desc;
+                  gsap.fromTo(
+                    descRef.current,
+                    { opacity: 0, y: 6 },
+                    { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }
+                  );
+                }
+              },
+            },
+            startTime
+          );
+
+          // Slide out (last item stays as final mark)
+          if (!isLast) {
+            masterTl.to(
+              item,
+              {
+                y: -30,
+                opacity: 0,
+                duration: 0.18,
+                ease: "power2.in",
+              },
+              startTime + 0.34
+            );
+          }
+        });
+      }
+
+      // 4. Grand Curtain Reveal:
+      // Fade and lift content and background effects with safe null-filtering
+      const fadeTargets = [contentRef.current, bgEffectsRef.current].filter(Boolean);
+      if (fadeTargets.length > 0) {
+        masterTl.to(
+          fadeTargets,
+          {
+            opacity: 0,
+            y: -25,
+            duration: 0.22,
+            ease: "power2.in",
+          },
+          2.05
+        );
+      }
+
+      // Awaken Hero Section exactly as curtain begins opening
+      masterTl.add(() => {
         if (typeof window !== "undefined") {
           (window as any).__MARK_PRELOADER_DONE__ = true;
+          window.dispatchEvent(new CustomEvent("mark:preloader-reveal"));
         }
-        setIsLoading(false);
-      },
-    });
+      }, 2.2);
 
-    // 1. Continuous Precision Dual-Rotation of Emblem
-    if (outerRingRef.current) {
-      gsap.to(outerRingRef.current, {
-        rotation: 360,
-        duration: 16,
-        repeat: -1,
-        ease: "none",
-        transformOrigin: "center center",
-      });
-    }
-
-    if (innerDiamondRef.current) {
-      gsap.to(innerDiamondRef.current, {
-        rotation: -360,
-        duration: 9,
-        repeat: -1,
-        ease: "none",
-        transformOrigin: "center center",
-      });
-    }
-
-    // 2. Smooth Continuous Progress Bar & Numeric Counter
-    masterTl.to(
-      progressFillRef.current,
-      {
-        width: "100%",
-        duration: 0.9,
-        ease: "power2.inOut",
-      },
-      0
-    );
-
-    masterTl.to(
-      counterObj,
-      {
-        value: 100,
-        duration: 0.9,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          if (counterRef.current) {
-            const val = Math.floor(counterObj.value);
-            counterRef.current.textContent =
-              val < 10 ? `00${val}` : val < 100 ? `0${val}` : `${val}`;
-          }
-        },
-      },
-      0
-    );
-
-    // 3. Sequential Phase Word Transitions
-    if (phaseListRef.current) {
-      const items = phaseListRef.current.children;
-      gsap.set(items, { y: 55, opacity: 0, scale: 0.96 });
-
-      for (let i = 0; i < items.length; i++) {
-        const isLast = i === items.length - 1;
-        const holdTime = isLast ? 0.2 : 0.06;
-
-        // Slide into view with subtle perspective
+      // Next, slide up the 4 architectural shutter panels with staggered wave
+      const panels = containerRef.current?.querySelectorAll(".shutter-panel");
+      if (panels && panels.length > 0) {
         masterTl.to(
-          items[i],
+          panels,
           {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.18,
-            ease: "power3.out",
-            onStart: () => {
-              if (descRef.current) {
-                descRef.current.textContent = phases[i].desc;
-                gsap.fromTo(
-                  descRef.current,
-                  { opacity: 0, y: 8 },
-                  { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" }
-                );
-              }
-            },
+            yPercent: -100,
+            duration: 0.5,
+            ease: "power4.inOut",
+            stagger: 0.06,
           },
-          i === 0 ? 0.05 : "-=0.08"
+          2.2
         );
-
-        // Slide up out of view
-        if (!isLast) {
-          masterTl.to(
-            items[i],
-            {
-              y: -45,
-              opacity: 0,
-              scale: 0.96,
-              duration: 0.14,
-              ease: "power2.in",
-            },
-            `+=${holdTime}`
-          );
-        }
       }
-    }
-
-    // 4. Grand Curtain Reveal:
-    // First, fade and lift content
-    masterTl.to(
-      contentRef.current,
-      {
-        opacity: 0,
-        y: -30,
-        scale: 0.98,
-        duration: 0.22,
-        ease: "power2.in",
-      },
-      "+=0.04"
-    );
-
-    // Awaken Hero Section exactly as curtain begins opening
-    masterTl.add(() => {
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("mark:preloader-reveal"));
-      }
-    }, "-=0.05");
-
-    // Next, slide up the 4 architectural shutter panels with staggered wave
-    masterTl.to(
-      ".shutter-panel",
-      {
-        yPercent: -100,
-        duration: 0.45,
-        ease: "power4.inOut",
-        stagger: 0.05,
-      },
-      "-=0.1"
-    );
+    }, containerRef);
 
     return () => {
-      masterTl.kill();
+      ctx.revert();
+      if (masterTl) masterTl.kill();
       document.body.style.overflow = originalOverflow;
       document.documentElement.style.overflow = "";
     };
@@ -218,7 +230,7 @@ export function Preloader() {
       </div>
 
       {/* Atmospheric Background Effects */}
-      <div className="absolute inset-0 pointer-events-none z-[2]">
+      <div ref={bgEffectsRef} className="absolute inset-0 pointer-events-none z-[2]">
         {/* Soft Champagne Ambient Radiance */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[radial-gradient(circle,_rgba(201,169,110,0.16)_0%,_transparent_70%)] rounded-full blur-[100px]" />
         {/* Fine Architectural Grid */}
@@ -322,7 +334,7 @@ export function Preloader() {
               return (
                 <div
                   key={i}
-                  className="absolute flex items-center gap-2 sm:gap-5 whitespace-nowrap text-center"
+                  className="phase-item absolute flex items-center gap-2 sm:gap-5 whitespace-nowrap text-center opacity-0 pointer-events-none"
                 >
                   <span className="font-mono text-[11px] sm:text-sm text-[var(--color-accent-dark)] tracking-widest uppercase font-semibold">
                     [{phase.index} / 04]

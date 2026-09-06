@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import TeamMember from "@/models/Team";
@@ -76,6 +77,11 @@ export async function POST(req: NextRequest) {
       isActive: isActive ?? true,
       order: typeof order === "number" ? order : 0,
     });
+
+    revalidatePath("/team");
+    revalidatePath("/");
+    revalidatePath(`/team/${cleanSlug}`);
+    revalidatePath("/admin/team");
 
     return NextResponse.json({ success: true, teamMember: member }, { status: 201 });
   } catch (error: unknown) {

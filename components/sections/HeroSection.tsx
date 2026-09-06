@@ -113,7 +113,7 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
       // Fallback timer in case preloader was skipped or event missed
       const fallback = setTimeout(() => {
         runHeroAnimation();
-      }, 500);
+      }, 3000);
 
       return () => {
         window.removeEventListener("mark:preloader-reveal", handlePreloaderReveal);
@@ -196,12 +196,6 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
           )}
         </div>
       </Parallax>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted/50 animate-bounce">
-        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <div className="w-[1px] h-8 bg-gradient-to-b from-text-muted/50 to-transparent" />
-      </div>
     </section>
   );
 }

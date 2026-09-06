@@ -10,6 +10,7 @@ import FAQItem from "@/models/FAQ";
 import PricingTier from "@/models/Pricing";
 import Setting from "@/models/Setting";
 import BlogPost from "@/models/Blog";
+import LegalDocument from "@/models/LegalDocument";
 
 /**
  * Safely serialize Mongoose lean documents into plain JSON objects for RSC boundary passing.
@@ -370,3 +371,115 @@ export const getClientBySlug = cache(async (slug: string) => {
 
   return null;
 });
+
+export const defaultPrivacyDocument = {
+  type: "privacy" as const,
+  title: "Privacy Policy",
+  subtitle: "Last updated: September 2026. How we collect, safeguard, and respect your data.",
+  badge: "Legal & Security",
+  lastUpdated: "September 2026",
+  contactEmail: "hello@mark2.in",
+  sections: [
+    {
+      title: "1. Overview & Commitment",
+      content:
+        "MARK Technologies (\"MARK\", \"we\", \"us\", or \"our\") provides product-engineering, software architecture, and custom application development services. We respect your personal data and maintain strict technical and operational controls to protect client information, project codebases, and visitor data.",
+      order: 1,
+    },
+    {
+      title: "2. Information We Collect",
+      content:
+        "When you interact with our website or enter an engineering contract, we may collect: Contact Information (name, work email address, phone number, and company name provided via our inquiry forms), Project Specifications (technical scopes, architectural diagrams, and NDA-protected business criteria), and Technical Logs (IP address, browser type, device information, and interaction metrics collected automatically via secure server logs for operational security).",
+      order: 2,
+    },
+    {
+      title: "3. How We Use Information",
+      content:
+        "We use your information solely to evaluate project requirements, prepare proposals, and deliver software engineering services, communicate regarding ongoing architectural sprints and releases, and comply with regulatory obligations and maintain cybersecurity defense against unauthorized access. We never sell, rent, or monetize your personal or commercial data.",
+      order: 3,
+    },
+    {
+      title: "4. Intellectual Property & Confidentiality",
+      content:
+        "All client codebases, architectures, and intellectual property developed under engagement contracts remain the sole property of our clients as specified in individual Master Services Agreements (MSA). Non-disclosure agreements (NDAs) are executed prior to reviewing proprietary source materials.",
+      order: 4,
+    },
+    {
+      title: "5. Data Retention & Security",
+      content:
+        "We implement industry-standard encryption in transit (TLS 1.3) and at rest (AES-256), least-privilege role-based access control (RBAC), and continuous threat monitoring. Client data is retained strictly as long as necessary to fulfill contractual commitments.",
+      order: 5,
+    },
+    {
+      title: "6. Contact Our Security & Legal Team",
+      content:
+        "For questions regarding this Privacy Policy or to request deletion of your information, reach out to our team at hello@mark2.in.",
+      order: 6,
+    },
+  ],
+};
+
+export const defaultTermsDocument = {
+  type: "terms" as const,
+  title: "Terms & Conditions",
+  subtitle: "Last updated: September 2026. Legal framework governing our client partnerships, contracts, and engineering deliverables.",
+  badge: "Legal & Contracts",
+  lastUpdated: "September 2026",
+  contactEmail: "hello@mark2.in",
+  sections: [
+    {
+      title: "1. Engagement Framework",
+      content:
+        "By accessing our website or retaining MARK Technologies (\"MARK\", \"we\", \"us\") for custom software engineering, cloud architecture, or digital product development, you agree to comply with and be bound by these Terms of Service in conjunction with applicable Statements of Work (SOW) or Master Services Agreements (MSA).",
+      order: 1,
+    },
+    {
+      title: "2. Engineering Services & Deliverables",
+      content:
+        "MARK provides specialized software development including web applications, native mobile applications, enterprise ERP/CRM platforms, and AI automation systems. Specific deliverables, milestone schedules, acceptance criteria, and warranties are defined in individual project SOWs signed by both parties.",
+      order: 2,
+    },
+    {
+      title: "3. Intellectual Property Assignment",
+      content:
+        "Upon receipt of full payment for contracted milestones, all custom source code, documentation, UI designs, and database architectures created specifically for the client are assigned exclusively to the client. MARK retains ownership of general developer utilities, open-source dependencies, and reusable framework components.",
+      order: 3,
+    },
+    {
+      title: "4. Client Responsibilities & Collaboration",
+      content:
+        "Successful project delivery requires timely access to project stakeholders, third-party API credentials, domain configurations, and prompt milestone review. Delays caused by third-party vendor downtime or pending approvals may adjust estimated release timelines.",
+      order: 4,
+    },
+    {
+      title: "5. Confidentiality & Non-Disclosure",
+      content:
+        "Both parties agree to treat all business data, technical architecture blueprints, pricing schedules, and proprietary source code as strictly confidential. This obligation survives the completion or termination of any active service agreement.",
+      order: 5,
+    },
+    {
+      title: "6. Governing Law & Inquiries",
+      content:
+        "These terms are governed by and construed in accordance with applicable corporate and commercial law. For contractual or legal inquiries, please contact our legal operations team at hello@mark2.in.",
+      order: 6,
+    },
+  ],
+};
+
+export const getLegalDocument = cache(async (type: "privacy" | "terms") => {
+  const fallback = type === "privacy" ? defaultPrivacyDocument : defaultTermsDocument;
+  try {
+    await connectToDatabase();
+    let doc = await LegalDocument.findOne({ type }).lean();
+    if (!doc) {
+      // Auto-initialize in database if not present
+      const created = await LegalDocument.create(fallback);
+      return serialize(created.toObject ? created.toObject() : created);
+    }
+    return serialize(doc);
+  } catch (err) {
+    console.error(`Failed to fetch ${type} legal document from DB:`, err);
+    return fallback;
+  }
+});
+

@@ -25,9 +25,9 @@ export function StatusBreakdownBar({
 }: StatusBreakdownBarProps) {
   return (
     <div
-      className={`flex flex-wrap items-center gap-2 p-1.5 rounded-xl bg-surface-2 border border-[var(--color-border)] mb-4 ${className}`}
+      className={`flex flex-wrap items-center gap-1.5 p-1 rounded-lg bg-surface-2/80 border border-[var(--color-border)] ${className}`}
     >
-      <span className="text-[11px] font-semibold text-text-muted px-2.5 uppercase tracking-wider hidden sm:inline-block">
+      <span className="text-[10px] font-mono font-semibold text-text-muted px-2 uppercase tracking-wider hidden sm:inline-block">
         Filter:
       </span>
       {items.map((item) => {
@@ -37,11 +37,11 @@ export function StatusBreakdownBar({
             key={item.id}
             type="button"
             onClick={() => onFilterChange(item.id)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer ${
               isActive
                 ? item.activeColor ||
                   "bg-surface-1 text-text-primary shadow-xs border border-[var(--color-border)] font-semibold"
-                : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60"
+                : "text-text-secondary hover:text-text-primary hover:bg-surface-1/50"
             }`}
           >
             <span>{item.label}</span>

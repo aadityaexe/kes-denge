@@ -420,21 +420,22 @@ export default function ProductsAdminPage() {
       />
 
       <div className="p-6 sm:p-8 max-w-7xl">
-        <StatusBreakdownBar
-          items={[
-            { id: "all", label: "All Platforms", count: totalCount },
-            { id: "active", label: "Active", count: activeCount },
-            { id: "hidden", label: "Hidden", count: hiddenCount },
-          ]}
-          activeFilter={statusFilter}
-          onFilterChange={setStatusFilter}
-        />
-
         <DataTable
           columns={columns}
           data={filteredProducts}
           searchPlaceholder="Search products by title, category, or features..."
           searchKey="name"
+          filterComponent={
+            <StatusBreakdownBar
+              items={[
+                { id: "all", label: "All Platforms", count: totalCount },
+                { id: "active", label: "Active", count: activeCount },
+                { id: "hidden", label: "Hidden", count: hiddenCount },
+              ]}
+              activeFilter={statusFilter}
+              onFilterChange={setStatusFilter}
+            />
+          }
           isLoading={isLoading}
           emptyMessage="No products found matching this filter."
         />
