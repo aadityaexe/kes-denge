@@ -275,7 +275,7 @@ export default function FAQAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingFaq ? "Edit FAQ" : "Add FAQ"}
         description="Provide a clear, client-oriented question and answer pair"
-        maxWidth="2xl"
+        maxWidth="3xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <span className="text-[11px] text-text-muted font-mono">

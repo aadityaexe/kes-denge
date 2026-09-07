@@ -71,7 +71,8 @@ const ProductSchema = new Schema<IProduct>(
     fullDescription: { type: String, default: "" },
     category: {
       type: String,
-      enum: ["ERP", "CRM", "HRMS", "POS", "School", "Hospital", "Inventory", "Custom"],
+      required: true,
+      trim: true,
       default: "ERP",
     },
     heroBadge: { type: String, default: "ENTERPRISE PLATFORM" },

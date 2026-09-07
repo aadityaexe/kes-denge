@@ -344,7 +344,7 @@ export default function BlogAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingPost ? `Edit Article: ${editingPost.title}` : "Create Engineering Article"}
         description="Draft, edit, and format thought leadership with live word counters and SEO optimization."
-        maxWidth="4xl"
+        maxWidth="5xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <div>

@@ -774,7 +774,7 @@ export default function MessagesAdminPage() {
           onClose={() => setViewingMessage(null)}
           title={`Lead: ${viewingMessage.name}`}
           description={`Received on ${new Date(viewingMessage.createdAt).toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}`}
-          maxWidth="2xl"
+          maxWidth="4xl"
         >
           <div className="space-y-6">
             {/* Quick Communication Action Bar */}
@@ -1003,7 +1003,7 @@ export default function MessagesAdminPage() {
           onClose={() => setIsAddModalOpen(false)}
           title="Add Inbound Lead"
           description="Manually record leads received via phone calls, referrals, offline events, or social channels"
-          maxWidth="2xl"
+          maxWidth="4xl"
         >
           <form onSubmit={handleCreateLead} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

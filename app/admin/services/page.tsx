@@ -398,7 +398,7 @@ export default function ServicesAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingService ? `Edit Service: ${editingService.title}` : "Add New Engineering Service"}
         description="Configure service architecture, capabilities, deliverables, and public visibility."
-        maxWidth="4xl"
+        maxWidth="5xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <div>

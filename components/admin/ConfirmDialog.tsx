@@ -29,7 +29,7 @@ export function ConfirmDialog({
   const displayMessage =
     description || message || "Are you sure you want to delete this item? This action cannot be undone.";
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="sm">
+    <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="sm" height="auto" allowFullscreen={false}>
       <div className="flex flex-col items-center text-center p-2">
         <div className="w-12 h-12 rounded-full bg-red-500/10 text-red-600 flex items-center justify-center mb-4">
           <AlertTriangle size={24} />

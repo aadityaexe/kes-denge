@@ -400,7 +400,7 @@ export default function ClientsAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingClient ? "Edit Client" : "Add New Client"}
         description="Provide client brand identity, logo, and marquee presence"
-        maxWidth="lg"
+        maxWidth="3xl"
         footer={
           <div className="flex items-center justify-end gap-3 w-full">
             <button

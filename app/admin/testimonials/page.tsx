@@ -353,7 +353,7 @@ export default function TestimonialsAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? "Edit Testimonial" : "Add New Testimonial"}
         description="Enter authentic client review details, role credentials, and star rating"
-        maxWidth="2xl"
+        maxWidth="3xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-1.5 text-amber-500">

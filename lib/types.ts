@@ -84,7 +84,8 @@ export type ProductCategory =
   | "School"
   | "Hospital"
   | "Inventory"
-  | "Custom";
+  | "Custom"
+  | (string & {});
 
 export interface ProductModule {
   name: string;

@@ -390,7 +390,7 @@ export default function PricingAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingTier ? "Edit Pricing Tier" : "Add Pricing Tier"}
         description="Configure deliverables, cost structure, highlight styling, and conversion CTA"
-        maxWidth="2xl"
+        maxWidth="4xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <Link

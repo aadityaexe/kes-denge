@@ -475,7 +475,7 @@ export default function PortfolioAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? `Edit Case Study: ${editingItem.title}` : "Create Portfolio Case Study"}
         description="Configure client details, problem & solution architecture, impact telemetry, and tech stack."
-        maxWidth="4xl"
+        maxWidth="5xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <div>

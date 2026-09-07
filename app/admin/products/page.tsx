@@ -26,8 +26,7 @@ import {
   Globe,
   Check,
 } from "lucide-react";
-
-const categories = ["ERP", "CRM", "HRMS", "POS", "School", "Hospital", "Inventory", "Custom"];
+import { CategorySelect, CategoryItem } from "@/components/admin/CategorySelect";
 
 interface ProductModuleState {
   name: string;
@@ -46,6 +45,16 @@ export default function ProductsAdminPage() {
   const [formLoading, setFormLoading] = useState(false);
   const [formError, setFormError] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [categoriesList, setCategoriesList] = useState<CategoryItem[]>([
+    { name: "ERP", isDefault: true },
+    { name: "CRM", isDefault: true },
+    { name: "HRMS", isDefault: true },
+    { name: "POS", isDefault: true },
+    { name: "School", isDefault: true },
+    { name: "Hospital", isDefault: true },
+    { name: "Inventory", isDefault: true },
+    { name: "Custom", isDefault: true },
+  ]);
   const { success, error: toastError } = useToast();
 
   const totalCount = products.length;
@@ -96,8 +105,21 @@ export default function ProductsAdminPage() {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch("/api/admin/products/categories");
+      const data = await res.json();
+      if (res.ok && Array.isArray(data.categories) && data.categories.length > 0) {
+        setCategoriesList(data.categories);
+      }
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const openCreateModal = () => {
@@ -447,7 +469,7 @@ export default function ProductsAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingProduct ? `Edit Product: ${editingProduct.name}` : "Create Software Platform"}
         description="Configure platform modules, technical specifications, and enterprise integration options."
-        maxWidth="4xl"
+        maxWidth="5xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <div>
@@ -538,19 +560,24 @@ export default function ProductsAdminPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-start">
                 <FormField
                   label="Domain Category"
-                  tooltip="Industry system classification (e.g. ERP, CRM, POS, School, Hospital)."
+                  tooltip="Industry system classification (e.g. ERP, CRM, POS, or create custom categories stored in database)."
                 >
-                  <select
+                  <CategorySelect
                     value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat} System
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(cat) => setFormData({ ...formData, category: cat })}
+                    categories={categoriesList}
+                    onCategoryCreated={(newCat) => {
+                      setCategoriesList((prev) => {
+                        if (prev.some((c) => c.name.toLowerCase() === newCat.name.toLowerCase())) {
+                          return prev;
+                        }
+                        return [...prev, newCat];
+                      });
+                    }}
+                    onCategoryDeleted={(catId) => {
+                      setCategoriesList((prev) => prev.filter((c) => c._id !== catId));
+                    }}
+                  />
                 </FormField>
 
                 <FormField

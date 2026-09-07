@@ -353,7 +353,7 @@ export default function TeamAdminPage() {
         onClose={() => setIsModalOpen(false)}
         title={editingMember ? `Edit Member: ${editingMember.name}` : "Add Team Member"}
         description="Configure engineering profile, technical specializations, skills, and public visibility."
-        maxWidth="3xl"
+        maxWidth="4xl"
         footer={
           <div className="flex items-center justify-between w-full">
             <div>
