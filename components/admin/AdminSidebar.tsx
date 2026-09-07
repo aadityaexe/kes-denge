@@ -20,6 +20,7 @@ import {
   Image as ImageIcon,
   ExternalLink,
   LogOut,
+  Loader2,
   Globe,
   Menu,
   X,
@@ -51,6 +52,23 @@ const navLinks = [
 export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: AdminSidebarProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      console.error("Logout error", err);
+    } finally {
+      window.location.href = "/admin/login";
+    }
+  };
 
   // Close sidebar drawer on route change
   useEffect(() => {
@@ -209,13 +227,19 @@ export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: A
               <span className="text-xs font-semibold text-text-primary truncate">{userName || "Administrator"}</span>
               <span className="text-[11px] text-text-muted truncate">{userEmail || "admin@mark2.in"}</span>
             </div>
-            <form action="/api/auth/logout" method="POST">
+            <form action="/api/auth/logout" method="POST" onSubmit={handleLogout}>
               <button
                 type="submit"
+                disabled={isLoggingOut}
                 title="Logout"
-                className="p-2 rounded-md hover:bg-red-500/10 text-text-muted hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label="Logout"
+                className="p-2 rounded-md hover:bg-red-500/10 text-text-muted hover:text-red-600 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer disabled:opacity-50"
               >
-                <LogOut size={16} />
+                {isLoggingOut ? (
+                  <Loader2 size={16} className="animate-spin text-red-600" />
+                ) : (
+                  <LogOut size={16} />
+                )}
               </button>
             </form>
           </div>

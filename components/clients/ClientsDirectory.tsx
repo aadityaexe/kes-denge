@@ -9,7 +9,9 @@ import {
   ArrowUpRight,
   Building2,
   ExternalLink,
-  CheckCircle2,
+  Check,
+  MapPin,
+  Sparkles,
 } from "lucide-react";
 import type { Client } from "@/lib/types";
 
@@ -34,6 +36,10 @@ function ClientSpotlightCard({ client }: { client: Client }) {
     .join("")
     .toUpperCase();
 
+  const isOngoing =
+    !client.partnershipYear ||
+    client.partnershipYear.toLowerCase().includes("present");
+
   return (
     <motion.div
       layout
@@ -42,16 +48,19 @@ function ClientSpotlightCard({ client }: { client: Client }) {
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.4 }}
       onMouseMove={handleMouseMove}
-      className="group relative flex flex-col justify-between rounded-[24px] border border-[var(--color-border)] bg-surface-1/90 p-4 sm:p-6 md:p-8 backdrop-blur-md transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:shadow-xl hover:shadow-[var(--color-accent)]/5"
+      className="group relative flex flex-col justify-between rounded-[28px] border border-[var(--color-border)] bg-surface-1/95 p-6 sm:p-7 md:p-8 backdrop-blur-xl transition-all duration-300 hover:border-[var(--color-accent)]/50 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 hover:-translate-y-1.5 h-full overflow-hidden"
     >
+      {/* Top Accent Line */}
+      <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--color-accent)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
       {/* Radial Hover Spotlight */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[24px] opacity-0 transition duration-300 group-hover:opacity-100 z-10"
+        className="pointer-events-none absolute -inset-px rounded-[28px] opacity-0 transition duration-300 group-hover:opacity-100 z-10"
         style={{
           background: useMotionTemplate`
             radial-gradient(
-              400px circle at ${mouseX}px ${mouseY}px,
-              rgba(201, 169, 110, 0.12),
+              450px circle at ${mouseX}px ${mouseY}px,
+              rgba(201, 169, 110, 0.15),
               transparent 80%
             )
           `,
@@ -59,91 +68,117 @@ function ClientSpotlightCard({ client }: { client: Client }) {
       />
 
       <div className="relative z-20 flex flex-col flex-1">
-        {/* Top bar: Monogram / Logo + Industry & Year */}
-        <div className="flex flex-wrap sm:flex-nowrap items-start justify-between gap-3 sm:gap-4 mb-6">
-          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-            <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-surface-2 border border-[var(--color-border)] flex items-center justify-center font-display font-bold text-base sm:text-lg text-text-primary group-hover:border-[var(--color-accent)]/50 group-hover:text-[var(--color-accent-dark)] transition-colors shadow-sm overflow-hidden shrink-0">
-              {client.logoUrl ? (
-                <Image
-                  src={client.logoUrl}
-                  alt={client.name}
-                  fill
-                  sizes="52px"
-                  className="object-contain p-1"
-                />
-              ) : (
-                <span>{initialLetters}</span>
-              )}
-            </div>
-            <div className="min-w-0">
-              <Link
-                href={`/clients/${client.slug}`}
-                className="group/title inline-flex items-center gap-1.5 max-w-full"
-              >
-                <h3 className="text-lg sm:text-xl font-display font-bold text-text-primary group-hover/title:text-[var(--color-accent-dark)] transition-colors break-words">
-                  {client.name}
-                </h3>
-              </Link>
-              <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                <span className="inline-block px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20">
-                  {client.industry}
-                </span>
-                {client.location && (
-                  <span className="text-[11px] sm:text-[12px] text-text-muted hidden sm:inline">
-                    • {client.location}
-                  </span>
-                )}
+        {/* Tier 1: Logo / Monogram + Engagement Badge */}
+        <div className="flex items-center justify-between gap-3 mb-5">
+          {/* Logo container */}
+          <div className="relative w-14 h-14 rounded-2xl bg-surface-2 border border-[var(--color-border)] p-2 flex items-center justify-center font-display font-bold text-lg text-text-primary group-hover:border-[var(--color-accent)]/40 group-hover:shadow-md transition-all duration-300 shadow-xs overflow-hidden shrink-0">
+            {client.logoUrl ? (
+              <Image
+                src={client.logoUrl}
+                alt={client.name}
+                fill
+                sizes="56px"
+                className="object-contain p-1.5 transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-full h-full rounded-xl bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-950 text-[var(--color-accent-light)] flex items-center justify-center font-mono font-bold text-sm tracking-wider border border-white/10 shadow-inner">
+                {initialLetters}
               </div>
-            </div>
+            )}
           </div>
 
+          {/* Partnership Year & Active Status Indicator */}
           {client.partnershipYear && (
-            <span className="text-xs font-mono text-text-muted px-2.5 py-1 rounded-md bg-surface-2/80 border border-[var(--color-border)] whitespace-nowrap shrink-0">
-              {client.partnershipYear}
-            </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-mono font-medium text-text-secondary bg-surface-2/80 border border-[var(--color-border)] shadow-2xs shrink-0">
+              {isOngoing && (
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+              )}
+              <span>{client.partnershipYear}</span>
+            </div>
           )}
         </div>
 
-        {/* Tagline / Value Proposition */}
+        {/* Tier 2: Title & Identity Row */}
+        <div>
+          <Link
+            href={`/clients/${client.slug}`}
+            className="group/title block"
+          >
+            <h3 className="text-xl sm:text-[22px] font-display font-bold text-text-primary group-hover/title:text-[var(--color-accent-dark)] transition-colors tracking-tight leading-snug break-words">
+              {client.name}
+            </h3>
+          </Link>
+
+          {/* Clean metadata pills */}
+          <div className="flex items-center gap-2 mt-2.5 flex-wrap">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] border border-[var(--color-accent)]/20 whitespace-nowrap shadow-2xs">
+              {client.industry}
+            </span>
+            {client.location && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs text-text-muted bg-surface-2/70 border border-[var(--color-border)]/60 font-medium whitespace-nowrap">
+                <MapPin size={12} className="text-[var(--color-accent-dark)]/80 shrink-0" />
+                <span>{client.location}</span>
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Value Proposition Tagline */}
         {client.tagline && (
-          <p className="text-text-primary font-medium text-sm md:text-[15px] leading-snug mb-3 break-words">
+          <p className="text-sm sm:text-[15px] font-semibold text-text-primary leading-snug line-clamp-2 mt-4 mb-2 tracking-tight break-words">
             {client.tagline}
           </p>
         )}
 
-        {/* Brief Narrative */}
+        {/* Narrative / Context */}
         {(client.aboutPartnership || client.description) && (
-          <p className="text-text-secondary text-xs md:text-sm line-clamp-3 leading-relaxed mb-6 break-words">
+          <p className="text-xs sm:text-[13px] text-text-secondary leading-relaxed line-clamp-3 mb-5 break-words">
             {client.aboutPartnership || client.description}
           </p>
         )}
 
-        {/* Key Achievements Bullet Highlights */}
+        {/* Engineered Scope & Deliverables Box */}
         {client.keyAchievements && client.keyAchievements.length > 0 && (
-          <div className="space-y-2 mb-6 pt-4 border-t border-[var(--color-border)]/60">
-            {client.keyAchievements.slice(0, 2).map((achievement, idx) => (
-              <div key={idx} className="flex items-start gap-2 text-xs text-text-secondary">
-                <CheckCircle2 size={14} className="text-[var(--color-accent-light)] shrink-0 mt-0.5" />
-                <span className="line-clamp-1">{achievement}</span>
-              </div>
-            ))}
+          <div className="rounded-2xl bg-surface-2/60 border border-[var(--color-border)]/70 p-3.5 sm:p-4 mb-5 space-y-2.5 backdrop-blur-xs transition-colors group-hover:border-[var(--color-accent)]/20">
+            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-text-muted font-bold">
+              <span className="flex items-center gap-1.5">
+                <Sparkles size={11} className="text-[var(--color-accent-dark)]" />
+                Key Deliverables
+              </span>
+              <span className="text-[var(--color-accent-dark)] font-medium">Production Scope</span>
+            </div>
+            <div className="space-y-2">
+              {client.keyAchievements.slice(0, 2).map((achievement, idx) => (
+                <div key={idx} className="flex items-start gap-2.5 text-xs text-text-secondary">
+                  <div className="w-4 h-4 rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent-dark)] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                    <Check size={10} strokeWidth={3} />
+                  </div>
+                  <span className="font-medium text-text-primary line-clamp-1 leading-snug">
+                    {achievement}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
-        {/* Services Provided Tags */}
+        {/* Capabilities & Tech Stack Tags */}
         {client.servicesProvided && client.servicesProvided.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-auto mb-6">
+          <div className="flex flex-wrap gap-1.5 mt-auto mb-5 pt-1">
             {client.servicesProvided.slice(0, 3).map((service) => (
               <span
                 key={service}
-                className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-surface-2 text-text-secondary border border-[var(--color-border)]"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-surface-2/90 text-text-secondary border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 hover:text-text-primary transition-colors"
               >
                 {service}
               </span>
             ))}
             {client.servicesProvided.length > 3 && (
-              <span className="px-2 py-1 rounded-full text-[11px] text-text-muted bg-surface-2 border border-[var(--color-border)]">
-                +{client.servicesProvided.length - 3}
+              <span className="px-2 py-1 rounded-lg text-[11px] font-mono font-medium text-text-muted bg-surface-2 border border-[var(--color-border)]">
+                +{client.servicesProvided.length - 3} more
               </span>
             )}
           </div>
@@ -151,15 +186,15 @@ function ClientSpotlightCard({ client }: { client: Client }) {
       </div>
 
       {/* Footer Action Links */}
-      <div className="relative z-20 pt-4 border-t border-[var(--color-border)] flex items-center justify-between gap-3">
+      <div className="relative z-20 pt-4 border-t border-[var(--color-border)] flex items-center justify-between gap-3 mt-auto">
         <Link
           href={`/clients/${client.slug}`}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-primary hover:text-[var(--color-accent-dark)] transition-colors group/link"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-text-primary hover:text-[var(--color-accent-dark)] transition-colors group/link"
         >
           <span>View Partnership Profile</span>
           <ArrowUpRight
             size={15}
-            className="transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 text-[var(--color-accent-light)]"
+            className="transition-transform duration-200 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 text-[var(--color-accent-dark)]"
           />
         </Link>
 
@@ -168,11 +203,12 @@ function ClientSpotlightCard({ client }: { client: Client }) {
             href={client.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-text-muted hover:text-text-primary transition-colors p-1"
-            title="Visit external client website"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-text-muted hover:text-text-primary hover:bg-surface-2 border border-transparent hover:border-[var(--color-border)] transition-all shrink-0"
+            title={`Visit ${client.name} website`}
             aria-label={`Visit ${client.name} website`}
           >
-            <ExternalLink size={14} />
+            <span>Live Site</span>
+            <ExternalLink size={12} />
           </a>
         )}
       </div>
@@ -276,7 +312,7 @@ export function ClientsDirectory({ clients = [] }: ClientsDirectoryProps) {
 
       {/* Grid of Clients */}
       {filteredClients.length > 0 ? (
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {filteredClients.map((client) => (
             <ClientSpotlightCard key={client.id || client.slug} client={client} />
           ))}
