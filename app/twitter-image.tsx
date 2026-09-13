@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "MARK Technologies — We Build Digital Products That Scale";
+export const alt = "MARK 2 Technologies — We Build Digital Products That Scale";
 export const size = {
   width: 1200,
   height: 630,

@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = doc?.title || "Terms & Conditions";
   const description =
     doc?.subtitle ||
-    "Review the terms and conditions governing software development services, engagements, and intellectual property rights at MARK Technologies.";
+    "Review the terms and conditions governing software development services, engagements, and intellectual property rights at MARK 2 Technologies.";
 
   return {
     title,
@@ -22,14 +22,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${title}`,
       description,
       url: `${siteUrl}/terms`,
-      siteName: "MARK Technologies",
+      siteName: "MARK 2 Technologies",
       type: "website",
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${title} | MARK Technologies`,
+          alt: `${title} | MARK 2 Technologies`,
         },
       ],
     },

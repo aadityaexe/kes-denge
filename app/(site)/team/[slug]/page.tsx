@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/team/${member.slug}`;
   const title = `${member.name} — ${member.role}`;
-  const description = member.bio || `${member.name} is a ${member.role} at MARK Technologies specializing in ${member.specialization || "software engineering"}.`;
+  const description = member.bio || `${member.name} is a ${member.role} at MARK 2 Technologies specializing in ${member.specialization || "software engineering"}.`;
 
   return {
     title,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title,
       description,
       url: canonicalUrl,
-      siteName: "MARK Technologies",
+      siteName: "MARK 2 Technologies",
       type: "profile",
       images: [
         {
@@ -101,7 +101,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
     jobTitle: member.role,
     worksFor: {
       "@type": "Organization",
-      name: "MARK Technologies",
+      name: "MARK 2 Technologies",
       url: siteUrl,
     },
     url: memberUrl,
@@ -137,7 +137,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
               {member.photo ? (
                 <Image
                   src={member.photo}
-                  alt={`Portrait of ${member.name}, ${member.role} at MARK Technologies`}
+                  alt={`Portrait of ${member.name}, ${member.role} at MARK 2 Technologies`}
                   fill
                   priority
                   sizes="128px"

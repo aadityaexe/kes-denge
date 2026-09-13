@@ -35,7 +35,7 @@ export async function generateMetadata({
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/products/${product.slug}`;
   const metaTitle = product.metaTitle
-    ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK.*$/i, "").replace(/\s*—\s*MARK.*$/i, "")
+    ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK 2.*$/i, "").replace(/\s*—\s*MARK 2.*$/i, "")
     : `${product.name} — ${product.tagline}`;
   const metaDescription =
     product.metaDescription ||
@@ -53,7 +53,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK Technologies",
+      siteName: "MARK 2 Technologies",
       type: "website",
       images: [
         {
@@ -111,7 +111,7 @@ export default async function ProductPage({
     description: product.description,
     brand: {
       "@type": "Brand",
-      name: "MARK Technologies",
+      name: "MARK 2 Technologies",
     },
     offers: {
       "@type": "Offer",

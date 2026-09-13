@@ -12,22 +12,22 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
   title: "Software Development Blog — Engineering Insights & Technical Articles",
-  description: "Technical articles, engineering guides, and real-world insights from the MARK Technologies team on custom software development, Next.js, React, ERP systems, AI automation, and SaaS architecture.",
+  description: "Technical articles, engineering guides, and real-world insights from the MARK 2 Technologies team on custom software development, Next.js, React, ERP systems, AI automation, and SaaS architecture.",
   alternates: {
     canonical: `${siteUrl}/blog`,
   },
   openGraph: {
     title: "Software Development Blog",
-    description: "Technical articles and engineering insights from the MARK Technologies team on web development, ERP, mobile apps, and AI automation.",
+    description: "Technical articles and engineering insights from the MARK 2 Technologies team on web development, ERP, mobile apps, and AI automation.",
     url: `${siteUrl}/blog`,
-    siteName: "MARK Technologies",
+    siteName: "MARK 2 Technologies",
     type: "website",
-    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: "Software Development Blog — MARK Technologies" }],
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: "Software Development Blog — MARK 2 Technologies" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Software Development Blog",
-    description: "Technical articles and engineering insights from the MARK Technologies team on web development, ERP, mobile apps, and AI automation.",
+    description: "Technical articles and engineering insights from the MARK 2 Technologies team on web development, ERP, mobile apps, and AI automation.",
     images: [`${siteUrl}/twitter-image`],
   },
 };
@@ -141,7 +141,7 @@ export default async function BlogPage() {
                           {post.author?.name?.substring(0, 2) || "MK"}
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-text-primary">{post.author?.name || "MARK Team"}</p>
+                          <p className="text-xs font-medium text-text-primary">{post.author?.name || "MARK 2 Team"}</p>
                           <p className="text-xs text-text-muted">{post.author?.role || "Engineer"}</p>
                         </div>
                       </div>

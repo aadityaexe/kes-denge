@@ -68,7 +68,7 @@ export interface ISetting extends Document {
 
 const SettingSchema = new Schema<ISetting>(
   {
-    siteName: { type: String, default: "MARK Technologies" },
+    siteName: { type: String, default: "MARK 2 Technologies" },
     tagline: { type: String, default: "We Build Digital Products That Scale" },
     description: {
       type: String,
@@ -105,7 +105,7 @@ const SettingSchema = new Schema<ISetting>(
       subtitle: {
         type: String,
         default:
-          "MARK was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
+          "MARK 2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
       },
       mission: {
         type: String,
@@ -120,11 +120,11 @@ const SettingSchema = new Schema<ISetting>(
       story: {
         type: String,
         default:
-          "Founded by engineers who spent years architecting high-traffic distributed systems, MARK was built on the belief that code quality and business velocity do not have to be trade-offs.",
+          "Founded by engineers who spent years architecting high-traffic distributed systems, MARK 2 was built on the belief that code quality and business velocity do not have to be trade-offs.",
       },
     },
     seo: {
-      defaultTitle: { type: String, default: "MARK Technologies — We Build Digital Products That Scale" },
+      defaultTitle: { type: String, default: "MARK 2 Technologies — We Build Digital Products That Scale" },
       defaultDescription: {
         type: String,
         default:
@@ -163,7 +163,7 @@ const SettingSchema = new Schema<ISetting>(
       },
     ],
     footer: {
-      copyrightText: { type: String, default: "© 2025 MARK Technologies. All rights reserved." },
+      copyrightText: { type: String, default: "© 2025 MARK 2 Technologies. All rights reserved." },
       disclaimer: { type: String, default: "Engineered with precision for global teams." },
     },
   },

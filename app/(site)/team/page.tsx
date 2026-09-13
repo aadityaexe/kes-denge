@@ -8,29 +8,29 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Engineering Team — Developers, Architects & Designers",
-  description: "Meet the MARK Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers building scalable digital products for high-growth businesses.",
+  description: "Meet the MARK 2 Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers building scalable digital products for high-growth businesses.",
   alternates: {
     canonical: `${siteUrl}/team`,
   },
   openGraph: {
     title: "Engineering Team — Developers & Architects",
-    description: "Meet the MARK Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
+    description: "Meet the MARK 2 Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
     url: `${siteUrl}/team`,
-    siteName: "MARK Technologies",
+    siteName: "MARK 2 Technologies",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Engineering Team — MARK Technologies",
+        alt: "Engineering Team — MARK 2 Technologies",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Engineering Team — Developers & Architects",
-    description: "Meet the MARK Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
+    description: "Meet the MARK 2 Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
     images: [`${siteUrl}/twitter-image`],
   },
 };
@@ -51,7 +51,7 @@ export default async function TeamPage() {
   const teamSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "MARK Technologies Engineering Team",
+    name: "MARK 2 Technologies Engineering Team",
     itemListElement: (teamData || []).map((m: any, idx: number) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -62,7 +62,7 @@ export default async function TeamPage() {
         image: m.photo || undefined,
         worksFor: {
           "@type": "Organization",
-          name: "MARK Technologies",
+          name: "MARK 2 Technologies",
           url: siteUrl,
         },
         url: `${siteUrl}/team/${m.slug}`,

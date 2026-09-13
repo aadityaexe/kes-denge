@@ -19,9 +19,9 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 export const metadata: Metadata = {
   title: "Our Clients & Partnerships — Global Enterprises & Startups",
   description:
-    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
+    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2 Technologies.",
   keywords: [
-    "MARK Technologies clients",
+    "MARK 2 Technologies clients",
     "software development partnerships",
     "enterprise software clients",
     "custom software case studies",
@@ -33,16 +33,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Our Clients & Partnerships",
     description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
+      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2 Technologies.",
     url: `${siteUrl}/clients`,
-    siteName: "MARK Technologies",
+    siteName: "MARK 2 Technologies",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Our Clients & Partnerships | MARK Technologies",
+        alt: "Our Clients & Partnerships | MARK 2 Technologies",
       },
     ],
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Our Clients & Partnerships",
     description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
+      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2 Technologies.",
     images: [`${siteUrl}/twitter-image`],
   },
 };
@@ -85,13 +85,13 @@ export default async function ClientsPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "MARK Technologies Client Partnerships",
+    name: "MARK 2 Technologies Client Partnerships",
     description:
       "Verified client partnerships, enterprise software deployments, and system engineering deliverables.",
     url: `${siteUrl}/clients`,
     provider: {
       "@type": "Organization",
-      name: "MARK Technologies",
+      name: "MARK 2 Technologies",
       url: siteUrl,
     },
   };

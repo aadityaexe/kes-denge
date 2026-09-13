@@ -55,7 +55,7 @@ export async function generateMetadata({
   const description =
     client.tagline ||
     client.description ||
-    `Discover how MARK partnered with ${client.name} to engineer scalable digital systems and cloud architecture.`;
+    `Discover how MARK 2 partnered with ${client.name} to engineer scalable digital systems and cloud architecture.`;
 
   return {
     title,
@@ -67,14 +67,14 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalUrl,
-      siteName: "MARK Technologies",
+      siteName: "MARK 2 Technologies",
       type: "article",
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${client.name} Partnership — MARK Technologies`,
+          alt: `${client.name} Partnership — MARK 2 Technologies`,
         },
       ],
     },
@@ -338,7 +338,7 @@ export default async function ClientDetailPage({
                 </div>
               )}
 
-              {/* Partnership Story / What MARK Engineered */}
+              {/* Partnership Story / What MARK 2 Engineered */}
               {client.aboutPartnership && (
                 <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
                   <h3 className="text-lg font-display font-bold text-text-primary mb-3">

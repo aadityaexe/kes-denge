@@ -67,14 +67,14 @@ export function ServiceComparisonMatrix({ serviceTitle }: { serviceTitle: string
               </div>
             </div>
 
-            {/* MARK Engineering */}
+            {/* MARK 2 Engineering */}
             <div className="flex items-start gap-2.5 p-3 rounded-lg bg-[var(--color-accent-glow)]/30 border border-[var(--color-accent)]/20">
               <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
                 <Check size={12} strokeWidth={3} />
               </div>
               <div className="min-w-0">
                 <p className="text-[10px] font-mono uppercase text-[var(--color-accent-dark)] font-bold tracking-wider mb-0.5">
-                  MARK Engineering
+                  MARK 2 Engineering
                 </p>
                 <p className="text-xs text-text-primary font-medium leading-relaxed break-words">
                   {row.mark}
@@ -97,7 +97,7 @@ export function ServiceComparisonMatrix({ serviceTitle }: { serviceTitle: string
                 Typical Agency / Freelance
               </th>
               <th className="py-5 px-6 text-xs font-mono uppercase tracking-wider text-[var(--color-accent-dark)] font-bold bg-[var(--color-accent-glow)]/40 w-3/8">
-                MARK Engineering
+                MARK 2 Engineering
               </th>
             </tr>
           </thead>

@@ -8,7 +8,7 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
   title: "Software Development Services \u2014 Web, Mobile, ERP & AI Automation",
-  description: "Custom software development services by MARK Technologies: web application development, mobile app development, enterprise ERP systems, SaaS platforms, and AI automation — built for high-growth businesses in India and globally.",
+  description: "Custom software development services by MARK 2 Technologies: web application development, mobile app development, enterprise ERP systems, SaaS platforms, and AI automation — built for high-growth businesses in India and globally.",
   keywords: [
     "custom software development services",
     "web application development company",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "enterprise ERP development",
     "AI automation services",
     "SaaS development company",
-    "MARK Technologies services",
+    "MARK 2 Technologies services",
   ],
   alternates: {
     canonical: `${siteUrl}/services`,
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     title: "Software Development Services \u2014 Web, Mobile, ERP & AI",
     description: "Custom software development services: web apps, mobile apps, enterprise ERP, SaaS platforms, and AI automation built for high-growth businesses.",
     url: `${siteUrl}/services`,
-    siteName: "MARK Technologies",
+    siteName: "MARK 2 Technologies",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Software Development Services \u2014 MARK Technologies",
+        alt: "Software Development Services \u2014 MARK 2 Technologies",
       },
     ],
   },
@@ -61,7 +61,7 @@ export default async function ServicesPage() {
   const serviceListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "MARK Technologies Engineering Services",
+    name: "MARK 2 Technologies Engineering Services",
     description: "Production-grade software engineering, ERP architectures, mobile applications, and AI automation systems.",
     itemListElement: (servicesData || []).map((s: any, idx: number) => ({
       "@type": "ListItem",
@@ -72,7 +72,7 @@ export default async function ServicesPage() {
         description: s.shortDescription || s.tagline || s.description,
         provider: {
           "@type": "Organization",
-          name: "MARK Technologies",
+          name: "MARK 2 Technologies",
           url: siteUrl,
         },
         url: `${siteUrl}/services/${s.slug}`,
@@ -105,7 +105,7 @@ export default async function ServicesPage() {
           />
           <div className="max-w-3xl mx-auto mt-6 text-center">
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
-              MARK Technologies provides full-lifecycle product engineering services across custom web applications, cross-platform mobile apps (React Native, iOS, Android), enterprise ERP systems, and autonomous AI agents. Every system is built on modern microservices and modular architectures with automated CI/CD and direct senior engineering oversight.
+              MARK 2 Technologies provides full-lifecycle product engineering services across custom web applications, cross-platform mobile apps (React Native, iOS, Android), enterprise ERP systems, and autonomous AI agents. Every system is built on modern microservices and modular architectures with automated CI/CD and direct senior engineering oversight.
             </p>
           </div>
         </div>
