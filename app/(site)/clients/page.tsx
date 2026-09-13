@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/clients`,
   },
   openGraph: {
-    title: "Our Clients & Partnerships | MARK Technologies",
+    title: "Our Clients & Partnerships",
     description:
       "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
     url: `${siteUrl}/clients`,
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Clients & Partnerships | MARK Technologies",
+    title: "Our Clients & Partnerships",
     description:
       "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
     images: [`${siteUrl}/twitter-image`],

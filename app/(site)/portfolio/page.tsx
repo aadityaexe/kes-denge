@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/portfolio`,
   },
   openGraph: {
-    title: "Software Development Portfolio — Case Studies | MARK Technologies",
+    title: "Software Development Portfolio — Case Studies",
     description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
     url: `${siteUrl}/portfolio`,
     siteName: "MARK Technologies",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Development Portfolio — Case Studies | MARK Technologies",
+    title: "Software Development Portfolio — Case Studies",
     description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
     images: [`${siteUrl}/twitter-image`],
   },

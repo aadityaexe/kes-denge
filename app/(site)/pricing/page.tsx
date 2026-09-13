@@ -8,7 +8,7 @@ import { getPricingData, getFAQsData } from "@/lib/db-helpers";
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Software Development Pricing & Investment Plans — MARK Technologies",
+  title: "Software Development Pricing & Investment Plans",
   description: "Transparent software development pricing in INR. Starter websites from ₹25,000, custom SaaS & mobile app packages from ₹75,000, and enterprise ERP retainers tailored to your business scale.",
   keywords: [
     "software development cost India",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/pricing`,
   },
   openGraph: {
-    title: "Software Development Pricing — MARK Technologies",
+    title: "Software Development Pricing",
     description: "Transparent pricing for custom software, web apps, mobile apps, and enterprise ERP development. Starting from ₹25,000.",
     url: `${siteUrl}/pricing`,
     siteName: "MARK Technologies",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Development Pricing — MARK Technologies",
+    title: "Software Development Pricing",
     description: "Transparent pricing for custom software, web apps, mobile apps, and enterprise ERP development. Starting from ₹25,000.",
     images: [`${siteUrl}/twitter-image`],
   },

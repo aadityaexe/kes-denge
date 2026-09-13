@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/services`,
   },
   openGraph: {
-    title: "Software Development Services \u2014 Web, Mobile, ERP & AI | MARK Technologies",
+    title: "Software Development Services \u2014 Web, Mobile, ERP & AI",
     description: "Custom software development services: web apps, mobile apps, enterprise ERP, SaaS platforms, and AI automation built for high-growth businesses.",
     url: `${siteUrl}/services`,
     siteName: "MARK Technologies",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Development Services \u2014 Web, Mobile, ERP & AI | MARK Technologies",
+    title: "Software Development Services \u2014 Web, Mobile, ERP & AI",
     description: "Custom software development services: web apps, mobile apps, enterprise ERP, SaaS platforms, and AI automation built for high-growth businesses.",
     images: [`${siteUrl}/twitter-image`],
   },

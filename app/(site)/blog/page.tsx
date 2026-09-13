@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/blog`,
   },
   openGraph: {
-    title: "Software Development Blog | MARK Technologies",
+    title: "Software Development Blog",
     description: "Technical articles and engineering insights from the MARK Technologies team on web development, ERP, mobile apps, and AI automation.",
     url: `${siteUrl}/blog`,
     siteName: "MARK Technologies",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Software Development Blog | MARK Technologies",
+    title: "Software Development Blog",
     description: "Technical articles and engineering insights from the MARK Technologies team on web development, ERP, mobile apps, and AI automation.",
     images: [`${siteUrl}/twitter-image`],
   },

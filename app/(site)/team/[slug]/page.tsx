@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/team/${member.slug}`;
-  const title = `${member.name} — ${member.role} | MARK Technologies`;
+  const title = `${member.name} — ${member.role}`;
   const description = member.bio || `${member.name} is a ${member.role} at MARK Technologies specializing in ${member.specialization || "software engineering"}.`;
 
   return {

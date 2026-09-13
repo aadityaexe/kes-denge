@@ -27,7 +27,7 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | MARK Technologies",
+      title: "Product Not Found",
       description: "The requested software platform could not be found.",
     };
   }

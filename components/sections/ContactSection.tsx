@@ -150,10 +150,15 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
               <span className="text-[11px] sm:text-xs uppercase tracking-widest text-text-secondary font-medium">Get in Touch</span>
             </div>
             
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-text-primary tracking-tight mb-4 sm:mb-6 leading-[1.04]">
-              Let's build something <br />
-              <span className="text-[var(--color-accent)] italic font-light">exceptional.</span>
-            </h2>
+            {(() => {
+              const Tag = headingTag;
+              return (
+                <Tag className="font-display text-4xl sm:text-5xl lg:text-6xl text-text-primary tracking-tight mb-4 sm:mb-6 leading-[1.04]">
+                  Let's build something <br />
+                  <span className="text-[var(--color-accent)] italic font-light">exceptional.</span>
+                </Tag>
+              );
+            })()}
             <p className="text-base sm:text-lg text-text-secondary mb-8 sm:mb-12 font-light leading-relaxed">
               Whether you have a fully documented spec or just a concept on a napkin, we're ready to engineer it into reality.
             </p>

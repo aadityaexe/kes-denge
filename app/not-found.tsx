@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Page Not Found | MARK Technologies",
+  title: "Page Not Found",
   robots: { index: false, follow: false },
 };
 

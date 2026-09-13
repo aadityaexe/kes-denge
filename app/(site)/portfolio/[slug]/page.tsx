@@ -62,7 +62,7 @@ export async function generateMetadata({
 
   if (!project) {
     return {
-      title: "Project Not Found | MARK Technologies",
+      title: "Project Not Found",
       description: "The requested case study could not be found.",
     };
   }

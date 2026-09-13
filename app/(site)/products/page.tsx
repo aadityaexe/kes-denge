@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/products`,
   },
   openGraph: {
-    title: "Enterprise Software Products & Platforms | MARK Technologies",
+    title: "Enterprise Software Products & Platforms",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
     url: `${siteUrl}/products`,
     siteName: "MARK Technologies",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Enterprise Software Products & Platforms | MARK Technologies",
+    title: "Enterprise Software Products & Platforms",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
     images: [`${siteUrl}/twitter-image`],
   },

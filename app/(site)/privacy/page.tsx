@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: `${siteUrl}/privacy`,
     },
     openGraph: {
-      title: `${title} | MARK Technologies`,
+      title: `${title}`,
       description,
       url: `${siteUrl}/privacy`,
       siteName: "MARK Technologies",
@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | MARK Technologies`,
+      title: `${title}`,
       description,
       images: [`${siteUrl}/twitter-image`],
     },

@@ -44,14 +44,14 @@ export async function generateMetadata({
 
   if (!client) {
     return {
-      title: "Client Partner Not Found | MARK Technologies",
+      title: "Client Partner Not Found",
       description: "The requested client partnership profile could not be found.",
     };
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/clients/${client.slug}`;
-  const title = `${client.name} — Partnership & Engineering Case Profile | MARK Technologies`;
+  const title = `${client.name} — Partnership & Engineering Case Profile`;
   const description =
     client.tagline ||
     client.description ||

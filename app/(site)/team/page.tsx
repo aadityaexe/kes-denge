@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/team`,
   },
   openGraph: {
-    title: "Engineering Team — Developers & Architects | MARK Technologies",
+    title: "Engineering Team — Developers & Architects",
     description: "Meet the MARK Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
     url: `${siteUrl}/team`,
     siteName: "MARK Technologies",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Engineering Team — Developers & Architects | MARK Technologies",
+    title: "Engineering Team — Developers & Architects",
     description: "Meet the MARK Technologies engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
     images: [`${siteUrl}/twitter-image`],
   },

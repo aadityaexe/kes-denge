@@ -43,9 +43,6 @@ export const metadata: Metadata = {
     "AI automation systems",
     "SaaS development agency",
   ],
-  alternates: {
-    canonical: siteUrl,
-  },
   openGraph: {
     type: "website",
     locale: "en_US",

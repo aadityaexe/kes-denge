@@ -67,7 +67,7 @@ export async function generateMetadata({
 
   if (!service) {
     return {
-      title: "Service Not Found | MARK Technologies",
+      title: "Service Not Found",
       description: "The requested engineering service could not be found.",
     };
   }

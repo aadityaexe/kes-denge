@@ -26,7 +26,7 @@ export async function generateMetadata({
   const post = await getBlogBySlug(slug);
 
   if (!post) {
-    return { title: "Article Not Found | MARK Technologies" };
+    return { title: "Article Not Found" };
   }
 
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
