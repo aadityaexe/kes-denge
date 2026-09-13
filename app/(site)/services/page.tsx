@@ -7,14 +7,23 @@ import { getServicesData } from "@/lib/db-helpers";
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Core Engineering Services",
-  description: "Explore our core engineering services: Web Apps, Mobile Apps, Enterprise Platforms, and AI Automation built for high-growth companies.",
+  title: "Software Development Services \u2014 Web, Mobile, ERP & AI Automation",
+  description: "Custom software development services by MARK Technologies: web application development, mobile app development, enterprise ERP systems, SaaS platforms, and AI automation — built for high-growth businesses in India and globally.",
+  keywords: [
+    "custom software development services",
+    "web application development company",
+    "mobile app development India",
+    "enterprise ERP development",
+    "AI automation services",
+    "SaaS development company",
+    "MARK Technologies services",
+  ],
   alternates: {
     canonical: `${siteUrl}/services`,
   },
   openGraph: {
-    title: "Core Engineering Services | MARK Technologies",
-    description: "Explore our core engineering services: Web Apps, Mobile Apps, Enterprise Platforms, and AI Automation built for high-growth companies.",
+    title: "Software Development Services \u2014 Web, Mobile, ERP & AI | MARK Technologies",
+    description: "Custom software development services: web apps, mobile apps, enterprise ERP, SaaS platforms, and AI automation built for high-growth businesses.",
     url: `${siteUrl}/services`,
     siteName: "MARK Technologies",
     type: "website",
@@ -23,14 +32,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Core Engineering Services | MARK Technologies",
+        alt: "Software Development Services \u2014 MARK Technologies",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Core Engineering Services | MARK Technologies",
-    description: "Explore our core engineering services: Web Apps, Mobile Apps, Enterprise Platforms, and AI Automation built for high-growth companies.",
+    title: "Software Development Services \u2014 Web, Mobile, ERP & AI | MARK Technologies",
+    description: "Custom software development services: web apps, mobile apps, enterprise ERP, SaaS platforms, and AI automation built for high-growth businesses.",
     images: [`${siteUrl}/twitter-image`],
   },
 };

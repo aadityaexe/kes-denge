@@ -164,7 +164,6 @@ export default async function ServiceDetailsPage({
     provider: {
       "@type": "Organization",
       name: "MARK Technologies",
-      alternateName: "Kas Denge Technologies",
       url: siteUrl,
       email: "hello@mark2.in",
       sameAs: [
