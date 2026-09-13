@@ -8,14 +8,21 @@ import { getPricingData, getFAQsData } from "@/lib/db-helpers";
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Transparent Pricing & Investment",
-  description: "Transparent pricing models for our engineering services, dedicated teams, and ready platforms.",
+  title: "Software Development Pricing & Investment Plans — MARK Technologies",
+  description: "Transparent software development pricing in INR. Starter websites from ₹25,000, custom SaaS & mobile app packages from ₹75,000, and enterprise ERP retainers tailored to your business scale.",
+  keywords: [
+    "software development cost India",
+    "custom software pricing INR",
+    "web development cost India",
+    "ERP development pricing",
+    "app development cost India",
+  ],
   alternates: {
     canonical: `${siteUrl}/pricing`,
   },
   openGraph: {
-    title: "Transparent Pricing & Investment | MARK Technologies",
-    description: "Transparent pricing models for our engineering services, dedicated teams, and ready platforms.",
+    title: "Software Development Pricing — MARK Technologies",
+    description: "Transparent pricing for custom software, web apps, mobile apps, and enterprise ERP development. Starting from ₹25,000.",
     url: `${siteUrl}/pricing`,
     siteName: "MARK Technologies",
     type: "website",
@@ -24,14 +31,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Pricing & Investment | MARK Technologies",
+        alt: "Software Development Pricing — MARK Technologies",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Transparent Pricing & Investment | MARK Technologies",
-    description: "Transparent pricing models for our engineering services, dedicated teams, and ready platforms.",
+    title: "Software Development Pricing — MARK Technologies",
+    description: "Transparent pricing for custom software, web apps, mobile apps, and enterprise ERP development. Starting from ₹25,000.",
     images: [`${siteUrl}/twitter-image`],
   },
 };

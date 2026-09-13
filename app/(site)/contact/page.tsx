@@ -5,14 +5,14 @@ import { getSettingsData } from "@/lib/db-helpers";
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Start a Project",
-  description: "Get in touch with our engineering team to start your next web app, mobile app, or enterprise platform.",
+  title: "Contact MARK Technologies — Start Your Software Project",
+  description: "Get in touch with MARK Technologies' engineering team to start your custom web app, mobile app, enterprise ERP, or AI automation project. Based in India, serving clients worldwide.",
   alternates: {
     canonical: `${siteUrl}/contact`,
   },
   openGraph: {
-    title: "Contact Us — Start a Project | MARK Technologies",
-    description: "Get in touch with our engineering team to start your next web app, mobile app, or enterprise platform.",
+    title: "Contact MARK Technologies — Start Your Software Project",
+    description: "Get in touch with our engineering team to discuss your web app, mobile app, or enterprise platform requirements.",
     url: `${siteUrl}/contact`,
     siteName: "MARK Technologies",
     type: "website",
@@ -21,14 +21,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Contact Us — MARK Technologies",
+        alt: "Contact MARK Technologies",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Us — Start a Project | MARK Technologies",
-    description: "Get in touch with our engineering team to start your next web app, mobile app, or enterprise platform.",
+    title: "Contact MARK Technologies — Start Your Software Project",
+    description: "Get in touch with our engineering team to discuss your web app, mobile app, or enterprise platform requirements.",
     images: [`${siteUrl}/twitter-image`],
   },
 };

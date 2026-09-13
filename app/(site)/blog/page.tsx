@@ -11,23 +11,23 @@ export const revalidate = 3600;
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Blog — Engineering Insights & Technical Articles",
-  description: "Technical articles, engineering guides, and insights from the MARK Technologies team on web development, ERP systems, SEO, and software architecture.",
+  title: "Software Development Blog — Engineering Insights & Technical Articles",
+  description: "Technical articles, engineering guides, and real-world insights from the MARK Technologies team on custom software development, Next.js, React, ERP systems, AI automation, and SaaS architecture.",
   alternates: {
     canonical: `${siteUrl}/blog`,
   },
   openGraph: {
-    title: "Blog — Engineering Insights | MARK Technologies",
-    description: "Technical articles and engineering insights from the MARK Technologies team.",
+    title: "Software Development Blog | MARK Technologies",
+    description: "Technical articles and engineering insights from the MARK Technologies team on web development, ERP, mobile apps, and AI automation.",
     url: `${siteUrl}/blog`,
     siteName: "MARK Technologies",
     type: "website",
-    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: "Blog — MARK Technologies" }],
+    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: "Software Development Blog — MARK Technologies" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog — Engineering Insights | MARK Technologies",
-    description: "Technical articles and engineering insights from the MARK Technologies team.",
+    title: "Software Development Blog | MARK Technologies",
+    description: "Technical articles and engineering insights from the MARK Technologies team on web development, ERP, mobile apps, and AI automation.",
     images: [`${siteUrl}/twitter-image`],
   },
 };

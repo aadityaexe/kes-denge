@@ -7,13 +7,20 @@ import { getProductsData } from "@/lib/db-helpers";
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Products & Enterprise Platforms",
-  description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
+  title: "Enterprise Software Products & Ready-to-Deploy Platforms",
+  description: "Explore MARK Technologies' flagship enterprise software products: custom ERP systems, ready-to-deploy SaaS platforms, and scalable engineering solutions for high-growth businesses.",
+  keywords: [
+    "enterprise software products",
+    "ready-to-deploy software platforms",
+    "SaaS products India",
+    "custom ERP software",
+    "MARK Technologies products",
+  ],
   alternates: {
     canonical: `${siteUrl}/products`,
   },
   openGraph: {
-    title: "Products & Enterprise Platforms | MARK Technologies",
+    title: "Enterprise Software Products & Platforms | MARK Technologies",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
     url: `${siteUrl}/products`,
     siteName: "MARK Technologies",
@@ -23,13 +30,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Products & Enterprise Platforms | MARK Technologies",
+        alt: "Enterprise Software Products — MARK Technologies",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Products & Enterprise Platforms | MARK Technologies",
+    title: "Enterprise Software Products & Platforms | MARK Technologies",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
     images: [`${siteUrl}/twitter-image`],
   },

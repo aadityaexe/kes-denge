@@ -8,14 +8,21 @@ import { Metadata } from "next";
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Client Portfolio & Case Studies",
-  description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
+  title: "Software Development Portfolio — Case Studies & Client Projects",
+  description: "Explore MARK Technologies' software development portfolio: EduVeera Education ERP, Bharat Bhoomi Real Estate platform, Keshera Manufacturing ERP, and more. Production-grade systems built for high-growth businesses.",
+  keywords: [
+    "software development portfolio",
+    "custom software case studies",
+    "ERP development case study",
+    "web development portfolio India",
+    "MARK Technologies projects",
+  ],
   alternates: {
     canonical: `${siteUrl}/portfolio`,
   },
   openGraph: {
-    title: "Client Portfolio & Case Studies | MARK Technologies",
-    description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture.",
+    title: "Software Development Portfolio — Case Studies | MARK Technologies",
+    description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
     url: `${siteUrl}/portfolio`,
     siteName: "MARK Technologies",
     type: "website",
@@ -24,14 +31,14 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Client Portfolio & Case Studies | MARK Technologies",
+        alt: "Software Development Portfolio — MARK Technologies",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Client Portfolio & Case Studies | MARK Technologies",
-    description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture.",
+    title: "Software Development Portfolio — Case Studies | MARK Technologies",
+    description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
     images: [`${siteUrl}/twitter-image`],
   },
 };

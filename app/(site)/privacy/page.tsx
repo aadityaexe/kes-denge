@@ -73,7 +73,7 @@ export default async function PrivacyPolicyPage() {
           <SectionHeading
             as="h1"
             title={doc?.title || "Privacy Policy"}
-            subtitle={doc?.subtitle || "Last updated: September 2026. How we collect, safeguard, and respect your data."}
+            subtitle={doc?.subtitle || `Last updated: ${new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}. How we collect, safeguard, and respect your data at MARK Technologies.`}
             badge={doc?.badge || "Legal & Security"}
             align="center"
           />

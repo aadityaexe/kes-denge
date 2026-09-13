@@ -10,14 +10,22 @@ export const revalidate = 3600;
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "About Us — Engineering Philosophy",
-  description: "Learn about MARK's engineering philosophy, architecture standards, and mission to build scalable digital products.",
+  title: "About MARK Technologies — Custom Software Development Company",
+  description: "MARK Technologies is a custom software development company based in India. We build scalable web applications, mobile apps, enterprise ERP systems, and AI automation products for high-growth businesses worldwide.",
+  keywords: [
+    "MARK Technologies",
+    "custom software development company India",
+    "software engineering agency",
+    "product engineering company",
+    "web application development India",
+    "about MARK Technologies",
+  ],
   alternates: {
     canonical: `${siteUrl}/about`,
   },
   openGraph: {
-    title: "About Us — Engineering Philosophy | MARK Technologies",
-    description: "Learn about MARK's engineering philosophy, architecture standards, and mission to build scalable digital products.",
+    title: "About MARK Technologies — Custom Software Development Company",
+    description: "MARK Technologies is a custom software development company building scalable web apps, mobile apps, enterprise ERP, and AI automation for high-growth businesses.",
     url: `${siteUrl}/about`,
     siteName: "MARK Technologies",
     type: "website",
@@ -26,23 +34,23 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "About Us — MARK Technologies",
+        alt: "About MARK Technologies — Custom Software Development Company",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Us — Engineering Philosophy | MARK Technologies",
-    description: "Learn about MARK's engineering philosophy, architecture standards, and mission to build scalable digital products.",
+    title: "About MARK Technologies — Custom Software Development Company",
+    description: "MARK Technologies is a custom software development company building scalable web apps, mobile apps, enterprise ERP, and AI automation for high-growth businesses.",
     images: [`${siteUrl}/twitter-image`],
   },
 };
 
 export default async function AboutPage() {
   const settings = await getSettingsData();
-  const aboutSubtitle = settings?.about?.subtitle || "MARK was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.";
-  const mission = settings?.about?.mission || "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.";
-  const vision = settings?.about?.vision || "To be the premier engineering partner for visionary founders and forward-thinking enterprises worldwide.";
+  const aboutSubtitle = settings?.about?.subtitle || "MARK Technologies was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes — just rigorous engineering."
+  const mission = settings?.about?.mission || "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor."
+  const vision = settings?.about?.vision || "To be the premier engineering partner for visionary founders and forward-thinking enterprises across India and worldwide."
   const story = settings?.about?.story;
 
   const breadcrumbSchema = {

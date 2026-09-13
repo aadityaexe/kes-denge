@@ -17,16 +17,23 @@ export const revalidate = 3600;
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
-  title: "Our Clients & Partnerships — Global Enterprises & High-Growth Startups",
+  title: "Our Clients & Partnerships — Global Enterprises & Startups",
   description:
-    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK.",
+    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
+  keywords: [
+    "MARK Technologies clients",
+    "software development partnerships",
+    "enterprise software clients",
+    "custom software case studies",
+    "technology partners India",
+  ],
   alternates: {
     canonical: `${siteUrl}/clients`,
   },
   openGraph: {
     title: "Our Clients & Partnerships | MARK Technologies",
     description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK.",
+      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
     url: `${siteUrl}/clients`,
     siteName: "MARK Technologies",
     type: "website",
@@ -43,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Our Clients & Partnerships | MARK Technologies",
     description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK.",
+      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK Technologies.",
     images: [`${siteUrl}/twitter-image`],
   },
 };
