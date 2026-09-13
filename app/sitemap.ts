@@ -14,26 +14,22 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.mark2.in';
 
-  // Core static routes
-  const routes = [
-    '',
-    '/about',
-    '/services',
-    '/products',
-    '/portfolio',
-    '/clients',
-    '/team',
-    '/blog',
-    '/pricing',
-    '/contact',
-    '/privacy',
-    '/terms',
-  ].map((route: string) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1 : route === '/privacy' || route === '/terms' ? 0.3 : 0.8,
-  }));
+  // Core static routes with calibrated priorities
+  const staticRoutes: MetadataRoute.Sitemap = ([
+    { url: baseUrl,                     changeFrequency: 'daily',   priority: 1.0 },
+    { url: `${baseUrl}/services`,       changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${baseUrl}/portfolio`,      changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${baseUrl}/contact`,        changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/pricing`,        changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/products`,       changeFrequency: 'weekly',  priority: 0.85 },
+    { url: `${baseUrl}/about`,          changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/clients`,        changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/blog`,           changeFrequency: 'daily',   priority: 0.8 },
+    { url: `${baseUrl}/team`,           changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/privacy`,        changeFrequency: 'yearly',  priority: 0.2 },
+    { url: `${baseUrl}/terms`,          changeFrequency: 'yearly',  priority: 0.2 },
+  ] as const).map((r): MetadataRoute.Sitemap[number] => ({ ...r, lastModified: new Date() }));
+
 
   let portfolioUrls: MetadataRoute.Sitemap = [];
   let teamUrls: MetadataRoute.Sitemap = [];
@@ -98,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   return [
-    ...routes,
+    ...staticRoutes,
     ...portfolioUrls,
     ...teamUrls,
     ...productUrls,

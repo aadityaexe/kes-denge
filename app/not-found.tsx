@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  title: "Page Not Found | MARK Technologies",
+  robots: { index: false, follow: false },
+};
+
 
 export default function NotFound() {
   return (
