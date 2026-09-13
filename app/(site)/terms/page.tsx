@@ -73,7 +73,7 @@ export default async function TermsOfServicePage() {
           <SectionHeading
             as="h1"
             title={doc?.title || "Terms & Conditions"}
-            subtitle={doc?.subtitle || "Last updated: September 2026. Legal framework governing our client partnerships, contracts, and engineering deliverables."}
+            subtitle={doc?.subtitle || `Last updated: ${new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}. Legal framework governing our client partnerships, contracts, and engineering deliverables.`}
             badge={doc?.badge || "Legal & Contracts"}
             align="center"
           />
