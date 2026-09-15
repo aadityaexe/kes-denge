@@ -51,15 +51,27 @@ export async function generateMetadata({
 
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/clients/${client.slug}`;
-  const title = `${client.name} — Partnership & Engineering Case Profile`;
+  const title = `${client.name} — Client Partnership & Engineering Case Profile`;
   const description =
     client.tagline ||
     client.description ||
-    `Discover how MARK 2 partnered with ${client.name} to engineer scalable digital systems and cloud architecture.`;
+    `Discover how MARK 2 Technologies partnered with ${client.name} to engineer scalable digital systems and cloud architecture.`;
+
+  const keywords = [
+    `${client.name}`,
+    `MARK 2 client`,
+    `MARK 2 clients`,
+    `MARK 2 projects`,
+    `MARK 2 case studies`,
+    `MARK 2 portfolio`,
+    ...(client.industry ? [`${client.industry} software development`] : []),
+    ...(client.technologies || []),
+  ].join(", ");
 
   return {
     title,
     description,
+    keywords,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -67,14 +79,14 @@ export async function generateMetadata({
       title,
       description,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "article",
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${client.name} Partnership — MARK 2 Technologies`,
+          alt: `${client.name} Partnership — MARK 2`,
         },
       ],
     },
@@ -99,6 +111,11 @@ export default async function ClientDetailPage({
   ]);
 
   if (!client) {
+    notFound();
+  }
+
+  // Prevent thin pages from being rendered/indexed if they lack substantial content
+  if (!client.description && !client.aboutPartnership && !client.caseStudySlug) {
     notFound();
   }
 
@@ -159,7 +176,13 @@ export default async function ClientDetailPage({
     "@type": "Organization",
     name: client.name,
     url: client.website || canonicalUrl,
-    description: client.description,
+    description: client.description || client.tagline,
+    // AI Entity Relational mapping linking the Client -> MARK 2
+    supplier: {
+      "@type": "Organization",
+      name: "MARK 2 Technologies",
+      url: siteUrl
+    }
   };
 
   return (

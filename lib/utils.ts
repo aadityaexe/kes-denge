@@ -1,5 +1,5 @@
 // ============================================================
-// MARK 2 Technologies — Utility Functions
+// MARK 2 — Utility Functions
 // ============================================================
 
 import { type ClassValue, clsx } from "clsx";

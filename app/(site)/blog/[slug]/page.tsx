@@ -30,7 +30,7 @@ export async function generateMetadata({
   }
 
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
-  const metaTitle = post.metaTitle || `${post.title} | MARK 2 Technologies`;
+  const metaTitle = post.metaTitle || `${post.title} | MARK 2`;
   const metaDescription = post.metaDescription || post.excerpt;
 
   return {
@@ -41,7 +41,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "article",
       publishedTime: post.publishedAt,
       images: [{ url: post.featuredImage || `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: metaTitle }],
@@ -81,7 +81,7 @@ export default async function BlogPostPage({
     },
     publisher: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK 2",
       url: siteUrl,
     },
     datePublished: post.publishedAt,
@@ -150,7 +150,7 @@ export default async function BlogPostPage({
             </div>
             <div>
               <p className="text-sm font-semibold text-text-primary">{post.author?.name || "MARK 2 Team"}</p>
-              <p className="text-xs text-text-muted">{post.author?.role || "Engineer, MARK 2 Technologies"}</p>
+              <p className="text-xs text-text-muted">{post.author?.role || "Engineer, MARK 2"}</p>
             </div>
           </div>
         </div>

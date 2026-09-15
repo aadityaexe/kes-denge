@@ -15,7 +15,7 @@ export default function SettingsAdminPage() {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
-    siteName: "MARK 2 Technologies",
+    siteName: "MARK 2",
     tagline: "We Build Digital Products That Scale",
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation.",
     logoUrl: "",
@@ -52,14 +52,14 @@ export default function SettingsAdminPage() {
         "Founded by engineers who spent years architecting high-traffic distributed systems, MARK 2 was built on the belief that code quality and business velocity do not have to be trade-offs.",
     },
     seo: {
-      defaultTitle: "MARK 2 Technologies — We Build Digital Products That Scale",
+      defaultTitle: "MARK 2 — We Build Digital Products That Scale",
       defaultDescription:
         "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
       keywords: ["web development", "react", "nextjs", "mobile apps", "custom software"],
       ogImageUrl: "",
     },
     footer: {
-      copyrightText: "© 2025 MARK 2 Technologies. All rights reserved.",
+      copyrightText: "© 2025 MARK 2. All rights reserved.",
       disclaimer: "Engineered with precision for global teams.",
     },
     stats: [

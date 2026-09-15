@@ -24,14 +24,14 @@ export const metadata: Metadata = {
     title: "Software Development Pricing",
     description: "Transparent pricing for custom software, web apps, mobile apps, and enterprise ERP development. Starting from ₹25,000.",
     url: `${siteUrl}/pricing`,
-    siteName: "MARK 2 Technologies",
+    siteName: "MARK 2",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Software Development Pricing — MARK 2 Technologies",
+        alt: "Software Development Pricing — MARK 2",
       },
     ],
   },
@@ -63,7 +63,7 @@ export default async function PricingPage() {
   const pricingOffersSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "MARK 2 Technologies Engineering Pricing Tiers",
+    name: "MARK 2 Engineering Pricing Tiers",
     itemListElement: (pricingData || []).map((tier: any, idx: number) => {
       const rawPrice = String(tier.price || "").replace(/[^0-9]/g, "");
       const numericPrice = rawPrice ? parseInt(rawPrice, 10) : 0;
@@ -72,8 +72,8 @@ export default async function PricingPage() {
         position: idx + 1,
         item: {
           "@type": "Product",
-          name: `MARK 2 Technologies ${tier.name} Package`,
-          description: tier.description || `MARK 2 Technologies ${tier.name} engineering tier.`,
+          name: `MARK 2 ${tier.name} Package`,
+          description: tier.description || `MARK 2 ${tier.name} engineering tier.`,
           offers: {
             "@type": "Offer",
             price: numericPrice > 0 ? numericPrice : "25000",
@@ -111,7 +111,7 @@ export default async function PricingPage() {
           />
           <div className="max-w-3xl mx-auto mt-6 text-center">
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
-              MARK 2 Technologies offers transparent engineering pricing in Indian Rupees (INR). Our Starter website package begins at ₹25,000 for standard 5-page custom-coded web architectures. Growth packages start at ₹75,000 for complex SaaS applications and mobile platforms, and Enterprise retainers are tailored for high-throughput ERP systems and dedicated engineering pods.
+              MARK 2 offers transparent engineering pricing in Indian Rupees (INR). Our Starter website package begins at ₹25,000 for standard 5-page custom-coded web architectures. Growth packages start at ₹75,000 for complex SaaS applications and mobile platforms, and Enterprise retainers are tailored for high-throughput ERP systems and dedicated engineering pods.
             </p>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 import Message from "@/models/Message";
 
 export const metadata = {
-  title: "Admin Panel | MARK 2 Technologies",
+  title: "Admin Panel | MARK 2",
 };
 
 export default async function AdminLayout({

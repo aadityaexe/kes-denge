@@ -1,5 +1,5 @@
 // ============================================================
-// MARK 2 Technologies — Validation & Security Utilities
+// MARK 2 — Validation & Security Utilities
 // ============================================================
 
 import mongoose from "mongoose";

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getClientsData, getTestimonialsData } from "@/lib/db-helpers";
+import { getClientsData, getTestimonialsData, getPortfolioData } from "@/lib/db-helpers";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { ClientsDirectory } from "@/components/clients/ClientsDirectory";
@@ -19,9 +19,9 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 export const metadata: Metadata = {
   title: "Our Clients & Partnerships — Global Enterprises & Startups",
   description:
-    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2 Technologies.",
+    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2.",
   keywords: [
-    "MARK 2 Technologies clients",
+    "MARK 2 clients",
     "software development partnerships",
     "enterprise software clients",
     "custom software case studies",
@@ -33,16 +33,16 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Our Clients & Partnerships",
     description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2 Technologies.",
+      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2.",
     url: `${siteUrl}/clients`,
-    siteName: "MARK 2 Technologies",
+    siteName: "MARK 2",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Our Clients & Partnerships | MARK 2 Technologies",
+        alt: "Our Clients & Partnerships | MARK 2",
       },
     ],
   },
@@ -50,15 +50,16 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Our Clients & Partnerships",
     description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2 Technologies.",
+      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2.",
     images: [`${siteUrl}/twitter-image`],
   },
 };
 
 export default async function ClientsPage() {
-  const [clientsData, testimonialsData] = await Promise.all([
+  const [clientsData, testimonialsData, portfolioData] = await Promise.all([
     getClientsData(),
     getTestimonialsData(),
+    getPortfolioData(),
   ]);
 
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
@@ -94,6 +95,18 @@ export default async function ClientsPage() {
       name: "MARK 2 Technologies",
       url: siteUrl,
     },
+    about: {
+      "@type": "ItemList",
+      itemListElement: clientsData.map((client: any, index: number) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Organization",
+          name: client.name,
+          url: client.website || `${siteUrl}/clients/${client.slug}`
+        }
+      }))
+    }
   };
 
   return (
@@ -126,41 +139,10 @@ export default async function ClientsPage() {
             align="center"
           />
 
-          {/* Trust Metrics Bar */}
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
-            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-text-primary tracking-tight break-words">
-                99.8%
-              </p>
-              <p className="text-xs text-text-secondary mt-1 font-medium">
-                Client Retention & SLA Score
-              </p>
-            </div>
-            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[var(--color-accent-dark)] tracking-tight break-words">
-                40+
-              </p>
-              <p className="text-xs text-text-secondary mt-1 font-medium">
-                Production Cloud Systems
-              </p>
-            </div>
-            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-text-primary tracking-tight break-words">
-                $250M+
-              </p>
-              <p className="text-xs text-text-secondary mt-1 font-medium">
-                Client Capital Raised
-              </p>
-            </div>
-            <div className="p-4 sm:p-5 rounded-2xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md text-center">
-              <p className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-[var(--color-accent-dark)] tracking-tight break-words">
-                &lt; 10ms
-              </p>
-              <p className="text-xs text-text-secondary mt-1 font-medium">
-                Average Core Latency
-              </p>
-            </div>
-          </div>
+          {/* Dynamic Trust Metrics */}
+          <div className="mt-8 sm:mt-12 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md">
+            <div className="text-center md:text-left flex-1">
+              <p className="text-lg md:text-xl text-text-secondary leading-relaxed font-light">
         </div>
       </div>
 

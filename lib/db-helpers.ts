@@ -163,7 +163,7 @@ export const getSettingsData = cache(async () => {
 
   // Graceful fallback structure if DB has no settings configured yet
   return {
-    siteName: "MARK 2 Technologies",
+    siteName: "MARK 2",
     tagline: "We Build Digital Products That Scale",
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
     contactEmail: "hello@mark2.in",
@@ -194,7 +194,7 @@ export const getSettingsData = cache(async () => {
       twitter: "https://x.com/mark2_in",
     },
     footer: {
-      copyrightText: "© 2025 MARK 2 Technologies. All rights reserved.",
+      copyrightText: "© 2025 MARK 2. All rights reserved.",
       disclaimer: "Engineered with precision for global teams.",
     },
   };
@@ -383,7 +383,7 @@ export const defaultPrivacyDocument = {
     {
       title: "1. Overview & Commitment",
       content:
-        "MARK 2 Technologies (\"MARK 2\", \"we\", \"us\", or \"our\") provides product-engineering, software architecture, and custom application development services. We respect your personal data and maintain strict technical and operational controls to protect client information, project codebases, and visitor data.",
+        "MARK 2 (\"MARK 2\", \"we\", \"us\", or \"our\") provides product-engineering, software architecture, and custom application development services. We respect your personal data and maintain strict technical and operational controls to protect client information, project codebases, and visitor data.",
       order: 1,
     },
     {
@@ -430,7 +430,7 @@ export const defaultTermsDocument = {
     {
       title: "1. Engagement Framework",
       content:
-        "By accessing our website or retaining MARK 2 Technologies (\"MARK 2\", \"we\", \"us\") for custom software engineering, cloud architecture, or digital product development, you agree to comply with and be bound by these Terms of Service in conjunction with applicable Statements of Work (SOW) or Master Services Agreements (MSA).",
+        "By accessing our website or retaining MARK 2 (\"MARK 2\", \"we\", \"us\") for custom software engineering, cloud architecture, or digital product development, you agree to comply with and be bound by these Terms of Service in conjunction with applicable Statements of Work (SOW) or Master Services Agreements (MSA).",
       order: 1,
     },
     {

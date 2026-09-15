@@ -67,7 +67,7 @@ export function TeamSection({ teamData = [], headingTag = "h2" }: TeamSectionPro
                   {member.photo ? (
                     <Image
                       src={member.photo}
-                      alt={`Portrait of ${member.name}, ${member.role || 'Engineer'} at MARK 2 Technologies`}
+                      alt={`Portrait of ${member.name}, ${member.role || 'Engineer'} at MARK 2`}
                       fill
                       sizes="(max-width: 640px) 80px, 96px"
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"

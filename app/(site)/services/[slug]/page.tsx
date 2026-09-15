@@ -93,7 +93,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "website",
       images: [
         {
@@ -163,7 +163,7 @@ export default async function ServiceDetailsPage({
     description: service.shortDescription,
     provider: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK 2",
       url: siteUrl,
       email: "hello@mark2.in",
       sameAs: [
@@ -268,7 +268,7 @@ export default async function ServiceDetailsPage({
                 {service.fullDescription}
               </p>
               <p className="text-base text-text-secondary leading-relaxed">
-                At MARK 2 Technologies, we reject brittle templates and technical shortcuts. Every system we build is designed as a mission-critical asset, giving your product team the speed, security, and scalability needed to outperform competition.
+                At MARK 2, we reject brittle templates and technical shortcuts. Every system we build is designed as a mission-critical asset, giving your product team the speed, security, and scalability needed to outperform competition.
               </p>
             </div>
           </div>

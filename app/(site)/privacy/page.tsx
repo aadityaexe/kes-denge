@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = doc?.title || "Privacy Policy";
   const description =
     doc?.subtitle ||
-    "Learn how MARK 2 Technologies collects, protects, and manages data across our engineering services, platforms, and client partnerships.";
+    "Learn how MARK 2 collects, protects, and manages data across our engineering services, platforms, and client partnerships.";
 
   return {
     title,
@@ -22,14 +22,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${title}`,
       description,
       url: `${siteUrl}/privacy`,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "website",
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${title} | MARK 2 Technologies`,
+          alt: `${title} | MARK 2`,
         },
       ],
     },
@@ -73,7 +73,7 @@ export default async function PrivacyPolicyPage() {
           <SectionHeading
             as="h1"
             title={doc?.title || "Privacy Policy"}
-            subtitle={doc?.subtitle || `Last updated: ${new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}. How we collect, safeguard, and respect your data at MARK 2 Technologies.`}
+            subtitle={doc?.subtitle || `Last updated: ${new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}. How we collect, safeguard, and respect your data at MARK 2.`}
             badge={doc?.badge || "Legal & Security"}
             align="center"
           />

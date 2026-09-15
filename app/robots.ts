@@ -5,35 +5,6 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: [
-      // Search engines: full crawl access to all public pages
-      {
-        userAgent: ['Googlebot', 'Bingbot', 'Slurp', 'DuckDuckBot', 'Baiduspider', 'YandexBot', 'Sogou', 'Exabot'],
-        allow: '/',
-        disallow: ['/admin/', '/api/'],
-      },
-      // AI training crawlers: disallow all crawling
-      // (they consume crawl budget without contributing to search rankings)
-      {
-        userAgent: [
-          'GPTBot',
-          'ChatGPT-User',
-          'OAI-SearchBot',
-          'PerplexityBot',
-          'ClaudeBot',
-          'Claude-Web',
-          'Google-Extended',
-          'anthropic-ai',
-          'Diffbot',
-          'Omgilibot',
-          'FacebookBot',
-          'facebookexternalhit',
-          'CCBot',
-          'DataForSeoBot',
-          'PetalBot',
-        ],
-        disallow: '/',
-      },
-      // Default: allow public, block admin and API
       {
         userAgent: '*',
         allow: '/',

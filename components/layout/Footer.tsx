@@ -5,7 +5,7 @@ import { getSettingsData } from "@/lib/db-helpers";
 
 export async function Footer() {
   const settings = await getSettingsData();
-  const siteName = settings?.siteName || "MARK 2 Technologies";
+  const siteName = settings?.siteName || "MARK 2";
   const email = settings?.contactEmail || "hello@mark2.in";
   const description = settings?.description || "We build digital products that scale. A product-engineering agency for startups and growing businesses.";
   const copyright = settings?.footer?.copyrightText || `© ${new Date().getFullYear()} ${siteName}. All rights reserved.`;

@@ -24,13 +24,13 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MARK 2 Technologies — We Build Digital Products That Scale",
-    template: "%s | MARK 2 Technologies",
+    default: "MARK 2 — We Build Digital Products That Scale",
+    template: "%s | MARK 2",
   },
   description:
     "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
   keywords: [
-    "MARK 2 Technologies",
+    "MARK 2",
     "mark2.in",
     "product engineering agency",
     "custom software development",
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "MARK 2 Technologies",
-    title: "MARK 2 Technologies — We Build Digital Products That Scale",
+    siteName: "MARK 2",
+    title: "MARK 2 — We Build Digital Products That Scale",
     description:
       "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
     images: [
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "MARK 2 Technologies — We Build Digital Products That Scale",
+        alt: "MARK 2 — We Build Digital Products That Scale",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MARK 2 Technologies — We Build Digital Products That Scale",
+    title: "MARK 2 — We Build Digital Products That Scale",
     description:
       "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
     images: [`${siteUrl}/twitter-image`],
@@ -86,7 +86,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSettingsData();
-  const siteName = settings?.siteName || "MARK 2 Technologies";
+  const siteName = settings?.siteName || "MARK 2";
   const email = settings?.contactEmail || "hello@mark2.in";
   const sameAs = [
     settings?.socialLinks?.twitter,
@@ -98,6 +98,7 @@ export default async function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     name: siteName,
     alternateName: "MARK 2",
     url: siteUrl,
@@ -120,6 +121,7 @@ export default async function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
     name: siteName,
     url: siteUrl,
     potentialAction: {

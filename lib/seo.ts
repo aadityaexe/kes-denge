@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
-export const BRAND_NAME = "MARK 2 Technologies";
+export const BRAND_NAME = "MARK 2";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph-image`;
 
 interface BuildMetadataParams {

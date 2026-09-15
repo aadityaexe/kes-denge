@@ -68,7 +68,7 @@ export interface ISetting extends Document {
 
 const SettingSchema = new Schema<ISetting>(
   {
-    siteName: { type: String, default: "MARK 2 Technologies" },
+    siteName: { type: String, default: "MARK 2" },
     tagline: { type: String, default: "We Build Digital Products That Scale" },
     description: {
       type: String,
@@ -124,7 +124,7 @@ const SettingSchema = new Schema<ISetting>(
       },
     },
     seo: {
-      defaultTitle: { type: String, default: "MARK 2 Technologies — We Build Digital Products That Scale" },
+      defaultTitle: { type: String, default: "MARK 2 — We Build Digital Products That Scale" },
       defaultDescription: {
         type: String,
         default:
@@ -163,7 +163,7 @@ const SettingSchema = new Schema<ISetting>(
       },
     ],
     footer: {
-      copyrightText: { type: String, default: "© 2025 MARK 2 Technologies. All rights reserved." },
+      copyrightText: { type: String, default: "© 2025 MARK 2. All rights reserved." },
       disclaimer: { type: String, default: "Engineered with precision for global teams." },
     },
   },

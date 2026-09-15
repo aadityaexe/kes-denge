@@ -266,7 +266,7 @@ export default function AdminDashboardPage() {
                         {new Date(msg.createdAt).toLocaleDateString()}
                       </span>
                       <a
-                        href={`mailto:${msg.email}?subject=Regarding your inquiry with MARK 2 Technologies`}
+                        href={`mailto:${msg.email}?subject=Regarding your inquiry with MARK 2`}
                         className="mt-1 inline-flex items-center gap-1 text-[10px] text-[var(--color-accent-dark)] hover:underline"
                       >
                         <Mail size={10} /> Reply

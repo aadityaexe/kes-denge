@@ -89,7 +89,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "article",
       images: [
         {
@@ -148,14 +148,14 @@ export default async function PortfolioDetailPage({
     } : undefined,
     provider: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK 2",
       url: siteUrl,
       logo: `${siteUrl}/opengraph-image`,
     },
     url: pageUrl,
     author: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK 2",
       url: siteUrl,
     },
   };

@@ -29,7 +29,7 @@ export const revalidate = 3600;
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettingsData();
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
-  const titleText = "MARK 2 Technologies — We Build Digital Products That Scale";
+  const titleText = "MARK 2 — We Build Digital Products That Scale";
   const descText =
     settings?.seo?.defaultDescription ||
     settings?.description ||
@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: titleText,
       description: descText,
       url: siteUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "website",
       locale: "en_US",
       images: [
@@ -91,8 +91,74 @@ export default async function HomePage() {
     getSettingsData(),
   ]);
 
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+  
+  // Massive Dynamic JSON-LD Graph for AI/Search Systems
+  const dynamicOrganizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    "name": "MARK 2",
+    "url": siteUrl,
+    "description": settingsData?.description || "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation.",
+    "logo": `${siteUrl}/opengraph-image`,
+    "sameAs": [
+      settingsData?.socialLinks?.twitter,
+      settingsData?.socialLinks?.linkedin,
+      settingsData?.socialLinks?.github,
+      settingsData?.socialLinks?.instagram,
+    ].filter(Boolean),
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": settingsData?.contactEmail || "hello@mark2.in",
+      "contactType": "customer support"
+    },
+    // Dynamically list team members (Founders / Employees)
+    "employee": teamData.map((member: any) => ({
+      "@type": "Person",
+      "name": member.name,
+      "jobTitle": member.role,
+      ...(member.linkedin ? { "sameAs": member.linkedin } : {})
+    })),
+    // Dynamically list services offered
+    "makesOffer": servicesData.map((service: any) => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": service.title,
+        "description": service.shortDescription || service.description,
+        "url": `${siteUrl}/services#${service.slug}`
+      }
+    })),
+    // Dynamically list products owned
+    "brand": productsData.map((product: any) => ({
+      "@type": "Brand",
+      "name": product.title,
+      "description": product.shortDescription,
+      "url": `${siteUrl}/products/${product.slug}`
+    })),
+    // Dynamically list clients as sponsors or customers (schema.org/sponsor)
+    "sponsor": clientsData.map((client: any) => ({
+      "@type": "Organization",
+      "name": client.name,
+      "description": client.tagline || client.description,
+      ...(client.website ? { "url": client.website } : {})
+    })),
+    // Dynamically list projects/case studies
+    "subjectOf": portfolioData.map((project: any) => ({
+      "@type": "CreativeWork",
+      "name": project.title,
+      "description": project.oneLiner || project.shortDescription,
+      "url": `${siteUrl}/portfolio/${project.slug}`
+    }))
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dynamicOrganizationSchema) }}
+      />
       <HeroSection settingsData={settingsData} />
       <TrustedBySection clientsData={clientsData} />
       <ServicesSection servicesData={servicesData} />

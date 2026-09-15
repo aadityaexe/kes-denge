@@ -9,13 +9,13 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
   title: "Software Development Portfolio — Case Studies & Client Projects",
-  description: "Explore MARK 2 Technologies' software development portfolio: EduVeera Education ERP, Bharat Bhoomi Real Estate platform, Keshera Manufacturing ERP, and more. Production-grade systems built for high-growth businesses.",
+  description: "Explore MARK 2' software development portfolio: EduVeera Education ERP, Bharat Bhoomi Real Estate platform, Keshera Manufacturing ERP, and more. Production-grade systems built for high-growth businesses.",
   keywords: [
     "software development portfolio",
     "custom software case studies",
     "ERP development case study",
     "web development portfolio India",
-    "MARK 2 Technologies projects",
+    "MARK 2 projects",
   ],
   alternates: {
     canonical: `${siteUrl}/portfolio`,
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
     title: "Software Development Portfolio — Case Studies",
     description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
     url: `${siteUrl}/portfolio`,
-    siteName: "MARK 2 Technologies",
+    siteName: "MARK 2",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Software Development Portfolio — MARK 2 Technologies",
+        alt: "Software Development Portfolio — MARK 2",
       },
     ],
   },
@@ -63,12 +63,12 @@ export default async function PortfolioPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "MARK 2 Technologies Portfolio & Case Studies",
+    name: "MARK 2 Portfolio & Case Studies",
     description: "Production case studies and software engineering deployments.",
     url: `${siteUrl}/portfolio`,
     provider: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK 2",
       url: siteUrl,
     },
   };
@@ -98,7 +98,7 @@ export default async function PortfolioPage() {
           />
           <div className="max-w-3xl mx-auto mt-6 text-center">
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
-              MARK 2 Technologies has engineered and deployed full-stack software solutions including the 16-module EduVeera Education ERP, Bharat Bhoomi Real Estate & Land Management engine, and Keshera Industry Custom Manufacturing ERP. Every project delivers measurable operational efficiency, 99.9% uptime, and audited web security.
+              MARK 2 has engineered and deployed full-stack software solutions ranging from high-performance consumer applications to mission-critical custom enterprise ERPs. Every project delivers measurable operational efficiency, 99.9% uptime, and audited web security.
             </p>
           </div>
         </div>

@@ -53,7 +53,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK 2",
       type: "website",
       images: [
         {
@@ -111,7 +111,7 @@ export default async function ProductPage({
     description: product.description,
     brand: {
       "@type": "Brand",
-      name: "MARK 2 Technologies",
+      name: "MARK 2",
     },
     offers: {
       "@type": "Offer",

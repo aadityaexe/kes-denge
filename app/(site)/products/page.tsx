@@ -8,13 +8,13 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export const metadata: Metadata = {
   title: "Enterprise Software Products & Ready-to-Deploy Platforms",
-  description: "Explore MARK 2 Technologies' flagship enterprise software products: custom ERP systems, ready-to-deploy SaaS platforms, and scalable engineering solutions for high-growth businesses.",
+  description: "Explore MARK 2' flagship enterprise software products: custom ERP systems, ready-to-deploy SaaS platforms, and scalable engineering solutions for high-growth businesses.",
   keywords: [
     "enterprise software products",
     "ready-to-deploy software platforms",
     "SaaS products India",
     "custom ERP software",
-    "MARK 2 Technologies products",
+    "MARK 2 products",
   ],
   alternates: {
     canonical: `${siteUrl}/products`,
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
     title: "Enterprise Software Products & Platforms",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
     url: `${siteUrl}/products`,
-    siteName: "MARK 2 Technologies",
+    siteName: "MARK 2",
     type: "website",
     images: [
       {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "Enterprise Software Products — MARK 2 Technologies",
+        alt: "Enterprise Software Products — MARK 2",
       },
     ],
   },
@@ -59,7 +59,7 @@ export default async function ProductsPage() {
   const productListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "MARK 2 Technologies Enterprise Platforms & Software Products",
+    name: "MARK 2 Enterprise Platforms & Software Products",
     itemListElement: (productsData || []).map((p: any, idx: number) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -99,7 +99,7 @@ export default async function ProductsPage() {
           />
           <div className="max-w-3xl mx-auto mt-6 text-center">
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
-              MARK 2 Technologies develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC).
+              MARK 2 develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC).
             </p>
           </div>
         </div>
