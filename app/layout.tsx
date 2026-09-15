@@ -133,6 +133,7 @@ export default async function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <script
@@ -144,7 +145,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <SmoothScroll>
           <Preloader />
           {children}
