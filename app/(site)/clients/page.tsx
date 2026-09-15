@@ -139,14 +139,8 @@ export default async function ClientsPage() {
             align="center"
           />
 
-          {/* Dynamic Trust Metrics */}
-          <div className="mt-8 sm:mt-12 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-surface-1/80 border border-[var(--color-border)] backdrop-blur-md">
-            <div className="text-center md:text-left flex-1">
-              <p className="text-lg md:text-xl text-text-secondary leading-relaxed font-light">
         </div>
       </div>
-
-      {/* Interactive Directory Section */}
       <section className="section-padding pt-0 pb-20 bg-base">
         <div className="container-site">
           <ClientsDirectory clients={clientsData} />
