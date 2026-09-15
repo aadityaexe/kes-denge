@@ -102,7 +102,7 @@ export default async function RootLayout({
     name: siteName,
     alternateName: "MARK 2",
     url: siteUrl,
-    logo: `${siteUrl}/opengraph-image`,
+    logo: `${siteUrl}/logo/logo.png`,
     email: email,
     description: "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
     contactPoint: {
