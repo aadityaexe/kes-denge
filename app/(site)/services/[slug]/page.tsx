@@ -82,10 +82,18 @@ export async function generateMetadata({
     service.shortDescription ||
     "Enterprise-grade product engineering and custom software development services.";
 
+  const keywords = [
+    ...(service.keywords && service.keywords.length > 0 ? service.keywords : []),
+    `${service.title}`,
+    `MARK 2 Technologies`,
+    `MARK 2 ${service.title.toLowerCase()}`,
+    `MARK 2 custom software`
+  ];
+
   return {
     title: metaTitle,
     description: metaDescription,
-    keywords: service.keywords && service.keywords.length > 0 ? service.keywords : undefined,
+    keywords,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -93,7 +101,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2",
+      siteName: "MARK 2 Technologies",
       type: "website",
       images: [
         {
@@ -163,7 +171,7 @@ export default async function ServiceDetailsPage({
     description: service.shortDescription,
     provider: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK 2 Technologies",
       url: siteUrl,
       email: "hello@mark2.in",
       sameAs: [

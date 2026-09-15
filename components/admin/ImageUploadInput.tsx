@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, useRef } from "react";
@@ -44,7 +45,8 @@ export function ImageUploadInput({
       } else {
         setUploadError(data.error || "Failed to upload image");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      console.error(err);
       setUploadError("Error uploading image");
     } finally {
       setIsUploading(false);

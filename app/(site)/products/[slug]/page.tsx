@@ -42,10 +42,18 @@ export async function generateMetadata({
     product.description ||
     "Enterprise-grade customizable software platform engineered for high-growth businesses.";
 
+  const keywords = [
+    ...(product.keywords && product.keywords.length > 0 ? product.keywords : []),
+    `${product.name}`,
+    `MARK 2 Technologies`,
+    `MARK 2 ${product.category?.toLowerCase() || 'software'}`,
+    `MARK 2 products`
+  ];
+
   return {
     title: metaTitle,
     description: metaDescription,
-    keywords: product.keywords && product.keywords.length > 0 ? product.keywords : undefined,
+    keywords,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -53,7 +61,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2",
+      siteName: "MARK 2 Technologies",
       type: "website",
       images: [
         {
@@ -111,7 +119,12 @@ export default async function ProductPage({
     description: product.description,
     brand: {
       "@type": "Brand",
-      name: "MARK 2",
+      name: "MARK 2 Technologies",
+    },
+    manufacturer: {
+      "@type": "Organization",
+      name: "MARK 2 Technologies",
+      url: siteUrl
     },
     offers: {
       "@type": "Offer",

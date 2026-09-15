@@ -78,10 +78,18 @@ export async function generateMetadata({
     project.oneLiner ||
     `Explore how MARK 2 engineered ${project.title} with high scalability, low latency, and modern software architecture.`;
 
+  const keywords = [
+    ...(project.keywords && project.keywords.length > 0 ? project.keywords : []),
+    `${project.title}`,
+    `MARK 2 Technologies`,
+    `MARK 2 case study`,
+    `MARK 2 portfolio`
+  ];
+
   return {
     title: metaTitle,
     description: metaDescription,
-    keywords: project.keywords && project.keywords.length > 0 ? project.keywords : undefined,
+    keywords,
     alternates: {
       canonical: canonicalUrl,
     },
@@ -89,7 +97,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2",
+      siteName: "MARK 2 Technologies",
       type: "article",
       images: [
         {
@@ -148,14 +156,14 @@ export default async function PortfolioDetailPage({
     } : undefined,
     provider: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK 2 Technologies",
       url: siteUrl,
       logo: `${siteUrl}/opengraph-image`,
     },
     url: pageUrl,
     author: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK 2 Technologies",
       url: siteUrl,
     },
   };

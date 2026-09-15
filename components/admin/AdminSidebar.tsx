@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Layers,
@@ -51,6 +51,7 @@ const navLinks = [
 
 export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: AdminSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -66,7 +67,7 @@ export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: A
     } catch (err) {
       console.error("Logout error", err);
     } finally {
-      window.location.href = "/admin/login";
+      router.push("/admin/login");
     }
   };
 

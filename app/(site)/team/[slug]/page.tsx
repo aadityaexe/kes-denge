@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title,
       description,
       url: canonicalUrl,
-      siteName: "MARK 2",
+      siteName: "MARK 2 Technologies",
       type: "profile",
       images: [
         {
@@ -101,7 +101,7 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
     jobTitle: member.role,
     worksFor: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK 2 Technologies",
       url: siteUrl,
     },
     url: memberUrl,

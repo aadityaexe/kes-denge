@@ -17,6 +17,17 @@ export const metadata: Metadata = {
     "AI automation services",
     "SaaS development company",
     "MARK 2 services",
+    "MARK 2 Technologies",
+    "MARK 2 custom software",
+    "MARK 2 software development services",
+    "MARK 2 web application development company",
+    "MARK 2 mobile app development India",
+    "MARK 2 enterprise ERP development",
+    "MARK 2 AI automation services",
+    "MARK 2 SaaS development company",
+    "MARK 2",
+    "MARK2",
+    "MARK",
   ],
   alternates: {
     canonical: `${siteUrl}/services`,
@@ -72,7 +83,7 @@ export default async function ServicesPage() {
         description: s.shortDescription || s.tagline || s.description,
         provider: {
           "@type": "Organization",
-          name: "MARK 2",
+          name: "MARK 2 Technologies",
           url: siteUrl,
         },
         url: `${siteUrl}/services/${s.slug}`,
@@ -110,7 +121,7 @@ export default async function ServicesPage() {
           </div>
         </div>
       </div>
-      
+
       <ServicesSection servicesData={servicesData} hideHeader={true} />
     </>
   );

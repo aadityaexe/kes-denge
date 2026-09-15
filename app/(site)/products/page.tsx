@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     "SaaS products India",
     "custom ERP software",
     "MARK 2 products",
+    "MARK 2 Technologies",
+    "MARK 2 software",
   ],
   alternates: {
     canonical: `${siteUrl}/products`,
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
     title: "Enterprise Software Products & Platforms",
     description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
     url: `${siteUrl}/products`,
-    siteName: "MARK 2",
+    siteName: "MARK 2 Technologies",
     type: "website",
     images: [
       {
@@ -70,6 +72,11 @@ export default async function ProductsPage() {
         applicationCategory: "BusinessApplication",
         operatingSystem: "Cloud, Web",
         url: `${siteUrl}/products/${p.slug}`,
+        provider: {
+          "@type": "Organization",
+          name: "MARK 2 Technologies",
+          url: siteUrl
+        }
       },
     })),
   };
