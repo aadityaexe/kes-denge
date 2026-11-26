@@ -5,6 +5,7 @@ import { getBlogsData } from "@/lib/db-helpers";
 import { Parallax } from "@/components/ui/Parallax";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ArrowUpRight, Clock, Tag } from "lucide-react";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -44,13 +45,10 @@ export default async function BlogPage() {
     ],
   };
 
-  const categories = blogs.length > 0
-    ? ["All", ...Array.from(new Set(blogs.map((b: any) => b.category).filter(Boolean)))]
-    : [];
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
 
       {/* Hero */}
       <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 relative overflow-hidden">

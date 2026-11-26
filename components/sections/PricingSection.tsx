@@ -7,7 +7,7 @@ import { staggerContainer, fadeInUp } from "@/lib/animations";
 import { Button } from "@/components/ui/Button";
 import { Check, X } from "lucide-react";
 
-function PricingCard({ tier, index }: { tier: any, index: number }) {
+function PricingCard({ tier, index: _index }: { tier: any, index: number }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 

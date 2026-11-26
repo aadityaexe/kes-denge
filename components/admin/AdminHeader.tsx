@@ -25,13 +25,35 @@ export function AdminHeader({
   const isGoldVariant = actionButton?.variant === "gold";
 
   return (
-    <header className="bg-surface-1 border-b border-[var(--color-border)] px-4 sm:px-6 md:px-8 py-3.5 sm:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 sticky top-0 z-20">
-      <div className="min-w-0">
-        <h1 className="text-xl sm:text-2xl font-bold font-display tracking-tight text-text-primary truncate">{title}</h1>
-        {description && <p className="text-xs text-text-secondary mt-0.5 line-clamp-2">{description}</p>}
+    <header className="bg-surface-1/95 backdrop-blur-md border-b border-[var(--color-border)] px-4 sm:px-6 md:px-8 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 sticky top-0 z-20">
+      <div className="flex items-start justify-between gap-3 min-w-0">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold font-display tracking-tight text-text-primary truncate">{title}</h1>
+          {description && <p className="text-xs text-text-secondary mt-0.5 line-clamp-2">{description}</p>}
+        </div>
+
+        {/* Mobile top-right Refresh when there is no primary action button */}
+        {onRefresh && !actionButton && (
+          <button
+            type="button"
+            onClick={onRefresh}
+            disabled={isLoading}
+            title="Refresh Data"
+            aria-label="Refresh Data"
+            className="sm:hidden shrink-0 h-10 px-3 rounded-xl bg-surface-2/80 border border-[var(--color-border)] text-text-secondary hover:text-text-primary hover:border-[var(--color-accent)]/40 hover:bg-surface-2 shadow-2xs active:scale-95 transition-all duration-200 inline-flex items-center gap-1.5 text-xs font-medium cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <RefreshCw
+              size={14}
+              className={`transition-transform duration-300 ${
+                isLoading ? "animate-spin text-[var(--color-accent-dark)]" : "group-hover:rotate-180"
+              }`}
+            />
+            <span>Refresh</span>
+          </button>
+        )}
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+      <div className="flex items-center justify-end gap-2 sm:gap-2.5 shrink-0">
         {onRefresh && (
           <button
             type="button"
@@ -39,12 +61,14 @@ export function AdminHeader({
             disabled={isLoading}
             title="Refresh Data"
             aria-label="Refresh Data"
-            className="h-9 w-9 rounded-xl bg-surface-1 border border-[var(--color-border)] text-text-secondary hover:text-text-primary hover:border-[var(--color-border-hover)] hover:bg-surface-2 shadow-xs active:scale-95 transition-all duration-200 flex items-center justify-center cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`${
+              actionButton ? "inline-flex" : "hidden sm:inline-flex"
+            } h-10 w-10 sm:h-9 sm:w-9 rounded-xl bg-surface-2/70 border border-[var(--color-border)] text-text-secondary hover:text-text-primary hover:border-[var(--color-accent)]/40 hover:bg-surface-2 shadow-2xs active:scale-95 transition-all duration-200 items-center justify-center cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             <RefreshCw
               size={15}
               className={`transition-transform duration-300 ${
-                isLoading ? "animate-spin text-[var(--color-accent-dark)]" : "group-hover:rotate-45"
+                isLoading ? "animate-spin text-[var(--color-accent-dark)]" : "group-hover:rotate-180"
               }`}
             />
           </button>
@@ -54,7 +78,7 @@ export function AdminHeader({
           <button
             type="button"
             onClick={actionButton.onClick}
-            className={`h-9 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] tracking-tight transition-all duration-200 flex items-center gap-2 cursor-pointer group select-none active:scale-[0.98] ${
+            className={`h-10 sm:h-9 px-3.5 sm:px-4 rounded-xl text-xs sm:text-[13px] tracking-tight transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer group select-none active:scale-[0.98] flex-1 sm:flex-initial ${
               isGoldVariant
                 ? "bg-gradient-to-b from-[#E2CDA4] via-[#C9A96E] to-[#B38F52] text-neutral-950 font-semibold border border-[#A88243]/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_1px_2px_rgba(0,0,0,0.06),0_3px_10px_rgba(201,169,110,0.28)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_2px_6px_rgba(0,0,0,0.1),0_6px_20px_rgba(201,169,110,0.4)] hover:brightness-105"
                 : "bg-neutral-900 hover:bg-neutral-800 text-white font-medium border border-neutral-800 hover:border-[var(--color-accent)]/40 shadow-xs hover:shadow-[0_2px_14px_rgba(201,169,110,0.2)]"

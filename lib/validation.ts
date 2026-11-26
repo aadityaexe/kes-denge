@@ -2,8 +2,12 @@
 // MARK 2 — Validation & Security Utilities
 // ============================================================
 
-import mongoose from "mongoose";
 import type { NextRequest } from "next/server";
+
+/** Escape a user-supplied string so it is safe to embed in a RegExp literal. */
+export function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 // ------ Input Validation ------
 
@@ -34,11 +38,19 @@ export function isValidSlug(slug: unknown): slug is string {
 }
 
 /**
- * Validate MongoDB ObjectId format
+ * Validate MongoDB ObjectId format.
+ *
+ * NOTE: mongoose.Types.ObjectId.isValid() returns true for ANY 12-character
+ * string (treating it as a 12-byte buffer), not just 24-character hex strings.
+ * This was a correctness bug — a 12-char user-supplied string would pass the
+ * check and be passed to Mongoose as an ObjectId, potentially causing
+ * unexpected query behaviour.
+ *
+ * Fix: use an explicit 24-hex-char regex.
  */
 export function isValidObjectId(id: unknown): id is string {
   if (typeof id !== "string") return false;
-  return mongoose.Types.ObjectId.isValid(id);
+  return /^[a-f0-9]{24}$/i.test(id);
 }
 
 // ------ Sanitization ------
@@ -46,13 +58,30 @@ export function isValidObjectId(id: unknown): id is string {
 /**
  * Strip HTML tags from a string to prevent stored XSS.
  * Preserves plain text content.
+ *
+ * IMPORTANT: The previous implementation used /<[^>]*>/g which silently
+ * deletes any text between < and > — meaning "budget < 5k and timeline > 2 months"
+ * would have "&lt;5k and timeline &gt;" silently removed. Plain text fields
+ * (contact form, notes) must NOT use HTML stripping at all — React's output
+ * escaping handles rendering safety. Only use this for genuinely HTML fields.
+ *
+ * This function is intentionally kept for use in fields that explicitly
+ * need HTML stripped (e.g. plain-text excerpts). For security sanitization
+ * of blog HTML content, use sanitizeBlogContent() from lib/blog-sanitize.ts.
  */
 export function stripHtml(input: string): string {
-  return input.replace(/<[^>]*>/g, "").trim();
+  // A proper allowlist sanitizer (sanitize-html) is used for rich content.
+  // For plain-text fields, we do NOT strip HTML — we let React's escaping
+  // protect the output, and we only normalize whitespace and control chars.
+  return input
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "") // strip control chars
+    .trim();
 }
 
 /**
- * Sanitize a text input: trim, limit length, strip HTML
+ * Sanitize a text input: trim, limit length, strip control characters.
+ * Does NOT strip HTML tags — React escaping protects output rendering.
+ * For plain-text fields (contact form, notes, titles, descriptions).
  */
 export function sanitizeText(input: unknown, maxLength = 5000): string {
   if (typeof input !== "string") return "";
@@ -164,11 +193,32 @@ const MAGIC_SIGNATURES: Record<string, MagicSignature[]> = {
     { offset: 0, bytes: [0x47, 0x49, 0x46, 0x38, 0x39, 0x61] }, // GIF89a
   ],
   "image/webp": [{ offset: 8, bytes: [0x57, 0x45, 0x42, 0x50] }], // RIFF????WEBP
-  "image/avif": [{ offset: 4, bytes: [0x66, 0x74, 0x79, 0x70] }], // ftyp box
+  // AVIF & MP4 both use ISO BMFF 'ftyp' at offset 4 — disambiguated by major brand at offset 8
+  "image/avif": [
+    { offset: 4, bytes: [0x66, 0x74, 0x79, 0x70, 0x61, 0x76, 0x69, 0x66] }, // ftypavif
+    { offset: 4, bytes: [0x66, 0x74, 0x79, 0x70, 0x61, 0x76, 0x69, 0x73] }, // ftypavis
+  ],
   "application/pdf": [{ offset: 0, bytes: [0x25, 0x50, 0x44, 0x46] }], // %PDF
-  "video/mp4": [{ offset: 4, bytes: [0x66, 0x74, 0x79, 0x70] }], // ftyp box (same as avif, disambiguated by extension)
+  "video/mp4": [
+    { offset: 4, bytes: [0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6f, 0x6d] }, // ftypisom
+    { offset: 4, bytes: [0x66, 0x74, 0x79, 0x70, 0x6d, 0x70, 0x34, 0x32] }, // ftypmp42
+    { offset: 4, bytes: [0x66, 0x74, 0x79, 0x70, 0x6d, 0x70, 0x34, 0x31] }, // ftypmp41
+    { offset: 4, bytes: [0x66, 0x74, 0x79, 0x70, 0x4d, 0x34, 0x56, 0x20] }, // ftypM4V
+  ],
   "video/webm": [{ offset: 0, bytes: [0x1a, 0x45, 0xdf, 0xa3] }], // EBML header
 };
+
+/**
+ * Derive the verified MIME type from magic bytes rather than trusting client-supplied file.type.
+ */
+export function detectMimeFromMagicBytes(buffer: Buffer): string | null {
+  for (const [mime, sigs] of Object.entries(MAGIC_SIGNATURES)) {
+    if (sigs.some((sig) => matchesSignature(buffer, sig))) {
+      return mime;
+    }
+  }
+  return null;
+}
 
 function matchesSignature(buf: Buffer, sig: MagicSignature): boolean {
   if (buf.length < sig.offset + sig.bytes.length) return false;
@@ -217,84 +267,49 @@ export function verifyFileMagicBytes(
  * Note: `request.ip` and `request.geo` were removed in Next.js v15.0.0.
  */
 export function extractClientIp(req: NextRequest): string {
-  const realIp = req.headers.get("x-real-ip")?.trim();
-  if (realIp) return realIp;
+  const trustedProxy = process.env.TRUSTED_PROXY || "vercel";
 
-  const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) {
-    // Take the last entry — this is the IP Vercel's own edge proxy added
-    const lastIp = forwarded.split(",").at(-1)?.trim();
-    if (lastIp) return lastIp;
+  if (trustedProxy === "cloudflare") {
+    const cfIp = req.headers.get("cf-connecting-ip")?.trim();
+    if (cfIp) return cfIp;
   }
 
-  return "unknown-ip";
+  if (trustedProxy === "vercel" || trustedProxy === "cloudflare") {
+    const realIp = req.headers.get("x-real-ip")?.trim();
+    if (realIp) return realIp;
+
+    const forwarded = req.headers.get("x-forwarded-for");
+    if (forwarded) {
+      const lastIp = forwarded.split(",").at(-1)?.trim();
+      if (lastIp) return lastIp;
+    }
+  }
+
+  // Avoid a single shared "unknown-ip" bucket that lets one client lock out all others
+  const ua = req.headers.get("user-agent") || "no-ua";
+  let hash = 0;
+  for (let i = 0; i < ua.length; i++) {
+    hash = (hash * 31 + ua.charCodeAt(i)) | 0;
+  }
+  return `unknown-${Math.abs(hash)}`;
 }
 
-// ------ Rate Limiting (MongoDB-backed, serverless-safe) ------
+// ------ Rate Limiting (delegated to lib/rate-limit.ts) ------
 
-/**
- * Durable rate limiter backed by MongoDB.
- *
- * Replaces the previous in-memory Map implementation which was broken in
- * serverless/multi-instance environments (Vercel) — the Map reset on cold start
- * and was not shared across concurrent function instances or regions.
- *
- * Uses a `RateLimit` collection with a TTL index on `resetAt` so MongoDB
- * automatically purges expired entries — no cron job needed.
- *
- * Signature is intentionally kept identical to the old in-memory version
- * so no call sites need to change.
- */
 export async function checkRateLimit(
   key: string,
   maxAttempts: number,
-  windowMs: number
-): Promise<{ allowed: boolean; retryAfterMs?: number }> {
-  try {
-    // Lazy import to avoid circular deps and to keep this file importable
-    // in contexts where the DB connection hasn't been established yet.
-    const { connectToDatabase } = await import("@/lib/mongodb");
-    const RateLimit = (await import("@/models/RateLimit")).default;
-
-    await connectToDatabase();
-
-    const now = new Date();
-    const windowEnd = new Date(now.getTime() + windowMs);
-
-    // Atomic upsert: create entry if it doesn't exist, or increment count.
-    // We only set resetAt on insert ($setOnInsert) so the window doesn't slide
-    // on every request — it's a fixed window anchored to the first request.
-    const entry = await RateLimit.findOneAndUpdate(
-      { key },
-      {
-        $inc: { count: 1 },
-        $setOnInsert: { resetAt: windowEnd },
-      },
-      {
-        upsert: true,
-        new: true, // Return the updated document
-        setDefaultsOnInsert: true,
-      }
-    );
-
-    if (!entry) {
-      // Shouldn't happen with upsert: true, but fail open
-      return { allowed: true };
-    }
-
-    const retryAfterMs = entry.resetAt.getTime() - now.getTime();
-
-    if (entry.count > maxAttempts) {
-      return { allowed: false, retryAfterMs: Math.max(retryAfterMs, 0) };
-    }
-
-    return { allowed: true };
-  } catch (err) {
-    // Fail open on DB error to avoid blocking legitimate requests
-    // if the DB is temporarily unavailable. Log for alerting.
-    console.error("[checkRateLimit] MongoDB rate limit check failed, failing open:", err);
-    return { allowed: true };
-  }
+  windowMs: number,
+  options?: { failClosed?: boolean }
+): Promise<{
+  allowed: boolean;
+  retryAfterMs?: number;
+  limit?: number;
+  remaining?: number;
+  resetAt?: number;
+}> {
+  const { rateLimit } = await import("@/lib/rate-limit");
+  return rateLimit(key, maxAttempts, windowMs, options);
 }
 
 // ------ Safe Error Response ------

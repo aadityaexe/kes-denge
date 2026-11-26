@@ -130,7 +130,7 @@ export default function SettingsAdminPage() {
       } else {
         setError(data.error || "Failed to update settings");
       }
-    } catch (err: any) {
+    } catch {
       setError("An unexpected error occurred");
     } finally {
       setIsSaving(false);
@@ -155,7 +155,7 @@ export default function SettingsAdminPage() {
         isLoading={isLoading}
       />
 
-      <div className="p-6 sm:p-8 max-w-5xl space-y-6">
+      <div className="p-4 sm:p-6 md:p-8 max-w-5xl w-full space-y-5 sm:space-y-6">
         {saveSuccess && (
           <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 text-xs rounded-xl flex items-center gap-2">
             <CheckCircle2 size={16} />
@@ -170,29 +170,30 @@ export default function SettingsAdminPage() {
         )}
 
         {/* Tab Selector */}
-        <div className="flex items-center gap-2 border-b border-[var(--color-border)] pb-2 overflow-x-auto scrollbar-none">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 border-b border-[var(--color-border)] pb-3">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
+                type="button"
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-2.5 sm:py-2 min-h-[40px] rounded-xl text-xs font-semibold transition-all min-w-0 ${
                   isActive
-                    ? "bg-surface-1 text-text-primary border border-[var(--color-border)] shadow-sm"
-                    : "text-text-muted hover:text-text-primary hover:bg-surface-1/50"
+                    ? "bg-surface-1 text-text-primary border border-[var(--color-accent)]/40 shadow-sm"
+                    : "text-text-muted hover:text-text-primary hover:bg-surface-1/50 border border-transparent"
                 }`}
               >
-                <Icon size={15} className={isActive ? "text-[var(--color-accent-dark)]" : ""} />
-                <span>{tab.label}</span>
+                <Icon size={15} className={`shrink-0 ${isActive ? "text-[var(--color-accent-dark)]" : ""}`} />
+                <span className="truncate">{tab.label}</span>
               </button>
             );
           })}
         </div>
 
         {/* Form Container */}
-        <form onSubmit={handleSave} className="bg-surface-1 border border-[var(--color-border)] rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <form onSubmit={handleSave} className="bg-surface-1 border border-[var(--color-border)] rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm space-y-6">
           {/* 1. General & Contact Settings */}
           {activeTab === "general" && (
             <div className="space-y-4">

@@ -4,6 +4,7 @@ import { FAQSection } from "@/components/sections/FAQSection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { getPricingData, getFAQsData } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -90,11 +91,11 @@ export default async function PricingPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingOffersSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(pricingOffersSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}

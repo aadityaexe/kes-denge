@@ -62,12 +62,16 @@ export function AdminSidebar({ userEmail, userName, unreadMessagesCount = 0 }: A
     try {
       await fetch("/api/auth/logout", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
       });
     } catch (err) {
       console.error("Logout error", err);
     } finally {
       router.push("/admin/login");
+      router.refresh();
     }
   };
 

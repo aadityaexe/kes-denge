@@ -20,8 +20,8 @@ interface ProductVisualPreviewProps {
 
 export function ProductVisualPreview({
   productName,
-  category,
-  demoUrl,
+  category: _category,
+  demoUrl: _demoUrl,
 }: ProductVisualPreviewProps) {
   const [activeTab, setActiveTab] = useState<"overview" | "telemetry" | "security" | "api">("overview");
 

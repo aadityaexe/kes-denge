@@ -11,7 +11,7 @@ interface ProductFAQSectionProps {
 
 export function ProductFAQSection({
   faqs,
-  productName,
+  productName: _productName,
 }: ProductFAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { Preloader } from "@/components/ui/Preloader";
 import { getSettingsData } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -114,7 +113,7 @@ export default async function RootLayout({
     sameAs: sameAs.length > 0 ? sameAs : [
       "https://x.com/mark2_in",
       "https://www.linkedin.com/company/mark2-technologies",
-      "https://github.com/aadityaexe/mark",
+      // Removed stale hard-coded GitHub fallback. Configure social links in Admin → Settings.
     ],
   };
 
@@ -140,18 +139,15 @@ export default async function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(organizationSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }}
         />
       </head>
       <body suppressHydrationWarning>
-        <SmoothScroll>
-          <Preloader />
-          {children}
-        </SmoothScroll>
+        {children}
       </body>
     </html>
   );

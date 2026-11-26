@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -91,7 +91,7 @@ export default function ProductsAdminPage() {
     isActive: true,
   });
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/products");
@@ -103,9 +103,9 @@ export default function ProductsAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/products/categories");
       const data = await res.json();
@@ -115,12 +115,12 @@ export default function ProductsAdminPage() {
     } catch (err) {
       console.error("Error fetching categories:", err);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchProducts();
     fetchCategories();
-  }, []);
+  }, [fetchProducts, fetchCategories]);
 
   const openCreateModal = () => {
     setEditingProduct(null);
@@ -245,7 +245,7 @@ export default function ProductsAdminPage() {
       } else {
         toastError("Failed to update status");
       }
-    } catch (err) {
+    } catch {
       toastError("Error updating product status");
     }
   };
@@ -329,7 +329,7 @@ export default function ProductsAdminPage() {
       } else {
         toastError("Failed to delete product");
       }
-    } catch (err) {
+    } catch {
       toastError("Failed to delete product");
     }
   };

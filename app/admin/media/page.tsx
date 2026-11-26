@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useEffect, useState, useRef } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
@@ -231,10 +233,13 @@ export default function MediaAdminPage() {
                 >
                   {/* Thumbnail Image */}
                   <div className="w-full h-32 bg-surface-2 flex items-center justify-center overflow-hidden relative">
-                    <img
+                    <Image
                       src={item.url}
                       alt={item.originalName}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      unoptimized
+                      sizes="200px"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
 
                     {/* Storage Badge */}

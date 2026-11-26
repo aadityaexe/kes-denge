@@ -25,7 +25,7 @@ export function StatusBreakdownBar({
 }: StatusBreakdownBarProps) {
   return (
     <div
-      className={`flex flex-wrap items-center gap-1.5 p-1 rounded-lg bg-surface-2/80 border border-[var(--color-border)] ${className}`}
+      className={`w-full lg:w-auto flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-surface-2/80 border border-[var(--color-border)] ${className}`}
     >
       <span className="text-[10px] font-mono font-semibold text-text-muted px-2 uppercase tracking-wider hidden sm:inline-block">
         Filter:
@@ -37,16 +37,16 @@ export function StatusBreakdownBar({
             key={item.id}
             type="button"
             onClick={() => onFilterChange(item.id)}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer ${
+            className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 min-h-[34px] rounded-lg text-xs font-medium transition-all cursor-pointer flex-1 sm:flex-initial whitespace-nowrap ${
               isActive
                 ? item.activeColor ||
-                  "bg-surface-1 text-text-primary shadow-xs border border-[var(--color-border)] font-semibold"
-                : "text-text-secondary hover:text-text-primary hover:bg-surface-1/50"
+                  "bg-surface-1 text-text-primary shadow-xs border border-[var(--color-accent)]/35 font-semibold"
+                : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60 border border-transparent"
             }`}
           >
             <span>{item.label}</span>
             <span
-              className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold ${
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold leading-none ${
                 isActive
                   ? "bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)]"
                   : "bg-surface-3 text-text-muted"

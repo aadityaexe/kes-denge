@@ -4,6 +4,7 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { getSettingsData } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -66,7 +67,7 @@ export default async function AboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}

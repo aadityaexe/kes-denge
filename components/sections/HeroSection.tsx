@@ -13,7 +13,7 @@ const Scene = dynamic(
   { ssr: false }
 );
 
-function Stat({ label, value, suffix, index }: { label: string; value: number; suffix: string, index: number }) {
+function Stat({ label, value, suffix, index: _index }: { label: string; value: number; suffix: string, index: number }) {
   const { ref, displayValue } = useCountUp({ end: value, duration: 2000 });
 
   return (
@@ -93,12 +93,15 @@ export function HeroSection({ settingsData }: HeroSectionProps) {
         );
       }
 
-      tl.fromTo(
-        ".stat-item",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
-        0.65
-      );
+      const statItems = document.querySelectorAll(".stat-item");
+      if (statItems.length > 0) {
+        tl.fromTo(
+          statItems,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 },
+          0.65
+        );
+      }
     };
 
     // If preloader is already completed or skipped

@@ -5,6 +5,7 @@ export interface IUser extends Document {
   passwordHash: string;
   name: string;
   role: "admin" | "editor";
+  tokenVersion: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,8 +33,16 @@ const UserSchema = new Schema<IUser>(
       enum: ["admin", "editor"],
       default: "editor",
     },
+    tokenVersion: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const User =
+  (mongoose.models.User as mongoose.Model<IUser>) ||
+  mongoose.model<IUser>("User", UserSchema);
+
+export default User;

@@ -49,7 +49,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 
 export function ProductModulesGrid({
   modules,
-  productName,
+  productName: _productName,
 }: ProductModulesGridProps) {
   if (!modules || modules.length === 0) return null;
 

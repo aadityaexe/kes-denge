@@ -41,7 +41,7 @@ const comparisonData: ComparisonRow[] = [
   },
 ];
 
-export function ServiceComparisonMatrix({ serviceTitle }: { serviceTitle: string }) {
+export function ServiceComparisonMatrix({ serviceTitle: _serviceTitle }: { serviceTitle: string }) {
   return (
     <div className="bg-surface-1 border border-[var(--color-border)] rounded-[var(--radius-xl)] shadow-xl overflow-hidden">
       {/* Mobile-optimized Card View (< md) */}

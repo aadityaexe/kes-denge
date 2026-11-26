@@ -32,6 +32,7 @@ import {
   Cpu,
 } from "lucide-react";
 import { Metadata } from "next";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Globe,
@@ -198,11 +199,11 @@ export default async function PortfolioDetailPage({
       {/* Schema.org JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(projectSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
 
       {/* 1. HERO SECTION */}

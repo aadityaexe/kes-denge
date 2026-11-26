@@ -15,7 +15,7 @@ import Media from "@/models/Media";
 import Product from "@/models/Product";
 import { safeErrorMessage } from "@/lib/validation";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 

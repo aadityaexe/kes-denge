@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { getTeamData } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -74,11 +75,11 @@ export default async function TeamPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(teamSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(teamSchema) }}
       />
       <TeamSection teamData={teamData} headingTag="h1" />
     </>

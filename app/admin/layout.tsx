@@ -20,7 +20,7 @@ export default async function AdminLayout({
     try {
       await connectToDatabase();
       unreadCount = await Message.countDocuments({ status: "new" });
-    } catch (err) {
+    } catch {
       // ignore
     }
   }

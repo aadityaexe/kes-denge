@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -52,7 +54,7 @@ export default function TeamAdminPage() {
     order: 0,
   });
 
-  const fetchTeam = async () => {
+  const fetchTeam = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/team");
@@ -64,11 +66,11 @@ export default function TeamAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
   useEffect(() => {
     fetchTeam();
-  }, []);
+  }, [fetchTeam]);
 
   const openCreateModal = () => {
     setEditingMember(null);
@@ -140,7 +142,7 @@ export default function TeamAdminPage() {
       } else {
         toastError("Failed to update status");
       }
-    } catch (err) {
+    } catch {
       toastError("Error updating team member status");
     }
   };
@@ -208,7 +210,7 @@ export default function TeamAdminPage() {
       } else {
         toastError("Failed to delete member");
       }
-    } catch (err) {
+    } catch {
       toastError("Error deleting team member");
     }
   };
@@ -232,7 +234,7 @@ export default function TeamAdminPage() {
       cell: (row) => (
         <div className="flex items-center gap-3">
           {row.photo ? (
-            <img src={row.photo} alt={row.name} className="w-9 h-9 rounded-full object-cover border border-[var(--color-border)]" />
+            <Image src={row.photo} alt={row.name} width={36} height={36} unoptimized className="w-9 h-9 rounded-full object-cover border border-[var(--color-border)]" />
           ) : (
             <div className="w-9 h-9 rounded-full bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] flex items-center justify-center font-bold text-xs">
               {row.name.slice(0, 2).toUpperCase()}

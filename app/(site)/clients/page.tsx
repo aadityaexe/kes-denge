@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getClientsData, getTestimonialsData, getPortfolioData } from "@/lib/db-helpers";
+import { getClientsData, getTestimonialsData } from "@/lib/db-helpers";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { ClientsDirectory } from "@/components/clients/ClientsDirectory";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { safeJsonLd } from "@/lib/json-ld";
 import {
   ShieldCheck,
   Zap,
@@ -56,10 +57,9 @@ export const metadata: Metadata = {
 };
 
 export default async function ClientsPage() {
-  const [clientsData, testimonialsData, portfolioData] = await Promise.all([
+  const [clientsData, testimonialsData] = await Promise.all([
     getClientsData(),
     getTestimonialsData(),
-    getPortfolioData(),
   ]);
 
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
@@ -113,11 +113,11 @@ export default async function ClientsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionSchema) }}
       />
 
       {/* Hero Header */}

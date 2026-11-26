@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Link as LinkIcon, Globe, MessageSquare, ArrowLeft, Calendar, Award, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -118,11 +119,11 @@ export default async function TeamMemberPage({ params }: { params: Promise<{ slu
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(personSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 min-h-screen">
         <div className="container-site max-w-4xl">

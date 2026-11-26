@@ -11,6 +11,7 @@ import PricingTier from "@/models/Pricing";
 import Setting from "@/models/Setting";
 import BlogPost from "@/models/Blog";
 import LegalDocument from "@/models/LegalDocument";
+import { escapeRegex } from "@/lib/validation";
 
 /**
  * Safely serialize Mongoose lean documents into plain JSON objects for RSC boundary passing.
@@ -204,6 +205,7 @@ export const getBlogsData = cache(async () => {
   try {
     await connectToDatabase();
     const data = await BlogPost.find({ status: "published" })
+      .select("-content")
       .sort({ publishedAt: -1, createdAt: -1 })
       .lean();
     return serialize(data || []);
@@ -253,7 +255,7 @@ export const getRelatedPortfolioForService = cache(async (serviceSlug: string, l
       isActive: true,
       $or: [
         { relatedServiceSlugs: serviceSlug },
-        { "techStack": { $regex: new RegExp(serviceSlug.replace("-", " "), "i") } },
+        { "techStack": { $regex: new RegExp(escapeRegex(serviceSlug.replace(/-/g, " ")), "i") } },
       ],
     })
       .sort({ isFeatured: -1, order: 1, createdAt: -1 })
@@ -470,7 +472,7 @@ export const getLegalDocument = cache(async (type: "privacy" | "terms") => {
   const fallback = type === "privacy" ? defaultPrivacyDocument : defaultTermsDocument;
   try {
     await connectToDatabase();
-    let doc = await LegalDocument.findOne({ type }).lean();
+    const doc = await LegalDocument.findOne({ type }).lean();
     if (!doc) {
       // Auto-initialize in database if not present
       const created = await LegalDocument.create(fallback);

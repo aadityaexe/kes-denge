@@ -23,7 +23,7 @@ export function Card({
   className = "",
   padding = "md",
   hover = true,
-  hoverEffect,
+  hoverEffect: _hoverEffect,
 }: CardProps) {
   return (
     <div

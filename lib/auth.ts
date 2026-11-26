@@ -1,42 +1,61 @@
 import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { NextRequest } from "next/server";
+import type { NextResponse } from "next/server";
+import { requireJwtSecret } from "@/lib/env";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-  throw new Error(
-    "SECURITY: JWT_SECRET environment variable is not set. " +
-    "Please define JWT_SECRET in your .env.local file with a strong random string (minimum 32 characters)."
-  );
+export const SESSION_DURATION_SECONDS = 12 * 60 * 60; // 12 hours
+const JWT_ISSUER = "mark2.in";
+const JWT_AUDIENCE = "mark2-admin";
+
+export function getSessionCookieName(): string {
+  return process.env.NODE_ENV === "production"
+    ? "__Host-admin_session"
+    : "admin_session";
 }
-const encodedSecret = new TextEncoder().encode(JWT_SECRET);
 
-// Narrowed payload type — no open index signature to prevent payload injection.
-// If you need to store additional fields, add them explicitly here.
+function getEncodedSecret(): Uint8Array {
+  return new TextEncoder().encode(requireJwtSecret());
+}
+
 export interface SessionPayload {
   userId: string;
-  role: string;
+  role: "admin" | "editor" | string;
   email: string;
   name?: string;
-  expires?: Date;
+  tokenVersion?: number;
+  jti?: string;
   iat?: number;
   exp?: number;
 }
 
-export async function encrypt(payload: SessionPayload) {
-  return new SignJWT({ userId: payload.userId, role: payload.role, email: payload.email, name: payload.name })
+export async function encrypt(payload: SessionPayload): Promise<string> {
+  const jti = payload.jti || globalThis.crypto.randomUUID();
+  return new SignJWT({
+    userId: payload.userId,
+    role: payload.role,
+    email: payload.email,
+    name: payload.name,
+    tokenVersion: payload.tokenVersion ?? 0,
+  })
     .setProtectedHeader({ alg: "HS256" })
+    .setJti(jti)
+    .setIssuer(JWT_ISSUER)
+    .setAudience(JWT_AUDIENCE)
     .setIssuedAt()
-    .setExpirationTime("7d")
-    .sign(encodedSecret);
+    .setExpirationTime(`${SESSION_DURATION_SECONDS}s`)
+    .sign(getEncodedSecret());
 }
 
-export async function decrypt(session: string | undefined = ""): Promise<SessionPayload | null> {
+export async function decrypt(
+  session: string | undefined = ""
+): Promise<SessionPayload | null> {
+  if (!session) return null;
   try {
-    const { payload } = await jwtVerify(session, encodedSecret, {
+    const { payload } = await jwtVerify(session, getEncodedSecret(), {
       algorithms: ["HS256"],
+      issuer: JWT_ISSUER,
+      audience: JWT_AUDIENCE,
     });
-    // Validate required fields exist before trusting the payload
     if (
       typeof payload.userId !== "string" ||
       typeof payload.role !== "string" ||
@@ -45,34 +64,45 @@ export async function decrypt(session: string | undefined = ""): Promise<Session
       return null;
     }
     return payload as unknown as SessionPayload;
-  } catch (_error) {
+  } catch {
     return null;
   }
 }
 
 export async function getSession(): Promise<SessionPayload | null> {
   const cookieStore = await cookies();
-  const session = cookieStore.get("admin_session")?.value;
-  if (!session) return null;
-  return await decrypt(session);
+  const cookieName = getSessionCookieName();
+  const token =
+    cookieStore.get(cookieName)?.value ??
+    cookieStore.get("admin_session")?.value;
+  if (!token) return null;
+  return await decrypt(token);
 }
 
-export async function updateSession(request: NextRequest) {
-  const session = request.cookies.get("admin_session")?.value;
-  if (!session) return;
+export function setSessionCookie(response: NextResponse, token: string): void {
+  const isProd = process.env.NODE_ENV === "production";
+  response.cookies.set({
+    name: getSessionCookieName(),
+    value: token,
+    httpOnly: true,
+    secure: isProd,
+    sameSite: "lax",
+    maxAge: SESSION_DURATION_SECONDS,
+    path: "/",
+  });
+}
 
-  // Refresh the session so it doesn't expire
-  const parsed = await decrypt(session);
-  if (!parsed) return;
-  parsed.expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-  const isProduction = process.env.NODE_ENV === "production";
-  const securePart = isProduction ? "; Secure" : "";
-
-  const res = new Response("OK");
-  res.headers.append(
-    "Set-Cookie",
-    `admin_session=${await encrypt(parsed)}; Path=/; HttpOnly; SameSite=Lax; Expires=${parsed.expires.toUTCString()}${securePart}`
-  );
-  return res;
+export function clearSessionCookie(response: NextResponse): void {
+  const isProd = process.env.NODE_ENV === "production";
+  for (const name of ["__Host-admin_session", "admin_session"]) {
+    response.cookies.set({
+      name,
+      value: "",
+      path: "/",
+      expires: new Date(0),
+      httpOnly: true,
+      secure: isProd,
+      sameSite: "lax",
+    });
+  }
 }

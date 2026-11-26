@@ -8,6 +8,7 @@ import {
   extractClientIp,
   isAllowedFileType,
   verifyFileMagicBytes,
+  detectMimeFromMagicBytes,
   MAX_FILE_SIZE,
   safeErrorMessage,
 } from "@/lib/validation";
@@ -22,7 +23,9 @@ export async function POST(req: NextRequest) {
   // token could otherwise be used to spam uploads (storage-cost / DoS vector).
   // Limit: 20 uploads per 10 minutes per IP.
   const ip = extractClientIp(req);
-  const rateLimit = await checkRateLimit(`upload:${ip}`, 20, 10 * 60 * 1000);
+  const rateLimit = await checkRateLimit(`upload:${ip}`, 20, 10 * 60 * 1000, {
+    failClosed: true,
+  });
   if (!rateLimit.allowed) {
     const retrySec = Math.ceil((rateLimit.retryAfterMs || 60000) / 1000);
     return NextResponse.json(
@@ -52,7 +55,12 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
-    const folder = (formData.get("folder") as string) || "mark";
+    const rawFolder = (formData.get("folder") as string) || "mark";
+
+    // Allowlist Cloudinary folder names to prevent path traversal / SSRF.
+    // Reject anything that isn't a simple alphanumeric slug (optionally with hyphens/underscores).
+    const ALLOWED_FOLDERS = new Set(["mark", "blog", "team", "portfolio", "products", "services", "clients", "settings", "misc"]);
+    const folder = ALLOWED_FOLDERS.has(rawFolder) ? rawFolder : "mark";
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -88,6 +96,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const verifiedMimeType = detectMimeFromMagicBytes(buffer) || file.type || "application/octet-stream";
 
     // Sanitize filename
     const ext = path.extname(file.name).toLowerCase() || ".png";
@@ -148,7 +158,7 @@ export async function POST(req: NextRequest) {
       url: publicUrl,
       publicId,
       size: file.size,
-      mimeType: file.type || "application/octet-stream",
+      mimeType: verifiedMimeType,
       width,
       height,
     });

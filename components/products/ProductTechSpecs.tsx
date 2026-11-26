@@ -37,7 +37,7 @@ export function ProductTechSpecs({
   technologies,
   deploymentOptions,
   securityCompliance,
-  productName,
+  productName: _productName,
 }: ProductTechSpecsProps) {
   const hasSpecs = specifications && specifications.length > 0;
   const hasTech = technologies && technologies.length > 0;

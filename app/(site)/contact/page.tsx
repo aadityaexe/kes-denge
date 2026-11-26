@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { getSettingsData } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -70,11 +71,11 @@ export default async function ContactPage() {
     <div className="pt-20 sm:pt-24 md:pt-28">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(contactPageSchema) }}
       />
       <ContactSection settingsData={settingsData} headingTag="h1" />
     </div>

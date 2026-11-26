@@ -97,10 +97,6 @@ export function CategorySelect({
     c.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
   );
 
-  const selectedCategory = categories.find(
-    (c) => c.name.toLowerCase() === (value || "").toLowerCase()
-  );
-
   const handleSelect = (catName: string) => {
     onChange(catName);
     setIsOpen(false);

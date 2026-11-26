@@ -11,6 +11,7 @@ import {
 } from "@/lib/db-helpers";
 import type { Client, PortfolioItem } from "@/lib/types";
 import { Parallax } from "@/components/ui/Parallax";
+import { safeJsonLd } from "@/lib/json-ld";
 import {
   ArrowLeft,
   ArrowRight,
@@ -189,11 +190,11 @@ export default async function ClientDetailPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(organizationSchema) }}
       />
 
       <div className="pt-28 pb-20 min-h-screen relative overflow-hidden bg-base">

@@ -8,7 +8,7 @@ interface ServiceProblemsSolvedProps {
   problemsSolved: ServiceProblemSolution[];
 }
 
-function ProblemCard({ item, index }: { item: ServiceProblemSolution; index: number }) {
+function ProblemCard({ item, index: _index }: { item: ServiceProblemSolution; index: number }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 

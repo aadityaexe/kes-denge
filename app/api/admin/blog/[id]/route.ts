@@ -3,6 +3,7 @@ import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import BlogPost from "@/models/Blog";
 import { isValidObjectId, isValidSlug, sanitizeText, safeErrorMessage } from "@/lib/validation";
+import { sanitizeBlogContent } from "@/lib/blog-sanitize";
 
 export async function GET(
   req: NextRequest,
@@ -63,7 +64,7 @@ export async function PUT(
       allowedUpdates.slug = slug;
     }
     if (body.excerpt !== undefined) allowedUpdates.excerpt = sanitizeText(body.excerpt, 2000);
-    if (body.content !== undefined) allowedUpdates.content = body.content;
+    if (body.content !== undefined) allowedUpdates.content = sanitizeBlogContent(body.content); // Sanitize HTML
     if (body.featuredImage !== undefined) allowedUpdates.featuredImage = typeof body.featuredImage === "string" ? body.featuredImage.slice(0, 1000) : "";
     if (body.category !== undefined) allowedUpdates.category = sanitizeText(body.category, 100);
     if (body.tags !== undefined && Array.isArray(body.tags)) {

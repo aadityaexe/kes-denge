@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>> = {
   Globe,
@@ -158,7 +159,6 @@ export default async function ServiceDetailsPage({
         : true)
   ).slice(0, 3);
 
-  const ServiceIcon = iconMap[service.icon] || Globe;
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const pageUrl = `${siteUrl}/services/${service.slug}`;
 
@@ -235,16 +235,16 @@ export default async function ServiceDetailsPage({
       {/* Schema.org JSON-LD structured data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       {faqSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }}
         />
       )}
 

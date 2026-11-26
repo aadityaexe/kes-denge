@@ -2,9 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getBlogsData, getBlogBySlug } from "@/lib/db-helpers";
+import { sanitizeBlogContent } from "@/lib/blog-sanitize";
 import { Parallax } from "@/components/ui/Parallax";
 import { ArrowLeft, ArrowRight, Clock, Tag, Calendar } from "lucide-react";
 import type { Metadata } from "next";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -102,8 +104,8 @@ export default async function BlogPostPage({
 
   return (
     <main className="min-h-screen bg-base">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
 
       {/* Hero */}
       <div className="pt-24 sm:pt-28 md:pt-32 pb-10 relative overflow-hidden border-b border-[var(--color-border)]">
@@ -176,7 +178,7 @@ export default async function BlogPostPage({
       <article className="container-site max-w-4xl py-8 sm:py-12">
       <div
           className="blog-content"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: sanitizeBlogContent(post.content || "") }}
         />
       </article>
 

@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -76,7 +78,7 @@ export default function PortfolioAdminPage() {
     keywords: [] as string[],
   });
 
-  const fetchPortfolio = async () => {
+  const fetchPortfolio = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/portfolio");
@@ -88,11 +90,11 @@ export default function PortfolioAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
   useEffect(() => {
     fetchPortfolio();
-  }, []);
+  }, [fetchPortfolio]);
 
   const openCreateModal = () => {
     setEditingItem(null);
@@ -221,7 +223,7 @@ export default function PortfolioAdminPage() {
       } else {
         toastError("Failed to update status");
       }
-    } catch (err) {
+    } catch {
       toastError("Error updating project status");
     }
   };
@@ -242,7 +244,7 @@ export default function PortfolioAdminPage() {
       } else {
         toastError("Failed to update featured status");
       }
-    } catch (err) {
+    } catch {
       toastError("Error updating featured status");
     }
   };
@@ -307,7 +309,7 @@ export default function PortfolioAdminPage() {
       } else {
         toastError("Failed to delete project");
       }
-    } catch (err) {
+    } catch {
       toastError("Failed to delete project");
     }
   };
@@ -335,7 +337,7 @@ export default function PortfolioAdminPage() {
       cell: (row) => (
         <div className="flex items-center gap-3">
           {row.coverImage ? (
-            <img src={row.coverImage} alt={row.title} className="w-10 h-10 rounded-lg object-cover border border-[var(--color-border)]" />
+            <Image src={row.coverImage} alt={row.title} width={40} height={40} unoptimized className="w-10 h-10 rounded-lg object-cover border border-[var(--color-border)]" />
           ) : (
             <div className="w-10 h-10 rounded-lg bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] flex items-center justify-center font-bold text-xs">
               {row.title.slice(0, 2).toUpperCase()}

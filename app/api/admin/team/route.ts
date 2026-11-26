@@ -5,7 +5,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 import TeamMember from "@/models/Team";
 import { isNonEmptyString, isValidSlug, sanitizeText, safeErrorMessage } from "@/lib/validation";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 

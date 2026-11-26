@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -79,7 +81,7 @@ export default function ClientsAdminPage() {
 
   const [formData, setFormData] = useState<ClientFormData>(DEFAULT_FORM);
 
-  const fetchClients = async () => {
+  const fetchClients = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/clients");
@@ -91,11 +93,11 @@ export default function ClientsAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [addToast]);
 
   useEffect(() => {
     fetchClients();
-  }, []);
+  }, [fetchClients]);
 
   const openCreateModal = () => {
     setEditingClient(null);
@@ -187,7 +189,7 @@ export default function ClientsAdminPage() {
         setFormError(data.error || "Failed to save client");
         addToast(data.error || "Failed to save client", "error");
       }
-    } catch (err: any) {
+    } catch {
       setFormError("An unexpected error occurred");
       addToast("An unexpected error occurred", "error");
     } finally {
@@ -213,7 +215,7 @@ export default function ClientsAdminPage() {
           : `Removed "${client.name}" from logo marquee`,
         "success"
       );
-    } catch (e) {
+    } catch {
       setClients((prev) =>
         prev.map((c) => (c._id === client._id ? { ...c, isFeatured: client.isFeatured } : c))
       );
@@ -237,7 +239,7 @@ export default function ClientsAdminPage() {
         nextActive ? `"${client.name}" is now active` : `"${client.name}" is now hidden`,
         "success"
       );
-    } catch (e) {
+    } catch {
       setClients((prev) =>
         prev.map((c) => (c._id === client._id ? { ...c, isActive: client.isActive } : c))
       );
@@ -274,7 +276,7 @@ export default function ClientsAdminPage() {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-surface-2 border border-[var(--color-border)] p-1.5 flex items-center justify-center text-text-muted shrink-0">
             {row.logoUrl ? (
-              <img src={row.logoUrl} alt={row.name} className="w-full h-full object-contain" />
+              <Image src={row.logoUrl} alt={row.name} width={40} height={40} unoptimized className="w-full h-full object-contain" />
             ) : (
               <Building2 size={18} className="text-text-muted" />
             )}

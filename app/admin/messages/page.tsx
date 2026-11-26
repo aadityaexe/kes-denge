@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -89,7 +89,7 @@ export default function MessagesAdminPage() {
 
   const { success, error: toastError } = useToast();
 
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/messages");
@@ -101,11 +101,11 @@ export default function MessagesAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
   useEffect(() => {
     fetchMessages();
-  }, []);
+  }, [fetchMessages]);
 
   // Quick In-Row Status Update
   const handleInlineStatusChange = async (id: string, newStatus: string) => {

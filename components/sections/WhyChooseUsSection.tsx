@@ -27,7 +27,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; strokeWidth?:
   Receipt,
 };
 
-function FeatureCard({ item, index, isWide, speed }: { item: any, index: number, isWide: boolean, speed: number }) {
+function FeatureCard({ item, index: _index, isWide, speed }: { item: any, index: number, isWide: boolean, speed: number }) {
   const Icon = iconMap[item.icon] || Zap;
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);

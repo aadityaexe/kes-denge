@@ -62,6 +62,11 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
         ? element.querySelectorAll(childSelector)
         : element;
 
+      if (childSelector && (targets as NodeListOf<Element>).length === 0) {
+        setIsVisible(true);
+        return;
+      }
+
       const fromVars: Record<string, number> = { opacity: 0 };
       const toVars: Record<string, number | string> = { opacity: 1 };
 
@@ -137,6 +142,7 @@ export function useDirectionalEntrance<T extends HTMLElement = HTMLDivElement>(
       // Only apply horizontal converge on wider viewports
       const mql = window.matchMedia("(min-width: 768px)");
       if (!mql.matches) {
+        if (element.children.length === 0) return;
         // Mobile: simple fade-up
         ctx = gsap.context(() => {
           gsap.fromTo(

@@ -77,7 +77,7 @@ export function ServiceTechStack({ technologies }: ServiceTechStackProps) {
         className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
       >
         <AnimatePresence>
-          {filteredTechs.map((tech, idx) => {
+          {filteredTechs.map((tech, _idx) => {
             const IconComponent = (tech.icon && techIconMap[tech.icon]) || Code2;
             return (
               <motion.div

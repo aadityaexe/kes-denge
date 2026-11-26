@@ -15,8 +15,6 @@ export function useLenis() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    let animationId: number;
-
     const init = async () => {
       const Lenis = (await import("lenis")).default;
       const gsapModule = await import("gsap");

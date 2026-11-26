@@ -55,7 +55,7 @@ export function TechStackSection({ technologies = [] }: TechStackSectionProps) {
           whileInView="animate"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {Object.entries(groupedTech).map(([category, techs], i) => (
+          {Object.entries(groupedTech).map(([category, techs], _i) => (
             <motion.div key={category} variants={fadeInUp} className="flex flex-col">
               <h3 className="text-[var(--text-heading-xs)] font-semibold text-text-primary mb-3.5 flex items-center gap-3">
                 <span className="w-8 h-px bg-accent/50" />

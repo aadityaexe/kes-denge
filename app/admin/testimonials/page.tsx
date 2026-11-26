@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -65,7 +67,7 @@ export default function TestimonialsAdminPage() {
 
   const [formData, setFormData] = useState<TestimonialFormData>(DEFAULT_FORM);
 
-  const fetchTestimonials = async () => {
+  const fetchTestimonials = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/testimonials");
@@ -77,11 +79,11 @@ export default function TestimonialsAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [addToast]);
 
   useEffect(() => {
     fetchTestimonials();
-  }, []);
+  }, [fetchTestimonials]);
 
   const openCreateModal = () => {
     setEditingItem(null);
@@ -139,7 +141,7 @@ export default function TestimonialsAdminPage() {
         setFormError(data.error || "Failed to save testimonial");
         addToast(data.error || "Failed to save testimonial", "error");
       }
-    } catch (err: any) {
+    } catch {
       setFormError("An unexpected error occurred");
       addToast("An unexpected error occurred", "error");
     } finally {
@@ -165,7 +167,7 @@ export default function TestimonialsAdminPage() {
           : `Removed "${item.clientName}" from homepage featured`,
         "success"
       );
-    } catch (e) {
+    } catch {
       setTestimonials((prev) =>
         prev.map((t) => (t._id === item._id ? { ...t, isFeatured: item.isFeatured } : t))
       );
@@ -191,7 +193,7 @@ export default function TestimonialsAdminPage() {
           : `Hidden review by "${item.clientName}"`,
         "success"
       );
-    } catch (e) {
+    } catch {
       setTestimonials((prev) =>
         prev.map((t) => (t._id === item._id ? { ...t, isActive: item.isActive } : t))
       );
@@ -223,7 +225,7 @@ export default function TestimonialsAdminPage() {
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-full bg-surface-3 border border-[var(--color-border)] overflow-hidden flex items-center justify-center text-text-muted shrink-0">
             {row.photo ? (
-              <img src={row.photo} alt={row.clientName} className="w-full h-full object-cover" />
+              <Image src={row.photo} alt={row.clientName} width={40} height={40} unoptimized className="w-full h-full object-cover" />
             ) : (
               <User size={15} />
             )}
@@ -555,9 +557,12 @@ export default function TestimonialsAdminPage() {
               <div className="flex items-center gap-3 pt-3 border-t border-[var(--color-border)]">
                 <div className="w-8 h-8 rounded-full bg-surface-3 border border-[var(--color-border)] overflow-hidden flex items-center justify-center text-text-muted shrink-0">
                   {formData.photo ? (
-                    <img
+                    <Image
                       src={formData.photo}
                       alt={formData.clientName}
+                      width={32}
+                      height={32}
+                      unoptimized
                       className="w-full h-full object-cover"
                     />
                   ) : (

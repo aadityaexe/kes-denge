@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { getLegalDocument } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -60,7 +61,7 @@ export default async function TermsOfServicePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">

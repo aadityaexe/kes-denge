@@ -9,7 +9,7 @@ interface ServiceFAQAccordionProps {
   serviceTitle: string;
 }
 
-export function ServiceFAQAccordion({ faqs, serviceTitle }: ServiceFAQAccordionProps) {
+export function ServiceFAQAccordion({ faqs, serviceTitle: _serviceTitle }: ServiceFAQAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   if (!faqs || faqs.length === 0) return null;

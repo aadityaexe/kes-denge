@@ -4,7 +4,7 @@ import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import ProductCategory from "@/models/ProductCategory";
 import Product from "@/models/Product";
-import { isNonEmptyString, sanitizeText, safeErrorMessage } from "@/lib/validation";
+import { isNonEmptyString, sanitizeText, safeErrorMessage, escapeRegex } from "@/lib/validation";
 
 const DEFAULT_CATEGORIES = [
   "ERP",
@@ -20,39 +20,52 @@ const DEFAULT_CATEGORIES = [
 async function ensureDefaultCategories() {
   const count = await ProductCategory.countDocuments();
   if (count === 0) {
-    // Seed default baseline categories
+    // Seed default baseline categories using bulkWrite for atomicity
     const initialDocs = DEFAULT_CATEGORIES.map((name, index) => ({
-      name,
-      slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-      description: `${name} System Platforms & Solutions`,
-      order: index + 1,
-      isDefault: true,
+      insertOne: {
+        document: {
+          name,
+          slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          description: `${name} System Platforms & Solutions`,
+          order: index + 1,
+          isDefault: true,
+        },
+      },
     }));
-    await ProductCategory.insertMany(initialDocs);
+    await ProductCategory.bulkWrite(initialDocs, { ordered: false });
   }
 
-  // Ensure any categories already assigned to existing products are also represented
+  // Ensure any categories already assigned to existing products are also represented.
+  // Use bulkWrite with upserts instead of a find-then-create loop (N+1 writes).
   const existingProductCategories = await Product.distinct("category");
-  for (const catName of existingProductCategories) {
-    if (catName && typeof catName === "string") {
-      const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-      const exists = await ProductCategory.findOne({
-        $or: [{ slug }, { name: { $regex: new RegExp(`^${catName}$`, "i") } }],
+  if (existingProductCategories.length > 0) {
+    const ops = existingProductCategories
+      .filter((catName): catName is string => catName && typeof catName === "string")
+      .map((catName) => {
+        const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        return {
+          updateOne: {
+            filter: { $or: [{ slug }, { name: { $regex: new RegExp(`^${escapeRegex(catName)}$`, "i") } }] },
+            update: {
+              $setOnInsert: {
+                name: catName.trim(),
+                slug,
+                description: `${catName} Platforms`,
+                order: 99,
+                isDefault: false,
+              },
+            },
+            upsert: true,
+          },
+        };
       });
-      if (!exists) {
-        await ProductCategory.create({
-          name: catName.trim(),
-          slug,
-          description: `${catName} Platforms`,
-          order: 99,
-          isDefault: false,
-        });
-      }
+    if (ops.length > 0) {
+      await ProductCategory.bulkWrite(ops, { ordered: false });
     }
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 
@@ -105,10 +118,11 @@ export async function POST(req: NextRequest) {
     await connectToDatabase();
 
     // Check for duplicate name or slug (case-insensitive)
+    // Use escapeRegex to prevent ReDoS attacks from user-supplied category names
     const existing = await ProductCategory.findOne({
       $or: [
         { slug: cleanSlug },
-        { name: { $regex: new RegExp(`^${trimmedName}$`, "i") } },
+        { name: { $regex: new RegExp(`^${escapeRegex(trimmedName)}$`, "i") } },
       ],
     });
 

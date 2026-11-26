@@ -29,4 +29,10 @@ const MediaSchema = new Schema<IMedia>(
   { timestamps: true }
 );
 
-export default mongoose.models.Media || mongoose.model<IMedia>("Media", MediaSchema);
+MediaSchema.index({ createdAt: -1 });
+
+const Media =
+  (mongoose.models.Media as mongoose.Model<IMedia>) ||
+  mongoose.model<IMedia>("Media", MediaSchema);
+
+export default Media;

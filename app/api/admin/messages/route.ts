@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdminSession } from "@/lib/auth-guard";
+import { requireAdminSession, requireRole } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Message from "@/models/Message";
 import {
   isNonEmptyString,
   isValidEmail,
+  isValidObjectId,
   sanitizeText,
   safeErrorMessage,
 } from "@/lib/validation";
@@ -27,6 +28,9 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status");
     const projectType = searchParams.get("projectType");
+    const rawLimit = parseInt(searchParams.get("limit") || "100", 10);
+    const limit = Math.min(Math.max(1, isNaN(rawLimit) ? 100 : rawLimit), 200);
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
 
     await connectToDatabase();
     const query: Record<string, unknown> = {};
@@ -38,8 +42,19 @@ export async function GET(req: NextRequest) {
       query.projectType = projectType;
     }
 
-    const messages = await Message.find(query).sort({ createdAt: -1 });
-    return NextResponse.json({ success: true, messages });
+    const [messages, total] = await Promise.all([
+      Message.find(query)
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .lean(),
+      Message.countDocuments(query),
+    ]);
+    return NextResponse.json({
+      success: true,
+      messages,
+      pagination: { page, limit, total, pages: Math.ceil(total / limit) },
+    });
   } catch (error: unknown) {
     return NextResponse.json(
       { error: safeErrorMessage(error, "Failed to fetch messages") },
@@ -107,6 +122,16 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
+    // Validate array length cap (prevent $in with thousands of IDs)
+    if (ids.length > 200) {
+      return NextResponse.json({ error: "Too many IDs in bulk update (max 200)" }, { status: 400 });
+    }
+
+    // Validate every ID is a valid 24-hex ObjectId to prevent injection
+    if (!ids.every((id: unknown) => isValidObjectId(id))) {
+      return NextResponse.json({ error: "One or more invalid lead IDs" }, { status: 400 });
+    }
+
     if (!VALID_STATUSES.includes(status)) {
       return NextResponse.json(
         { error: "Invalid status provided for update" },
@@ -134,7 +159,7 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const auth = await requireAdminSession();
+  const auth = await requireRole("admin");
   if (!auth.authorized) return auth.response;
 
   try {
@@ -146,6 +171,14 @@ export async function DELETE(req: NextRequest) {
         { error: "At least one lead ID is required for bulk deletion" },
         { status: 400 }
       );
+    }
+
+    // Validate array length cap and every ID is a valid ObjectId
+    if (ids.length > 200) {
+      return NextResponse.json({ error: "Too many IDs in bulk delete (max 200)" }, { status: 400 });
+    }
+    if (!ids.every((id: unknown) => isValidObjectId(id))) {
+      return NextResponse.json({ error: "One or more invalid lead IDs" }, { status: 400 });
     }
 
     await connectToDatabase();

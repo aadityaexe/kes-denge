@@ -23,6 +23,7 @@ import { TechStackSection } from "@/components/sections/TechStackSection";
 import { PricingSection } from "@/components/sections/PricingSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -157,7 +158,7 @@ export default async function HomePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(dynamicOrganizationSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(dynamicOrganizationSchema) }}
       />
       <HeroSection settingsData={settingsData} />
       <TrustedBySection clientsData={clientsData} />

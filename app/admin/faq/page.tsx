@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -54,7 +54,7 @@ export default function FAQAdminPage() {
 
   const [formData, setFormData] = useState<FAQFormData>(DEFAULT_FORM);
 
-  const fetchFaqs = async () => {
+  const fetchFaqs = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/faq");
@@ -66,11 +66,11 @@ export default function FAQAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [addToast]);
 
   useEffect(() => {
     fetchFaqs();
-  }, []);
+  }, [fetchFaqs]);
 
   const openCreateModal = () => {
     setEditingFaq(null);
@@ -122,7 +122,7 @@ export default function FAQAdminPage() {
         setFormError(data.error || "Failed to save FAQ");
         addToast(data.error || "Failed to save FAQ", "error");
       }
-    } catch (err: any) {
+    } catch {
       setFormError("An unexpected error occurred");
       addToast("An unexpected error occurred", "error");
     } finally {
@@ -146,7 +146,7 @@ export default function FAQAdminPage() {
         nextActive ? "FAQ published to live site" : "FAQ hidden from live site",
         "success"
       );
-    } catch (e) {
+    } catch {
       setFaqs((prev) =>
         prev.map((f) => (f._id === faq._id ? { ...f, isActive: faq.isActive } : f))
       );

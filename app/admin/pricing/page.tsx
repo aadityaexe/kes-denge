@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -64,7 +64,7 @@ export default function PricingAdminPage() {
 
   const [formData, setFormData] = useState<PricingTierForm>(DEFAULT_FORM);
 
-  const fetchPricing = async () => {
+  const fetchPricing = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/pricing");
@@ -76,11 +76,11 @@ export default function PricingAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [addToast]);
 
   useEffect(() => {
     fetchPricing();
-  }, []);
+  }, [fetchPricing]);
 
   const openCreateModal = () => {
     setEditingTier(null);
@@ -148,7 +148,7 @@ export default function PricingAdminPage() {
         setFormError(data.error || "Failed to save pricing tier");
         addToast(data.error || "Failed to save pricing tier", "error");
       }
-    } catch (err: any) {
+    } catch {
       setFormError("An unexpected error occurred");
       addToast("An unexpected error occurred", "error");
     } finally {
@@ -176,7 +176,7 @@ export default function PricingAdminPage() {
           : `Removed Most Popular badge from "${tier.name}"`,
         "success"
       );
-    } catch (e) {
+    } catch {
       setPricing((prev) =>
         prev.map((t) => (t._id === tier._id ? { ...t, isPopular: tier.isPopular } : t))
       );
@@ -202,7 +202,7 @@ export default function PricingAdminPage() {
         nextActive ? `"${tier.name}" is now active` : `"${tier.name}" is now hidden`,
         "success"
       );
-    } catch (e) {
+    } catch {
       setPricing((prev) =>
         prev.map((t) => (t._id === tier._id ? { ...t, isActive: tier.isActive } : t))
       );

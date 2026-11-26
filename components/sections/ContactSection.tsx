@@ -82,16 +82,23 @@ export function ContactSection({ settingsData, headingTag = "h2" }: ContactSecti
   const phone = settingsData?.contactPhone || "";
   const address = settingsData?.address || "Mumbai, India & Global Remote";
 
-  // Check URL query parameters for fallback POST results
+  // Allowlist of error codes mapped to static messages (prevents reflected content spoofing)
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const ERROR_MESSAGES: Record<string, string> = {
+        invalid_name: "Please enter a valid name (up to 100 characters).",
+        invalid_email: "Please enter a valid email address.",
+        invalid_message: "Message is required (up to 5,000 characters).",
+        captcha_failed: "CAPTCHA verification failed. Please try again.",
+        submit_failed: "Failed to submit inquiry. Please try again.",
+      };
       const params = new URLSearchParams(window.location.search);
       if (params.get("submitted") === "true") {
         setSuccess(true);
       }
-      const err = params.get("error");
-      if (err) {
-        setError(decodeURIComponent(err));
+      const errCode = params.get("error");
+      if (errCode && ERROR_MESSAGES[errCode]) {
+        setError(ERROR_MESSAGES[errCode]);
       }
     }
   }, []);

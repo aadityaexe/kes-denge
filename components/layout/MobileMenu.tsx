@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 import type { NavItem } from "@/lib/types";
 
 interface MobileMenuProps {
@@ -25,8 +26,29 @@ export function MobileMenu({
           animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
           exit={{ opacity: 0, backdropFilter: "blur(0px)", transition: { delay: 0.2 } }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[var(--z-overlay)] lg:hidden bg-base/95 backdrop-blur-2xl flex flex-col pt-18 sm:pt-22 pb-6 px-4 sm:px-6 overflow-y-auto overscroll-contain pb-safe"
+          className="fixed inset-0 z-[var(--z-overlay)] lg:hidden bg-base/95 backdrop-blur-2xl flex flex-col pt-4 sm:pt-6 pb-6 px-4 sm:px-6 overflow-y-auto overscroll-contain pb-safe"
         >
+          {/* Top Bar with Brand + Close Button */}
+          <div className="flex items-center justify-between shrink-0 mb-2">
+            <Link
+              href="/"
+              onClick={onClose}
+              className="flex items-center gap-2 text-text-primary hover:text-accent-dark transition-colors py-1"
+            >
+              <span className="text-lg sm:text-xl font-bold tracking-tight font-display">
+                M<span className="text-[var(--color-accent-light)]">ARK</span>
+              </span>
+            </Link>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close menu"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full border border-[var(--color-border)] bg-surface-1/80 text-text-primary hover:bg-surface-2 transition-colors"
+            >
+              <X size={22} />
+            </button>
+          </div>
+
           {/* Menu Items */}
           <nav className="flex-1 flex flex-col justify-center my-auto py-4">
             <ul className="flex flex-col gap-1 sm:gap-2">

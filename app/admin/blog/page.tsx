@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -56,7 +58,7 @@ export default function BlogAdminPage() {
     readTime: "5 min read",
   });
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/blog");
@@ -68,11 +70,11 @@ export default function BlogAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   const openCreateModal = () => {
     setEditingPost(null);
@@ -142,7 +144,7 @@ export default function BlogAdminPage() {
       } else {
         toastError("Failed to update status");
       }
-    } catch (err) {
+    } catch {
       toastError("Error updating post status");
     }
   };
@@ -199,7 +201,7 @@ export default function BlogAdminPage() {
       } else {
         toastError("Failed to delete article");
       }
-    } catch (err) {
+    } catch {
       toastError("Error deleting article");
     }
   };
@@ -225,7 +227,7 @@ export default function BlogAdminPage() {
       cell: (row) => (
         <div className="flex items-center gap-3">
           {row.featuredImage ? (
-            <img src={row.featuredImage} alt={row.title} className="w-10 h-10 rounded-lg object-cover border border-[var(--color-border)]" />
+            <Image src={row.featuredImage} alt={row.title} width={40} height={40} unoptimized className="w-10 h-10 rounded-lg object-cover border border-[var(--color-border)]" />
           ) : (
             <div className="w-10 h-10 rounded-lg bg-[var(--color-accent-glow)] text-[var(--color-accent-dark)] flex items-center justify-center">
               <BookOpen size={16} />

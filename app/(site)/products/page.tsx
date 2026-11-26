@@ -3,6 +3,7 @@ import { ProductsSection } from "@/components/sections/ProductsSection";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Parallax } from "@/components/ui/Parallax";
 import { getProductsData } from "@/lib/db-helpers";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -85,11 +86,11 @@ export default async function ProductsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productListSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(productListSchema) }}
       />
       <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
         {/* Background Parallax Orb */}

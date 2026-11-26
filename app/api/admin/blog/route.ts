@@ -3,14 +3,15 @@ import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import BlogPost from "@/models/Blog";
 import { isNonEmptyString, isValidSlug, sanitizeText, safeErrorMessage } from "@/lib/validation";
+import { sanitizeBlogContent } from "@/lib/blog-sanitize";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 
   try {
     await connectToDatabase();
-    const posts = await BlogPost.find().sort({ createdAt: -1 });
+    const posts = await BlogPost.find().select("-content").sort({ createdAt: -1 }).lean();
     return NextResponse.json({ success: true, posts });
   } catch (error: unknown) {
     return NextResponse.json(
@@ -60,7 +61,7 @@ export async function POST(req: NextRequest) {
       title: sanitizeText(title, 200),
       slug: sanitizedSlug,
       excerpt: sanitizeText(excerpt, 2000),
-      content, // Content may have markdown or rich text
+      content: sanitizeBlogContent(content), // Sanitize HTML to prevent stored XSS
       featuredImage: typeof featuredImage === "string" ? featuredImage.slice(0, 1000) : "",
       category: isNonEmptyString(category, 100) ? sanitizeText(category, 100) : "Engineering",
       tags: Array.isArray(tags) ? tags.map((t: unknown) => sanitizeText(t, 50)).filter(Boolean) : [],

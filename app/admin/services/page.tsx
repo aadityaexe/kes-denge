@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
 import { Modal } from "@/components/admin/Modal";
@@ -70,7 +70,7 @@ export default function ServicesAdminPage() {
     isActive: true,
   });
 
-  const fetchServices = async () => {
+  const fetchServices = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/services");
@@ -82,11 +82,11 @@ export default function ServicesAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
   useEffect(() => {
     fetchServices();
-  }, []);
+  }, [fetchServices]);
 
   const openCreateModal = () => {
     setEditingService(null);
@@ -208,7 +208,7 @@ export default function ServicesAdminPage() {
       } else {
         toastError("Failed to update status");
       }
-    } catch (err) {
+    } catch {
       toastError("Error updating service status");
     }
   };
@@ -247,7 +247,7 @@ export default function ServicesAdminPage() {
         setFormError(data.error || "Failed to save service");
         toastError(data.error || "Failed to save service");
       }
-    } catch (err: any) {
+    } catch {
       setFormError("An unexpected error occurred");
       toastError("An unexpected error occurred");
     } finally {
@@ -266,7 +266,7 @@ export default function ServicesAdminPage() {
       } else {
         toastError("Failed to delete service");
       }
-    } catch (err) {
+    } catch {
       toastError("Error deleting service");
     }
   };

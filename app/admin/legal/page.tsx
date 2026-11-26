@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { useToast } from "@/components/admin/Toast";
 import {
@@ -14,11 +14,6 @@ import {
   Trash2,
   ArrowUp,
   ArrowDown,
-  RefreshCw,
-  Info,
-  Calendar,
-  Mail,
-  Tag,
   FileText,
 } from "lucide-react";
 
@@ -67,7 +62,7 @@ export default function LegalAdminPage() {
 
   const { success, error: toastError } = useToast();
 
-  const fetchDocuments = async () => {
+  const fetchDocuments = useCallback(async () => {
     setIsLoading(true);
     try {
       const res = await fetch("/api/admin/legal");
@@ -84,11 +79,11 @@ export default function LegalAdminPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toastError]);
 
   useEffect(() => {
     fetchDocuments();
-  }, []);
+  }, [fetchDocuments]);
 
   const currentDoc = activeTab === "privacy" ? privacyDoc : termsDoc;
   const setCurrentDoc = activeTab === "privacy" ? setPrivacyDoc : setTermsDoc;
