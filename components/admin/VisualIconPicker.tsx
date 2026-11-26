@@ -29,7 +29,7 @@ import {
   X,
 } from "lucide-react";
 
-export const AVAILABLE_ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+const AVAILABLE_ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Globe,
   Smartphone,
   Building2,

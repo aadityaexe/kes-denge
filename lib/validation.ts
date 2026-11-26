@@ -69,7 +69,7 @@ export function isValidObjectId(id: unknown): id is string {
  * need HTML stripped (e.g. plain-text excerpts). For security sanitization
  * of blog HTML content, use sanitizeBlogContent() from lib/blog-sanitize.ts.
  */
-export function stripHtml(input: string): string {
+function stripHtml(input: string): string {
   // A proper allowlist sanitizer (sanitize-html) is used for rich content.
   // For plain-text fields, we do NOT strip HTML — we let React's escaping
   // protect the output, and we only normalize whitespace and control chars.

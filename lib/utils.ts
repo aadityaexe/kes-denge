@@ -2,23 +2,6 @@
 // MARK 2 — Utility Functions
 // ============================================================
 
-import { type ClassValue, clsx } from "clsx";
-
-/**
- * Combines class names conditionally.
- * Lightweight alternative to clsx if we don't want the dependency.
- */
-export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
-}
-
-/**
- * Format a number with suffix (e.g. 150+ , 98%)
- */
-export function formatStat(value: number, suffix: string): string {
-  return `${value}${suffix}`;
-}
-
 /**
  * Generate a slug from a string
  */
@@ -34,7 +17,7 @@ export function slugify(text: string): string {
 /**
  * Check if we're running on the client side
  */
-export function isClient(): boolean {
+function isClient(): boolean {
   return typeof window !== "undefined";
 }
 
@@ -44,13 +27,6 @@ export function isClient(): boolean {
 export function prefersReducedMotion(): boolean {
   if (!isClient()) return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-/**
- * Clamp a value between min and max
- */
-export function clamp(value: number, min: number, max: number): number {
-  return Math.min(Math.max(value, min), max);
 }
 
 /**

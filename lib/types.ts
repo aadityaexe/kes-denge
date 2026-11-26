@@ -34,7 +34,7 @@ export interface ServiceTechItem {
   icon?: string;
 }
 
-export interface ServiceWhyChooseUsItem {
+interface ServiceWhyChooseUsItem {
   title: string;
   description: string;
   icon?: string;
@@ -320,79 +320,6 @@ export interface TeamMember {
   order: number;
   createdAt?: string | Date;
   updatedAt?: string | Date;
-}
-
-// ------ Testimonials ------
-export interface TestimonialEntry {
-  id: string;
-  clientName: string;
-  company: string;
-  photo: string;
-  review: string;
-  rating: number; // 1–5
-  isActive: boolean;
-}
-
-// ------ Contact Submission ------
-export type ContactStatus = "new" | "contacted" | "closed";
-
-export interface ContactSubmission {
-  id: string;
-  name: string;
-  email: string;
-  projectType: string;
-  budgetRange: string;
-  message: string;
-  status: ContactStatus;
-  createdAt: string;
-}
-
-// ------ Pricing ------
-export interface PricingFeature {
-  text: string;
-  included: boolean;
-}
-
-export interface PricingTier {
-  id: string;
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: PricingFeature[];
-  isPopular: boolean;
-  ctaText: string;
-  ctaHref: string;
-}
-
-// ------ FAQ ------
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
-// ------ Process Step ------
-export interface ProcessStep {
-  id: string;
-  number: number;
-  title: string;
-  description: string;
-  icon: string;
-}
-
-// ------ Technology ------
-export interface Technology {
-  name: string;
-  icon: string; // path to logo
-  category: "frontend" | "backend" | "database" | "devops" | "mobile" | "language";
-}
-
-// ------ Stats ------
-export interface StatItem {
-  label: string;
-  value: number;
-  suffix: string;
 }
 
 // ------ Navigation ------

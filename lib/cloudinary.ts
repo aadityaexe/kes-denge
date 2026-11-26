@@ -55,5 +55,3 @@ export async function deleteFromCloudinary(publicId: string): Promise<{ result: 
     return null;
   }
 }
-
-export default cloudinary;

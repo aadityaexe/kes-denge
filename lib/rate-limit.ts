@@ -22,7 +22,7 @@ export interface RateLimitResult {
   retryAfterMs?: number;
 }
 
-export function rateLimitHeaders(result: RateLimitResult): Record<string, string> {
+function rateLimitHeaders(result: RateLimitResult): Record<string, string> {
   const resetSec = Math.ceil(result.resetAt / 1000);
   const headers: Record<string, string> = {
     "RateLimit-Limit": String(result.limit),
