@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export interface StatusFilterItem {
+interface StatusFilterItem {
   id: string;
   label: string;
   count: number;

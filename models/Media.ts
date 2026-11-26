@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IMedia extends Document {
+interface IMedia extends Document {
   filename: string;
   originalName: string;
   url: string;

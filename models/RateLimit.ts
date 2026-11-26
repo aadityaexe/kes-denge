@@ -6,7 +6,7 @@ import mongoose, { Schema, Document } from "mongoose";
 // MongoDB's TTL index automatically deletes expired entries.
 // ============================================================
 
-export interface IRateLimit extends Document {
+interface IRateLimit extends Document {
   key: string;
   count: number;
   resetAt: Date;

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IFAQItem extends Document {
+interface IFAQItem extends Document {
   question: string;
   answer: string;
   category: string;

@@ -82,13 +82,3 @@ export function sanitizeBlogContent(html: string): string {
       ["script", "style", "iframe", "object", "embed"].includes(frame.tag),
   });
 }
-
-/**
- * Lightweight plain-text extraction — strips all HTML but preserves the text content.
- * Use for excerpt/meta generation only, NOT as a security boundary.
- */
-export function extractPlainText(html: string, maxLength = 300): string {
-  if (!html || typeof html !== "string") return "";
-  const stripped = sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
-  return stripped.slice(0, maxLength).trim();
-}

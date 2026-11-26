@@ -1,12 +1,12 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface ILegalSection {
+interface ILegalSection {
   title: string;
   content: string;
   order?: number;
 }
 
-export interface ILegalDocument extends Document {
+interface ILegalDocument extends Document {
   type: "privacy" | "terms";
   title: string;
   subtitle: string;

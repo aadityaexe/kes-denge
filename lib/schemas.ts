@@ -26,7 +26,7 @@ export function safeHref(url: unknown, fallback = "#"): string {
   return isSafeUrl(url) ? url.trim() : fallback;
 }
 
-export const safeUrlString = (maxLength = 1000) =>
+const safeUrlString = (maxLength = 1000) =>
   z
     .string()
     .max(maxLength)
@@ -34,7 +34,7 @@ export const safeUrlString = (maxLength = 1000) =>
       message: "URL must be a relative path or use http/https protocol",
     });
 
-export const safeOptionalUrlString = (maxLength = 1000) =>
+const safeOptionalUrlString = (maxLength = 1000) =>
   safeUrlString(maxLength).optional().or(z.literal(""));
 
 export const settingsUpdateSchema = z

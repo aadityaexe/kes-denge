@@ -8,7 +8,7 @@ import type {
   PortfolioTechItem,
 } from "@/lib/types";
 
-export interface IPortfolioItem extends Document {
+interface IPortfolioItem extends Document {
   title: string;
   slug: string;
   category: PortfolioCategory;

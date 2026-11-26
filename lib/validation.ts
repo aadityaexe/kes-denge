@@ -88,17 +88,6 @@ export function sanitizeText(input: unknown, maxLength = 5000): string {
   return stripHtml(input.slice(0, maxLength)).trim();
 }
 
-/**
- * Sanitize an optional text input (returns undefined if empty)
- */
-export function sanitizeOptionalText(
-  input: unknown,
-  maxLength = 5000
-): string | undefined {
-  const result = sanitizeText(input, maxLength);
-  return result.length > 0 ? result : undefined;
-}
-
 // ------ File Upload Validation ------
 
 // SVG is intentionally excluded: SVG files can carry embedded <script> tags,

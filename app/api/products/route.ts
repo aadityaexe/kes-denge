@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Product from "@/models/Product";
 import { checkRateLimit, extractClientIp, safeErrorMessage } from "@/lib/validation";
+import { parseBoundedInt } from "@/lib/utils";
 
 export async function GET(req: NextRequest) {
   try {
@@ -20,8 +21,7 @@ export async function GET(req: NextRequest) {
     await connectToDatabase();
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
-    const rawLimit = parseInt(searchParams.get("limit") || "50", 10);
-    const limit = Math.min(Math.max(1, isNaN(rawLimit) ? 50 : rawLimit), 100);
+    const limit = parseBoundedInt(searchParams.get("limit"), 50, 1, 100);
 
     const query: Record<string, unknown> = { isActive: true };
     if (category && category !== "all") {

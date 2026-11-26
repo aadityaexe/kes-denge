@@ -48,12 +48,6 @@ export const SCROLL_TRIGGER = {
   toggleActions: "play none none reverse" as const,
 };
 
-// Directional entrance defaults
-export const DIRECTIONAL_ENTRANCE = {
-  distance: 50, // 40–60px horizontal translate
-  opacity: { from: 0, to: 1 },
-};
-
 // Framer Motion variants
 export const fadeInUp = {
   initial: { opacity: 0, y: 30 },

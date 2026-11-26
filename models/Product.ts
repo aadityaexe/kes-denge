@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import type { ProductCategory, ProductModule } from "@/lib/types";
 
-export interface IProduct extends Document {
+interface IProduct extends Document {
   name: string;
   slug: string;
   tagline: string;

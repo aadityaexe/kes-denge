@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import type { SocialLinks } from "@/lib/types";
 
-export interface ITeamMember extends Document {
+interface ITeamMember extends Document {
   name: string;
   slug: string;
   role: string;

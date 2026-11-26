@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IMessage extends Document {
+interface IMessage extends Document {
   name: string;
   email: string;
   phone?: string;

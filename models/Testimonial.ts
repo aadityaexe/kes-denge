@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface ITestimonial extends Document {
+interface ITestimonial extends Document {
   clientName: string;
   company: string;
   role: string;
