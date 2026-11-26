@@ -5,7 +5,7 @@ import BlogPost from "@/models/Blog";
 import { isNonEmptyString, isValidSlug, sanitizeText, safeErrorMessage } from "@/lib/validation";
 import { sanitizeBlogContent } from "@/lib/blog-sanitize";
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 

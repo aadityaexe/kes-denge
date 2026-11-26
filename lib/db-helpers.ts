@@ -12,6 +12,7 @@ import Setting from "@/models/Setting";
 import BlogPost from "@/models/Blog";
 import LegalDocument from "@/models/LegalDocument";
 import { escapeRegex } from "@/lib/validation";
+import { slugify } from "@/lib/utils";
 
 /**
  * Safely serialize Mongoose lean documents into plain JSON objects for RSC boundary passing.
@@ -73,14 +74,6 @@ export const getTeamData = cache(async () => {
   }
 });
 
-function generateClientSlug(name: string): string {
-  return (name || "client")
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
 export const getClientsData = cache(async () => {
   try {
     await connectToDatabase();
@@ -91,7 +84,7 @@ export const getClientsData = cache(async () => {
     if (data && data.length > 0) {
       const serialized = serialize(data);
       return serialized.map((client: any) => {
-        const slug = client.slug || generateClientSlug(client.name);
+        const slug = client.slug || slugify(client.name || "client");
         return {
           ...client,
           id: client._id?.toString() || client.id || slug,
@@ -350,11 +343,11 @@ export const getClientBySlug = cache(async (slug: string) => {
     let client = await Client.findOne({ slug, isActive: true }).lean();
     if (!client) {
       const all = await Client.find({ isActive: true }).lean();
-      client = all.find((c: any) => (c.slug || generateClientSlug(c.name)) === slug);
+      client = all.find((c: any) => (c.slug || slugify(c.name || "client")) === slug);
     }
     if (client) {
       const serialized = serialize(client);
-      const computedSlug = serialized.slug || generateClientSlug(serialized.name);
+      const computedSlug = serialized.slug || slugify(serialized.name || "client");
       return {
         ...serialized,
         id: serialized._id?.toString() || serialized.id || computedSlug,

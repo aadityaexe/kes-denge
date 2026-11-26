@@ -9,6 +9,7 @@ import {
   sanitizeText,
   safeErrorMessage,
 } from "@/lib/validation";
+import { parseBoundedInt } from "@/lib/utils";
 
 const VALID_STATUSES = [
   "new",
@@ -28,9 +29,8 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const status = searchParams.get("status");
     const projectType = searchParams.get("projectType");
-    const rawLimit = parseInt(searchParams.get("limit") || "100", 10);
-    const limit = Math.min(Math.max(1, isNaN(rawLimit) ? 100 : rawLimit), 200);
-    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
+    const limit = parseBoundedInt(searchParams.get("limit"), 100, 1, 200);
+    const page = parseBoundedInt(searchParams.get("page"), 1, 1, 10000);
 
     await connectToDatabase();
     const query: Record<string, unknown> = {};

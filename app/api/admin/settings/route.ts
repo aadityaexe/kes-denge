@@ -13,7 +13,7 @@ const defaultStats = [
   { label: "Years Experience", value: 6, suffix: "+" },
 ];
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const auth = await requireRole("admin");
   if (!auth.authorized) return auth.response;
 

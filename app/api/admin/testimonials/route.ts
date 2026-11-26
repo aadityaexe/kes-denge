@@ -4,7 +4,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 import Testimonial from "@/models/Testimonial";
 import { isNonEmptyString, sanitizeText, safeErrorMessage } from "@/lib/validation";
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAdminSession } from "@/lib/auth-guard";
 import { connectToDatabase } from "@/lib/mongodb";
 import Service from "@/models/Service";
@@ -15,7 +15,7 @@ import Media from "@/models/Media";
 import Product from "@/models/Product";
 import { safeErrorMessage } from "@/lib/validation";
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const auth = await requireAdminSession();
   if (!auth.authorized) return auth.response;
 

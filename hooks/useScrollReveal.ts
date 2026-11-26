@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";
-import { EASE, DURATION, SCROLL_TRIGGER, DIRECTIONAL_ENTRANCE } from "@/lib/animations";
+import { EASE, DURATION, SCROLL_TRIGGER } from "@/lib/animations";
 import { prefersReducedMotion } from "@/lib/utils";
 
 type Direction = "up" | "down" | "left" | "right";

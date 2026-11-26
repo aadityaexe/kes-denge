@@ -33,3 +33,12 @@
 | `@gsap/react` | Dependency | `knip` + `git grep` 0 imports |
 | `clsx` | Dependency | `git grep` 0 imports after removing unused `cn()` |
 | `.npmrc` (`legacy-peer-deps=true`) | Config | Removed; `npm uninstall`/`dedupe`/`prune` and build succeed without it |
+
+## Phase 4 — Dead Code Inside Live Files
+| Item | Category | Evidence |
+|---|---|---|
+| `eslint.config.mjs` | Lint strictness | Upgraded `unused-imports/no-unused-imports`, `unused-imports/no-unused-vars`, and `prefer-const` from `warn` to `error` |
+| `components/admin/Toast.tsx` | Debug logs | Removed 4 fallback `console.log` calls |
+| `hooks/useScrollReveal.ts` (`DIRECTIONAL_ENTRANCE`) | Dead import | Unused after `useDirectionalEntrance` removal |
+| `lib/db-helpers.ts` (`generateClientSlug`) | Duplication | Replaced with `slugify` from `lib/utils.ts` |
+| `app/api/admin/*/route.ts` (12 `GET` handlers) | Dead params | Removed unused `_req: NextRequest` parameter |

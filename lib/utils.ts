@@ -30,6 +30,20 @@ export function prefersReducedMotion(): boolean {
 }
 
 /**
+ * Parse an integer query param clamped to [min, max] with a default fallback
+ */
+export function parseBoundedInt(
+  value: string | null,
+  fallback: number,
+  min: number,
+  max: number
+): number {
+  const parsed = parseInt(value || "", 10);
+  if (Number.isNaN(parsed)) return fallback;
+  return Math.min(Math.max(min, parsed), max);
+}
+
+/**
  * Linear interpolation
  */
 export function lerp(start: number, end: number, factor: number): number {

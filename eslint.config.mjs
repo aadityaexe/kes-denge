@@ -14,14 +14,14 @@ const eslintConfig = defineConfig([
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [
-        "warn",
+        "error",
         { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
       ],
       "react-hooks/set-state-in-effect": "off",
       "react/no-unescaped-entities": "off",
-      "prefer-const": "warn",
+      "prefer-const": "error",
     },
   },
   // Override default ignores of eslint-config-next.

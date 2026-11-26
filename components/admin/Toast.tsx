@@ -83,11 +83,11 @@ export function useToast() {
   if (!context) {
     // Graceful fallback if used outside provider
     return {
-      toast: (msg: string) => console.log("[Toast]", msg),
-      addToast: (msg: string) => console.log("[Toast]", msg),
-      success: (msg: string) => console.log("[Toast success]", msg),
+      toast: () => {},
+      addToast: () => {},
+      success: () => {},
       error: (msg: string) => console.error("[Toast error]", msg),
-      info: (msg: string) => console.log("[Toast info]", msg),
+      info: () => {},
     };
   }
   return context;
