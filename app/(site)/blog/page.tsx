@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getBlogsData } from "@/lib/db-helpers";
-import { Parallax } from "@/components/ui/Parallax";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageHero } from "@/components/layout/PageHero";
 import { ArrowUpRight, Clock, Tag } from "lucide-react";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -36,35 +35,21 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   const blogs = await getBlogsData();
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
-    ],
-  };
-
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Blog", url: `${siteUrl}/blog` },
+  ]);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
 
-      {/* Hero */}
-      <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <Parallax speed={0.8} className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[var(--color-accent)]/10 to-transparent blur-[120px]" />
-        </div>
-        <div className="container-site relative z-10">
-          <SectionHeading
-            as="h1"
-            title="Engineering insights from the team."
-            subtitle="Technical articles, guides, and lessons from building real products — websites, ERPs, and digital platforms for clients across India."
-            badge="Blog"
-            align="center"
-          />
-        </div>
-      </div>
+      <PageHero
+        badge="Blog"
+        title="Engineering insights from the team."
+        subtitle="Technical articles, guides, and lessons from building real products — websites, ERPs, and digital platforms for clients across India."
+        className="pb-10 sm:pb-12"
+      />
 
       {/* Blog Grid */}
       <section className="section-padding bg-base">
@@ -81,7 +66,6 @@ export default async function BlogPage() {
                   href={`/blog/${post.slug}`}
                   className={`group flex flex-col bg-surface-1 border border-[var(--color-border)] rounded-2xl overflow-hidden hover:border-[var(--color-accent)]/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 ${index === 0 ? "md:col-span-2 lg:col-span-2" : ""}`}
                 >
-                  {/* Featured image or gradient placeholder */}
                   <div className={`relative w-full bg-gradient-to-br from-surface-2 to-[var(--color-accent)]/5 overflow-hidden ${index === 0 ? "h-64 sm:h-80" : "h-48"}`}>
                     {post.featuredImage ? (
                       <Image
@@ -98,7 +82,6 @@ export default async function BlogPage() {
                         </span>
                       </div>
                     )}
-                    {/* Category badge */}
                     <div className="absolute top-4 left-4">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-xs font-medium">
                         <Tag size={10} />
@@ -107,7 +90,6 @@ export default async function BlogPage() {
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="flex flex-col flex-1 p-5 sm:p-6 md:p-8">
                     <div className="flex items-center gap-3 text-xs text-text-muted mb-3 flex-wrap">
                       <span className="flex items-center gap-1">
@@ -125,7 +107,7 @@ export default async function BlogPage() {
                       )}
                     </div>
 
-                    <h2 className={`font-display font-bold text-text-primary group-hover:text-[var(--color-accent)] transition-colors mb-3 leading-snug break-words ${index === 0 ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}>
+                    <h2 className={`font-display font-bold text-text-primary group-hover:text-[var(--color-accent-dark)] transition-colors mb-3 leading-snug break-words ${index === 0 ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"}`}>
                       {post.title}
                     </h2>
 

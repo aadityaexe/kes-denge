@@ -11,6 +11,7 @@ import PricingTier from "@/models/Pricing";
 import Setting from "@/models/Setting";
 import BlogPost from "@/models/Blog";
 import LegalDocument from "@/models/LegalDocument";
+import Job from "@/models/Job";
 import { escapeRegex } from "@/lib/validation";
 import { slugify } from "@/lib/utils";
 
@@ -475,6 +476,30 @@ export const getLegalDocument = cache(async (type: "privacy" | "terms") => {
   } catch (err) {
     console.error(`Failed to fetch ${type} legal document from DB:`, err);
     return fallback;
+  }
+});
+
+export const getJobsData = cache(async () => {
+  try {
+    await connectToDatabase();
+    const data = await Job.find({ status: "open" })
+      .sort({ isFeatured: -1, order: 1, createdAt: -1 })
+      .lean();
+    return serialize(data || []);
+  } catch (err) {
+    console.error("Failed to fetch jobs data from DB:", err);
+    return [];
+  }
+});
+
+export const getJobBySlug = cache(async (slug: string) => {
+  try {
+    await connectToDatabase();
+    const job = await Job.findOne({ slug, status: "open" }).lean();
+    return serialize(job);
+  } catch (err) {
+    console.error(`Failed to fetch job by slug "${slug}":`, err);
+    return null;
   }
 });
 

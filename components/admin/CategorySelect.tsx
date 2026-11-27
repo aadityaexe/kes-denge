@@ -7,7 +7,6 @@ import {
   Check,
   Search,
   Layers,
-  Sparkles,
   Loader2,
   Trash2,
   AlertCircle,
@@ -335,7 +334,7 @@ export function CategorySelect({
             {showAddForm ? (
               <form onSubmit={handleCreateCategory} className="space-y-2">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-text-primary">
-                  <Sparkles className="w-3 h-3 text-[var(--color-accent)]" />
+                  <Plus className="w-3 h-3 text-[var(--color-accent)]" />
                   <span>Create New Category in Database</span>
                 </div>
 

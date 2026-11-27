@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { ProductsSection } from "@/components/sections/ProductsSection";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Parallax } from "@/components/ui/Parallax";
+import { PageHero } from "@/components/layout/PageHero";
 import { getProductsData } from "@/lib/db-helpers";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -50,14 +49,10 @@ export const revalidate = 3600;
 export default async function ProductsPage() {
   const productsData = await getProductsData();
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Products", item: `${siteUrl}/products` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Products", url: `${siteUrl}/products` },
+  ]);
 
   const productListSchema = {
     "@context": "https://schema.org",
@@ -92,27 +87,13 @@ export default async function ProductsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(productListSchema) }}
       />
-      <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
-        {/* Background Parallax Orb */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <Parallax speed={0.8} className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[var(--color-accent)]/10 to-transparent blur-[120px]" />
-        </div>
-        <div className="container-site relative z-10">
-          <SectionHeading
-            as="h1"
-            title="Platforms built for scale."
-            subtitle="Discover our flagship products designed to accelerate your business operations."
-            badge="Products"
-            align="center"
-          />
-          <div className="max-w-3xl mx-auto mt-6 text-center">
-            <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
-              MARK 2 develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC).
-            </p>
-          </div>
-        </div>
-      </div>
-      
+      <PageHero
+        badge="Products"
+        title="Platforms built for scale."
+        subtitle="Discover our flagship products designed to accelerate your business operations."
+        lead="MARK 2 develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC)."
+      />
+
       <ProductsSection productsData={productsData} showAll={true} hideHeader={true} />
     </>
   );

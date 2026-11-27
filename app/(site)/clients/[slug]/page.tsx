@@ -23,7 +23,7 @@ import {
   Quote,
   ShieldCheck,
   Cpu,
-  Sparkles,
+
 } from "lucide-react";
 
 export const dynamicParams = true;
@@ -614,7 +614,7 @@ export default async function ClientDetailPage({
 
               {/* Direct Partnership Contact Card */}
               <div className="p-6 rounded-3xl bg-surface-2 border border-[var(--color-border)] text-center">
-                <Sparkles
+                <ShieldCheck
                   size={24}
                   className="mx-auto text-[var(--color-accent-dark)] mb-3"
                 />

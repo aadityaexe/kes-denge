@@ -11,7 +11,7 @@ import {
   ExternalLink,
   Check,
   MapPin,
-  Sparkles,
+  Award,
 } from "lucide-react";
 import type { Client } from "@/lib/types";
 
@@ -145,7 +145,7 @@ function ClientSpotlightCard({ client }: { client: Client }) {
           <div className="rounded-2xl bg-surface-2/60 border border-[var(--color-border)]/70 p-3.5 sm:p-4 mb-5 space-y-2.5 backdrop-blur-xs transition-colors group-hover:border-[var(--color-accent)]/20">
             <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-text-muted font-bold">
               <span className="flex items-center gap-1.5">
-                <Sparkles size={11} className="text-[var(--color-accent-dark)]" />
+                <Award size={11} className="text-[var(--color-accent-dark)]" />
                 Key Deliverables
               </span>
               <span className="text-[var(--color-accent-dark)] font-medium">Production Scope</span>

@@ -3,25 +3,20 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { DataTable, Column } from "@/components/admin/DataTable";
-import { Modal } from "@/components/admin/Modal";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { StatusBreakdownBar } from "@/components/admin/StatusBreakdownBar";
-import { FormField } from "@/components/admin/FormField";
 import { useToast } from "@/components/admin/Toast";
-import { Button } from "@/components/ui/Button";
+import { MessageDetailModal } from "@/components/admin/messages/MessageDetailModal";
+import { AddLeadModal } from "@/components/admin/messages/AddLeadModal";
+import { VALID_STATUSES, PROJECT_TYPES, BUDGET_RANGES } from "@/components/admin/messages/constants";
 import {
   Trash2,
   Eye,
   Mail,
   Phone,
-  DollarSign,
-  Tag,
   CheckCircle2,
-  Copy,
-  Check,
   Plus,
   Download,
-  PhoneCall,
   MessageCircle,
   StickyNote,
   Clock,
@@ -29,35 +24,6 @@ import {
   Layers,
   Zap,
 } from "lucide-react";
-
-const VALID_STATUSES = [
-  { id: "new", label: "New", color: "rose", badge: "bg-rose-500/10 text-rose-600 border-rose-500/20" },
-  { id: "contacted", label: "Contacted", color: "purple", badge: "bg-purple-500/10 text-purple-600 border-purple-500/20" },
-  { id: "in_progress", label: "In Progress", color: "amber", badge: "bg-amber-500/10 text-amber-600 border-amber-500/20" },
-  { id: "completed", label: "Completed", color: "emerald", badge: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" },
-  { id: "closed", label: "Closed", color: "blue", badge: "bg-blue-500/10 text-blue-600 border-blue-500/20" },
-  { id: "spam", label: "Spam", color: "zinc", badge: "bg-zinc-500/10 text-zinc-500 border-zinc-500/20" },
-];
-
-const PROJECT_TYPES = [
-  "All Types",
-  "Web Development",
-  "Mobile App Development",
-  "ERP & SaaS Systems",
-  "AI & Automation",
-  "Cloud & DevOps Architecture",
-  "Product Engineering & Consulting",
-  "Other",
-];
-
-const BUDGET_RANGES = [
-  "All Budgets",
-  "Under $10k",
-  "$10k - $25k",
-  "$25k - $50k",
-  "$50k - $100k",
-  "$100k+",
-];
 
 export default function MessagesAdminPage() {
   const [messages, setMessages] = useState<any[]>([]);
@@ -768,395 +734,29 @@ export default function MessagesAdminPage() {
       </div>
 
       {/* Message Details Modal */}
-      {viewingMessage && (
-        <Modal
-          isOpen={!!viewingMessage}
-          onClose={() => setViewingMessage(null)}
-          title={`Lead: ${viewingMessage.name}`}
-          description={`Received on ${new Date(viewingMessage.createdAt).toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}`}
-          maxWidth="4xl"
-        >
-          <div className="space-y-6">
-            {/* Quick Communication Action Bar */}
-            <div className="p-3.5 bg-[var(--color-accent)]/5 border border-[var(--color-accent)]/20 rounded-xl flex flex-wrap items-center justify-between gap-3">
-              <div className="text-xs">
-                <span className="font-bold text-text-primary block">Direct Communication Shortcuts</span>
-                <span className="text-text-muted text-[11px]">Connect directly with client across preferred channels:</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <a
-                  href={`mailto:${viewingMessage.email}?subject=${encodeURIComponent(`Re: ${viewingMessage.projectType} Inquiry — MARK 2`)}&body=${encodeURIComponent(`Hi ${viewingMessage.name},\n\nThank you for reaching out to MARK 2 regarding your ${viewingMessage.projectType} project requirements.\n\nWe reviewed your requirements and would love to schedule a brief discovery call to discuss scope, timeline, and architectural approach.\n\nBest regards,\nMARK Technologies Engineering Team`)}`}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors flex items-center gap-1.5 shadow-sm"
-                >
-                  <Mail size={13} />
-                  <span>Reply via Email</span>
-                </a>
-
-                {viewingMessage.phone ? (
-                  <>
-                    <a
-                      href={getWhatsAppLink(viewingMessage.phone, viewingMessage.name, viewingMessage.projectType)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors flex items-center gap-1.5 shadow-sm"
-                    >
-                      <MessageCircle size={13} />
-                      <span>WhatsApp</span>
-                    </a>
-                    <a
-                      href={`tel:${viewingMessage.phone}`}
-                      className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-surface-2 border border-[var(--color-border)] text-text-primary hover:bg-surface-3 transition-colors flex items-center gap-1.5"
-                    >
-                      <PhoneCall size={13} />
-                      <span>Call</span>
-                    </a>
-                  </>
-                ) : null}
-              </div>
-            </div>
-
-            {/* Sender Summary Cards */}
-            <div className="bg-surface-2 p-4 rounded-xl border border-[var(--color-border)] grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-surface-1 border border-[var(--color-border)]">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <Mail size={16} className="text-[var(--color-accent-dark)] shrink-0" />
-                  <div className="min-w-0">
-                    <span className="text-text-muted text-[10px] uppercase font-mono block">Email Address</span>
-                    <a href={`mailto:${viewingMessage.email}`} className="font-semibold text-text-primary hover:underline truncate block">
-                      {viewingMessage.email}
-                    </a>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(viewingMessage.email, "email")}
-                  className="p-1 rounded text-text-muted hover:text-text-primary hover:bg-surface-2 transition-colors shrink-0"
-                  title="Copy email"
-                >
-                  {copiedField === "email" ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
-                </button>
-              </div>
-
-              {viewingMessage.phone ? (
-                <div className="flex items-center justify-between gap-2 p-2.5 rounded-lg bg-surface-1 border border-[var(--color-border)]">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <Phone size={16} className="text-[var(--color-accent-dark)] shrink-0" />
-                    <div className="min-w-0">
-                      <span className="text-text-muted text-[10px] uppercase font-mono block">Phone Number</span>
-                      <a href={`tel:${viewingMessage.phone}`} className="font-semibold text-text-primary hover:underline truncate block">
-                        {viewingMessage.phone}
-                      </a>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(viewingMessage.phone, "phone")}
-                    className="p-1 rounded text-text-muted hover:text-text-primary hover:bg-surface-2 transition-colors shrink-0"
-                    title="Copy phone"
-                  >
-                    {copiedField === "phone" ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-surface-1 border border-[var(--color-border)] text-text-muted">
-                  <Phone size={16} className="shrink-0" />
-                  <div>
-                    <span className="text-[10px] uppercase font-mono block">Phone Number</span>
-                    <span className="text-xs italic">Not provided</span>
-                  </div>
-                </div>
-              )}
-
-              <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-surface-1 border border-[var(--color-border)]">
-                <Tag size={16} className="text-[var(--color-accent-dark)] shrink-0" />
-                <div>
-                  <span className="text-text-muted text-[10px] uppercase font-mono block">Service Requested</span>
-                  <span className="font-semibold text-text-primary">{viewingMessage.projectType}</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5 p-2.5 rounded-lg bg-surface-1 border border-[var(--color-border)]">
-                <DollarSign size={16} className="text-[var(--color-accent-dark)] shrink-0" />
-                <div>
-                  <span className="text-text-muted text-[10px] uppercase font-mono block">Budget Range</span>
-                  <span className="font-semibold text-[var(--color-accent-dark)] font-mono">{viewingMessage.budgetRange}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Client Message */}
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-semibold text-text-primary uppercase tracking-wider">
-                  Client Project Requirements
-                </label>
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(viewingMessage.message, "message")}
-                  className="text-[11px] text-text-muted hover:text-text-primary flex items-center gap-1 transition-colors"
-                >
-                  {copiedField === "message" ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
-                  <span>Copy Message</span>
-                </button>
-              </div>
-              <div className="p-4 bg-surface-2 rounded-xl border border-[var(--color-border)] text-text-primary text-xs leading-relaxed whitespace-pre-wrap font-sans">
-                {viewingMessage.message}
-              </div>
-            </div>
-
-            {/* Internal Admin Notes Section */}
-            <div className="p-4 bg-surface-1 rounded-xl border border-amber-500/20 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <StickyNote size={15} className="text-amber-500" />
-                  <span className="text-xs font-bold text-text-primary">Internal Deal Notes & Follow-ups</span>
-                </div>
-                <span className="text-[10px] text-text-muted">Visible only to admin team</span>
-              </div>
-
-              <textarea
-                value={editingNotes}
-                onChange={(e) => setEditingNotes(e.target.value)}
-                placeholder="Log internal details: e.g. 'Intro call booked for Thursday', 'Sent technical proposal for $35k', 'Waiting on client budget sign-off'..."
-                rows={3}
-                className="w-full p-3 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-amber-500"
-              />
-
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                {/* Quick Snippet Chips */}
-                <div className="flex flex-wrap items-center gap-1.5 text-[10px]">
-                  <span className="text-text-muted">Insert:</span>
-                  <button
-                    type="button"
-                    onClick={() => setEditingNotes((prev) => (prev ? `${prev}\n• Discovery call scheduled` : "• Discovery call scheduled"))}
-                    className="px-2 py-0.5 rounded bg-surface-2 border border-[var(--color-border)] text-text-secondary hover:text-text-primary"
-                  >
-                    📞 Discovery Call
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setEditingNotes((prev) => (prev ? `${prev}\n• Proposal and architecture scope sent` : "• Proposal and architecture scope sent"))}
-                    className="px-2 py-0.5 rounded bg-surface-2 border border-[var(--color-border)] text-text-secondary hover:text-text-primary"
-                  >
-                    📑 Proposal Sent
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setEditingNotes((prev) => (prev ? `${prev}\n• Follow-up required next week` : "• Follow-up required next week"))}
-                    className="px-2 py-0.5 rounded bg-surface-2 border border-[var(--color-border)] text-text-secondary hover:text-text-primary"
-                  >
-                    ⏰ Follow-up Needed
-                  </button>
-                </div>
-
-                <Button
-                  size="sm"
-                  variant="primary"
-                  onClick={handleSaveNotes}
-                  disabled={isSavingNotes}
-                  className="text-xs"
-                >
-                  {isSavingNotes ? "Saving..." : "Save Notes"}
-                </Button>
-              </div>
-            </div>
-
-            {/* Status Selector & Delete */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[var(--color-border)]">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-text-muted">Pipeline Status:</span>
-                <select
-                  value={viewingMessage.status}
-                  onChange={(e) => handleInlineStatusChange(viewingMessage._id, e.target.value)}
-                  className={`px-3 py-1.5 text-xs font-bold uppercase rounded-lg border focus:outline-none ${
-                    VALID_STATUSES.find((s) => s.id === viewingMessage.status)?.badge ||
-                    "bg-surface-2 border-[var(--color-border)] text-text-primary"
-                  }`}
-                >
-                  {VALID_STATUSES.map((st) => (
-                    <option key={st.id} value={st.id} className="bg-surface-1 text-text-primary normal-case font-normal">
-                      {st.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setDeleteId(viewingMessage._id)}
-                  className="p-2 text-xs font-semibold rounded-lg border border-red-500/20 text-red-600 hover:bg-red-500/10 transition-colors"
-                  title="Delete Lead"
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <MessageDetailModal
+        message={viewingMessage}
+        editingNotes={editingNotes}
+        isSavingNotes={isSavingNotes}
+        copiedField={copiedField}
+        onClose={() => setViewingMessage(null)}
+        onNotesChange={setEditingNotes}
+        onSaveNotes={handleSaveNotes}
+        onStatusChange={handleInlineStatusChange}
+        onDelete={setDeleteId}
+        onCopy={copyToClipboard}
+        getWhatsAppLink={getWhatsAppLink}
+      />
 
       {/* Manual Inbound Lead Creation Modal */}
-      {isAddModalOpen && (
-        <Modal
-          isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
-          title="Add Inbound Lead"
-          description="Manually record leads received via phone calls, referrals, offline events, or social channels"
-          maxWidth="4xl"
-        >
-          <form onSubmit={handleCreateLead} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <FormField
-                label="Client Full Name"
-                required
-                tooltip="Name of the prospective client or point of contact"
-                charCount={{ current: newLead.name.length, max: 100 }}
-              >
-                <input
-                  type="text"
-                  required
-                  value={newLead.name}
-                  onChange={(e) => setNewLead({ ...newLead, name: e.target.value })}
-                  placeholder="e.g. David Sterling"
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                />
-              </FormField>
-
-              <FormField
-                label="Email Address"
-                required
-                tooltip="Primary email used for proposals and communication"
-              >
-                <input
-                  type="email"
-                  required
-                  value={newLead.email}
-                  onChange={(e) => setNewLead({ ...newLead, email: e.target.value })}
-                  placeholder="david@company.com"
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                />
-              </FormField>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <FormField
-                label="Phone Number"
-                tooltip="Mobile or direct line for WhatsApp & calls"
-              >
-                <input
-                  type="tel"
-                  value={newLead.phone}
-                  onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })}
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                />
-              </FormField>
-
-              <FormField
-                label="Service Requested"
-                tooltip="Service pillar or engineering scope"
-              >
-                <select
-                  value={newLead.projectType}
-                  onChange={(e) => setNewLead({ ...newLead, projectType: e.target.value })}
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                >
-                  <option value="Web Development">Web Development</option>
-                  <option value="Mobile App Development">Mobile App Development</option>
-                  <option value="ERP & SaaS Systems">ERP & SaaS Systems</option>
-                  <option value="AI & Automation">AI & Automation</option>
-                  <option value="Cloud & DevOps Architecture">Cloud & DevOps Architecture</option>
-                  <option value="Product Engineering & Consulting">Product Engineering & Consulting</option>
-                  <option value="Other">Other</option>
-                </select>
-              </FormField>
-
-              <FormField
-                label="Estimated Budget"
-                tooltip="Client indicated budget bracket"
-              >
-                <select
-                  value={newLead.budgetRange}
-                  onChange={(e) => setNewLead({ ...newLead, budgetRange: e.target.value })}
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                >
-                  <option value="Under $10k">Under $10k</option>
-                  <option value="$10k - $25k">$10k - $25k</option>
-                  <option value="$25k - $50k">$25k - $50k</option>
-                  <option value="$50k - $100k">$50k - $100k</option>
-                  <option value="$100k+">$100k+</option>
-                </select>
-              </FormField>
-            </div>
-
-            <FormField
-              label="Project Scope / Client Inbound Message"
-              required
-              tooltip="Summary of the client's request or initial conversation"
-              charCount={{ current: newLead.message.length, max: 5000 }}
-            >
-              <textarea
-                required
-                rows={4}
-                value={newLead.message}
-                onChange={(e) => setNewLead({ ...newLead, message: e.target.value })}
-                placeholder="Details on the client's engineering requirements, goals, or timeline..."
-                className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-              />
-            </FormField>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <FormField
-                label="Initial Pipeline Status"
-                tooltip="Current triage state for this lead"
-              >
-                <select
-                  value={newLead.status}
-                  onChange={(e) => setNewLead({ ...newLead, status: e.target.value })}
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                >
-                  <option value="new">New</option>
-                  <option value="contacted">Contacted</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="completed">Completed</option>
-                  <option value="closed">Closed</option>
-                </select>
-              </FormField>
-
-              <FormField
-                label="Initial Internal Notes (Optional)"
-                tooltip="Private notes for team context"
-              >
-                <input
-                  type="text"
-                  value={newLead.notes}
-                  onChange={(e) => setNewLead({ ...newLead, notes: e.target.value })}
-                  placeholder="e.g. Met at tech conference; requested demo"
-                  className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-                />
-              </FormField>
-            </div>
-
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--color-border)]">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setIsAddModalOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                variant="primary"
-                disabled={isSubmittingLead}
-              >
-                {isSubmittingLead ? "Adding Lead..." : "Add Inbound Lead"}
-              </Button>
-            </div>
-          </form>
-        </Modal>
-      )}
+      <AddLeadModal
+        isOpen={isAddModalOpen}
+        newLead={newLead}
+        isSubmitting={isSubmittingLead}
+        onClose={() => setIsAddModalOpen(false)}
+        onChange={setNewLead}
+        onSubmit={handleCreateLead}
+      />
 
       {/* Delete Confirmation Dialog */}
       <ConfirmDialog

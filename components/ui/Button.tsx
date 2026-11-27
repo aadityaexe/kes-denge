@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import Link from "next/link";
 import { useMagneticButton } from "@/hooks/useMagneticButton";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "outline";
@@ -20,11 +21,11 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-accent [color:#FFFFFF] hover:bg-accent-dark shadow-sm hover:shadow-accent",
   secondary:
-    "bg-transparent text-text-primary border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-surface-1",
+    "bg-surface-1 text-text-primary border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-surface-2",
   outline:
-    "bg-transparent text-text-primary border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-surface-1",
+    "bg-transparent text-text-primary border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-surface-2",
   ghost:
-    "bg-transparent text-text-secondary hover:text-text-primary hover:bg-surface-1",
+    "bg-transparent text-text-secondary hover:text-text-primary hover:bg-surface-2",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -66,13 +67,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       .join(" ");
 
     if (href) {
+      const isInternal = href.startsWith("/") && target !== "_blank";
+      if (isInternal) {
+        return (
+          <Link href={href} className={classes} ref={ref as any}>
+            {children}
+          </Link>
+        );
+      }
       return (
         <a
           href={href}
           target={target}
           rel={rel}
           className={classes}
-           
           ref={ref as any}
         >
           {children}

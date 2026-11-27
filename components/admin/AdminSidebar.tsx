@@ -24,6 +24,7 @@ import {
   Globe,
   Menu,
   X,
+  UserPlus,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -41,6 +42,7 @@ const navLinks = [
   { label: "Testimonials", href: "/admin/testimonials", icon: Star },
   { label: "Team Members", href: "/admin/team", icon: Users },
   { label: "Contact Leads", href: "/admin/messages", icon: MessageSquare, isInbox: true },
+  { label: "Careers & Jobs", href: "/admin/careers", icon: UserPlus },
   { label: "Blog Posts", href: "/admin/blog", icon: BookOpen },
   { label: "Pricing Tiers", href: "/admin/pricing", icon: CreditCard },
   { label: "FAQs", href: "/admin/faq", icon: HelpCircle },

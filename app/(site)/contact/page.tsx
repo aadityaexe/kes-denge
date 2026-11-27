@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { getSettingsData } from "@/lib/db-helpers";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -39,14 +39,10 @@ export const revalidate = 3600;
 export default async function ContactPage() {
   const settingsData = await getSettingsData();
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Contact", item: `${siteUrl}/contact` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Contact", url: `${siteUrl}/contact` },
+  ]);
 
   const contactPageSchema = {
     "@context": "https://schema.org",

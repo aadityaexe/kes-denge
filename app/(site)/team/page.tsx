@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { getTeamData } from "@/lib/db-helpers";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -40,14 +40,10 @@ export const metadata: Metadata = {
 export default async function TeamPage() {
   const teamData = await getTeamData();
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Team", item: `${siteUrl}/team` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Team", url: `${siteUrl}/team` },
+  ]);
 
   const teamSchema = {
     "@context": "https://schema.org",

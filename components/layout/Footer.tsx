@@ -16,7 +16,7 @@ export async function Footer() {
   const instagram = settings?.socialLinks?.instagram;
 
   return (
-    <footer className="bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)] pt-14 md:pt-16 pb-8 overflow-hidden relative">
+    <footer className="bg-surface-2 border-t border-[var(--color-border)] pt-14 md:pt-16 pb-8 overflow-hidden relative">
       <div className="container-site mb-12 md:mb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
 
@@ -33,7 +33,7 @@ export async function Footer() {
               {description}
             </p>
 
-            <div className="flex items-center gap-3 inline-flex px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] max-w-full flex-wrap">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-[var(--color-border)] bg-surface-1 max-w-full flex-wrap">
               <span className="relative flex h-2.5 w-2.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
@@ -52,6 +52,7 @@ export async function Footer() {
                 { label: 'Portfolio', href: '/portfolio' },
                 { label: 'Clients', href: '/clients' },
                 { label: 'Team', href: '/team' },
+                { label: 'Careers', href: '/careers' },
                 { label: 'Blog', href: '/blog' },
                 { label: 'Pricing', href: '/pricing' },
                 { label: 'Contact', href: '/contact' },
@@ -123,7 +124,7 @@ export async function Footer() {
                 <li>
                   <a
                     href={`mailto:${email}`}
-                    className="text-[var(--color-accent)] hover:underline flex items-center gap-2 pt-1 font-medium"
+                    className="text-[var(--color-accent-dark)] hover:underline flex items-center gap-2 pt-1 font-medium"
                   >
                     {email}
                   </a>

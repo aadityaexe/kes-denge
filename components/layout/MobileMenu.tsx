@@ -71,7 +71,7 @@ export function MobileMenu({
                       block text-[clamp(1.35rem,3.8vh,2.5rem)] font-display font-bold leading-tight tracking-tight
                       py-1.5 sm:py-2 min-h-[44px] flex items-center transition-colors
                       ${
-                        currentPath === item.href
+                        (item.href === "/" ? currentPath === "/" : currentPath.startsWith(item.href))
                           ? "text-[var(--color-accent-dark)] italic"
                           : "text-text-primary hover:text-text-secondary"
                       }

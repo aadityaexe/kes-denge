@@ -322,6 +322,72 @@ export interface TeamMember {
   updatedAt?: string | Date;
 }
 
+// ------ Careers & Jobs ------
+export type JobWorkMode = "Remote" | "Hybrid" | "On-site";
+export type JobEmploymentType = "Full-time" | "Part-time" | "Contract" | "Internship";
+export type JobExperienceLevel = "Entry Level" | "Mid Level" | "Senior" | "Lead / Principal";
+export type JobStatus = "open" | "closed" | "draft";
+export type JobApplicationStatus =
+  | "new"
+  | "reviewing"
+  | "shortlisted"
+  | "interviewing"
+  | "rejected"
+  | "hired";
+
+export interface Job {
+  _id?: string;
+  id?: string;
+  title: string;
+  slug: string;
+  department: string;
+  location: string;
+  workMode: JobWorkMode;
+  employmentType: JobEmploymentType;
+  experienceLevel: JobExperienceLevel;
+  salaryRange?: string;
+  summary: string;
+  description: string;
+  responsibilities: string[];
+  requirements: string[];
+  niceToHave: string[];
+  skills: string[];
+  benefits: string[];
+  applicationDeadline?: string | Date;
+  applyUrl?: string;
+  status: JobStatus;
+  isFeatured: boolean;
+  order: number;
+  metaTitle?: string;
+  metaDescription?: string;
+  applicantCount?: number;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+}
+
+export interface JobApplication {
+  _id?: string;
+  id?: string;
+  jobId: string;
+  jobTitle: string;
+  jobSlug: string;
+  applicantName: string;
+  email: string;
+  phone?: string;
+  location?: string;
+  currentRole?: string;
+  experienceYears?: string;
+  noticePeriod?: string;
+  portfolioUrl?: string;
+  linkedinUrl?: string;
+  resumeUrl?: string;
+  coverLetter: string;
+  status: JobApplicationStatus;
+  notes?: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+}
+
 // ------ Navigation ------
 export interface NavItem {
   label: string;

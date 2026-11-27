@@ -1,11 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getClientsData, getTestimonialsData } from "@/lib/db-helpers";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Parallax } from "@/components/ui/Parallax";
+import { PageHero } from "@/components/layout/PageHero";
 import { ClientsDirectory } from "@/components/clients/ClientsDirectory";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 import {
   ShieldCheck,
   Zap,
@@ -62,26 +61,10 @@ export default async function ClientsPage() {
     getTestimonialsData(),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteUrl,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Clients",
-        item: `${siteUrl}/clients`,
-      },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Clients", url: `${siteUrl}/clients` },
+  ]);
 
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -120,34 +103,19 @@ export default async function ClientsPage() {
         dangerouslySetInnerHTML={{ __html: safeJsonLd(collectionSchema) }}
       />
 
-      {/* Hero Header */}
-      <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 md:pb-16 relative overflow-hidden">
-        {/* Ambient Parallax Orb */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <Parallax
-            speed={0.7}
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[65vw] h-[65vw] max-w-[850px] max-h-[850px] rounded-full bg-gradient-to-b from-[var(--color-accent)]/15 via-[var(--color-accent)]/5 to-transparent blur-[140px]"
-          />
-        </div>
+      <PageHero
+        badge="Verified Partnerships"
+        title="Engineered for organizations that refuse to settle."
+        subtitle="From venture-backed disruptors to global enterprises, we partner with visionary leadership to architect resilient, high-throughput software and digital products."
+        className="pb-10 sm:pb-12 md:pb-16"
+      />
 
-        <div className="container-site relative z-10 text-center">
-          <SectionHeading
-            as="h1"
-            badge="Verified Partnerships"
-            title="Engineered for organizations that refuse to settle."
-            subtitle="From venture-backed disruptors to global enterprises, we partner with visionary leadership to architect resilient, high-throughput software and digital products."
-            align="center"
-          />
-
-        </div>
-      </div>
       <section className="section-padding pt-0 pb-20 bg-base">
         <div className="container-site">
           <ClientsDirectory clients={clientsData} />
         </div>
       </section>
 
-      {/* Testimonials Section */}
       {testimonialsData && testimonialsData.length > 0 && (
         <TestimonialsSection testimonialsData={testimonialsData} />
       )}

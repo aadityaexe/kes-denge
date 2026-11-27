@@ -6,8 +6,9 @@ import {
   getServicesData,
   getClientsData,
   getBlogsData,
+  getJobsData,
 } from '@/lib/db-helpers';
-import type { PortfolioItem, TeamMember, Product, Service, Client } from '@/lib/types';
+import type { PortfolioItem, TeamMember, Product, Service, Client, Job } from '@/lib/types';
 
 export const revalidate = 3600;
 
@@ -25,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/about` },
     { url: `${baseUrl}/clients` },
     { url: `${baseUrl}/blog` },
+    { url: `${baseUrl}/careers` },
     { url: `${baseUrl}/team` },
     { url: `${baseUrl}/privacy` },
     { url: `${baseUrl}/terms` },
@@ -37,15 +39,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let serviceUrls: MetadataRoute.Sitemap = [];
   let clientUrls: MetadataRoute.Sitemap = [];
   let blogUrls: MetadataRoute.Sitemap = [];
+  let jobUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const [portfolioItems, teamMembers, products, services, clients, blogPosts] = await Promise.all([
+    const [portfolioItems, teamMembers, products, services, clients, blogPosts, jobs] = await Promise.all([
       getPortfolioData(),
       getTeamData(),
       getProductsData(),
       getServicesData(),
       getClientsData(),
       getBlogsData(),
+      getJobsData(),
     ]);
 
     portfolioUrls = (portfolioItems || []).map((item: PortfolioItem) => ({
@@ -79,6 +83,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: post.updatedAt ? new Date(post.updatedAt) : (post.createdAt ? new Date(post.createdAt) : new Date()),
     }));
+
+    jobUrls = (jobs || []).map((job: Job) => ({
+      url: `${baseUrl}/careers/${job.slug}`,
+      lastModified: job.updatedAt ? new Date(job.updatedAt) : (job.createdAt ? new Date(job.createdAt) : new Date()),
+    }));
   } catch (err) {
     console.error("Failed to generate dynamic sitemap URLs during build:", err);
   }
@@ -91,5 +100,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...serviceUrls,
     ...clientUrls,
     ...blogUrls,
+    ...jobUrls,
   ];
 }

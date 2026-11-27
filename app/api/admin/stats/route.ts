@@ -13,6 +13,8 @@ import PricingTier from "@/models/Pricing";
 import Media from "@/models/Media";
 
 import Product from "@/models/Product";
+import Job from "@/models/Job";
+import JobApplication from "@/models/JobApplication";
 import { safeErrorMessage } from "@/lib/validation";
 
 export async function GET() {
@@ -35,6 +37,8 @@ export async function GET() {
       faqCount,
       pricingCount,
       mediaCount,
+      jobsCount,
+      applicationsNewCount,
       recentMessages,
       recentProjects,
     ] = await Promise.all([
@@ -50,6 +54,8 @@ export async function GET() {
       FAQItem.countDocuments(),
       PricingTier.countDocuments(),
       Media.countDocuments(),
+      Job.countDocuments({ status: "open" }),
+      JobApplication.countDocuments({ status: "new" }),
       Message.find().sort({ createdAt: -1 }).limit(5),
       PortfolioItem.find().sort({ createdAt: -1 }).limit(4),
     ]);
@@ -69,6 +75,8 @@ export async function GET() {
         faqs: faqCount,
         pricing: pricingCount,
         media: mediaCount,
+        openJobs: jobsCount,
+        newApplications: applicationsNewCount,
       },
       recentMessages,
       recentProjects,

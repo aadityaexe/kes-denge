@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { ServicesSection } from "@/components/sections/ServicesSection";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Parallax } from "@/components/ui/Parallax";
+import { PageHero } from "@/components/layout/PageHero";
 import { getServicesData } from "@/lib/db-helpers";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
@@ -61,14 +60,10 @@ export const revalidate = 3600;
 export default async function ServicesPage() {
   const servicesData = await getServicesData();
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Services", url: `${siteUrl}/services` },
+  ]);
 
   const serviceListSchema = {
     "@context": "https://schema.org",
@@ -102,29 +97,14 @@ export default async function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceListSchema) }}
       />
-      <div className="pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 relative overflow-hidden">
-        {/* Background Parallax Orb */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <Parallax speed={0.8} className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[var(--color-accent)]/10 to-transparent blur-[120px]" />
-        </div>
-        <div className="container-site relative z-10">
-          <SectionHeading
-            as="h1"
-            title="Engineering solutions for complex problems."
-            subtitle="We don't just write code. We architect systems that scale with your business."
-            badge="Our Services"
-            align="center"
-          />
-          <div className="max-w-3xl mx-auto mt-6 text-center">
-            <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
-              MARK 2 provides full-lifecycle product engineering services across custom web applications, cross-platform mobile apps (React Native, iOS, Android), enterprise ERP systems, and autonomous AI agents. Every system is built on modern microservices and modular architectures with automated CI/CD and direct senior engineering oversight.
-            </p>
-          </div>
-        </div>
-      </div>
+      <PageHero
+        badge="Our Services"
+        title="Engineering solutions for complex problems."
+        subtitle="We don't just write code. We architect systems that scale with your business."
+        lead="MARK 2 provides full-lifecycle product engineering services across custom web applications, cross-platform mobile apps (React Native, iOS, Android), enterprise ERP systems, and autonomous AI agents. Every system is built on modern microservices and modular architectures with automated CI/CD and direct senior engineering oversight."
+      />
 
       <ServicesSection servicesData={servicesData} hideHeader={true} />
     </>
   );
 }
-

@@ -2,16 +2,17 @@ import React from "react";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "default" | "accent" | "success" | "warning" | "outline";
+  variant?: "default" | "accent" | "success" | "warning" | "error" | "outline";
   size?: "sm" | "md";
   className?: string;
 }
 
 const variantStyles: Record<string, string> = {
   default: "bg-surface-2 text-text-secondary border-[var(--color-border)]",
-  accent: "bg-[var(--color-accent-glow)] text-accent-light border-[var(--color-border-accent)]",
-  success: "bg-green-500/10 text-green-400 border-green-500/20",
-  warning: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+  accent: "bg-[var(--color-accent-glow)] text-accent-dark border-[var(--color-border-accent)]",
+  success: "bg-emerald-500/10 text-emerald-700 border-emerald-500/25",
+  warning: "bg-amber-500/10 text-amber-700 border-amber-500/25",
+  error: "bg-red-500/10 text-red-700 border-red-500/25",
   outline: "bg-transparent text-text-primary border-[var(--color-border-hover)]",
 };
 

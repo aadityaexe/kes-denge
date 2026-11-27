@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Clients", href: "/clients" },
   { label: "Team", href: "/team" },
+  { label: "Careers", href: "/careers" },
   { label: "Blog", href: "/blog" },
   { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
@@ -63,7 +64,8 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center gap-0.5 xl:gap-1 relative">
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive =
+                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
               return (
                 <li key={item.href} className="relative">
                   {isActive && (
@@ -77,7 +79,7 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={`
-                      relative z-10 px-3 xl:px-4 py-2 rounded-full text-[13px] font-medium tracking-wide
+                      relative z-10 px-2.5 xl:px-3.5 py-2 rounded-full text-[13px] font-medium tracking-wide whitespace-nowrap
                       transition-colors duration-200
                       ${isActive ? "text-text-primary" : "text-text-secondary hover:text-text-primary"}
                     `}

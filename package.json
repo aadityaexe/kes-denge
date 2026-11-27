@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "seed:jobs": "npx tsx scripts/seed-jobs.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

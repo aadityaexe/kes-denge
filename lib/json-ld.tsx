@@ -9,3 +9,24 @@ export function safeJsonLd(data: unknown): string {
     .replace(/\u2028/g, "\\u2028")
     .replace(/\u2029/g, "\\u2029");
 }
+
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+/**
+ * Build a schema.org BreadcrumbList object for public pages.
+ */
+export function buildBreadcrumbSchema(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}

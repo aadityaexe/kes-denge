@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Parallax } from "@/components/ui/Parallax";
+import { PageHero } from "@/components/layout/PageHero";
 import { getSettingsData } from "@/lib/db-helpers";
-import { safeJsonLd } from "@/lib/json-ld";
+import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
 
 export const revalidate = 3600;
 
@@ -49,19 +48,15 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const settings = await getSettingsData();
-  const aboutSubtitle = settings?.about?.subtitle || "MARK 2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes — just rigorous engineering."
-  const mission = settings?.about?.mission || "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor."
-  const vision = settings?.about?.vision || "To be the premier engineering partner for visionary founders and forward-thinking enterprises across India and worldwide."
+  const aboutSubtitle = settings?.about?.subtitle || "MARK 2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes — just rigorous engineering.";
+  const mission = settings?.about?.mission || "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.";
+  const vision = settings?.about?.vision || "To be the premier engineering partner for visionary founders and forward-thinking enterprises across India and worldwide.";
   const story = settings?.about?.story;
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "About", item: `${siteUrl}/about` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "About", url: `${siteUrl}/about` },
+  ]);
 
   return (
     <>
@@ -69,42 +64,32 @@ export default async function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }}
       />
-      <div className="pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-12 relative overflow-hidden">
-        {/* Background Parallax Orb */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <Parallax speed={0.8} className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-gradient-to-b from-[var(--color-accent)]/10 to-transparent blur-[120px]" />
-        </div>
-        <div className="container-site relative z-10">
-          <SectionHeading
-            as="h1"
-            title="We are engineers, not just coders."
-            subtitle={aboutSubtitle}
-            badge="About Us"
-            align="center"
-          />
+      <PageHero
+        badge="About Us"
+        title="We are engineers, not just coders."
+        subtitle={aboutSubtitle}
+        className="pb-10 sm:pb-12"
+      >
+        {(mission || vision || story) && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-8 md:mt-10 max-w-4xl mx-auto">
+            {mission && (
+              <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                <span className="text-xs uppercase tracking-widest text-[var(--color-accent-dark)] font-bold mb-3 block">Our Mission</span>
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{mission}</p>
+              </div>
+            )}
+            {vision && (
+              <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-surface-1 border border-[var(--color-border)]">
+                <span className="text-xs uppercase tracking-widest text-[var(--color-accent-dark)] font-bold mb-3 block">Our Vision</span>
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{vision}</p>
+              </div>
+            )}
+          </div>
+        )}
+      </PageHero>
 
-          {(mission || vision || story) && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-8 md:mt-10 max-w-4xl mx-auto">
-              {mission && (
-                <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-surface-1 border border-[var(--color-border)]">
-                  <span className="text-xs uppercase tracking-widest text-[var(--color-accent)] font-bold mb-3 block">Our Mission</span>
-                  <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{mission}</p>
-                </div>
-              )}
-              {vision && (
-                <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-surface-1 border border-[var(--color-border)]">
-                  <span className="text-xs uppercase tracking-widest text-[var(--color-accent)] font-bold mb-3 block">Our Vision</span>
-                  <p className="text-text-secondary text-sm sm:text-base leading-relaxed break-words">{vision}</p>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-      
       <WhyChooseUsSection items={settings?.whyChooseUs} />
       <ProcessSection steps={settings?.processSteps} />
     </>
   );
 }
-
