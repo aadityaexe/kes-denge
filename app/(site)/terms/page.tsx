@@ -4,6 +4,8 @@ import { Parallax } from "@/components/ui/Parallax";
 import { getLegalDocument } from "@/lib/db-helpers";
 import { safeJsonLd } from "@/lib/json-ld";
 
+export const revalidate = 3600;
+
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = doc?.title || "Terms & Conditions";
   const description =
     doc?.subtitle ||
-    "Review the terms and conditions governing software development services, engagements, and intellectual property rights at MARK 2.";
+    "Review the terms and conditions governing software development services, engagements, and intellectual property rights at MARK2.";
 
   return {
     title,
@@ -23,14 +25,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${title}`,
       description,
       url: `${siteUrl}/terms`,
-      siteName: "MARK 2",
+      siteName: "MARK2",
       type: "website",
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${title} | MARK 2`,
+          alt: `${title} | MARK2`,
         },
       ],
     },

@@ -27,6 +27,13 @@ export async function PUT(
     }
 
     const body = await req.json();
+    await connectToDatabase();
+
+    const existing = await JobApplication.findById(id);
+    if (!existing) {
+      return NextResponse.json({ error: "Application not found" }, { status: 404 });
+    }
+
     const updates: Record<string, unknown> = {};
 
     if (body.status !== undefined && VALID_APP_STATUSES.includes(body.status)) {
@@ -35,16 +42,59 @@ export async function PUT(
     if (body.notes !== undefined) {
       updates.notes = sanitizeText(body.notes, 3000);
     }
-
-    await connectToDatabase();
-    const updated = await JobApplication.findByIdAndUpdate(
-      id,
-      { $set: updates },
-      { new: true, runValidators: true }
-    );
-    if (!updated) {
-      return NextResponse.json({ error: "Application not found" }, { status: 404 });
+    if (body.rating !== undefined) {
+      const parsedRating = Number(body.rating);
+      if (Number.isFinite(parsedRating) && parsedRating >= 0 && parsedRating <= 5) {
+        updates.rating = Math.round(parsedRating);
+      }
     }
+    if (body.interviewDate !== undefined) {
+      if (!body.interviewDate) {
+        updates.interviewDate = null;
+      } else {
+        const dt = new Date(body.interviewDate);
+        if (!Number.isNaN(dt.getTime())) {
+          updates.interviewDate = dt;
+        }
+      }
+    }
+    if (body.interviewLink !== undefined) {
+      const rawLink = String(body.interviewLink || "").trim();
+      if (!rawLink) {
+        updates.interviewLink = "";
+      } else {
+        try {
+          const parsed = new URL(rawLink);
+          if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+            return NextResponse.json(
+              { error: "Invalid interview meeting link URL" },
+              { status: 400 }
+            );
+          }
+          updates.interviewLink = sanitizeText(parsed.toString(), 500);
+        } catch {
+          return NextResponse.json(
+            { error: "Invalid interview meeting link URL" },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
+    const updateQuery: Record<string, unknown> = { $set: updates };
+    if (updates.status && updates.status !== existing.status) {
+      updateQuery.$push = {
+        stageHistory: {
+          status: updates.status,
+          changedAt: new Date(),
+        },
+      };
+    }
+
+    const updated = await JobApplication.findByIdAndUpdate(id, updateQuery, {
+      new: true,
+      runValidators: true,
+    });
 
     return NextResponse.json({ success: true, application: updated });
   } catch (error: unknown) {

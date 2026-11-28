@@ -1,4 +1,4 @@
-# Security Architecture & Operations (`MARK 2`)
+# Security Architecture & Operations (`MARK2`)
 
 ## Threat Model & Controls
 

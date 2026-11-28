@@ -1,7 +1,7 @@
 /**
  * scripts/seed-jobs.ts — Idempotent job board seed script
  *
- * Seeds the Java Full Stack Developer Intern role (MARK 2 TECHNICAL SOLUTION)
+ * Seeds the Java Full Stack Developer Intern role (MARK2 TECHNICAL SOLUTION)
  * along with a complete set of roles across departments, work modes,
  * employment types, and experience levels.
  *
@@ -49,9 +49,9 @@ const SEED_JOBS: SeedJobInput[] = [
     experienceLevel: "Entry Level",
     salaryRange: "Unpaid (6 Months)",
     summary:
-      "6-month remote internship at MARK 2 TECHNICAL SOLUTION for students and freshers passionate about Core Java, Spring Boot, REST APIs, MySQL, and React.js.",
+      "6-month remote internship at MARK2 TECHNICAL SOLUTION for students and freshers passionate about Core Java, Spring Boot, REST APIs, MySQL, and React.js.",
     description: [
-      "Company: MARK 2 TECHNICAL SOLUTION",
+      "Company: MARK2 TECHNICAL SOLUTION",
       "",
       "We are inviting passionate and enthusiastic students and freshers to join our team as Java Full Stack Development Interns. If you are interested in backend development and frontend technologies, this is a great opportunity to gain practical industry experience and enhance your technical skills.",
       "",
@@ -105,9 +105,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: true,
     order: 1,
-    metaTitle: "Java Full Stack Developer Intern (Remote) | MARK 2 TECHNICAL SOLUTION",
+    metaTitle: "Java Full Stack Developer Intern (Remote) | MARK2 TECHNICAL SOLUTION",
     metaDescription:
-      "Apply for the 6-month remote Java Full Stack Developer Internship at MARK 2 TECHNICAL SOLUTION. Gain hands-on experience with Spring Boot, Hibernate, MySQL, and React.js.",
+      "Apply for the 6-month remote Java Full Stack Developer Internship at MARK2 TECHNICAL SOLUTION. Gain hands-on experience with Spring Boot, Hibernate, MySQL, and React.js.",
   },
   {
     title: "Senior Full-Stack Engineer (Next.js & TypeScript)",
@@ -121,7 +121,7 @@ const SEED_JOBS: SeedJobInput[] = [
     summary:
       "Lead architecture and end-to-end delivery of high-throughput Next.js, TypeScript, and MongoDB web platforms for fast-growing clients.",
     description:
-      "As a Senior Full-Stack Engineer at MARK 2, you will own complex client and internal SaaS architectures from system design to production deployment. You will work directly with founders and product leads to ship resilient, low-latency web applications.",
+      "As a Senior Full-Stack Engineer at MARK2, you will own complex client and internal SaaS architectures from system design to production deployment. You will work directly with founders and product leads to ship resilient, low-latency web applications.",
     responsibilities: [
       "Architect and build scalable Next.js App Router applications with TypeScript and Tailwind CSS.",
       "Design high-performance APIs, MongoDB data models, and caching strategies.",
@@ -147,9 +147,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: true,
     order: 2,
-    metaTitle: "Senior Full-Stack Engineer (Next.js & TypeScript) | MARK 2",
+    metaTitle: "Senior Full-Stack Engineer (Next.js & TypeScript) | MARK2",
     metaDescription:
-      "Join MARK 2 as a Senior Full-Stack Engineer building scalable Next.js, TypeScript, and MongoDB platforms.",
+      "Join MARK2 as a Senior Full-Stack Engineer building scalable Next.js, TypeScript, and MongoDB platforms.",
   },
   {
     title: "Backend & Cloud Architect (Node.js / MongoDB)",
@@ -186,9 +186,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 3,
-    metaTitle: "Backend & Cloud Architect | MARK 2 Careers",
+    metaTitle: "Backend & Cloud Architect | MARK2 Careers",
     metaDescription:
-      "Lead distributed backend and cloud architecture for enterprise SaaS and ERP platforms at MARK 2.",
+      "Lead distributed backend and cloud architecture for enterprise SaaS and ERP platforms at MARK2.",
   },
   {
     title: "React Native Mobile App Developer",
@@ -219,9 +219,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 4,
-    metaTitle: "React Native Mobile App Developer | MARK 2",
+    metaTitle: "React Native Mobile App Developer | MARK2",
     metaDescription:
-      "Build high-performance iOS and Android mobile apps with React Native and TypeScript at MARK 2.",
+      "Build high-performance iOS and Android mobile apps with React Native and TypeScript at MARK2.",
   },
   {
     title: "Frontend Development Intern (React / Next.js)",
@@ -251,7 +251,7 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 5,
-    metaTitle: "Frontend Development Intern (React / Next.js) | MARK 2",
+    metaTitle: "Frontend Development Intern (React / Next.js) | MARK2",
     metaDescription:
       "Apply for our remote Frontend Development Internship working with React, Next.js, and Tailwind CSS.",
   },
@@ -284,9 +284,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: true,
     order: 6,
-    metaTitle: "AI & LLM Automation Engineer | MARK 2",
+    metaTitle: "AI & LLM Automation Engineer | MARK2",
     metaDescription:
-      "Design and ship production RAG pipelines and AI automation systems at MARK 2.",
+      "Design and ship production RAG pipelines and AI automation systems at MARK2.",
   },
   {
     title: "Product & UI/UX Designer",
@@ -300,7 +300,7 @@ const SEED_JOBS: SeedJobInput[] = [
     summary:
       "Craft cohesive design systems, high-converting marketing experiences, and intuitive enterprise SaaS dashboards in Figma.",
     description:
-      "As a Product & UI/UX Designer at MARK 2, you will translate complex enterprise workflows into clean, typography-driven interfaces and maintain our shared Figma design systems.",
+      "As a Product & UI/UX Designer at MARK2, you will translate complex enterprise workflows into clean, typography-driven interfaces and maintain our shared Figma design systems.",
     responsibilities: [
       "Design end-to-end user flows, wireframes, and high-fidelity UI in Figma.",
       "Build and evolve tokenized design systems in close partnership with frontend engineers.",
@@ -317,9 +317,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 7,
-    metaTitle: "Product & UI/UX Designer | MARK 2",
+    metaTitle: "Product & UI/UX Designer | MARK2",
     metaDescription:
-      "Join MARK 2 as a Product & UI/UX Designer crafting design systems and enterprise SaaS interfaces.",
+      "Join MARK2 as a Product & UI/UX Designer crafting design systems and enterprise SaaS interfaces.",
   },
   {
     title: "Technical Product Manager",
@@ -350,9 +350,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 8,
-    metaTitle: "Technical Product Manager | MARK 2",
+    metaTitle: "Technical Product Manager | MARK2",
     metaDescription:
-      "Lead product discovery, roadmaps, and engineering delivery as a Technical Product Manager at MARK 2.",
+      "Lead product discovery, roadmaps, and engineering delivery as a Technical Product Manager at MARK2.",
   },
   {
     title: "DevOps & Site Reliability Engineer",
@@ -382,9 +382,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 9,
-    metaTitle: "DevOps & Site Reliability Engineer (Contract) | MARK 2",
+    metaTitle: "DevOps & Site Reliability Engineer (Contract) | MARK2",
     metaDescription:
-      "Contract opportunity for a Senior DevOps & SRE to build CI/CD and cloud infrastructure at MARK 2.",
+      "Contract opportunity for a Senior DevOps & SRE to build CI/CD and cloud infrastructure at MARK2.",
   },
   {
     title: "Technical Content & Developer Marketing Specialist",
@@ -414,9 +414,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 10,
-    metaTitle: "Technical Content & Developer Marketing Specialist | MARK 2",
+    metaTitle: "Technical Content & Developer Marketing Specialist | MARK2",
     metaDescription:
-      "Part-time remote role crafting engineering blogs, case studies, and SEO content for MARK 2.",
+      "Part-time remote role crafting engineering blogs, case studies, and SEO content for MARK2.",
   },
   {
     title: "Enterprise Solutions & Business Development Lead",
@@ -446,9 +446,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 11,
-    metaTitle: "Enterprise Solutions & Business Development Lead | MARK 2",
+    metaTitle: "Enterprise Solutions & Business Development Lead | MARK2",
     metaDescription:
-      "Drive B2B software and enterprise ERP partnerships at MARK 2 (Remote).",
+      "Drive B2B software and enterprise ERP partnerships at MARK2 (Remote).",
   },
   {
     title: "QA & Test Automation Engineer",
@@ -462,7 +462,7 @@ const SEED_JOBS: SeedJobInput[] = [
     summary:
       "Ensure zero-regression releases across web, mobile, and API systems using Playwright, Vitest, and structured QA.",
     description:
-      "As a QA & Test Automation Engineer, you will build automated end-to-end test suites, validate API contracts, and champion release quality across all MARK 2 projects.",
+      "As a QA & Test Automation Engineer, you will build automated end-to-end test suites, validate API contracts, and champion release quality across all MARK2 projects.",
     responsibilities: [
       "Write and maintain end-to-end automated tests with Playwright and API test suites.",
       "Perform exploratory, cross-browser, and responsive UI testing before releases.",
@@ -478,9 +478,9 @@ const SEED_JOBS: SeedJobInput[] = [
     status: "open",
     isFeatured: false,
     order: 12,
-    metaTitle: "QA & Test Automation Engineer | MARK 2",
+    metaTitle: "QA & Test Automation Engineer | MARK2",
     metaDescription:
-      "Join MARK 2 as a QA & Test Automation Engineer ensuring high-quality software releases.",
+      "Join MARK2 as a QA & Test Automation Engineer ensuring high-quality software releases.",
   },
 ];
 

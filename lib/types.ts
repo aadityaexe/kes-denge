@@ -1,5 +1,5 @@
 // ============================================================
-// MARK 2 — Core Data Types
+// MARK2 — Core Data Types
 // ============================================================
 
 // ------ Services ------
@@ -384,6 +384,10 @@ export interface JobApplication {
   coverLetter: string;
   status: JobApplicationStatus;
   notes?: string;
+  rating?: number;
+  interviewDate?: string | Date;
+  interviewLink?: string;
+  stageHistory?: Array<{ status: string; changedAt: string | Date }>;
   createdAt?: string | Date;
   updatedAt?: string | Date;
 }

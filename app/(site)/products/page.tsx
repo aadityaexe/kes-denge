@@ -3,46 +3,27 @@ import { ProductsSection } from "@/components/sections/ProductsSection";
 import { PageHero } from "@/components/layout/PageHero";
 import { getProductsData } from "@/lib/db-helpers";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Enterprise Software Products & Ready-to-Deploy Platforms",
-  description: "Explore MARK 2' flagship enterprise software products: custom ERP systems, ready-to-deploy SaaS platforms, and scalable engineering solutions for high-growth businesses.",
+  description:
+    "Explore MARK2's flagship enterprise software products: custom ERP systems, ready-to-deploy SaaS platforms, and scalable engineering solutions for high-growth businesses.",
+  ogTitle: "Enterprise Software Products & Platforms",
+  ogDescription:
+    "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
+  ogAlt: "Enterprise Software Products — MARK2",
+  path: "/products",
   keywords: [
     "enterprise software products",
     "ready-to-deploy software platforms",
     "SaaS products India",
     "custom ERP software",
-    "MARK 2 products",
-    "MARK 2 Technologies",
-    "MARK 2 software",
+    "MARK2 products",
   ],
-  alternates: {
-    canonical: `${siteUrl}/products`,
-  },
-  openGraph: {
-    title: "Enterprise Software Products & Platforms",
-    description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
-    url: `${siteUrl}/products`,
-    siteName: "MARK 2 Technologies",
-    type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "Enterprise Software Products — MARK 2",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Enterprise Software Products & Platforms",
-    description: "Explore our flagship platforms and ready-to-deploy software solutions engineered for scalability, security, and seamless integration.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+});
 
 export const revalidate = 3600;
 
@@ -57,7 +38,7 @@ export default async function ProductsPage() {
   const productListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "MARK 2 Enterprise Platforms & Software Products",
+    name: "MARK2 Enterprise Platforms & Software Products",
     itemListElement: (productsData || []).map((p: any, idx: number) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -70,9 +51,9 @@ export default async function ProductsPage() {
         url: `${siteUrl}/products/${p.slug}`,
         provider: {
           "@type": "Organization",
-          name: "MARK 2 Technologies",
-          url: siteUrl
-        }
+          name: "MARK2",
+          url: siteUrl,
+        },
       },
     })),
   };
@@ -91,7 +72,7 @@ export default async function ProductsPage() {
         badge="Products"
         title="Platforms built for scale."
         subtitle="Discover our flagship products designed to accelerate your business operations."
-        lead="MARK 2 develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC)."
+        lead="MARK2 develops pre-architected enterprise platforms including School & Academic ERP systems, multi-tenant eCommerce infrastructure engines, and custom manufacturing ERPs. Each product is engineered with real-time analytics, modular microservices, and enterprise role-based access control (RBAC)."
       />
 
       <ProductsSection productsData={productsData} showAll={true} hideHeader={true} />

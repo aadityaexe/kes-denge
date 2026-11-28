@@ -24,49 +24,26 @@ import { PricingSection } from "@/components/sections/PricingSection";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettingsData();
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
-  const titleText = "MARK 2 — We Build Digital Products That Scale";
+  const titleText = SEO_CONFIG.defaultTitle;
   const descText =
     settings?.seo?.defaultDescription ||
     settings?.description ||
-    "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.";
+    SEO_CONFIG.defaultDescription;
 
-  return {
-    title: {
-      absolute: titleText,
-    },
+  return buildPageMetadata({
+    title: titleText,
     description: descText,
-    alternates: {
-      canonical: siteUrl,
-    },
-    openGraph: {
-      title: titleText,
-      description: descText,
-      url: siteUrl,
-      siteName: "MARK 2",
-      type: "website",
-      locale: "en_US",
-      images: [
-        {
-          url: settings?.seo?.ogImageUrl || `${siteUrl}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: titleText,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: titleText,
-      description: descText,
-      images: [settings?.seo?.ogImageUrl || `${siteUrl}/twitter-image`],
-    },
-  };
+    path: "/",
+    absoluteTitle: true,
+    ogImage: settings?.seo?.ogImageUrl || undefined,
+    ogAlt: titleText,
+  });
 }
 
 export default async function HomePage() {
@@ -92,17 +69,25 @@ export default async function HomePage() {
     getSettingsData(),
   ]);
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+  const siteUrl = SEO_CONFIG.siteUrl;
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    name: SEO_CONFIG.siteName,
+    url: siteUrl,
+    publisher: { "@id": `${siteUrl}/#organization` },
+  };
   
   // Massive Dynamic JSON-LD Graph for AI/Search Systems
   const dynamicOrganizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteUrl}/#organization`,
-    "name": "MARK 2",
+    "name": "MARK2",
     "url": siteUrl,
     "description": settingsData?.description || "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation.",
-    "logo": `${siteUrl}/opengraph-image`,
+    "logo": `${siteUrl}/logo/logo.png`,
     "sameAs": [
       settingsData?.socialLinks?.twitter,
       settingsData?.socialLinks?.linkedin,
@@ -128,7 +113,7 @@ export default async function HomePage() {
         "@type": "Service",
         "name": service.title,
         "description": service.shortDescription || service.description,
-        "url": `${siteUrl}/services#${service.slug}`
+        "url": `${siteUrl}/services/${service.slug}`
       }
     })),
     // Dynamically list products owned
@@ -156,6 +141,10 @@ export default async function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(dynamicOrganizationSchema) }}

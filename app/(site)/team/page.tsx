@@ -2,39 +2,22 @@ import type { Metadata } from "next";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { getTeamData } from "@/lib/db-helpers";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Engineering Team — Developers, Architects & Designers",
-  description: "Meet the MARK 2 engineering team: developers, software architects, UI/UX designers, and mobile app engineers building scalable digital products for high-growth businesses.",
-  alternates: {
-    canonical: `${siteUrl}/team`,
-  },
-  openGraph: {
-    title: "Engineering Team — Developers & Architects",
-    description: "Meet the MARK 2 engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
-    url: `${siteUrl}/team`,
-    siteName: "MARK 2",
-    type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "Engineering Team — MARK 2",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Engineering Team — Developers & Architects",
-    description: "Meet the MARK 2 engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+  description:
+    "Meet the MARK2 engineering team: developers, software architects, UI/UX designers, and mobile app engineers building scalable digital products for high-growth businesses.",
+  ogTitle: "Engineering Team — Developers & Architects",
+  ogDescription:
+    "Meet the MARK2 engineering team: developers, software architects, UI/UX designers, and mobile app engineers.",
+  ogAlt: "Engineering Team — MARK2",
+  path: "/team",
+});
 
 
 export default async function TeamPage() {
@@ -48,7 +31,7 @@ export default async function TeamPage() {
   const teamSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "MARK 2 Engineering Team",
+    name: "MARK2 Engineering Team",
     itemListElement: (teamData || []).map((m: any, idx: number) => ({
       "@type": "ListItem",
       position: idx + 1,
@@ -59,7 +42,7 @@ export default async function TeamPage() {
         image: m.photo || undefined,
         worksFor: {
           "@type": "Organization",
-          name: "MARK 2",
+          name: "MARK2",
           url: siteUrl,
         },
         url: `${siteUrl}/team/${m.slug}`,

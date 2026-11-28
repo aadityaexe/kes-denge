@@ -4,51 +4,40 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { PageHero } from "@/components/layout/PageHero";
 import { getSettingsData } from "@/lib/db-helpers";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
-export const metadata: Metadata = {
-  title: "About MARK 2 — Custom Software Development Company",
-  description: "MARK 2 is a custom software development company based in India. We build scalable web applications, mobile apps, enterprise ERP systems, and AI automation products for high-growth businesses worldwide.",
-  keywords: [
-    "MARK 2",
-    "custom software development company India",
-    "software engineering agency",
-    "product engineering company",
-    "web application development India",
-    "about MARK 2",
-  ],
-  alternates: {
-    canonical: `${siteUrl}/about`,
-  },
-  openGraph: {
-    title: "About MARK 2 — Custom Software Development Company",
-    description: "MARK 2 is a custom software development company building scalable web apps, mobile apps, enterprise ERP, and AI automation for high-growth businesses.",
-    url: `${siteUrl}/about`,
-    siteName: "MARK 2",
-    type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "About MARK 2 — Custom Software Development Company",
-      },
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettingsData();
+  const description =
+    settings?.seo?.aboutDescription ||
+    settings?.about?.subtitle ||
+    "MARK2 is a custom software development company based in India. We build scalable web applications, mobile apps, enterprise ERP systems, and AI automation products for high-growth businesses worldwide.";
+
+  return buildPageMetadata({
+    title: "About MARK2 — Custom Software Development Company",
+    description,
+    ogDescription:
+      "MARK2 is a custom software development company building scalable web apps, mobile apps, enterprise ERP, and AI automation for high-growth businesses.",
+    ogAlt: "About MARK2 — Custom Software Development Company",
+    path: "/about",
+    keywords: [
+      "MARK2",
+      "custom software development company India",
+      "software engineering agency",
+      "product engineering company",
+      "web application development India",
+      "about MARK2",
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About MARK 2 — Custom Software Development Company",
-    description: "MARK 2 is a custom software development company building scalable web apps, mobile apps, enterprise ERP, and AI automation for high-growth businesses.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+  });
+}
 
 export default async function AboutPage() {
   const settings = await getSettingsData();
-  const aboutSubtitle = settings?.about?.subtitle || "MARK 2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes — just rigorous engineering.";
+  const aboutSubtitle = settings?.about?.subtitle || "MARK2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes — just rigorous engineering.";
   const mission = settings?.about?.mission || "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.";
   const vision = settings?.about?.vision || "To be the premier engineering partner for visionary founders and forward-thinking enterprises across India and worldwide.";
   const story = settings?.about?.story;

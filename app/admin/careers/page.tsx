@@ -13,6 +13,7 @@ import { FormField } from "@/components/admin/FormField";
 import { StatusBreakdownBar } from "@/components/admin/StatusBreakdownBar";
 import { useToast } from "@/components/admin/Toast";
 import { ApplicationReviewModal } from "@/components/admin/careers/ApplicationReviewModal";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 import type { Job, JobApplication } from "@/lib/types";
 import {
   Briefcase,
@@ -25,6 +26,7 @@ import {
   Layers,
   Eye,
   Check,
+  Download,
   Star,
 } from "lucide-react";
 
@@ -81,8 +83,13 @@ export default function CareersAdminPage() {
   const [selectedApp, setSelectedApp] = useState<JobApplication | null>(null);
   const [appStatusDraft, setAppStatusDraft] = useState("new");
   const [appNotesDraft, setAppNotesDraft] = useState("");
+  const [appRatingDraft, setAppRatingDraft] = useState(0);
+  const [appInterviewDateDraft, setAppInterviewDateDraft] = useState("");
+  const [appInterviewLinkDraft, setAppInterviewLinkDraft] = useState("");
   const [appSaving, setAppSaving] = useState(false);
   const [deleteAppId, setDeleteAppId] = useState<string | null>(null);
+  const [selectedAppIds, setSelectedAppIds] = useState<string[]>([]);
+  const [isBulkDeletingApps, setIsBulkDeletingApps] = useState(false);
 
   const { success, error: toastError } = useToast();
 
@@ -269,6 +276,11 @@ export default function CareersAdminPage() {
     setSelectedApp(app);
     setAppStatusDraft(app.status || "new");
     setAppNotesDraft(app.notes || "");
+    setAppRatingDraft(app.rating || 0);
+    setAppInterviewDateDraft(
+      app.interviewDate ? new Date(app.interviewDate).toISOString().slice(0, 16) : ""
+    );
+    setAppInterviewLinkDraft(app.interviewLink || "");
   };
 
   const handleSaveApplication = async () => {
@@ -281,6 +293,9 @@ export default function CareersAdminPage() {
         body: JSON.stringify({
           status: appStatusDraft,
           notes: appNotesDraft,
+          rating: appRatingDraft,
+          interviewDate: appInterviewDateDraft || null,
+          interviewLink: appInterviewLinkDraft,
         }),
       });
       const data = await res.json();
@@ -289,12 +304,109 @@ export default function CareersAdminPage() {
         return;
       }
       success("Application updated");
-      setSelectedApp(null);
-      fetchApplications();
+      if (data.application) {
+        setApplications((prev) =>
+          prev.map((a) => (a._id === data.application._id ? data.application : a))
+        );
+        setSelectedApp(data.application);
+      } else {
+        fetchApplications();
+      }
     } catch {
       toastError("Failed to update application");
     } finally {
       setAppSaving(false);
+    }
+  };
+
+  const handleExportAppsCsv = (rows: JobApplication[]) => {
+    if (rows.length === 0) {
+      toastError("No applications to export");
+      return;
+    }
+    const headers = [
+      "Candidate Name",
+      "Email",
+      "Phone",
+      "Location",
+      "Applied Role",
+      "Current Role",
+      "Experience",
+      "Notice Period",
+      "Status",
+      "Rating",
+      "Resume URL",
+      "Applied Date",
+    ];
+    const escapeCsv = (val: unknown) => {
+      const str = String(val ?? "").replace(/"/g, '""');
+      return `"${str}"`;
+    };
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((a) =>
+        [
+          escapeCsv(a.applicantName),
+          escapeCsv(a.email),
+          escapeCsv(a.phone),
+          escapeCsv(a.location),
+          escapeCsv(a.jobTitle),
+          escapeCsv(a.currentRole),
+          escapeCsv(a.experienceYears),
+          escapeCsv(a.noticePeriod),
+          escapeCsv(a.status),
+          escapeCsv(a.rating || 0),
+          escapeCsv(a.resumeUrl),
+          escapeCsv(a.createdAt ? new Date(a.createdAt).toISOString() : ""),
+        ].join(",")
+      ),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `candidates-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    success(`Exported ${rows.length} candidate(s) to CSV`);
+  };
+
+  const handleBulkAppStatus = async (status: string) => {
+    if (selectedAppIds.length === 0) return;
+    try {
+      await Promise.all(
+        selectedAppIds.map((id) =>
+          fetch(`/api/admin/careers/applications/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status }),
+          })
+        )
+      );
+      success(`Updated ${selectedAppIds.length} candidate(s) to ${status}`);
+      setSelectedAppIds([]);
+      fetchApplications();
+    } catch {
+      toastError("Bulk update failed");
+    }
+  };
+
+  const handleBulkDeleteApps = async () => {
+    if (selectedAppIds.length === 0) return;
+    try {
+      await Promise.all(
+        selectedAppIds.map((id) =>
+          fetch(`/api/admin/careers/applications/${id}`, { method: "DELETE" })
+        )
+      );
+      success(`Deleted ${selectedAppIds.length} application(s)`);
+      setSelectedAppIds([]);
+      setIsBulkDeletingApps(false);
+      fetchApplications();
+      fetchJobs();
+    } catch {
+      toastError("Bulk delete failed");
     }
   };
 
@@ -440,6 +552,44 @@ export default function CareersAdminPage() {
 
   const appColumns: Column<JobApplication>[] = [
     {
+      header: (
+        <input
+          type="checkbox"
+          aria-label="Select all filtered applications"
+          checked={
+            filteredApps.length > 0 &&
+            filteredApps.every((a) => selectedAppIds.includes(String(a._id)))
+          }
+          onChange={(e) => {
+            if (e.target.checked) {
+              setSelectedAppIds(filteredApps.map((a) => String(a._id)));
+            } else {
+              setSelectedAppIds([]);
+            }
+          }}
+          className="rounded border-[var(--color-border)] cursor-pointer"
+        />
+      ),
+      cell: (app) => {
+        const id = String(app._id);
+        return (
+          <input
+            type="checkbox"
+            aria-label={`Select ${app.applicantName}`}
+            checked={selectedAppIds.includes(id)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setSelectedAppIds((prev) => [...prev, id]);
+              } else {
+                setSelectedAppIds((prev) => prev.filter((x) => x !== id));
+              }
+            }}
+            className="rounded border-[var(--color-border)] cursor-pointer"
+          />
+        );
+      },
+    },
+    {
       header: "Candidate",
       accessorKey: "applicantName",
       cell: (app) => (
@@ -460,6 +610,19 @@ export default function CareersAdminPage() {
           )}
         </div>
       ),
+    },
+    {
+      header: "Rating",
+      accessorKey: "rating",
+      cell: (app) =>
+        app.rating && app.rating > 0 ? (
+          <span className="inline-flex items-center gap-0.5 text-xs font-semibold text-[var(--color-accent-dark)]">
+            <Star size={12} className="fill-[var(--color-accent)] text-[var(--color-accent-dark)]" />
+            {app.rating}/5
+          </span>
+        ) : (
+          <span className="text-xs text-text-muted">—</span>
+        ),
     },
     {
       header: "Experience",
@@ -633,20 +796,93 @@ export default function CareersAdminPage() {
                 ]}
               />
 
-              <select
-                value={appJobFilter}
-                onChange={(e) => setAppJobFilter(e.target.value)}
-                aria-label="Filter applications by role"
-                className="px-3.5 py-2 rounded-xl bg-surface-1 border border-[var(--color-border)] text-xs font-medium text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
-              >
-                <option value="all">All Job Roles</option>
-                {jobs.map((job) => (
-                  <option key={job._id} value={String(job._id)}>
-                    {job.title}
-                  </option>
-                ))}
-              </select>
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                <div className="w-full sm:w-64">
+                  <CustomSelect
+                    size="sm"
+                    searchable
+                    searchPlaceholder="Search job roles..."
+                    ariaLabel="Filter applications by role"
+                    value={appJobFilter}
+                    onChange={setAppJobFilter}
+                    options={[
+                      { value: "all", label: "All Job Roles" },
+                      ...jobs.map((job) => ({
+                        value: String(job._id),
+                        label: job.title,
+                      })),
+                    ]}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleExportAppsCsv(filteredApps)}
+                  className="px-3.5 py-2.5 rounded-xl border border-[var(--color-border)] bg-surface-1 hover:bg-surface-2 text-xs font-semibold text-text-primary inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download size={13} className="text-[var(--color-accent-dark)]" />
+                  Export CSV ({filteredApps.length})
+                </button>
+              </div>
             </div>
+
+            {selectedAppIds.length > 0 && (
+              <div className="sticky top-4 z-20 bg-surface-1 border border-[var(--color-accent)]/50 rounded-xl p-3 shadow-lg flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded-md bg-[var(--color-accent)]/10 text-[var(--color-accent-dark)] font-bold text-xs">
+                    {selectedAppIds.length} Selected
+                  </span>
+                  <span className="text-xs text-text-muted">Bulk Actions:</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleBulkAppStatus("reviewing")}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-amber-500/10 text-amber-700 border border-amber-500/20 hover:bg-amber-500/20 cursor-pointer"
+                  >
+                    Mark Reviewing
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleBulkAppStatus("shortlisted")}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-purple-500/10 text-purple-700 border border-purple-500/20 hover:bg-purple-500/20 cursor-pointer"
+                  >
+                    Shortlist
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleBulkAppStatus("rejected")}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-red-500/10 text-red-700 border border-red-500/20 hover:bg-red-500/20 cursor-pointer"
+                  >
+                    Reject
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleExportAppsCsv(
+                        applications.filter((a) => selectedAppIds.includes(String(a._id)))
+                      )
+                    }
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-surface-2 border border-[var(--color-border)] text-text-primary hover:bg-surface-3 inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    <Download size={12} /> Export Selected
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsBulkDeletingApps(true)}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-red-500/10 text-red-700 border border-red-500/20 hover:bg-red-500/20 inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    <Trash2 size={12} /> Delete
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedAppIds([])}
+                    className="px-2 py-1 text-[11px] text-text-muted hover:text-text-primary hover:underline cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+            )}
 
             <DataTable
               data={filteredApps}
@@ -972,8 +1208,8 @@ export default function CareersAdminPage() {
                   setJobForm((prev) => ({ ...prev, metaDescription }))
                 }
                 canonicalPath={`/careers/${jobForm.slug || "role"}`}
-                fallbackTitle={jobForm.title || "MARK 2 Careers"}
-                fallbackDescription={jobForm.summary || "Open role at MARK 2"}
+                fallbackTitle={jobForm.title || "MARK2 Careers"}
+                fallbackDescription={jobForm.summary || "Open role at MARK2"}
               />
             </div>
           )}
@@ -1003,15 +1239,47 @@ export default function CareersAdminPage() {
       </Modal>
 
       {/* Review Application Modal */}
-      <ApplicationReviewModal
-        application={selectedApp}
-        statusDraft={appStatusDraft}
-        notesDraft={appNotesDraft}
-        saving={appSaving}
-        onClose={() => setSelectedApp(null)}
-        onStatusChange={setAppStatusDraft}
-        onNotesChange={setAppNotesDraft}
-        onSave={handleSaveApplication}
+      {(() => {
+        const selectedIdx = selectedApp
+          ? filteredApps.findIndex((a) => String(a._id) === String(selectedApp._id))
+          : -1;
+        return (
+          <ApplicationReviewModal
+            application={selectedApp}
+            statusDraft={appStatusDraft}
+            notesDraft={appNotesDraft}
+            ratingDraft={appRatingDraft}
+            interviewDateDraft={appInterviewDateDraft}
+            interviewLinkDraft={appInterviewLinkDraft}
+            saving={appSaving}
+            hasPrev={selectedIdx > 0}
+            hasNext={selectedIdx >= 0 && selectedIdx < filteredApps.length - 1}
+            onPrev={() => {
+              if (selectedIdx > 0) openApplicationModal(filteredApps[selectedIdx - 1]);
+            }}
+            onNext={() => {
+              if (selectedIdx >= 0 && selectedIdx < filteredApps.length - 1) {
+                openApplicationModal(filteredApps[selectedIdx + 1]);
+              }
+            }}
+            onClose={() => setSelectedApp(null)}
+            onStatusChange={setAppStatusDraft}
+            onNotesChange={setAppNotesDraft}
+            onRatingChange={setAppRatingDraft}
+            onInterviewDateChange={setAppInterviewDateDraft}
+            onInterviewLinkChange={setAppInterviewLinkDraft}
+            onSave={handleSaveApplication}
+          />
+        );
+      })()}
+
+      <ConfirmDialog
+        isOpen={isBulkDeletingApps}
+        onClose={() => setIsBulkDeletingApps(false)}
+        onConfirm={handleBulkDeleteApps}
+        title="Delete Selected Applications"
+        message={`Are you sure you want to permanently delete ${selectedAppIds.length} selected candidate application(s)?`}
+        confirmText="Delete Selected"
       />
 
       <ConfirmDialog

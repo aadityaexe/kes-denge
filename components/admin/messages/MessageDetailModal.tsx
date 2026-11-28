@@ -69,7 +69,7 @@ export function MessageDetailModal({
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <a
-              href={`mailto:${message.email}?subject=${encodeURIComponent(`Re: ${message.projectType} Inquiry — MARK 2`)}&body=${encodeURIComponent(`Hi ${message.name},\n\nThank you for reaching out to MARK 2 regarding your ${message.projectType} project requirements.\n\nWe reviewed your requirements and would love to schedule a brief discovery call to discuss scope, timeline, and architectural approach.\n\nBest regards,\nMARK Technologies Engineering Team`)}`}
+              href={`mailto:${message.email}?subject=${encodeURIComponent(`Re: ${message.projectType} Inquiry — MARK2`)}&body=${encodeURIComponent(`Hi ${message.name},\n\nThank you for reaching out to MARK2 regarding your ${message.projectType} project requirements.\n\nWe reviewed your requirements and would love to schedule a brief discovery call to discuss scope, timeline, and architectural approach.\n\nBest regards,\nMARK Technologies Engineering Team`)}`}
               className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-dark)] transition-colors flex items-center gap-1.5 shadow-sm"
             >
               <Mail size={13} />

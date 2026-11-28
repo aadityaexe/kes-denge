@@ -5,6 +5,7 @@ import { getJobsData, getJobBySlug } from "@/lib/db-helpers";
 import { Parallax } from "@/components/ui/Parallax";
 import { JobApplicationForm } from "@/components/careers/JobApplicationForm";
 import { safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 import { safeHref } from "@/lib/schemas";
 import type { Job } from "@/lib/types";
 import {
@@ -22,7 +23,7 @@ import {
 
 export const revalidate = 300;
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
 export async function generateStaticParams() {
   const jobs = await getJobsData();
@@ -40,32 +41,22 @@ export async function generateMetadata({
   const job = await getJobBySlug(slug);
 
   if (!job) {
-    return { title: "Role Not Found | MARK 2 Careers" };
+    return buildPageMetadata({
+      title: "Role Not Found — Careers",
+      description: "The requested job opening could not be found.",
+      noIndex: true,
+    });
   }
 
-  const canonicalUrl = `${siteUrl}/careers/${job.slug}`;
-  const metaTitle = job.metaTitle || `${job.title} — Careers at MARK 2`;
+  const rawTitle = job.metaTitle || `${job.title} — Careers`;
+  const metaTitle = rawTitle.replace(/\s*\|\s*MARK2.*$/i, "");
   const metaDescription = job.metaDescription || job.summary;
 
-  return {
+  return buildPageMetadata({
     title: metaTitle,
     description: metaDescription,
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title: metaTitle,
-      description: metaDescription,
-      url: canonicalUrl,
-      siteName: "MARK 2",
-      type: "website",
-      images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: metaTitle }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: metaTitle,
-      description: metaDescription,
-      images: [`${siteUrl}/twitter-image`],
-    },
-  };
+    path: `/careers/${job.slug}`,
+  });
 }
 
 export default async function JobDetailPage({
@@ -88,7 +79,7 @@ export default async function JobDetailPage({
     employmentType: job.employmentType.toUpperCase().replace("-", "_"),
     hiringOrganization: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK2",
       sameAs: siteUrl,
     },
     jobLocationType: job.workMode === "Remote" ? "TELECOMMUTE" : undefined,

@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       category: isNonEmptyString(category, 100) ? sanitizeText(category, 100) : "Engineering",
       tags: Array.isArray(tags) ? tags.map((t: unknown) => sanitizeText(t, 50)).filter(Boolean) : [],
       author: {
-        name: sanitizeText(author?.name || "MARK 2 Team", 100),
+        name: sanitizeText(author?.name || "MARK2 Team", 100),
         role: sanitizeText(author?.role || "Technical Architect", 100),
         avatar: typeof author?.avatar === "string" ? author.avatar.slice(0, 500) : undefined,
       },

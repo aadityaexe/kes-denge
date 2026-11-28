@@ -48,3 +48,6 @@ public/uploads/
 audit*.json
 eslint-report.json
 scratch/
+
+# local admin credentials (never commit)
+ADMIN_CREDENTIALS.md

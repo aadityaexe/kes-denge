@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const socialImageAlt = "MARK 2 — We Build Digital Products That Scale";
+export const socialImageAlt = "MARK2 — We Build Digital Products That Scale";
 export const socialImageSize = {
   width: 1200,
   height: 630,

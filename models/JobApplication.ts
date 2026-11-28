@@ -17,6 +17,10 @@ export interface IJobApplication extends Document {
   coverLetter: string;
   status: "new" | "reviewing" | "shortlisted" | "interviewing" | "rejected" | "hired";
   notes?: string;
+  rating?: number;
+  interviewDate?: Date;
+  interviewLink?: string;
+  stageHistory?: Array<{ status: string; changedAt: Date }>;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -43,6 +47,15 @@ const JobApplicationSchema = new Schema<IJobApplication>(
       default: "new",
     },
     notes: { type: String, default: "" },
+    rating: { type: Number, min: 0, max: 5, default: 0 },
+    interviewDate: { type: Date },
+    interviewLink: { type: String, default: "" },
+    stageHistory: [
+      {
+        status: { type: String, required: true },
+        changedAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true }
 );

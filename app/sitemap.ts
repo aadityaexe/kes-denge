@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { SEO_CONFIG } from '@/lib/seo';
 import {
   getPortfolioData,
   getTeamData,
@@ -12,26 +13,29 @@ import type { PortfolioItem, TeamMember, Product, Service, Client, Job } from '@
 
 export const revalidate = 3600;
 
+const STATIC_LAST_MODIFIED = new Date('2026-11-28T00:00:00.000Z');
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.mark2.in';
+  const baseUrl = SEO_CONFIG.siteUrl;
 
-  // Core static routes with calibrated priorities
-  const staticRoutes: MetadataRoute.Sitemap = ([
-    { url: baseUrl },
-    { url: `${baseUrl}/services` },
-    { url: `${baseUrl}/portfolio` },
-    { url: `${baseUrl}/contact` },
-    { url: `${baseUrl}/pricing` },
-    { url: `${baseUrl}/products` },
-    { url: `${baseUrl}/about` },
-    { url: `${baseUrl}/clients` },
-    { url: `${baseUrl}/blog` },
-    { url: `${baseUrl}/careers` },
-    { url: `${baseUrl}/team` },
-    { url: `${baseUrl}/privacy` },
-    { url: `${baseUrl}/terms` },
-  ] as const).map((r): MetadataRoute.Sitemap[number] => ({ ...r, lastModified: new Date() }));
-
+  // Core static routes with calibrated priorities and change frequencies
+  const staticRoutes: MetadataRoute.Sitemap = (
+    [
+      { url: baseUrl, changeFrequency: 'weekly', priority: 1.0 },
+      { url: `${baseUrl}/services`, changeFrequency: 'weekly', priority: 0.9 },
+      { url: `${baseUrl}/portfolio`, changeFrequency: 'weekly', priority: 0.9 },
+      { url: `${baseUrl}/contact`, changeFrequency: 'monthly', priority: 0.8 },
+      { url: `${baseUrl}/pricing`, changeFrequency: 'monthly', priority: 0.8 },
+      { url: `${baseUrl}/products`, changeFrequency: 'weekly', priority: 0.8 },
+      { url: `${baseUrl}/blog`, changeFrequency: 'daily', priority: 0.8 },
+      { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.7 },
+      { url: `${baseUrl}/careers`, changeFrequency: 'weekly', priority: 0.7 },
+      { url: `${baseUrl}/clients`, changeFrequency: 'monthly', priority: 0.6 },
+      { url: `${baseUrl}/team`, changeFrequency: 'monthly', priority: 0.6 },
+      { url: `${baseUrl}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
+      { url: `${baseUrl}/terms`, changeFrequency: 'yearly', priority: 0.3 },
+    ] as const
+  ).map((r): MetadataRoute.Sitemap[number] => ({ ...r, lastModified: STATIC_LAST_MODIFIED }));
 
   let portfolioUrls: MetadataRoute.Sitemap = [];
   let teamUrls: MetadataRoute.Sitemap = [];
@@ -42,54 +46,97 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let jobUrls: MetadataRoute.Sitemap = [];
 
   try {
-    const [portfolioItems, teamMembers, products, services, clients, blogPosts, jobs] = await Promise.all([
-      getPortfolioData(),
-      getTeamData(),
-      getProductsData(),
-      getServicesData(),
-      getClientsData(),
-      getBlogsData(),
-      getJobsData(),
-    ]);
+    const [portfolioItems, teamMembers, products, services, clients, blogPosts, jobs] =
+      await Promise.all([
+        getPortfolioData(),
+        getTeamData(),
+        getProductsData(),
+        getServicesData(),
+        getClientsData(),
+        getBlogsData(),
+        getJobsData(),
+      ]);
 
     portfolioUrls = (portfolioItems || []).map((item: PortfolioItem) => ({
       url: `${baseUrl}/portfolio/${item.slug}`,
-      lastModified: item.updatedAt ? new Date(item.updatedAt) : (item.createdAt ? new Date(item.createdAt) : new Date()),
+      lastModified: item.updatedAt
+        ? new Date(item.updatedAt)
+        : item.createdAt
+          ? new Date(item.createdAt)
+          : new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
     }));
 
     teamUrls = (teamMembers || []).map((member: TeamMember) => ({
       url: `${baseUrl}/team/${member.slug}`,
-      lastModified: member.updatedAt ? new Date(member.updatedAt) : (member.createdAt ? new Date(member.createdAt) : new Date()),
+      lastModified: member.updatedAt
+        ? new Date(member.updatedAt)
+        : member.createdAt
+          ? new Date(member.createdAt)
+          : new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
     }));
 
     productUrls = (products || []).map((product: Product) => ({
       url: `${baseUrl}/products/${product.slug}`,
-      lastModified: product.updatedAt ? new Date(product.updatedAt) : (product.createdAt ? new Date(product.createdAt) : new Date()),
+      lastModified: product.updatedAt
+        ? new Date(product.updatedAt)
+        : product.createdAt
+          ? new Date(product.createdAt)
+          : new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
     }));
 
     serviceUrls = (services || []).map((service: Service) => ({
       url: `${baseUrl}/services/${service.slug}`,
-      lastModified: service.updatedAt ? new Date(service.updatedAt) : (service.createdAt ? new Date(service.createdAt) : new Date()),
+      lastModified: service.updatedAt
+        ? new Date(service.updatedAt)
+        : service.createdAt
+          ? new Date(service.createdAt)
+          : new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
     }));
 
     clientUrls = (clients || [])
       .filter((client: Client) => client.description || client.aboutPartnership || client.caseStudySlug)
       .map((client: Client) => ({
         url: `${baseUrl}/clients/${client.slug}`,
-        lastModified: client.updatedAt ? new Date(client.updatedAt) : (client.createdAt ? new Date(client.createdAt) : new Date()),
-    }));
+        lastModified: client.updatedAt
+          ? new Date(client.updatedAt)
+          : client.createdAt
+            ? new Date(client.createdAt)
+            : new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.6,
+      }));
 
     blogUrls = (blogPosts || []).map((post: any) => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.updatedAt ? new Date(post.updatedAt) : (post.createdAt ? new Date(post.createdAt) : new Date()),
+      lastModified: post.updatedAt
+        ? new Date(post.updatedAt)
+        : post.createdAt
+          ? new Date(post.createdAt)
+          : new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
     }));
 
     jobUrls = (jobs || []).map((job: Job) => ({
       url: `${baseUrl}/careers/${job.slug}`,
-      lastModified: job.updatedAt ? new Date(job.updatedAt) : (job.createdAt ? new Date(job.createdAt) : new Date()),
+      lastModified: job.updatedAt
+        ? new Date(job.updatedAt)
+        : job.createdAt
+          ? new Date(job.createdAt)
+          : new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.6,
     }));
   } catch (err) {
-    console.error("Failed to generate dynamic sitemap URLs during build:", err);
+    console.error('Failed to generate dynamic sitemap URLs during build:', err);
   }
 
   return [

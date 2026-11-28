@@ -74,7 +74,7 @@ export function PortfolioVisualShowcase({ project }: PortfolioVisualShowcaseProp
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 inline-block shrink-0" />
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 inline-block shrink-0" />
               <span className="ml-1.5 sm:ml-3 text-[11px] sm:text-xs font-mono text-text-muted truncate max-w-[140px] xs:max-w-[200px] sm:max-w-none">
-                production://{project.slug}.mark.internal
+                production://{project.slug}.mark2.internal
               </span>
             </div>
 

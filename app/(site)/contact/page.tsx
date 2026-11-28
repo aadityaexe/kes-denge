@@ -2,37 +2,19 @@ import type { Metadata } from "next";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { getSettingsData } from "@/lib/db-helpers";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
-export const metadata: Metadata = {
-  title: "Contact MARK 2 — Start Your Software Project",
-  description: "Get in touch with MARK 2' engineering team to start your custom web app, mobile app, enterprise ERP, or AI automation project. Based in India, serving clients worldwide.",
-  alternates: {
-    canonical: `${siteUrl}/contact`,
-  },
-  openGraph: {
-    title: "Contact MARK 2 — Start Your Software Project",
-    description: "Get in touch with our engineering team to discuss your web app, mobile app, or enterprise platform requirements.",
-    url: `${siteUrl}/contact`,
-    siteName: "MARK 2",
-    type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "Contact MARK 2",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact MARK 2 — Start Your Software Project",
-    description: "Get in touch with our engineering team to discuss your web app, mobile app, or enterprise platform requirements.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact MARK2 — Start Your Software Project",
+  description:
+    "Get in touch with MARK2's engineering team to start your custom web app, mobile app, enterprise ERP, or AI automation project. Based in India, serving clients worldwide.",
+  ogDescription:
+    "Get in touch with our engineering team to discuss your web app, mobile app, or enterprise platform requirements.",
+  ogAlt: "Contact MARK2",
+  path: "/contact",
+});
 
 export const revalidate = 3600;
 
@@ -47,12 +29,12 @@ export default async function ContactPage() {
   const contactPageSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Contact MARK 2",
+    name: "Contact MARK2",
     description: "Inquire about new software engineering, web application, mobile app, and ERP projects.",
     url: `${siteUrl}/contact`,
     mainEntity: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK2",
       url: siteUrl,
       email: settingsData?.contactEmail || "hello@mark2.in",
       contactPoint: {

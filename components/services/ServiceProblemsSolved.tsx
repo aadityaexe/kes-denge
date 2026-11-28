@@ -57,11 +57,11 @@ function ProblemCard({ item, index: _index }: { item: ServiceProblemSolution; in
           <div className="h-px bg-[var(--color-border)] flex-1" />
         </div>
 
-        {/* The MARK 2 Solution */}
+        {/* The MARK2 Solution */}
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-semibold mb-3">
             <CheckCircle2 size={13} />
-            <span>MARK 2 Solution</span>
+            <span>MARK2 Solution</span>
           </div>
           <p className="text-[#111111] text-text-primary text-sm sm:text-base leading-relaxed font-semibold break-words">
             {item.solution}

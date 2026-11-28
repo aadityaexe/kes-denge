@@ -4,8 +4,14 @@ import { ToastProvider } from "@/components/admin/Toast";
 import { connectToDatabase } from "@/lib/mongodb";
 import Message from "@/models/Message";
 
-export const metadata = {
-  title: "Admin Panel | MARK 2",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Panel | MARK2",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function AdminLayout({

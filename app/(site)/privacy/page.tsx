@@ -4,6 +4,8 @@ import { Parallax } from "@/components/ui/Parallax";
 import { getLegalDocument } from "@/lib/db-helpers";
 import { safeJsonLd } from "@/lib/json-ld";
 
+export const revalidate = 3600;
+
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -11,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = doc?.title || "Privacy Policy";
   const description =
     doc?.subtitle ||
-    "Learn how MARK 2 collects, protects, and manages data across our engineering services, platforms, and client partnerships.";
+    "Learn how MARK2 collects, protects, and manages data across our engineering services, platforms, and client partnerships.";
 
   return {
     title,
@@ -23,14 +25,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${title}`,
       description,
       url: `${siteUrl}/privacy`,
-      siteName: "MARK 2",
+      siteName: "MARK2",
       type: "website",
       images: [
         {
           url: `${siteUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${title} | MARK 2`,
+          alt: `${title} | MARK2`,
         },
       ],
     },
@@ -74,7 +76,7 @@ export default async function PrivacyPolicyPage() {
           <SectionHeading
             as="h1"
             title={doc?.title || "Privacy Policy"}
-            subtitle={doc?.subtitle || `Last updated: ${new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}. How we collect, safeguard, and respect your data at MARK 2.`}
+            subtitle={doc?.subtitle || `Last updated: ${new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}. How we collect, safeguard, and respect your data at MARK2.`}
             badge={doc?.badge || "Legal & Security"}
             align="center"
           />

@@ -158,7 +158,7 @@ export const getSettingsData = cache(async () => {
 
   // Graceful fallback structure if DB has no settings configured yet
   return {
-    siteName: "MARK 2",
+    siteName: "MARK2",
     tagline: "We Build Digital Products That Scale",
     description: "A product-engineering agency that ships web apps, mobile apps, ERP/SaaS systems, and AI automation for startups and growing businesses.",
     contactEmail: "hello@mark2.in",
@@ -174,10 +174,10 @@ export const getSettingsData = cache(async () => {
       ctaSecondaryHref: "/portfolio",
     },
     about: {
-      subtitle: "MARK 2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
+      subtitle: "MARK2 was founded with a single mission: to build scalable, maintainable software that solves real business problems. No shortcuts, no black boxes.",
       mission: "To empower businesses by building mission-critical software solutions with uncompromising engineering rigor.",
       vision: "To be the premier engineering partner for visionary founders and forward-thinking enterprises worldwide.",
-      story: "Founded by engineers who spent years architecting high-traffic distributed systems, MARK 2 was built on the belief that code quality and business velocity do not have to be trade-offs.",
+      story: "Founded by engineers who spent years architecting high-traffic distributed systems, MARK2 was built on the belief that code quality and business velocity do not have to be trade-offs.",
     },
     stats: [],
     whyChooseUs: [],
@@ -189,7 +189,7 @@ export const getSettingsData = cache(async () => {
       twitter: "https://x.com/mark2_in",
     },
     footer: {
-      copyrightText: "© 2025 MARK 2. All rights reserved.",
+      copyrightText: "© 2025 MARK2. All rights reserved.",
       disclaimer: "Engineered with precision for global teams.",
     },
   };
@@ -379,7 +379,7 @@ export const defaultPrivacyDocument = {
     {
       title: "1. Overview & Commitment",
       content:
-        "MARK 2 (\"MARK 2\", \"we\", \"us\", or \"our\") provides product-engineering, software architecture, and custom application development services. We respect your personal data and maintain strict technical and operational controls to protect client information, project codebases, and visitor data.",
+        "MARK2 (\"MARK2\", \"we\", \"us\", or \"our\") provides product-engineering, software architecture, and custom application development services. We respect your personal data and maintain strict technical and operational controls to protect client information, project codebases, and visitor data.",
       order: 1,
     },
     {
@@ -426,19 +426,19 @@ export const defaultTermsDocument = {
     {
       title: "1. Engagement Framework",
       content:
-        "By accessing our website or retaining MARK 2 (\"MARK 2\", \"we\", \"us\") for custom software engineering, cloud architecture, or digital product development, you agree to comply with and be bound by these Terms of Service in conjunction with applicable Statements of Work (SOW) or Master Services Agreements (MSA).",
+        "By accessing our website or retaining MARK2 (\"MARK2\", \"we\", \"us\") for custom software engineering, cloud architecture, or digital product development, you agree to comply with and be bound by these Terms of Service in conjunction with applicable Statements of Work (SOW) or Master Services Agreements (MSA).",
       order: 1,
     },
     {
       title: "2. Engineering Services & Deliverables",
       content:
-        "MARK 2 provides specialized software development including web applications, native mobile applications, enterprise ERP/CRM platforms, and AI automation systems. Specific deliverables, milestone schedules, acceptance criteria, and warranties are defined in individual project SOWs signed by both parties.",
+        "MARK2 provides specialized software development including web applications, native mobile applications, enterprise ERP/CRM platforms, and AI automation systems. Specific deliverables, milestone schedules, acceptance criteria, and warranties are defined in individual project SOWs signed by both parties.",
       order: 2,
     },
     {
       title: "3. Intellectual Property Assignment",
       content:
-        "Upon receipt of full payment for contracted milestones, all custom source code, documentation, UI designs, and database architectures created specifically for the client are assigned exclusively to the client. MARK 2 retains ownership of general developer utilities, open-source dependencies, and reusable framework components.",
+        "Upon receipt of full payment for contracted milestones, all custom source code, documentation, UI designs, and database architectures created specifically for the client are assigned exclusively to the client. MARK2 retains ownership of general developer utilities, open-source dependencies, and reusable framework components.",
       order: 3,
     },
     {

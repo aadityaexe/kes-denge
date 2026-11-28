@@ -1,6 +1,6 @@
-# MARK 2 (`mark2.in`)
+# MARK2 (`mark2.in`)
 
-Marketing site, product showcase, and admin CMS for **MARK 2**.
+Marketing site, product showcase, and admin CMS for **MARK2**.
 
 ## Stack
 

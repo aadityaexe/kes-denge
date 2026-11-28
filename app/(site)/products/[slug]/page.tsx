@@ -36,7 +36,7 @@ export async function generateMetadata({
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/products/${product.slug}`;
   const metaTitle = product.metaTitle
-    ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK 2.*$/i, "").replace(/\s*—\s*MARK 2.*$/i, "")
+    ? product.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK2.*$/i, "").replace(/\s*—\s*MARK2.*$/i, "")
     : `${product.name} — ${product.tagline}`;
   const metaDescription =
     product.metaDescription ||
@@ -46,9 +46,9 @@ export async function generateMetadata({
   const keywords = [
     ...(product.keywords && product.keywords.length > 0 ? product.keywords : []),
     `${product.name}`,
-    `MARK 2 Technologies`,
-    `MARK 2 ${product.category?.toLowerCase() || 'software'}`,
-    `MARK 2 products`
+    `MARK2 Technologies`,
+    `MARK2 ${product.category?.toLowerCase() || 'software'}`,
+    `MARK2 products`
   ];
 
   return {
@@ -62,7 +62,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK2",
       type: "website",
       images: [
         {
@@ -120,19 +120,22 @@ export default async function ProductPage({
     description: product.description,
     brand: {
       "@type": "Brand",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
     },
     manufacturer: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
       url: siteUrl
     },
     offers: {
       "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       url: `${siteUrl}/contact?product=${product.slug}`,
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        description: "Contact us for enterprise pricing tailored to your requirements.",
+        priceCurrency: "INR",
+      },
     },
     url: pageUrl,
   };
@@ -165,17 +168,17 @@ export default async function ProductPage({
   const faqSchema =
     product.faqs && product.faqs.length > 0
       ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: product.faqs.map((faq) => ({
-            "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: faq.answer,
-            },
-          })),
-        }
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: product.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+          },
+        })),
+      }
       : null;
 
   return (

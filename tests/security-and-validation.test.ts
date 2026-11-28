@@ -134,7 +134,7 @@ describe("schemas.ts URL & settings validation", () => {
 
   it("settingsUpdateSchema rejects unknown keys and dangerous URLs", () => {
     const bad = settingsUpdateSchema.safeParse({
-      siteName: "MARK 2",
+      siteName: "MARK2",
       unknownInjectedKey: "evil",
     });
     expect(bad.success).toBe(false);
@@ -145,7 +145,7 @@ describe("schemas.ts URL & settings validation", () => {
     expect(badUrl.success).toBe(false);
 
     const good = settingsUpdateSchema.safeParse({
-      siteName: "MARK 2",
+      siteName: "MARK2",
       socialLinks: { github: "https://github.com/mark2" },
     });
     expect(good.success).toBe(true);

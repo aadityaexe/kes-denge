@@ -27,7 +27,7 @@ async function sendResendNotification(params: {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return;
 
-  const from = process.env.RESEND_FROM_EMAIL || "MARK 2 <noreply@mark2.in>";
+  const from = process.env.RESEND_FROM_EMAIL || "MARK2 <noreply@mark2.in>";
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",

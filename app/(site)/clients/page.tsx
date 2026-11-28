@@ -5,6 +5,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { ClientsDirectory } from "@/components/clients/ClientsDirectory";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 import {
   ShieldCheck,
   Zap,
@@ -14,46 +15,23 @@ import {
 
 export const revalidate = 3600;
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Our Clients & Partnerships — Global Enterprises & Startups",
   description:
-    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2.",
+    "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK2.",
+  ogTitle: "Our Clients & Partnerships",
+  ogAlt: "Our Clients & Partnerships | MARK2",
+  path: "/clients",
   keywords: [
-    "MARK 2 clients",
+    "MARK2 clients",
     "software development partnerships",
     "enterprise software clients",
     "custom software case studies",
     "technology partners India",
   ],
-  alternates: {
-    canonical: `${siteUrl}/clients`,
-  },
-  openGraph: {
-    title: "Our Clients & Partnerships",
-    description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2.",
-    url: `${siteUrl}/clients`,
-    siteName: "MARK 2",
-    type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "Our Clients & Partnerships | MARK 2",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Clients & Partnerships",
-    description:
-      "Explore the high-growth companies, fintech leaders, and global enterprises that build and scale their core software platforms with MARK 2.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+});
 
 export default async function ClientsPage() {
   const [clientsData, testimonialsData] = await Promise.all([
@@ -69,13 +47,13 @@ export default async function ClientsPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "MARK 2 Technologies Client Partnerships",
+    name: "MARK2 Technologies Client Partnerships",
     description:
       "Verified client partnerships, enterprise software deployments, and system engineering deliverables.",
     url: `${siteUrl}/clients`,
     provider: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
       url: siteUrl,
     },
     about: {

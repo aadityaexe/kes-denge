@@ -159,6 +159,10 @@ export async function proxy(request: NextRequest) {
     response.headers.set("Cache-Control", "no-store, max-age=0");
   }
 
+  if (path.startsWith("/admin") || path.startsWith("/api")) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+
   let scriptSrc: string;
   if (isAdminPage && !isDev) {
     scriptSrc = `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`;

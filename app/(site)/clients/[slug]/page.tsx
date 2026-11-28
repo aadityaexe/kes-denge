@@ -12,6 +12,7 @@ import {
 import type { Client, PortfolioItem } from "@/lib/types";
 import { Parallax } from "@/components/ui/Parallax";
 import { safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   ArrowLeft,
   ArrowRight,
@@ -44,60 +45,38 @@ export async function generateMetadata({
   const client = await getClientBySlug(slug);
 
   if (!client) {
-    return {
+    return buildPageMetadata({
       title: "Client Partner Not Found",
       description: "The requested client partnership profile could not be found.",
-    };
+      noIndex: true,
+    });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
-  const canonicalUrl = `${siteUrl}/clients/${client.slug}`;
   const title = `${client.name} — Client Partnership & Engineering Case Profile`;
   const description =
     client.tagline ||
     client.description ||
-    `Discover how MARK 2 Technologies partnered with ${client.name} to engineer scalable digital systems and cloud architecture.`;
+    `Discover how MARK2 Technologies partnered with ${client.name} to engineer scalable digital systems and cloud architecture.`;
 
   const keywords = [
     `${client.name}`,
-    `MARK 2 client`,
-    `MARK 2 clients`,
-    `MARK 2 projects`,
-    `MARK 2 case studies`,
-    `MARK 2 portfolio`,
+    `MARK2 client`,
+    `MARK2 clients`,
+    `MARK2 projects`,
+    `MARK2 case studies`,
+    `MARK2 portfolio`,
     ...(client.industry ? [`${client.industry} software development`] : []),
     ...(client.technologies || []),
-  ].join(", ");
+  ];
 
-  return {
+  return buildPageMetadata({
     title,
     description,
+    path: `/clients/${client.slug}`,
+    type: "article",
     keywords,
-    alternates: {
-      canonical: canonicalUrl,
-    },
-    openGraph: {
-      title,
-      description,
-      url: canonicalUrl,
-      siteName: "MARK 2",
-      type: "article",
-      images: [
-        {
-          url: `${siteUrl}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: `${client.name} Partnership — MARK 2`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [`${siteUrl}/twitter-image`],
-    },
-  };
+    ogAlt: `${client.name} Partnership — MARK2`,
+  });
 }
 
 export default async function ClientDetailPage({
@@ -178,10 +157,10 @@ export default async function ClientDetailPage({
     name: client.name,
     url: client.website || canonicalUrl,
     description: client.description || client.tagline,
-    // AI Entity Relational mapping linking the Client -> MARK 2
+    // AI Entity Relational mapping linking the Client -> MARK2
     supplier: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
       url: siteUrl
     }
   };
@@ -362,7 +341,7 @@ export default async function ClientDetailPage({
                 </div>
               )}
 
-              {/* Partnership Story / What MARK 2 Engineered */}
+              {/* Partnership Story / What MARK2 Engineered */}
               {client.aboutPartnership && (
                 <div className="p-8 rounded-3xl bg-surface-1 border border-[var(--color-border)]">
                   <h3 className="text-lg font-display font-bold text-text-primary mb-3">

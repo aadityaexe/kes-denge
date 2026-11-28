@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // ============================================================
-// MARK 2 — Rate Limit Model
+// MARK2 — Rate Limit Model
 // Used by the durable MongoDB-backed rate limiter in lib/validation.ts.
 // MongoDB's TTL index automatically deletes expired entries.
 // ============================================================

@@ -528,7 +528,7 @@ export default function ProductsAdminPage() {
                 <FormField
                   label="Product Platform Name"
                   required
-                  tooltip="Title of the platform (e.g. MARK 2 Enterprise ERP). Appears across the products directory and hero section."
+                  tooltip="Title of the platform (e.g. MARK2 Enterprise ERP). Appears across the products directory and hero section."
                   charCount={{ current: formData.name.length, max: 80, optimal: { min: 8, max: 50 } }}
                   helperText="Use a distinctive, marketable product name."
                 >
@@ -537,7 +537,7 @@ export default function ProductsAdminPage() {
                     required
                     value={formData.name}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    placeholder="e.g. MARK 2 Enterprise ERP"
+                    placeholder="e.g. MARK2 Enterprise ERP"
                     className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
                   />
                 </FormField>

@@ -294,7 +294,7 @@ export default function MessagesAdminPage() {
     link.setAttribute("href", url);
     link.setAttribute(
       "download",
-      `mark-leads-${new Date().toISOString().slice(0, 10)}.csv`
+      `mark2-leads-${new Date().toISOString().slice(0, 10)}.csv`
     );
     document.body.appendChild(link);
     link.click();
@@ -355,7 +355,7 @@ export default function MessagesAdminPage() {
   const getWhatsAppLink = (phone: string, name: string, projectType: string) => {
     const cleanPhone = phone.replace(/[^0-9]/g, "");
     const text = encodeURIComponent(
-      `Hi ${name}, this is MARK 2 following up on your ${projectType} inquiry.`
+      `Hi ${name}, this is MARK2 following up on your ${projectType} inquiry.`
     );
     return `https://wa.me/${cleanPhone}?text=${text}`;
   };
@@ -488,7 +488,7 @@ export default function MessagesAdminPage() {
           </button>
 
           <a
-            href={`mailto:${row.email}?subject=${encodeURIComponent(`Re: ${row.projectType} Inquiry — MARK 2`)}&body=${encodeURIComponent(`Hi ${row.name},\n\nThank you for contacting MARK 2 regarding your ${row.projectType} project requirements.\n\n`)}`}
+            href={`mailto:${row.email}?subject=${encodeURIComponent(`Re: ${row.projectType} Inquiry — MARK2`)}&body=${encodeURIComponent(`Hi ${row.name},\n\nThank you for contacting MARK2 regarding your ${row.projectType} project requirements.\n\n`)}`}
             className="p-1.5 rounded-md hover:bg-[var(--color-accent)]/10 text-text-secondary hover:text-[var(--color-accent-dark)] transition-colors"
             title="Send Email"
           >

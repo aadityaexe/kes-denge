@@ -19,6 +19,9 @@ export function CareersView({ initialJobs, company }: CareersViewProps) {
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [selectedExperience, setSelectedExperience] = useState("All");
+  const [selectedEmploymentType, setSelectedEmploymentType] = useState("All");
+  const [selectedWorkMode, setSelectedWorkMode] = useState("All");
+  const [sortBy, setSortBy] = useState("featured");
 
   const departments = useMemo(() => {
     const set = new Set<string>();
@@ -40,21 +43,27 @@ export function CareersView({ initialJobs, company }: CareersViewProps) {
     (searchQuery.trim() ? 1 : 0) +
     (selectedDepartment !== "All" ? 1 : 0) +
     (selectedLocation !== "All" ? 1 : 0) +
-    (selectedExperience !== "All" ? 1 : 0);
+    (selectedExperience !== "All" ? 1 : 0) +
+    (selectedEmploymentType !== "All" ? 1 : 0) +
+    (selectedWorkMode !== "All" ? 1 : 0);
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedDepartment("All");
     setSelectedLocation("All");
     setSelectedExperience("All");
+    setSelectedEmploymentType("All");
+    setSelectedWorkMode("All");
   };
 
   const filteredJobs = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    return initialJobs.filter((job) => {
+    const list = initialJobs.filter((job) => {
       if (selectedDepartment !== "All" && job.department !== selectedDepartment) return false;
       if (selectedLocation !== "All" && job.location !== selectedLocation) return false;
       if (selectedExperience !== "All" && job.experienceLevel !== selectedExperience) return false;
+      if (selectedEmploymentType !== "All" && job.employmentType !== selectedEmploymentType) return false;
+      if (selectedWorkMode !== "All" && job.workMode !== selectedWorkMode) return false;
       if (q) {
         const haystack = [
           job.title,
@@ -63,6 +72,7 @@ export function CareersView({ initialJobs, company }: CareersViewProps) {
           job.location,
           job.employmentType,
           job.experienceLevel,
+          job.workMode,
           ...(job.skills || []),
         ]
           .filter(Boolean)
@@ -72,7 +82,26 @@ export function CareersView({ initialJobs, company }: CareersViewProps) {
       }
       return true;
     });
-  }, [initialJobs, searchQuery, selectedDepartment, selectedLocation, selectedExperience]);
+
+    if (sortBy === "newest") {
+      return [...list].sort(
+        (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+      );
+    }
+    if (sortBy === "title") {
+      return [...list].sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return list;
+  }, [
+    initialJobs,
+    searchQuery,
+    selectedDepartment,
+    selectedLocation,
+    selectedExperience,
+    selectedEmploymentType,
+    selectedWorkMode,
+    sortBy,
+  ]);
 
   const scrollToPositions = () => {
     const el = document.getElementById("open-positions");
@@ -97,11 +126,17 @@ export function CareersView({ initialJobs, company }: CareersViewProps) {
         selectedDepartment={selectedDepartment}
         selectedLocation={selectedLocation}
         selectedExperience={selectedExperience}
+        selectedEmploymentType={selectedEmploymentType}
+        selectedWorkMode={selectedWorkMode}
+        sortBy={sortBy}
         activeFilterCount={activeFilterCount}
         onSearchChange={setSearchQuery}
         onDepartmentChange={setSelectedDepartment}
         onLocationChange={setSelectedLocation}
         onExperienceChange={setSelectedExperience}
+        onEmploymentTypeChange={setSelectedEmploymentType}
+        onWorkModeChange={setSelectedWorkMode}
+        onSortChange={setSortBy}
         onClearFilters={clearFilters}
       />
 

@@ -1,5 +1,5 @@
 // ============================================================
-// MARK 2 — Validation & Security Utilities
+// MARK2 — Validation & Security Utilities
 // ============================================================
 
 import type { NextRequest } from "next/server";

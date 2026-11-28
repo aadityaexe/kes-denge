@@ -567,7 +567,7 @@ export default function ClientsAdminPage() {
               rows={3}
               value={formData.aboutPartnership}
               onChange={(e) => setFormData({ ...formData, aboutPartnership: e.target.value })}
-              placeholder="What MARK 2 engineered, designed, and deployed for this client..."
+              placeholder="What MARK2 engineered, designed, and deployed for this client..."
               className="w-full px-3 py-2 text-xs bg-surface-2 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
             />
           </div>
@@ -648,7 +648,7 @@ export default function ClientsAdminPage() {
                 rows={2}
                 value={formData.testimonialQuote}
                 onChange={(e) => setFormData({ ...formData, testimonialQuote: e.target.value })}
-                placeholder="MARK 2 engineered our core platform with outstanding precision..."
+                placeholder="MARK2 engineered our core platform with outstanding precision..."
                 className="w-full px-3 py-2 text-xs bg-surface-1 border border-[var(--color-border)] rounded-lg text-text-primary focus:outline-none focus:border-[var(--color-accent)]"
               />
             </div>

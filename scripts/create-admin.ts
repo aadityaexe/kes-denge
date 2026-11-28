@@ -16,7 +16,7 @@ const BCRYPT_COST = 12;
 async function main() {
   const email = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
   const password = process.env.ADMIN_PASSWORD || "";
-  const name = (process.env.ADMIN_NAME || "MARK 2 Admin").trim();
+  const name = (process.env.ADMIN_NAME || "MARK2 Admin").trim();
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     console.error("Error: Provide a valid ADMIN_EMAIL env var.");

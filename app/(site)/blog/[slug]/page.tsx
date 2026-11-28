@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -5,12 +6,12 @@ import { getBlogsData, getBlogBySlug } from "@/lib/db-helpers";
 import { sanitizeBlogContent } from "@/lib/blog-sanitize";
 import { Parallax } from "@/components/ui/Parallax";
 import { ArrowLeft, ArrowRight, Clock, Tag, Calendar } from "lucide-react";
-import type { Metadata } from "next";
 import { safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
 export async function generateStaticParams() {
   const blogs = await getBlogsData();
@@ -28,33 +29,27 @@ export async function generateMetadata({
   const post = await getBlogBySlug(slug);
 
   if (!post) {
-    return { title: "Article Not Found" };
+    return buildPageMetadata({
+      title: "Article Not Found",
+      description: "The requested engineering article could not be found.",
+      noIndex: true,
+    });
   }
 
-  const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
-  const metaTitle = post.metaTitle || `${post.title} | MARK 2`;
+  const rawTitle = post.metaTitle || post.title;
+  const metaTitle = rawTitle.replace(/\s*\|\s*MARK2.*$/i, "").replace(/\s*—\s*MARK2.*$/i, "");
   const metaDescription = post.metaDescription || post.excerpt;
 
-  return {
+  return buildPageMetadata({
     title: metaTitle,
     description: metaDescription,
-    alternates: { canonical: canonicalUrl },
-    openGraph: {
-      title: metaTitle,
-      description: metaDescription,
-      url: canonicalUrl,
-      siteName: "MARK 2",
-      type: "article",
-      publishedTime: post.publishedAt,
-      images: [{ url: post.featuredImage || `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: metaTitle }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: metaTitle,
-      description: metaDescription,
-      images: [post.featuredImage || `${siteUrl}/twitter-image`],
-    },
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+    ogImage: post.featuredImage || undefined,
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
+    authors: post.author?.name ? [post.author.name] : ["MARK2 Team"],
+  });
 }
 
 export default async function BlogPostPage({
@@ -66,30 +61,41 @@ export default async function BlogPostPage({
   const post = await getBlogBySlug(slug);
 
   if (!post) notFound();
-
   const allBlogs = await getBlogsData();
   const related = (allBlogs || [])
     .filter((b: any) => b.slug !== slug && b.category === post.category)
     .slice(0, 3);
 
-  const articleSchema = {
+  // Use BlogPosting (more specific than Article for blog content)
+  const blogPostingSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
     author: {
       "@type": "Person",
-      name: post.author?.name || "MARK 2 Team",
+      name: post.author?.name || "MARK2 Team",
+      ...(post.author?.role ? { jobTitle: post.author.role } : {}),
     },
     publisher: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK2",
       url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo/logo.png`,
+      },
     },
     datePublished: post.publishedAt,
-    dateModified: post.updatedAt,
+    dateModified: post.updatedAt || post.publishedAt,
     url: `${siteUrl}/blog/${post.slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blog/${post.slug}`,
+    },
     image: post.featuredImage || `${siteUrl}/opengraph-image`,
+    ...(post.category ? { articleSection: post.category } : {}),
+    ...(post.tags && post.tags.length > 0 ? { keywords: post.tags.join(", ") } : {}),
   };
 
   const breadcrumbSchema = {
@@ -103,8 +109,8 @@ export default async function BlogPostPage({
   };
 
   return (
-    <main className="min-h-screen bg-base">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }} />
+    <div className="min-h-screen bg-base">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(blogPostingSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
 
       {/* Hero */}
@@ -151,8 +157,8 @@ export default async function BlogPostPage({
               {post.author?.name?.substring(0, 2) || "MK"}
             </div>
             <div>
-              <p className="text-sm font-semibold text-text-primary">{post.author?.name || "MARK 2 Team"}</p>
-              <p className="text-xs text-text-muted">{post.author?.role || "Engineer, MARK 2"}</p>
+              <p className="text-sm font-semibold text-text-primary">{post.author?.name || "MARK2 Team"}</p>
+              <p className="text-xs text-text-muted">{post.author?.role || "Engineer, MARK2"}</p>
             </div>
           </div>
         </div>
@@ -176,7 +182,7 @@ export default async function BlogPostPage({
 
       {/* Article Body */}
       <article className="container-site max-w-4xl py-8 sm:py-12">
-      <div
+        <div
           className="blog-content"
           dangerouslySetInnerHTML={{ __html: sanitizeBlogContent(post.content || "") }}
         />
@@ -246,6 +252,6 @@ export default async function BlogPostPage({
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,9 +1,9 @@
-# MARK Technologies (mark2.in)
+# MARK2 Technologies (mark2.in)
 
 > Premier product-engineering and software development agency shipping high-throughput web applications, cross-platform mobile apps, enterprise ERP architectures, and autonomous AI automation systems.
 
 ## Overview
-MARK Technologies is an engineering-first software development agency headquartered in India and operating globally. The agency designs, architects, builds, and maintains mission-critical digital products for funded startups, mid-market businesses, and enterprise organizations.
+MARK2 Technologies is an engineering-first software development agency headquartered in India and operating globally. The agency designs, architects, builds, and maintains mission-critical digital products for funded startups, mid-market businesses, and enterprise organizations.
 
 - Canonical Website: https://www.mark2.in
 - Primary Contact: hello@mark2.in
@@ -53,7 +53,7 @@ URL: https://www.mark2.in/pricing
 
 ## Key Navigational Links
 - Home: https://www.mark2.in
-- About MARK: https://www.mark2.in/about
+- About MARK2: https://www.mark2.in/about
 - Services Catalog: https://www.mark2.in/services
 - Enterprise Products: https://www.mark2.in/products
 - Case Studies: https://www.mark2.in/portfolio

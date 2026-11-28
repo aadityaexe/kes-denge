@@ -1,5 +1,5 @@
 // ============================================================
-// MARK 2 — Animation Constants & Utilities
+// MARK2 — Animation Constants & Utilities
 // ============================================================
 
 // Shared easing curve — used everywhere for consistency

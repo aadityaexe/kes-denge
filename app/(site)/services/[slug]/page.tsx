@@ -76,7 +76,7 @@ export async function generateMetadata({
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/services/${service.slug}`;
   const metaTitle = service.metaTitle
-    ? service.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK 2.*$/i, "")
+    ? service.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK2.*$/i, "")
     : `${service.title} Engineering Services`;
   const metaDescription =
     service.metaDescription ||
@@ -86,9 +86,9 @@ export async function generateMetadata({
   const keywords = [
     ...(service.keywords && service.keywords.length > 0 ? service.keywords : []),
     `${service.title}`,
-    `MARK 2 Technologies`,
-    `MARK 2 ${service.title.toLowerCase()}`,
-    `MARK 2 custom software`
+    `MARK2 Technologies`,
+    `MARK2 ${service.title.toLowerCase()}`,
+    `MARK2 custom software`
   ];
 
   return {
@@ -102,7 +102,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK2",
       type: "website",
       images: [
         {
@@ -171,13 +171,12 @@ export default async function ServiceDetailsPage({
     description: service.shortDescription,
     provider: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
       url: siteUrl,
       email: "hello@mark2.in",
       sameAs: [
         "https://x.com/mark2_in",
         "https://www.linkedin.com/company/mark2-technologies",
-        "https://github.com/aadityaexe/mark",
       ],
     },
     areaServed: "Worldwide",
@@ -276,7 +275,7 @@ export default async function ServiceDetailsPage({
                 {service.fullDescription}
               </p>
               <p className="text-base text-text-secondary leading-relaxed">
-                At MARK 2, we reject brittle templates and technical shortcuts. Every system we build is designed as a mission-critical asset, giving your product team the speed, security, and scalability needed to outperform competition.
+                At MARK2, we reject brittle templates and technical shortcuts. Every system we build is designed as a mission-critical asset, giving your product team the speed, security, and scalability needed to outperform competition.
               </p>
             </div>
           </div>
@@ -319,7 +318,7 @@ export default async function ServiceDetailsPage({
                   Pain Points We Eliminate
                 </div>
                 <h3 className="text-display-sm font-bold font-display text-text-primary">
-                  Traditional Bottlenecks vs. MARK 2 Engineering
+                  Traditional Bottlenecks vs. MARK2 Engineering
                 </h3>
               </div>
               <ServiceProblemsSolved problemsSolved={service.problemsSolved} />
@@ -528,7 +527,7 @@ export default async function ServiceDetailsPage({
         <div className="container-site">
           <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-2 text-text-muted text-xs font-mono mb-3 uppercase tracking-widest border border-[var(--color-border)]">
-              The MARK 2 Difference
+              The MARK2 Difference
             </div>
             <h2 className="text-display-md font-bold font-display text-text-primary mb-4">
               How We Compare Against Typical Agencies

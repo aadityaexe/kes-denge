@@ -71,20 +71,20 @@ export async function generateMetadata({
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
   const canonicalUrl = `${siteUrl}/portfolio/${project.slug}`;
   const metaTitle = project.metaTitle
-    ? project.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK 2.*$/i, "").replace(/\s*—\s*MARK 2.*$/i, "")
+    ? project.metaTitle.replace(/\s*\|\s*Kas Denge.*$/i, "").replace(/\s*—\s*Kas Denge.*$/i, "").replace(/\s*\|\s*MARK2.*$/i, "").replace(/\s*—\s*MARK2.*$/i, "")
     : `${project.title} — Case Study`;
   const metaDescription =
     project.metaDescription ||
     project.shortDescription ||
     project.oneLiner ||
-    `Explore how MARK 2 engineered ${project.title} with high scalability, low latency, and modern software architecture.`;
+    `Explore how MARK2 engineered ${project.title} with high scalability, low latency, and modern software architecture.`;
 
   const keywords = [
     ...(project.keywords && project.keywords.length > 0 ? project.keywords : []),
     `${project.title}`,
-    `MARK 2 Technologies`,
-    `MARK 2 case study`,
-    `MARK 2 portfolio`
+    `MARK2 Technologies`,
+    `MARK2 case study`,
+    `MARK2 portfolio`
   ];
 
   return {
@@ -98,7 +98,7 @@ export async function generateMetadata({
       title: metaTitle,
       description: metaDescription,
       url: canonicalUrl,
-      siteName: "MARK 2 Technologies",
+      siteName: "MARK2",
       type: "article",
       images: [
         {
@@ -157,14 +157,14 @@ export default async function PortfolioDetailPage({
     } : undefined,
     provider: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
       url: siteUrl,
       logo: `${siteUrl}/opengraph-image`,
     },
     url: pageUrl,
     author: {
       "@type": "Organization",
-      name: "MARK 2 Technologies",
+      name: "MARK2 Technologies",
       url: siteUrl,
     },
   };

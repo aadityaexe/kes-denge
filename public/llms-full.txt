@@ -1,6 +1,6 @@
-# MARK Technologies (mark2.in) — Full Technical Specification & Knowledge Base
+# MARK2 Technologies (mark2.in) — Full Technical Specification & Knowledge Base
 
-> Organization: MARK Technologies
+> Organization: MARK2 Technologies
 > Domain: https://www.mark2.in
 > Primary Email: hello@mark2.in
 > Focus: Product Engineering, Full-Stack Web Development, Enterprise ERP Systems, Cloud Architecture, AI Automation.
@@ -8,7 +8,7 @@
 ---
 
 ## 1. Company Profile
-MARK Technologies is a specialized software engineering consultancy and product agency based in India, delivering bespoke software solutions to high-growth businesses, venture-backed startups, and enterprise clients worldwide. 
+MARK2 Technologies is a specialized software engineering consultancy and product agency based in India, delivering bespoke software solutions to high-growth businesses, venture-backed startups, and enterprise clients worldwide. 
 
 ### Key Capabilities:
 - Full-Stack Web Applications (Next.js App Router, React 19, TypeScript)

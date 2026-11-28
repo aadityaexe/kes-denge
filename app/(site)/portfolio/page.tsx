@@ -4,44 +4,27 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { PageHero } from "@/components/layout/PageHero";
 import { getPortfolioData, getTestimonialsData } from "@/lib/db-helpers";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Software Development Portfolio — Case Studies & Client Projects",
-  description: "Explore MARK 2' software development portfolio: EduVeera Education ERP, Bharat Bhoomi Real Estate platform, Keshera Manufacturing ERP, and more. Production-grade systems built for high-growth businesses.",
+  description:
+    "Explore MARK2's software development portfolio: EduVeera Education ERP, Bharat Bhoomi Real Estate platform, Keshera Manufacturing ERP, and more. Production-grade systems built for high-growth businesses.",
+  ogTitle: "Software Development Portfolio — Case Studies",
+  ogDescription:
+    "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
+  ogAlt: "Software Development Portfolio — MARK2",
+  path: "/portfolio",
   keywords: [
     "software development portfolio",
     "custom software case studies",
     "ERP development case study",
     "web development portfolio India",
-    "MARK 2 projects",
+    "MARK2 projects",
   ],
-  alternates: {
-    canonical: `${siteUrl}/portfolio`,
-  },
-  openGraph: {
-    title: "Software Development Portfolio — Case Studies",
-    description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
-    url: `${siteUrl}/portfolio`,
-    siteName: "MARK 2",
-    type: "website",
-    images: [
-      {
-        url: `${siteUrl}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: "Software Development Portfolio — MARK 2",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Software Development Portfolio — Case Studies",
-    description: "Explore our verified case studies in web development, mobile apps, ERP systems, and cloud architecture built for high-growth businesses.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+});
 
 export const revalidate = 3600;
 
@@ -59,12 +42,12 @@ export default async function PortfolioPage() {
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "MARK 2 Portfolio & Case Studies",
+    name: "MARK2 Portfolio & Case Studies",
     description: "Production case studies and software engineering deployments.",
     url: `${siteUrl}/portfolio`,
     provider: {
       "@type": "Organization",
-      name: "MARK 2",
+      name: "MARK2",
       url: siteUrl,
     },
   };
@@ -83,7 +66,7 @@ export default async function PortfolioPage() {
         badge="Our Work"
         title="Work that speaks for itself."
         subtitle="From consumer mobile apps to enterprise ERP systems, we deliver quality at every level."
-        lead="MARK 2 has engineered and deployed full-stack software solutions ranging from high-performance consumer applications to mission-critical custom enterprise ERPs. Every project delivers measurable operational efficiency, 99.9% uptime, and audited web security."
+        lead="MARK2 has engineered and deployed full-stack software solutions ranging from high-performance consumer applications to mission-critical custom enterprise ERPs. Every project delivers measurable operational efficiency, 99.9% uptime, and audited web security."
       />
 
       <PortfolioSection portfolioData={portfolioData} showAll={true} hideHeader={true} />

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
+import { SEO_CONFIG } from "@/lib/seo";
 import "./globals.css";
-import { getSettingsData } from "@/lib/db-helpers";
-import { safeJsonLd } from "@/lib/json-ld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,18 +17,17 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MARK 2 — We Build Digital Products That Scale",
-    template: "%s | MARK 2",
+    default: SEO_CONFIG.defaultTitle,
+    template: SEO_CONFIG.titleTemplate,
   },
-  description:
-    "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
+  description: SEO_CONFIG.defaultDescription,
   keywords: [
-    "MARK 2",
+    "MARK2",
     "mark2.in",
     "product engineering agency",
     "custom software development",
@@ -46,8 +44,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "MARK 2",
-    title: "MARK 2 — We Build Digital Products That Scale",
+    siteName: "MARK2",
+    title: "MARK2 — We Build Digital Products That Scale",
     description:
       "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
     images: [
@@ -55,13 +53,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/opengraph-image`,
         width: 1200,
         height: 630,
-        alt: "MARK 2 — We Build Digital Products That Scale",
+        alt: "MARK2 — We Build Digital Products That Scale",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MARK 2 — We Build Digital Products That Scale",
+    title: "MARK2 — We Build Digital Products That Scale",
     description:
       "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
     images: [`${siteUrl}/twitter-image`],
@@ -79,77 +77,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSettingsData();
-  const siteName = settings?.siteName || "MARK 2";
-  const email = settings?.contactEmail || "hello@mark2.in";
-  const sameAs = [
-    settings?.socialLinks?.twitter,
-    settings?.socialLinks?.linkedin,
-    settings?.socialLinks?.github,
-    settings?.socialLinks?.instagram,
-  ].filter(Boolean);
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${siteUrl}/#organization`,
-    name: siteName,
-    alternateName: "MARK 2",
-    url: siteUrl,
-    logo: `${siteUrl}/logo/logo.png`,
-    email: email,
-    description: "A premier product-engineering agency that ships high-throughput web apps, mobile applications, enterprise ERP platforms, and AI automation for fast-growing businesses.",
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: email,
-      contactType: "customer support and sales",
-      availableLanguage: ["English", "Hindi"],
-    },
-    sameAs: sameAs.length > 0 ? sameAs : [
-      "https://x.com/mark2_in",
-      "https://www.linkedin.com/company/mark2-technologies",
-      // Removed stale hard-coded GitHub fallback. Configure social links in Admin → Settings.
-    ],
-  };
-
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${siteUrl}/#website`,
-    name: siteName,
-    url: siteUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/portfolio?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
-  };
-
   return (
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: safeJsonLd(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }}
-        />
-      </head>
       <body suppressHydrationWarning>
         {children}
       </body>
     </html>
   );
 }
-

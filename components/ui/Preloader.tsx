@@ -8,7 +8,7 @@ const phases = [
   { index: "01", label: "Architecture", desc: "Foundations & Scalable Systems" },
   { index: "02", label: "Engineering", desc: "High-Performance Digital Products" },
   { index: "03", label: "Innovation", desc: "AI Automation & Modern Infrastructure" },
-  { index: "04", label: "MARK 2", desc: "We Build Digital Products That Scale" },
+  { index: "04", label: "MARK2", desc: "We Build Digital Products That Scale" },
 ];
 
 export function Preloader() {
@@ -330,7 +330,7 @@ export function Preloader() {
             className="relative h-20 sm:h-28 w-full max-w-3xl overflow-hidden flex items-center justify-center"
           >
             {phases.map((phase, i) => {
-              const isBrand = phase.label === "MARK 2";
+              const isBrand = phase.label === "MARK2";
               return (
                 <div
                   key={i}

@@ -136,7 +136,7 @@ export function ServiceArchitectureVisualizer({ serviceTitle }: { serviceTitle: 
             <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400/80" />
           </div>
           <span className="text-[11px] sm:text-xs font-mono text-text-secondary font-semibold truncate max-w-[160px] xs:max-w-[240px] sm:max-w-none">
-            mark://architecture-blueprint/{serviceTitle.toLowerCase().replace(/\s+/g, "-")}
+            mark2://architecture-blueprint/{serviceTitle.toLowerCase().replace(/\s+/g, "-")}
           </span>
         </div>
 

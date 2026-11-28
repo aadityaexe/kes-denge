@@ -5,32 +5,22 @@ import { getBlogsData } from "@/lib/db-helpers";
 import { PageHero } from "@/components/layout/PageHero";
 import { ArrowUpRight, Clock, Tag } from "lucide-react";
 import { buildBreadcrumbSchema, safeJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata, SEO_CONFIG } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://www.mark2.in";
+const siteUrl = SEO_CONFIG.siteUrl;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Software Development Blog — Engineering Insights & Technical Articles",
-  description: "Technical articles, engineering guides, and real-world insights from the MARK 2 team on custom software development, Next.js, React, ERP systems, AI automation, and SaaS architecture.",
-  alternates: {
-    canonical: `${siteUrl}/blog`,
-  },
-  openGraph: {
-    title: "Software Development Blog",
-    description: "Technical articles and engineering insights from the MARK 2 team on web development, ERP, mobile apps, and AI automation.",
-    url: `${siteUrl}/blog`,
-    siteName: "MARK 2",
-    type: "website",
-    images: [{ url: `${siteUrl}/opengraph-image`, width: 1200, height: 630, alt: "Software Development Blog — MARK 2" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Software Development Blog",
-    description: "Technical articles and engineering insights from the MARK 2 team on web development, ERP, mobile apps, and AI automation.",
-    images: [`${siteUrl}/twitter-image`],
-  },
-};
+  description:
+    "Technical articles, engineering guides, and real-world insights from the MARK2 team on custom software development, Next.js, React, ERP systems, AI automation, and SaaS architecture.",
+  ogTitle: "Software Development Blog",
+  ogDescription:
+    "Technical articles and engineering insights from the MARK2 team on web development, ERP, mobile apps, and AI automation.",
+  ogAlt: "Software Development Blog — MARK2",
+  path: "/blog",
+});
 
 export default async function BlogPage() {
   const blogs = await getBlogsData();
@@ -40,9 +30,46 @@ export default async function BlogPage() {
     { name: "Blog", url: `${siteUrl}/blog` },
   ]);
 
+  // CollectionPage + BlogPosting ItemList for rich results
+  const blogCollectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "MARK2 Engineering Blog",
+    description: "Technical articles, engineering guides, and insights from the MARK2 team.",
+    url: `${siteUrl}/blog`,
+    provider: {
+      "@type": "Organization",
+      name: "MARK2",
+      url: siteUrl,
+    },
+    hasPart: (blogs || []).map((post: any) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      url: `${siteUrl}/blog/${post.slug}`,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt || post.publishedAt,
+      author: {
+        "@type": "Person",
+        name: post.author?.name || "MARK2 Team",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "MARK2",
+        url: siteUrl,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo/logo.png`,
+        },
+      },
+      image: post.featuredImage || `${siteUrl}/opengraph-image`,
+    })),
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(blogCollectionSchema) }} />
 
       <PageHero
         badge="Blog"
@@ -121,7 +148,7 @@ export default async function BlogPage() {
                           {post.author?.name?.substring(0, 2) || "MK"}
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-text-primary">{post.author?.name || "MARK 2 Team"}</p>
+                          <p className="text-xs font-medium text-text-primary">{post.author?.name || "MARK2 Team"}</p>
                           <p className="text-xs text-text-muted">{post.author?.role || "Engineer"}</p>
                         </div>
                       </div>
